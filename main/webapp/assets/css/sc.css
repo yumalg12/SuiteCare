@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.form_wrapper {
+	width: 50%;
+	margin: 0 auto;
+	max-width: 576px;
+}
+
+.form_row {
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 1rem;
+	display: grid;
+	grid-template-columns: 0.5fr 1fr;
+}
+
+.form_row > label {
+	margin-top: 0.5rem;
+}
+
+.form_row_sub {
+	display: grid;
+	grid-template-columns: 1fr 0.5fr;
+}
+
+.form_button {
+	text-align: center;
+	margin: 3rem 0;
+}
