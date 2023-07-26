@@ -9,13 +9,9 @@
 .form_row {
 	margin-left: 0;
 	margin-right: 0;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 	display: grid;
 	grid-template-columns: 0.5fr 1fr;
-}
-
-.form_row > label {
-	margin-top: 0.5rem;
 }
 
 .form_row_sub {

@@ -20,17 +20,18 @@ String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
 
-CareTakerDAO dao = new CareTakerDAO();
+PatientDAO dao = new PatientDAO();
 
 int ok = dao.logincheck(id, pw);
 System.out.println("ok = " + ok);
 
-MemberVO vo = new MemberVO();
+PatientVO vo = new PatientVO();
 
 if(ok== 1) {
 	vo = dao.userLogin(id, pw);
 	session.setAttribute("id", vo.getId());
 	//session.setMaxInactiveInterval(60); //1분간 아이디 유지
+
 %>
 <script>
 alert("로그인 성공")

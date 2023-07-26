@@ -1,6 +1,7 @@
 package patient;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
@@ -12,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import caretaker.TakerVO;
 import reservation.PatientinfoVO;
 
 
@@ -99,36 +101,35 @@ public class PatientresDAO {
 	}
 
 
-	public List<PatientinfoVO> listpinfo(String patient_id) {
-		List<PatientinfoVO> list= new ArrayList<PatientinfoVO>();
+	public List<TakerVO> listtinfo(String mid) {
+		List<TakerVO> list= new ArrayList<TakerVO>();
 		
 		try {
 			connect();
 			
 			String sql = "SELECT * FROM CARETAKER WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, patient_id);
+			pstmt.setString(1, mid);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String patient_name = rs.getString("patient");
-				String gender = rs.getString("gender");
-				int age = rs.getInt("age");
-				int height = rs.getInt("height");
-				int weight = rs.getInt("weight");
-				String addr = rs.getString("addr");
+				String tname = rs.getString("tname");
+				String tgender = rs.getString("tgender");
+				String tage = rs.getString("tage");
+				String theight = rs.getString("theight");
+				String tweight = rs.getString("tweight");
+			//	String addr = rs.getString("addr");
 				String diagnosis = rs.getString("diagnosis");
 				
-				PatientinfoVO vo = new PatientinfoVO();
+				TakerVO vo = new TakerVO();
 				
-				vo.setPatient(patient_name);
-				vo.setGender(gender);
-				vo.setAge(age);
-				vo.setHeight(height);
-				vo.setWeight(weight);
-				vo.setAddr(addr);
+				vo.setTname(tname);
+				vo.setTgender(tgender);
+				vo.setTage(tage);
+				vo.setTheight(theight);
+				vo.setTweight(tweight);
+			//	vo.setAddr(addr);
 				vo.setDiagnosis(diagnosis);
-				
 				list.add(vo);
 			}
 		

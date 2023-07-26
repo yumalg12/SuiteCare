@@ -44,30 +44,34 @@
 					<div class="grid-style">
 
 						<div>
-							<div class="box" onclick="location.href='patientLogin.jsp'" style="cursor: pointer;">
+							<div class="box">
 								<div class="conB_content">
 								
                        <i class="fa-solid fa-magnifying-glass icon" style="color: #423730;"></i>              
                     			</div>
 								<div class="content">
+								<a href="patientLogin.jsp" style="text-decoration:none">
 										<header class="align-center">
 										<p>간병 서비스를 제공받을 분</p>
 										<h2>간병인 찾기</h2>
 									</header>
+								</a>	
 								</div>
 							</div>
 						</div>
 
 						<div>
-							<div class="box" onclick="location.href='caregiverLogin.jsp'" style="cursor: pointer;">
+							<div class="box">
 								<div class="conB_content">
                     	<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>
 								</div>
 								<div class="content">
+								<a href="caregiverLogin.jsp" style="text-decoration:none">
 									<header class="align-center">
 										<p>간병인 일감을 찾으시는 분</p>
 										<h2>간병인 등록하기</h2>
 									</header>
+								</a>
 								</div>
 							</div>
 						</div>

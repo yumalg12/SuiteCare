@@ -14,7 +14,7 @@ public class CaregiverDAO {
 		try {
 			String url = "jdbc:mysql://localhost:3306/suitecare";
 			String id = "root";
-			String pwd = "mysql";
+			String pwd = "Ktnwls1218*";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url, id ,pwd);
 
