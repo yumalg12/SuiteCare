@@ -1,4 +1,5 @@
 <%@ page import = "member.*" %>
+<%@ page import = "caregiver.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

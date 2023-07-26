@@ -16,7 +16,21 @@ public class MemberVO {
 	
 	
 	public MemberVO() {
-		System.out.println("MemberVO 생성자 호출");
+		System.out.println("PatientVO 생성자 호출");
+	}
+
+
+	public MemberVO(String id, String pw, String name, String gender, String phone, String email,
+			String address, String sms_yn, String email_yn) {
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.sms_yn = sms_yn;
+		this.email_yn = email_yn;
 	}
 
 
@@ -112,11 +126,6 @@ public class MemberVO {
 
 	public Date getSignup_date() {
 		return signup_date;
-	}
-
-
-	public void setSignup_date(Date signup_date) {
-		this.signup_date = signup_date;
 	}
 	
 }

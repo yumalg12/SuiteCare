@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -17,14 +18,15 @@ function loginForm() {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./patientCheck.jsp";
+		loginForm.action="./caretakerCheck.jsp";
 		loginForm.submit();
 	}
 }
 </script>
 </head>
 <body>
-	<%@ include file="/header.jsp"%>
+
+	<%@ include file="../header.jsp"%>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -58,7 +60,7 @@ function loginForm() {
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='patientSignup.jsp'">회원가입</span>
+								<span class="button alt" onclick="location.href='tSignup.jsp'">회원가입</span>
 							</div>
 					</form>
 					
@@ -69,7 +71,7 @@ function loginForm() {
 		</div>
 	</section>
 
-	<%@ include file="/footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 
 </body>

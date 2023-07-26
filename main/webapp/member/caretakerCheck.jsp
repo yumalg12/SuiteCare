@@ -20,12 +20,12 @@ String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
 
-PatientDAO dao = new PatientDAO();
+MemberDAO dao = new MemberDAO();
 
 int ok = dao.logincheck(id, pw);
 System.out.println("ok = " + ok);
 
-PatientVO vo = new PatientVO();
+MemberVO vo = new MemberVO();
 
 if(ok== 1) {
 	vo = dao.userLogin(id, pw);
@@ -44,7 +44,7 @@ location.href='<%=request.getContextPath()%>/mypage.jsp';
 %>
 <script>
 alert("비밀번호가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/patientLogin.jsp';
+location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
 </script>
 <%
 }
@@ -54,7 +54,7 @@ else if(ok==3) {
 %>
 <script>
 alert("아이디가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/patientLogin.jsp';
+location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
 </script> 
 <% }%>
 </body>

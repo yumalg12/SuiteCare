@@ -1,4 +1,4 @@
-package member;
+package caregiver;
 
 import java.sql.Date;
 

@@ -47,7 +47,7 @@
 </style>
 
 
-<%@ include file="./dbcon.jsp" %>
+<%@ include file="../dbcon.jsp" %>
 	<script src="js/bootstrap.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -71,7 +71,7 @@
 <hr>
 
 <div class="container">
-      <form action="./cFindPwCheck.jsp" class="form-signin">
+      <form action="./pFindPwCheck.jsp" class="form-signin">
        <h2 class="form-signin-heading">비밀번호 찾기</h2><br>
         <label for="findname" class="sr-only">이름</label> 이름
         <input type="text" id="name" name="name" class="form-control" placeholder="이름" required autofocus><br>

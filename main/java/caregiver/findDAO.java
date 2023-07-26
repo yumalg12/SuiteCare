@@ -1,4 +1,4 @@
-package member;
+package caregiver;
 import java.sql.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -225,7 +225,7 @@ public class findDAO {
 	
 	
 	// 간병인
-	public String cFindId(String name, String phone) {
+	public String gFindId(String name, String phone) {
 		String find_id = null;
 		
 		try {
@@ -323,7 +323,7 @@ public class findDAO {
 		return ok;
 	}
 	
-	public String cFindPw(String name, String id, String phone) {
+	public String gFindPw(String name, String id, String phone) {
 		String find_pw = null;
 		
 		try {
