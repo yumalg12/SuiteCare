@@ -1,31 +1,31 @@
 package caretaker;
 
 import java.sql.*;
+import java.util.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 
 public class TakerDAO {
-
 	private PreparedStatement pstmt;
 	private Connection conn;
-	
+	private DataSource dataFactory;
 
-	public void connDB() {
-	try{
-		String url = "jdbc:mysql://localhost:3306/suitecare";
-		   String dbId = "root";
-		   String dbPass = "h3219";     
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection(url, dbId ,dbPass);
-
-	System.out.println("MySQL DB 연결 성공");
-	
-} catch(Exception e) {}
+	public TakerDAO() {
+		try {
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
+			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	public void insert(TakerVO vo) {
 		try {
-			connDB();
-			
+			conn = dataFactory.getConnection();
 			
 			String sql = 
 			"INSERT INTO caretaker(tname, tgender, tage, theight, tweight, diagnosis)"

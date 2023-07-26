@@ -10,7 +10,7 @@
 	</head>
 	<body>
 <%@ include file="../header.jsp" %>
-
+<%String mid = (String)session.getAttribute("mid"); %>	
 	<!-- One -->
 			<section id="One" class="wrapper style3">
 				<div class="inner">
@@ -32,7 +32,7 @@
 							</header>
 							
 							
-<%String mid = (String)session.getAttribute("mid"); %>				
+			
 							
 <script type="text/javascript">
 function fn_overlapped(){
@@ -155,7 +155,7 @@ function goindexForm() {
 				<input class = "form-control" type="radio" id="woman" name="tgender" value="여">
 				<label for="woman">여자</label> <br><br>
 				</div>			
-			</div>
+			
 			<div class="form_row">
 				<label for="tage">나이</label>
 				<div class ="form_row_sub">
