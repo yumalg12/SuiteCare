@@ -1,4 +1,4 @@
-package member;
+package caregiver;
 import java.sql.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -8,28 +8,25 @@ import java.util.*;
 
 public class findDAO {
 	private PreparedStatement pstmt;
-	private Statement stmnt;
 	private Connection conn;
+	private DataSource dataFactory;
 
-	public void connect() {
-		try{
-			String url = "jdbc:mysql://localhost:3306/suitecare";
-			   String id = "root";
-			   String pwd = "mysql";
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(url, id , pwd);
-
-		System.out.println("MySQL DB 연결 성공");
-		} catch(Exception e) {}
+	public findDAO() {
+		try {
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
+			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-		
 	
 	// 환자
 	public String pFindId(String name, String phone) {
 		String find_id = null;
 		
 		try {
-			connect();
+			conn = dataFactory.getConnection();
 				
 			String sql = "SELECT id FROM patient WHERE name=? and phone=?";
 			pstmt = conn.prepareStatement(sql);
@@ -74,7 +71,7 @@ public class findDAO {
 		System.out.println("아이디 정보 확인");
 		int ok = 0;
 		try {
-		connect();
+		conn = dataFactory.getConnection();
 		String sql = "SELECT name FROM patient WHERE phone=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
@@ -127,7 +124,7 @@ public class findDAO {
 		String find_pw = null;
 		
 		try {
-			connect();
+			conn = dataFactory.getConnection();
 				
 			String sql = "SELECT pw FROM patient WHERE name=? and id=? and phone=?";
 			pstmt = conn.prepareStatement(sql);
@@ -173,7 +170,7 @@ public class findDAO {
 		System.out.println("비밀번호 정보 확인");
 		int ok_pwd = 0;
 		try {
-		connect();
+		conn = dataFactory.getConnection();
 		String sql = "SELECT id FROM patient WHERE phone=? and name=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
@@ -225,11 +222,11 @@ public class findDAO {
 	
 	
 	// 간병인
-	public String cFindId(String name, String phone) {
+	public String gFindId(String name, String phone) {
 		String find_id = null;
 		
 		try {
-			connect();
+			conn = dataFactory.getConnection();
 				
 			String sql = "SELECT id FROM caregiver WHERE name=? and phone=?";
 			pstmt = conn.prepareStatement(sql);
@@ -274,7 +271,7 @@ public class findDAO {
 		System.out.println("아이디 정보 확인");
 		int ok = 0;
 		try {
-		connect();
+		conn = dataFactory.getConnection();
 		String sql = "SELECT name FROM caregiver WHERE phone=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
@@ -323,11 +320,11 @@ public class findDAO {
 		return ok;
 	}
 	
-	public String cFindPw(String name, String id, String phone) {
+	public String gFindPw(String name, String id, String phone) {
 		String find_pw = null;
 		
 		try {
-			connect();
+			conn = dataFactory.getConnection();
 				
 			String sql = "SELECT pw FROM caregiver WHERE name=? and id=? and phone=?";
 			pstmt = conn.prepareStatement(sql);
@@ -373,7 +370,7 @@ public class findDAO {
 		System.out.println("비밀번호 정보 확인");
 		int ok_pwd = 0;
 		try {
-		connect();
+		conn = dataFactory.getConnection();
 		String sql = "SELECT id FROM caregiver WHERE phone=? and name=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);

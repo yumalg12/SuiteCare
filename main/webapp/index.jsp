@@ -6,23 +6,27 @@
 		<title>SC 스위트케어</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<style>
-		.conB_content {
-		text-align: center;
-		}
-		
-		.box:hover {
-    transform: scale(1.1);
-     transition: 0.1s linear;
-	}
-		
-		.conB_content > .fa-solid{
-		font-size: 10rem;
-		margin-top: 3rem;
-		}
-		</style>
-	</head>
+
+<style>
+.conB_content {
+	text-align: center;
+}
+
+.box {
+	cursor: pointer;
+}
+
+.box:hover {
+	transform: scale(1.1);
+	transition: 0.1s linear;
+}
+
+.conB_content>.fa-solid {
+	font-size: 10rem;
+	margin-top: 3rem;
+}
+</style>
+</head>
 	<body>
 <%@ include file="/header.jsp" %>
 		<!-- Banner -->
@@ -44,9 +48,8 @@
 					<div class="grid-style">
 
 						<div>
-							<div class="box" onclick="location.href='patientLogin.jsp'" style="cursor: pointer;">
+							<div class="box" onclick="location.href='/suiteCare/member/caretakerLogin.jsp'">
 								<div class="conB_content">
-								
                        <i class="fa-solid fa-magnifying-glass icon" style="color: #423730;"></i>              
                     			</div>
 								<div class="content">
@@ -59,7 +62,7 @@
 						</div>
 
 						<div>
-							<div class="box" onclick="location.href='caregiverLogin.jsp'" style="cursor: pointer;">
+							<div class="box" onclick="location.href='/suiteCare/careGiver/caregiverLogin.jsp'">
 								<div class="conB_content">
                     	<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>
 								</div>

@@ -20,7 +20,7 @@ String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
 
-CareTakerDAO dao = new CareTakerDAO();
+MemberDAO dao = new MemberDAO();
 
 int ok = dao.logincheck(id, pw);
 System.out.println("ok = " + ok);
@@ -31,6 +31,7 @@ if(ok== 1) {
 	vo = dao.userLogin(id, pw);
 	session.setAttribute("id", vo.getId());
 	//session.setMaxInactiveInterval(60); //1분간 아이디 유지
+
 %>
 <script>
 alert("로그인 성공")
@@ -43,7 +44,7 @@ location.href='<%=request.getContextPath()%>/mypage.jsp';
 %>
 <script>
 alert("비밀번호가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/patientLogin.jsp';
+location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
 </script>
 <%
 }
@@ -53,7 +54,7 @@ else if(ok==3) {
 %>
 <script>
 alert("아이디가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/patientLogin.jsp';
+location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
 </script> 
 <% }%>
 </body>

@@ -181,7 +181,7 @@ public class MemberDAO {
 			String sms_yn = vo.getSms_yn();
 			String email_yn = vo.getEmail_yn();
 			
-			String sql = "insert into `suitecare`.`member`(id, pw, name, gender, phone, email, address, sms_yn, email_yn) "+
+			String sql = "insert into `suitecare`.`member`(mid, mpw, mname, mgender, mphone, memail, maddress, msms_yn, memail_yn) "+
 					"values(?,?,?,?,?,?,?,?,?)";
 			
 			System.out.println("addMember(): "+sql);
@@ -206,32 +206,31 @@ public class MemberDAO {
 		}
 	}
 	
-	public boolean isDuplicateID(String id) {
+	public int isDuplicateID(String id) {
 		System.out.println("Received id: " + id);
 
 		try {
 			conn = dataFactory.getConnection();
 
-			String sql = "select COUNT(*) from `suitecare`.`member` where id='" + id + "'";
+			String sql = "select COUNT(*) from `suitecare`.`member` where mid='" + id + "'";
 			System.out.println("isDuplicate(): " + sql);
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate();
 			ResultSet rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
 				int count = rs.getInt(1);
-				if (count > 0) {
-					pstmt.close();
-					conn.close();
-					return true;
-				};
+				return count;
 			}
+			pstmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
+	
+	
 }
 
 

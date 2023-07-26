@@ -25,7 +25,7 @@ public class SignUpController extends HttpServlet {
 		if (type.equals("isDuplicateID")) {
 			String id = request.getParameter("id");
 			 
-			boolean isDuplicateID = dao.isDuplicateID(id);
+			int isDuplicateID = dao.isDuplicateID(id);
 			
 			System.out.println(isDuplicateID);
 			
@@ -38,21 +38,21 @@ public class SignUpController extends HttpServlet {
 		//회원가입
 		else if (type.equals("signUp")) {
 		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		String name = request.getParameter("name");
-		String gender = request.getParameter("gender");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
-		String sms_yn = request.getParameter("sms_yn");
-		String email_yn = request.getParameter("email_yn");
-		
-		MemberVO vo = new MemberVO(id, pw, name, gender, phone, email, address, sms_yn, email_yn);
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+		String mname = request.getParameter("mname");
+		String mgender = request.getParameter("mgender");
+		String mphone = request.getParameter("mphone");
+		String memail = request.getParameter("memail");
+		String maddress = request.getParameter("maddress");
+		String msms_yn = request.getParameter("msms_yn");
+		String memail_yn = request.getParameter("memail_yn");
+		       
+		MemberVO vo = new MemberVO(mid, mpw, mname, mgender, mphone, memail, maddress, msms_yn, memail_yn);
 		
 		dao.addMember(vo);
 		
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/suiteCare/member/caretakerLogin.jsp");
 		}
 
 	}
