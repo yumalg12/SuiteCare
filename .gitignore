@@ -14,6 +14,12 @@ local.properties
 .loadpath
 .recommenders
 
+<<<<<<< Updated upstream
+=======
+### Tomcat ###
+context.xml
+
+>>>>>>> Stashed changes
 # External tool builders
 .externalToolBuilders/
 
