@@ -37,18 +37,18 @@ public class SignUpController extends HttpServlet {
 		
 		//회원가입
 		else if (type.equals("signUp")) {
+
+		String m_id = request.getParameter("m_id");
+		String m_pw = request.getParameter("m_pw");
+		String m_name = request.getParameter("m_name");
+		String m_gender = request.getParameter("m_gender");
+		String m_phone = request.getParameter("m_phone");
+		String m_email = request.getParameter("m_email");
+		String m_address = request.getParameter("m_address");
+		String m_sms_yn = request.getParameter("m_sms_yn");
+		String m_email_yn = request.getParameter("m_email_yn");
 		
-		String mid = request.getParameter("mid");
-		String mpw = request.getParameter("mpw");
-		String mname = request.getParameter("mname");
-		String mgender = request.getParameter("mgender");
-		String mphone = request.getParameter("mphone");
-		String memail = request.getParameter("memail");
-		String maddress = request.getParameter("maddress");
-		String msms_yn = request.getParameter("msms_yn");
-		String memail_yn = request.getParameter("memail_yn");
-		       
-		MemberVO vo = new MemberVO(mid, mpw, mname, mgender, mphone, memail, maddress, msms_yn, memail_yn);
+		MemberVO vo = new MemberVO(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn);
 		
 		dao.addMember(vo);
 		
