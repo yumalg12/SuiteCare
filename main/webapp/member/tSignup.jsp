@@ -10,7 +10,7 @@
 
 	<body>
 <%@ include file="/header.jsp" %>
-
+		<link rel="stylesheet" href="../assets/css/main.css" />
 <script>
 
 function signUp() {

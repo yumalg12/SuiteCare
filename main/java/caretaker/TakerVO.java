@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class TakerVO {
 	
-	private int tcode;
-	private String tname;
-	private String tgender;
-	private String tage;
-	private String theight;
-	private String tweight;
+	private int t_code;
+	private String t_name;
+	private String t_gender;
+	private String t_age;
+	private String t_height;
+	private String t_weight;
 	private String diagnosis;
 	
 	
@@ -17,99 +17,100 @@ public class TakerVO {
 		System.out.println("TakerVO 생성자 호출");
 	}
 
+
 	/**
-	 * @return the tcode
+	 * @return the t_code
 	 */
-	public int getTcode() {
-		return tcode;
+	public int getT_code() {
+		return t_code;
 	}
 
 
 	/**
-	 * @param tname the tcode to set
+	 * @param t_code the t_code to set
 	 */
-	public void setTcode(int tcode) {
-		this.tcode = tcode;
-	}
-
-	
-	/**
-	 * @return the tname
-	 */
-	public String getTname() {
-		return tname;
+	public void setT_code(int t_code) {
+		this.t_code = t_code;
 	}
 
 
 	/**
-	 * @param tname the tname to set
+	 * @return the t_name
 	 */
-	public void setTname(String tname) {
-		this.tname = tname;
+	public String getT_name() {
+		return t_name;
 	}
 
 
 	/**
-	 * @return the tgender
+	 * @param t_name the t_name to set
 	 */
-	public String getTgender() {
-		return tgender;
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
 	}
 
 
 	/**
-	 * @param tgender the tgender to set
+	 * @return the t_gender
 	 */
-	public void setTgender(String tgender) {
-		this.tgender = tgender;
+	public String getT_gender() {
+		return t_gender;
 	}
 
 
 	/**
-	 * @return the tage
+	 * @param t_gender the t_gender to set
 	 */
-	public String getTage() {
-		return tage;
+	public void setT_gender(String t_gender) {
+		this.t_gender = t_gender;
 	}
 
 
 	/**
-	 * @param tage the tage to set
+	 * @return the t_age
 	 */
-	public void setTage(String tage) {
-		this.tage = tage;
+	public String getT_age() {
+		return t_age;
 	}
 
 
 	/**
-	 * @return the theight
+	 * @param t_age the t_age to set
 	 */
-	public String getTheight() {
-		return theight;
+	public void setT_age(String t_age) {
+		this.t_age = t_age;
 	}
 
 
 	/**
-	 * @param theight the theight to set
+	 * @return the t_height
 	 */
-	public void setTheight(String theight) {
-		this.theight = theight;
+	public String getT_height() {
+		return t_height;
 	}
 
 
 	/**
-	 * @return the tweight
+	 * @param t_height the t_height to set
 	 */
-	public String getTweight() {
-		return tweight;
+	public void setT_height(String t_height) {
+		this.t_height = t_height;
 	}
 
 
 	/**
-	 * @param tweight the tweight to set
+	 * @return the t_weight
 	 */
-	public void setTweight(String tweight) {
-		this.tweight = tweight;
+	public String getT_weight() {
+		return t_weight;
+	}
+
+
+	/**
+	 * @param t_weight the t_weight to set
+	 */
+	public void setT_weight(String t_weight) {
+		this.t_weight = t_weight;
 	}
 
 
@@ -127,8 +128,6 @@ public class TakerVO {
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-
-
 
 	
 	

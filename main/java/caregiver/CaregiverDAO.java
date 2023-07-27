@@ -5,21 +5,24 @@ import java.sql.Date;
 
 import java.util.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class CaregiverDAO {
 	private PreparedStatement pstmt;
 	private Statement stmnt;
 	private Connection conn;
+	private DataSource dataFactory;
 	
 	public void connect() {
 		try {
-			String url = "jdbc:mysql://localhost:3306/suitecare";
-			String id = "root";
-			String pwd = "Ktnwls1218*";
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(url, id ,pwd);
-
-			System.out.println("MySQL DB 연결 성공");
-		} catch(Exception e) {}
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
+			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 		
 	

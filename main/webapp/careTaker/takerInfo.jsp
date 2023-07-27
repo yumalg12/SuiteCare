@@ -80,11 +80,11 @@ function fn_overlapped(){
 <script >
 	function validateForm() {
 		console.log('확인');
-		var tname = document.Registform.tname.value;
-		var tgender = document.getElementsByName("tgender");
-		var tage = document.Registform.tage.value;
-		var theight = document.Registform.theight.value;
-		var tweight = document.Registform.tweight.value;
+		var t_name = document.Registform.t_name.value;
+		var t_gender = document.getElementsByName("t_gender");
+		var t_age = document.Registform.t_age.value;
+		var t_height = document.Registform.t_height.value;
+		var t_weight = document.Registform.t_weight.value;
 		var diagnosis = document.Registform.diagnosis.value;
 		
 		
@@ -94,9 +94,9 @@ function fn_overlapped(){
 		}
 
 		//성별 확인
-//		for(var i=0; i<tgender.length; i++) {
-//			if(tgender[i].checked) {
-//				selectGen=tgender[i].value;
+//		for(var i=0; i<t_gender.length; i++) {
+//			if(t_gender[i].checked) {
+//				selectGen=t_gender[i].value;
 //				break;
 //			}
 //		}
@@ -106,17 +106,17 @@ function fn_overlapped(){
 //			return false;
 //		}
 		
-		if(tage=="") {
+		if(t_age=="") {
 			alert("나이를 입력해주세요.");
 			return false;
 		}
 		
-		if(theight=="") {
+		if(t_height=="") {
 			alert("키를 입력해주세요");
 			return false;
 		}
 		
-		if(tweight=="") {
+		if(t_weight=="") {
 			alert("몸무게를 입력해주세요.");
 			return false;
 		}
@@ -142,38 +142,38 @@ function goindexForm() {
 	<form name="Registform" method="post" onSubmit="return validateForm();" action="./takerInfoCheck.jsp">
 		<div class="form_wrapper">
 			<div class="form_row">
-				<label for="tname">이름</label>
+				<label for="t_name">이름</label>
 				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="tname" name="tname" placeholder="피간병인 이름을 입력하세요.">
+				<input class="form-control" type="text" id="t_name" name="t_name" placeholder="피간병인 이름을 입력하세요.">
 				</div>
 			</div>
 			<br>
 			<div class="form_row">
-				<label for="tgender">성별</label>
-				<input class = "form-control" type="radio" id="man" name="tgender" value="남">
+				<label for="t_gender">성별</label>
+				<input class = "form-control" type="radio" id="man" name="t_gender" value="남">
 				<label for="man">남자</label>
-				<input class = "form-control" type="radio" id="woman" name="tgender" value="여">
+				<input class = "form-control" type="radio" id="woman" name="t_gender" value="여">
 				<label for="woman">여자</label> <br><br>
 				</div>			
 			
 			<div class="form_row">
-				<label for="tage">나이</label>
+				<label for="t_age">나이</label>
 				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="tage" name="tage" placeholder="피간병인 나이를 입력하세요.">
+				<input class="form-control" type="text" id="t_age" name="t_age" placeholder="피간병인 나이를 입력하세요.">
 				</div>
 			</div>
 			<br>
 			<div class="form_row">
-				<label for="theight">키(cm)</label>
+				<label for="t_height">키(cm)</label>
 				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="theight" name="theight" placeholder="피간병인 키를 입력하세요.">
+				<input class="form-control" type="text" id="t_height" name="t_height" placeholder="피간병인 키를 입력하세요.">
 				</div>
 			</div>
 			<br>	
 			<div class="form_row">
-				<label for="tweight">몸무게(kg)</label>
+				<label for="t_weight">몸무게(kg)</label>
 				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="tweight" name="tweight" placeholder="피간병인 몸무게를 입력하세요.">
+				<input class="form-control" type="text" id="t_weight" name="t_weight" placeholder="피간병인 몸무게를 입력하세요.">
 				</div>
 			</div>
 			<br>	

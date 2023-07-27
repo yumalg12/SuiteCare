@@ -113,21 +113,21 @@ public class PatientresDAO {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String tname = rs.getString("tname");
-				String tgender = rs.getString("tgender");
-				String tage = rs.getString("tage");
-				String theight = rs.getString("theight");
-				String tweight = rs.getString("tweight");
+				String t_name = rs.getString("t_name");
+				String t_gender = rs.getString("t_gender");
+				String t_age = rs.getString("t_age");
+				String t_height = rs.getString("t_height");
+				String t_weight = rs.getString("t_weight");
 			//	String addr = rs.getString("addr");
 				String diagnosis = rs.getString("diagnosis");
 				
 				TakerVO vo = new TakerVO();
 				
-				vo.setTname(tname);
-				vo.setTgender(tgender);
-				vo.setTage(tage);
-				vo.setTheight(theight);
-				vo.setTweight(tweight);
+				vo.setT_name(t_name);
+				vo.setT_gender(t_gender);
+				vo.setT_age(t_age);
+				vo.setT_height(t_height);
+				vo.setT_weight(t_weight);
 			//	vo.setAddr(addr);
 				vo.setDiagnosis(diagnosis);
 				list.add(vo);

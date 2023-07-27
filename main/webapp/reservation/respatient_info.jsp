@@ -73,9 +73,10 @@ for(int i=0; i<list.size(); i++) {
 <tr><td> 키 </td><td><%=height %></td></tr>
 <tr><td> 몸무게 </td><td><%=weight %></td></tr>
 <tr><td> 성별 </td><td><%=gender %></td></tr>
+<tr><td> 진단명 </td><td><%=diagnosis %></td></tr>
+
 <tr><td> 주소 </td><td><%=addr %></td></tr>
 <tr><td> 상세주소 </td><td><%=detail_addr %></td></tr>
-<tr><td> 진단명 </td><td><%=diagnosis %></td></tr>
 <tr><td> 의식상태 </td><td><%=consciousness %></td></tr>
 <tr><td> 식사케어여부 </td><td><%=care_meal_yn %></td></tr>
 <tr><td> 대소변케어여부 </td><td><%=care_toilet %></td></tr>

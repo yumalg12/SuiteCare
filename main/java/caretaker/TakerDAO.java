@@ -28,17 +28,17 @@ public class TakerDAO {
 			conn = dataFactory.getConnection();
 			
 			String sql = 
-			"INSERT INTO caretaker(tname, tgender, tage, theight, tweight, diagnosis)"
+			"INSERT INTO caretaker(t_name, t_gender, t_age, t_height, t_weight, diagnosis)"
 					+ "VALUES(?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			
-			pstmt.setString(1, vo.getTname());
-			pstmt.setString(2, vo.getTgender());
-			pstmt.setString(3, vo.getTage());
-			pstmt.setString(4, vo.getTheight());
-			pstmt.setString(5, vo.getTweight());
+			pstmt.setString(1, vo.getT_name());
+			pstmt.setString(2, vo.getT_gender());
+			pstmt.setString(3, vo.getT_age());
+			pstmt.setString(4, vo.getT_height());
+			pstmt.setString(5, vo.getT_weight());
 			pstmt.setString(6, vo.getDiagnosis());
 			
 			
