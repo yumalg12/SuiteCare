@@ -27,7 +27,7 @@ public class SignUpController extends HttpServlet {
 			 
 			int isDuplicateID = dao.isDuplicateID(id);
 			
-			System.out.println(isDuplicateID);
+			System.out.println("count(*) = " + isDuplicateID);
 			
 			// Return results in JSON format
 	        response.setContentType("application/json");
