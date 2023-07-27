@@ -1,4 +1,4 @@
-<%@ page import = "member.*" %>
+<%@ page import = "caregiver.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -19,7 +19,6 @@ request.setCharacterEncoding("utf-8");
 String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
-
 CaregiverDAO dao = new CaregiverDAO();
 
 int ok = dao.logincheck(id, pw);
@@ -29,7 +28,7 @@ CaregiverVO vo = new CaregiverVO();
 
 if(ok== 1) {
 	vo = dao.userLogin(id, pw);
-	session.setAttribute("id", vo.getId());
+	session.setAttribute("id", vo.getG_id());
 	//session.setMaxInactiveInterval(60); //1분간 아이디 유지
 
 %>
