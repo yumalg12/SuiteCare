@@ -47,7 +47,7 @@ if(m_id !=null && caretaker_code!=null) {
 	
 	String res_code = dao.insert(vo);
 	session.setAttribute("res_code", res_code);
-
+	session.removeAttribute("t_name");
 %>
 <script>
 	alert("예약코드가 생성되었습니다.\n<%=res_code%>");

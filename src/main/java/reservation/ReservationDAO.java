@@ -202,6 +202,49 @@ public class ReservationDAO {
 		return rescode;
 	}
 	
+	public ReservationVO getLatestReservation(String m_id, String t_code) {
+	    ReservationVO reservation = null;
+	    try {
+	        connect();
+
+	        String sql = "SELECT * FROM reservation WHERE m_id = ? AND caretaker_code = ? ORDER BY res_code DESC LIMIT 1";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, m_id);
+	        pstmt.setString(2, t_code);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            ReservationVO vo = new ReservationVO();
+	            vo.setConsciousness(rs.getString("consciousness"));
+	            vo.setCare_meal_yn(rs.getString("care_meal_yn"));
+	            vo.setCare_toilet(rs.getString("care_toilet"));
+	            vo.setState_paralysis(rs.getString("state_paralysis"));
+	            vo.setState_mobility(rs.getString("state_mobility"));
+	            vo.setBedsore_yn(rs.getString("bedsore_yn"));
+	            vo.setSuction_yn(rs.getString("suction_yn"));
+	            vo.setOutpatient_yn(rs.getString("outpatient_yn"));
+	            vo.setCare_night_yn(rs.getString("care_night_yn"));
+	            vo.setNotice(rs.getString("notice"));
+
+	            reservation = vo;
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return reservation;
+	}
+
+	
+	
 	public int updatehome(String home, String caretaker_code) {
 		int result = 0;
 		try {
@@ -230,12 +273,13 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where caretaker_code=?";
+			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where caretaker_code=? and res_code=?";
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, vo.getAddr());
 			pstmt.setString(2, vo.getDetail_addr());
 			pstmt.setString(3, vo.getCaretaker_code());
+			pstmt.setString(4, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
@@ -315,13 +359,14 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where caretaker_code=?";
+			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where caretaker_code=? and res_code=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getLocation());
 			pstmt.setString(2, vo.getAddr());
 			pstmt.setString(3, vo.getDetail_addr());
 			pstmt.setString(4, vo.getCaretaker_code());
+			pstmt.setString(5, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
