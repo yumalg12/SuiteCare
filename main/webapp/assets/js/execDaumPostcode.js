@@ -36,7 +36,7 @@ function execDaumPostcode() {
       document.getElementById('roadAddress').value = fullRoadAddr;
       document.getElementById('jibunAddress').value = data.jibunAddress;
 
-      window.close();
+     // window.close();
     }
   }).open();
 }

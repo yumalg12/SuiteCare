@@ -10,23 +10,26 @@
 <title>주소</title>
 </head>
 <body>
-<% 
+<%
 request.setCharacterEncoding("utf-8");
-String patient_id = (String)session.getAttribute("patient_id");
-String patient_code = (String)session.getAttribute("patient_code");
+String m_id = (String)session.getAttribute("m_id");
+String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
+
 ReservationDAO dao = new ReservationDAO();
 String hospname = request.getParameter("hospname");
 String hospaddr = request.getParameter("hospaddr");
 String hospdetail_addr = request.getParameter("hospdetail_addr");
 
-PatientinfoVO vo = new PatientinfoVO();
+ReservationVO vo = new ReservationVO();
+
 vo.setLocation(hospname);
 vo.setAddr(hospaddr);
 vo.setDetail_addr(hospdetail_addr);
-vo.setPatient_code(patient_code);
+vo.setCaretaker_code(caretaker_code);
 
 int result = dao.updatehospaddr(vo);
+
 
 if(result==1) {
 	response.sendRedirect("res_date.jsp");

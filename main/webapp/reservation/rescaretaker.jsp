@@ -10,7 +10,7 @@
 <title>피간병인 선택</title>
 <script>
 function checkForm() {
-	var selectname=document.getElementById("pname").value;
+	var selectname=document.getElementById("tname").value;
 	if(selectname=="") {
 		alert("피간병인 이름을 선택해주세요.");
 		return false;
@@ -18,8 +18,8 @@ function checkForm() {
 	return true;	
 }
 
-function insertPinfo() {
-	window.location.href = "patientInfo.jsp";
+function inserttinfo() {
+	window.location.href = "takerinfo.jsp";
 }
 </script>
 </head>
@@ -31,42 +31,42 @@ request.setCharacterEncoding("utf-8");
 
 %>
 <%
-String patient_id = (String)session.getAttribute("patient_id");
+
+String m_id = (String)session.getAttribute("m_id");
 ReservationDAO dao = new ReservationDAO();
 
-int ok = dao.pinfocheck(patient_id);
+int ok = dao.tinfocheck(m_id);
 
-PatientinfoVO vo = new PatientinfoVO();
+CaretakerinfoVO vo = new CaretakerinfoVO();
 
 if(ok == 0) {
 	System.out.println("정보없음");
-	
-	%>
+%>
 	<script>
 	alert("등록된 회원정보가 없습니다.");
-	location.href='<%=request.getContextPath()%>/patient/patientinfo.jsp';
+	location.href='<%=request.getContextPath()%>/caretaker/takerinfo.jsp';
 	</script>
 	<%
-} else if(ok == 1) {
-	System.out.println("정보있음");
-	List<PatientinfoVO> list = dao.listpname(patient_id);
-	for(int i=0; i<list.size(); i++) {
-		PatientinfoVO listvo = (PatientinfoVO) list.get(i);
-		
-		String patient = listvo.getPatient();
-		
-%>		
+
+	} else if(ok == 1) {
+		System.out.println("정보있음");
+		List<CaretakerinfoVO> list = dao.listtname(m_id);
+		for(int i=0; i<list.size(); i++) {
+			CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);
+			
+			String t_name = listvo.getT_name();
+	%>		
 		<h3> 피간병인 정보 선택 </h3>
-		<form action="./respatient_info.jsp" name="Pnameform" onSubmit="return checkForm();">
+		<form action="./rescaretaker_info.jsp" name="cnameform" onSubmit="return checkForm();">
 		<table><tr>
 		<td>피간병인 이름</td>
-		<td><select name="pname" id="pname">
+		<td><select name="tname" id="tname">
 		<option value="">==선택==</option>
-		<option value=<%=patient%>><%=patient%></option>
+		<option value=<%=t_name%>><%=t_name%></option>
 		</select></td>
 		<td><input type="submit" value="선택"></td></tr>
 		</table>
-		<button type="button" onclick="insertPinfo();">다른 피간병인 정보 등록하기</button>
+		<button type="button" onclick="inserttinfo();">다른 피간병인 정보 등록하기</button>
 		</form>
 <%	
 	}

@@ -21,23 +21,23 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	public MemberVO userLogin(String id, String pw) {
+	public MemberVO userLogin(String m_id, String m_pw) {
 		MemberVO vo = null;
 		
 		try {
 			conn = dataFactory.getConnection();
 				
-			String sql = "SELECT * FROM patient WHERE id = ? and pw = ?";
+			String sql = "SELECT * FROM member WHERE m_id = ? and m_pw = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, pw);
+			pstmt.setString(1, m_id);
+			pstmt.setString(2, m_pw);
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo = new MemberVO();
 				
-				vo.setId(rs.getString("id"));
-				vo.setPw(rs.getString("pw"));
+				vo.setM_id(rs.getString("m_id"));
+				vo.setM_pw(rs.getString("m_pw"));
 				
 			}
 			 if (rs != null) {
@@ -69,21 +69,21 @@ public class MemberDAO {
 	}
 	
 	
-	public int logincheck(String id, String pw) {
+	public int logincheck(String m_id, String m_pw) {
 		System.out.println("login 정보 확인");
 		int ok = 0;
 		try {
 		conn = dataFactory.getConnection();
 			
-		String sql = "SELECT pw FROM patient WHERE id = ?";
+		String sql = "SELECT m_pw FROM member WHERE m_id = ?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, id);
+		pstmt.setString(1, m_id);
 		
 		ResultSet rs = pstmt.executeQuery();
 		
 		
 		if(rs.next()) {
-			if(rs.getString("pw").equals(pw)) {
+			if(rs.getString("m_pw").equals(m_pw)) {
 				System.out.println("login success");
 				ok=1;
 			} else {
@@ -123,37 +123,38 @@ public class MemberDAO {
 		return ok;
 	}
 	
-	public List<MemberVO> listMembers(String user_id) {
+	public List<MemberVO> listMembers(String id) {
+		//아직 수정하지 않음
 		List<MemberVO> list= new ArrayList<MemberVO>();
 		try {
 			conn = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM patient where id=?";
+			String sql = "SELECT * FROM member where m_id=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user_id);
+			pstmt.setString(1, id);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String id = rs.getString("id");
-				String pw = rs.getString("pw");
-				String name = rs.getString("name");
-				String gender = rs.getString("gender");
-				String phone = rs.getString("phone");
-				String email = rs.getString("email");
-				String address = rs.getString("address");
-				String sms_yn = rs.getString("sms_yn");
-				String email_yn = rs.getString("email_yn");
+				String m_id = rs.getString("m_id");
+				String m_pw = rs.getString("m_pw");
+				String m_name = rs.getString("m_name");
+				String m_gender = rs.getString("m_gender");
+				String m_phone = rs.getString("m_phone");
+				String m_email = rs.getString("m_email");
+				String m_address = rs.getString("m_address");
+				String m_sms_yn = rs.getString("m_sms_yn");
+				String m_email_yn = rs.getString("m_email_yn");
 				
 				MemberVO vo = new MemberVO();
-				vo.setId(id);
-				vo.setPw(pw);
-				vo.setName(name);
-				vo.setGender(gender);
-				vo.setEmail(email);
-				vo.setAddress(address);
-				vo.setPhone(phone);
-				vo.setEmail_yn(email_yn);
-				vo.setSms_yn(sms_yn);
+				vo.setM_id(m_id);
+				vo.setM_pw(m_pw);
+				vo.setM_name(m_name);
+				vo.setM_gender(m_gender);
+				vo.setM_email(m_email);
+				vo.setM_address(m_address);
+				vo.setM_phone(m_phone);
+				vo.setM_email_yn(m_email_yn);
+				vo.setM_sms_yn(m_sms_yn);
 				list.add(vo);
 			}
 			rs.close();
@@ -171,31 +172,32 @@ public class MemberDAO {
 		try {
 			conn = dataFactory.getConnection();
 			
-			String id = vo.getId();
-			String pw = vo.getPw();
-			String name = vo.getName();
-			String gender = vo.getGender();
-			String phone = vo.getPhone();
-			String email = vo.getEmail();
-			String address = vo.getAddress();
-			String sms_yn = vo.getSms_yn();
-			String email_yn = vo.getEmail_yn();
+			String m_id = vo.getM_id();
+			String m_pw = vo.getM_pw();
+			String m_name = vo.getM_name();
+			String m_gender = vo.getM_gender();
+			String m_phone = vo.getM_phone();
+			String m_email = vo.getM_email();
+			String m_address = vo.getM_address();
+			String m_sms_yn = vo.getM_sms_yn();
+			String m_email_yn = vo.getM_email_yn();
 			
-			String sql = "insert into `suitecare`.`member`(id, pw, name, gender, phone, email, address, sms_yn, email_yn) "+
+
+			String sql = "insert into `suitecare`.`member`(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn) "+
 					"values(?,?,?,?,?,?,?,?,?)";
 			
 			System.out.println("addMember(): "+sql);
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, pw);
-			pstmt.setString(3, name);
-			pstmt.setString(4, gender);
-			pstmt.setString(5, phone);
-			pstmt.setString(6, email);
-			pstmt.setString(7, address);
-			pstmt.setString(8, sms_yn);
-			pstmt.setString(9, email_yn);
+			pstmt.setString(1, m_id);
+			pstmt.setString(2, m_pw);
+			pstmt.setString(3, m_name);
+			pstmt.setString(4, m_gender);
+			pstmt.setString(5, m_phone);
+			pstmt.setString(6, m_email);
+			pstmt.setString(7, m_address);
+			pstmt.setString(8, m_sms_yn);
+			pstmt.setString(9, m_email_yn);
 
 			pstmt.executeUpdate();
 
@@ -206,32 +208,31 @@ public class MemberDAO {
 		}
 	}
 	
-	public boolean isDuplicateID(String id) {
+	public int isDuplicateID(String id) {
 		System.out.println("Received id: " + id);
 
 		try {
 			conn = dataFactory.getConnection();
 
-			String sql = "select COUNT(*) from `suitecare`.`member` where id='" + id + "'";
+			String sql = "select COUNT(*) from `suitecare`.`member` where m_id='" + id + "'";
 			System.out.println("isDuplicate(): " + sql);
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate();
 			ResultSet rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
 				int count = rs.getInt(1);
-				if (count > 0) {
-					pstmt.close();
-					conn.close();
-					return true;
-				};
+				return count;
 			}
+			pstmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
+	
+	
 }
 
 

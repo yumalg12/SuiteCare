@@ -10,7 +10,9 @@
 	</head>
 	<body>
 <%@ include file="../header.jsp" %>
-<%String mid = (String)session.getAttribute("mid"); %>	
+
+<%String m_id = (String)session.getAttribute("m_id"); %>	
+
 	<!-- One -->
 			<section id="One" class="wrapper style3">
 				<div class="inner">
@@ -31,51 +33,6 @@
 								<h2>기본 정보 등록</h2>
 							</header>
 							
-							
-			
-							
-<script type="text/javascript">
-function fn_overlapped(){
-	   
-	var _id = $("#user_id").val();
-    
-    if(_id==''){
-   	 alert("ID를 입력하세요");
-   	 return;
-    }
-  
-    $.ajax({
-       type:"post",
-       async:false,  
-       url:"overlapped.jsp",
-       dataType:"text",
-       data: {id:_id},
-       success:function (data){
-    	   console.log(data.replace(/(<([^>]+)>)/ig,""));
-    	   
-    	   //alert(data);
-    	   
-          if(data.includes("false")){
-       	    alert("사용할 수 있는 ID입니다.");
-       	    $('#btnOverlapped').prop("disabled", true);
-       	    $('#user_id').prop("disabled", true);
-       	    $('#huser_id').val(_id);
-          }else{
-        	  alert("사용할 수 없는 ID입니다.");
-          }
-       },
-       
-       error:function(data,textStatus){
-          alert("에러가 발생했습니다. " + textStatus);ㅣ
-       },
-       complete:function(data,textStatus){
-          //alert("작업을완료 했습니다");
-       }
-    })  //end ajax	 
- }	
-
-
-</script>
 
 <script >
 	function validateForm() {
@@ -88,7 +45,7 @@ function fn_overlapped(){
 		var diagnosis = document.Registform.diagnosis.value;
 		
 		
-		if(tname=="") {
+		if(t_name=="") {
 			alert("이름을 입력해주세요.");
 			return false;
 		}

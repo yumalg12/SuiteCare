@@ -12,14 +12,14 @@
 <script>
 function loginForm() {
 	var loginForm = document.frmLogin;
-	var id = document.frmLogin.id.value;
-	var pw = document.frmLogin.pw.value;
+	var m_id = document.frmLogin.m_id.value;
+	var m_pw = document.frmLogin.m_pw.value;
 	
-	if(!id || !pw) {
+	if(!m_id || !m_pw) {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./caretakerCheck.jsp";
+		loginForm.action="./caretakerCheck.jsp";s
 		loginForm.submit();
 	}
 }
@@ -53,11 +53,11 @@ function loginForm() {
 
 							<div class="form-row">
 								<input type="text" class="form-control" placeholder="아이디"
-									name="id"> <br>
+									name="m_id"> <br>
 							</div>
 							<div class="form-row">
 								<input type="password" class="form-control" placeholder="비밀번호"
-									name="pw"> <br>
+									name="m_pw"> <br>
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
