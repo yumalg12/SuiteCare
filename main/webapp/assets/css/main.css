@@ -1261,8 +1261,7 @@ body {
 }
 
 /* Basic */
-@
--ms-viewport {
+@-ms-viewport {
 	width: device-width;
 }
 
@@ -1881,7 +1880,6 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="tel"]:focus, i
 .select-wrapper:before {
 	color: rgba(144, 144, 144, 0.25);
 }
-
 
 input[type="checkbox"]+label, input[type="radio"]+label {
 	color: #444;
@@ -2881,73 +2879,13 @@ body.subpage {
 	padding-top: 3.25em;
 }
 
-@
--moz-keyframes reveal-header { 0% {
-	top: -4em;
-	opacity: 0;
-}
-
-100
-%
-{
-top
-:
-0;
-opacity
-:
-1;
-}
-}
-@
--webkit-keyframes reveal-header { 0% {
-	top: -4em;
-	opacity: 0;
-}
-
-100
-%
-{
-top
-:
-0;
-opacity
-:
-1;
-}
-}
-@
--ms-keyframes reveal-header { 0% {
-	top: -4em;
-	opacity: 0;
-}
-
-100
-%
-{
-top
-:
-0;
-opacity
-:
-1;
-}
-}
-@
-keyframes reveal-header { 0% {
-	top: -4em;
-	opacity: 0;
-}
-
-100
-%
-{
-top
-:
-0;
-opacity
-:
-1;
-}
+@-moz-keyframes reveal-header { 0% {	
+top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
+@-webkit-keyframes reveal-header { 0% {
+	top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
+@-ms-keyframes reveal-header { 0% {	top: -4em;	opacity: 0;
+}100%{top:0;opacity:1;}}
+@keyframes reveal-header { 0% {	top: -4em;	opacity: 0;}100%{top:0;opacity:1;}
 }
 #header {
 	background: #423730;

@@ -16,26 +16,26 @@ request.setCharacterEncoding("utf-8");
 
 %>
 <%
-String id = request.getParameter("id");
-String pw = request.getParameter("pw");
+String m_id = request.getParameter("m_id");
+String m_pw = request.getParameter("m_pw");
 
 
 MemberDAO dao = new MemberDAO();
 
-int ok = dao.logincheck(id, pw);
+int ok = dao.logincheck(m_id, m_pw);
 System.out.println("ok = " + ok);
 
 MemberVO vo = new MemberVO();
 
 if(ok== 1) {
-	vo = dao.userLogin(id, pw);
-	session.setAttribute("id", vo.getId());
+	vo = dao.userLogin(m_id, m_pw);
+	session.setAttribute("m_id", vo.getM_id());
 	//session.setMaxInactiveInterval(60); //1분간 아이디 유지
 
 %>
 <script>
 alert("로그인 성공")
-location.href='<%=request.getContextPath()%>/mypage.jsp';
+location.href='<%=request.getContextPath()%>/member/mypage.jsp';
 </script>
 <%
 } else if(ok==2) {

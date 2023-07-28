@@ -15,22 +15,25 @@
 
 request.setCharacterEncoding("utf-8");
 
+
 TakerDAO dao = new TakerDAO();
 
-String tname = request.getParameter("tname");
-String tgender = request.getParameter("tgender");
-String tage = request.getParameter("tage");
-String theight = request.getParameter("theight");
-String tweight = request.getParameter("tweight");
+String m_id = (String)session.getAttribute("m_id");
+String t_name = request.getParameter("t_name");
+String t_gender = request.getParameter("t_gender");
+String t_age = request.getParameter("t_age");
+String t_height = request.getParameter("t_height");
+String t_weight = request.getParameter("t_weight");
 String diagnosis = request.getParameter("diagnosis");
 
 TakerVO vo = new TakerVO();
 
-vo.setTname(tname); 
-vo.setTgender(tgender);
-vo.setTage(tage); 
-vo.setTheight(theight);
-vo.setTweight(tweight);
+vo.setM_id(m_id);
+vo.setT_name(t_name); 
+vo.setT_gender(t_gender);
+vo.setT_age(t_age); 
+vo.setT_height(t_height);
+vo.setT_weight(t_weight);
 vo.setDiagnosis(diagnosis); 
 
 dao.insert(vo);

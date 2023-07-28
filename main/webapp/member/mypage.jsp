@@ -23,7 +23,7 @@
 			window.location.href = "../careTaker/takerInfo.jsp";
 		}
 		function rescaregiver() {
-			window.location.href = "../reservation/respatient.jsp";
+			window.location.href = "../reservation/rescaretaker.jsp";
 		}
 		</script>
 	
@@ -51,35 +51,29 @@
 							</header>
 		<% 
 		request.setCharacterEncoding("utf-8");
-		String mid = (String)session.getAttribute("mid");
+		String m_id = (String)session.getAttribute("m_id");
 
-		PatientresDAO dao = new PatientresDAO();
+		TakerDAO dao = new TakerDAO();
 
 		
-		List<TakerVO> takerinfolist = dao.listtinfo(mid);
-		for(int i=0; i<takerinfolist.size(); i++) {
-			TakerVO listt = (TakerVO) takerinfolist.get(i);
+		List<TakerVO> list = dao.takerList(m_id);
+		for(int i=0; i<list.size(); i++) {
+			TakerVO listt = (TakerVO) list.get(i);
 	
-			String tname = listt.getTname();
-			String tgender = listt.getTgender();
-			String tage = listt.getTage();
-			String theight = listt.getTheight();
-			String tweight = listt.getTweight();
-			//String addr = listt.getAddr();
+			String t_name = listt.getT_name();
+			String t_gender = listt.getT_gender();
+			String t_age = listt.getT_age();
+			String t_height = listt.getT_height();
+			String t_weight = listt.getT_weight();
 			String diagnosis = listt.getDiagnosis();
 	
-	//		String[] addrs = addr.split("\\s");
-	
-	//		String area = addrs[0];
-
 			%>
 	
 		<form name="patientinfo">
 		<table border=1>
-		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td> <td> 지역</td><td> 진단명 </td></tr>	
-		</table>
-		<!-- <tr><td> <%=tname %> </td><td> <%=tgender %> </td><td> <%=tage %> </td> <td> <%=theight %>cm </td> <td> <%=tweight %>kg </td> <td> <%=diagnosis %> </td></tr>
-		</table>  -->
+		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td><td> 수정 </td></tr>
+		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp'>수정하기</a></td></tr>
+		</table> 
 		</form>
 
 		<%
@@ -112,12 +106,13 @@
 
 
 			<%
-
-			List<PatientresVO> reslist = dao.listres(mid);
+//아래로는 아직 확인못함
+			PatientresDAO dao2 = new PatientresDAO();
+			List<PatientresVO> reslist = dao2.listres(m_id);
 			for(int i=0; i<reslist.size(); i++) {
 				PatientresVO listvo = (PatientresVO) reslist.get(i);
 	
-				String patient = listvo.getPatient();
+				String patient = listvo.getCaretaker();
 				Date start_date = listvo.getStartdate();
 				Date end_date = listvo.getEnddate();
 				Time start_time = listvo.getStarttime();

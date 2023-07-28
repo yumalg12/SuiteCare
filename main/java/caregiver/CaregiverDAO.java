@@ -11,10 +11,11 @@ import javax.sql.DataSource;
 
 public class CaregiverDAO {
 	private PreparedStatement pstmt;
+	private Statement stmnt;
 	private Connection conn;
 	private DataSource dataFactory;
-
-	public CaregiverDAO() {
+	
+	public void connect() {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
@@ -24,11 +25,12 @@ public class CaregiverDAO {
 		}
 	}
 		
+	
 	public CaregiverVO userLogin(String id, String pw) {
 		CaregiverVO vo = null;
 		
 		try {
-			conn = dataFactory.getConnection();
+			connect();
 				
 			String sql = "SELECT * FROM caregiver WHERE id = ? and pw = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -76,7 +78,7 @@ public class CaregiverDAO {
 		System.out.println("login 정보 확인");
 		int ok = 0;
 		try {
-		conn = dataFactory.getConnection();
+		connect();
 		String sql = "SELECT pw FROM caregiver WHERE id = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, id);
@@ -128,7 +130,7 @@ public class CaregiverDAO {
 	public List<CaregiverVO> listMembers(String user_id) {
 		List<CaregiverVO> list= new ArrayList<CaregiverVO>();
 		try {
-			conn = dataFactory.getConnection();
+			connect();
 			
 			String sql = "SELECT * FROM caregiver where id=?";
 			pstmt = conn.prepareStatement(sql);
