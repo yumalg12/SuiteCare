@@ -14,8 +14,6 @@ local.properties
 .loadpath
 .recommenders
 
-<<<<<<< Updated upstream
-=======
 ### Tomcat ###
 context.xml
 

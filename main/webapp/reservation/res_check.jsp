@@ -12,8 +12,8 @@
 <body>
 <% 
 request.setCharacterEncoding("utf-8");
-String patient_id = (String)session.getAttribute("patient_id");
-String patient_code = (String)session.getAttribute("patient_code");
+String m_id = (String)session.getAttribute("m_id");
+String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
 ReservationDAO dao = new ReservationDAO();
 String start_date = request.getParameter("startdate");
@@ -28,7 +28,7 @@ vo.setStart_date(start_date);
 vo.setEnd_date(end_date);
 vo.setStart_time(start_time);
 vo.setEnd_time(end_time);
-vo.setPatient_code(patient_code);
+vo.setCaretaker_code(caretaker_code);
 
 int check_ok = dao.checkres(vo);
 
@@ -43,7 +43,7 @@ if(check_ok==0) {
 int result = dao.insertresinfo(vo);
 
 if(result>0) {
-	session.removeAttribute("patient_code");
+	session.removeAttribute("caretaker_code");
 	session.removeAttribute("res_code");
 	%>
 	<script>
