@@ -46,33 +46,38 @@ if(ok == 0) {
 	alert("등록된 회원정보가 없습니다.");
 	location.href='<%=request.getContextPath()%>/caretaker/takerinfo.jsp';
 	</script>
+	
 	<%
 
 	} else if(ok == 1) {
 		System.out.println("정보있음");
+		
+		%> 
+		<h3> 피간병인 정보 선택 </h3>
+	<form action="./rescaretaker_info.jsp" name="cnameform" onSubmit="return checkForm();">
+		<table><tr>
+		<td>피간병인 이름</td>
+		<td><select name="tname" id="tname">
+		<option value="">==선택==</option>
+		<%
 		List<CaretakerinfoVO> list = dao.listtname(m_id);
 		for(int i=0; i<list.size(); i++) {
 			CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);
 			
 			String t_name = listvo.getT_name();
 	%>		
-		<h3> 피간병인 정보 선택 </h3>
-		<form action="./rescaretaker_info.jsp" name="cnameform" onSubmit="return checkForm();">
-		<table><tr>
-		<td>피간병인 이름</td>
-		<td><select name="tname" id="tname">
-		<option value="">==선택==</option>
 		<option value=<%=t_name%>><%=t_name%></option>
-		</select></td>
-		<td><input type="submit" value="선택"></td></tr>
-		</table>
-		<button type="button" onclick="inserttinfo();">다른 피간병인 정보 등록하기</button>
-		</form>
+
 <%	
 	}
 	
 }
 %>
+</select></td>
+<td><input type="submit" value="선택"></td></tr>
+		</table>
+		<button type="button" onclick="inserttinfo();">다른 피간병인 정보 등록하기</button>
+		</form>
 	
 </body>
 </html>
