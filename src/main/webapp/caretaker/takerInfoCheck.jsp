@@ -18,7 +18,7 @@ request.setCharacterEncoding("utf-8");
 
 TakerDAO dao = new TakerDAO();
 
-String t_id = (String)session.getAttribute("m_id");
+String m_id = (String)session.getAttribute("m_id");
 String t_name = request.getParameter("t_name");
 String t_gender = request.getParameter("t_gender");
 String t_age = request.getParameter("t_age");
@@ -28,7 +28,7 @@ String diagnosis = request.getParameter("diagnosis");
 
 TakerVO vo = new TakerVO();
 
-vo.setM_id(t_id);
+vo.setM_id(m_id);
 vo.setT_name(t_name); 
 vo.setT_gender(t_gender);
 vo.setT_age(t_age); 

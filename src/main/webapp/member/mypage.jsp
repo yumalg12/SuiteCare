@@ -1,4 +1,3 @@
-<%@ page import = "member.*" %>
 <%@ page import = "patient.*" %>
 <%@ page import = "caretaker.*" %>
 <%@ page import = "reservation.*" %>
@@ -21,7 +20,7 @@
 	<script>
 
 		function insertTinfo() {
-			window.location.href = "../caretaker/takerInfo.jsp";
+			window.location.href = "../careTaker/takerInfo.jsp";
 		}
 		function rescaregiver() {
 			window.location.href = "../reservation/rescaretaker.jsp";
@@ -72,8 +71,8 @@
 	
 		<form name="patientinfo">
 		<table border=1>
-		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td></tr>
-		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td></tr>
+		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td><td> 수정 </td></tr>
+		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp'>수정하기</a></td></tr>
 		</table> 
 		</form>
 
@@ -107,8 +106,7 @@
 
 
 			<%
-//아래로는 아직 확인못함...
-
+//아래로는 아직 확인못함
 			PatientresDAO dao2 = new PatientresDAO();
 			List<PatientresVO> reslist = dao2.listres(m_id);
 			for(int i=0; i<reslist.size(); i++) {
