@@ -1,6 +1,7 @@
 package member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class SignUpController extends HttpServlet {
 			 
 			int isDuplicateID = dao.isDuplicateID(id);
 			
-			System.out.println(isDuplicateID);
+			System.out.println("count(*) = " + isDuplicateID);
 			
 			// Return results in JSON format
 	        response.setContentType("application/json");
@@ -53,8 +54,13 @@ public class SignUpController extends HttpServlet {
 		dao.addMember(vo);
 		
 		String context = ((HttpServletRequest)request).getContextPath();
-		//System.out.println("context: "+context);
-        response.sendRedirect(context+"/member/caretakerLogin.jsp");
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("alert('회원가입이 완료되었습니다.');");
+        out.println("location.href='"+context+"/member/caretakerLogin.jsp';");
+        out.println("</script>");
+        
 		}
 
 	}
