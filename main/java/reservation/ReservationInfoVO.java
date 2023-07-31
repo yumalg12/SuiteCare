@@ -6,7 +6,7 @@ public class ReservationInfoVO {
 	private String end_date;
 	private String start_time;
 	private String end_time;
-	private String patient_code;
+	private String caretaker_code;
 	
 	public ReservationInfoVO() {
 		System.out.println("ReservationInfoVO 생성자 호출");
@@ -83,18 +83,19 @@ public class ReservationInfoVO {
 	}
 
 	/**
-	 * @return the patient_code
+	 * @return the caretaker_code
 	 */
-	public String getPatient_code() {
-		return patient_code;
+	public String getCaretaker_code() {
+		return caretaker_code;
 	}
 
 	/**
-	 * @param patient_code the patient_code to set
+	 * @param caretaker_code the caretaker_code to set
 	 */
-	public void setPatient_code(String patient_code) {
-		this.patient_code = patient_code;
+	public void setCaretaker_code(String caretaker_code) {
+		this.caretaker_code = caretaker_code;
 	}
-	
+
+
 	
 }
