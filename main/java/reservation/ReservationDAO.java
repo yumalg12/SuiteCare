@@ -252,7 +252,6 @@ public class ReservationDAO {
 
 			pstmt.setString(1, res_code);
 			
-			
 			result=pstmt.executeUpdate();
 			
 			System.out.println(result);
@@ -271,6 +270,7 @@ public class ReservationDAO {
 		try {
 			connect();
 			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, vo.getAddr());
@@ -357,6 +357,7 @@ public class ReservationDAO {
 		try {
 			connect();
 			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getLocation());
@@ -364,7 +365,7 @@ public class ReservationDAO {
 			pstmt.setString(3, vo.getDetail_addr());
 			pstmt.setString(4, vo.getCaretaker_code());
 			pstmt.setString(5, vo.getRes_code());
-			
+
 			result=pstmt.executeUpdate();
 			
 			System.out.println(result);

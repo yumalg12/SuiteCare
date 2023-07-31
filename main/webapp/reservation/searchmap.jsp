@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <title>병원 주소 검색</title>
- 
+
  <%@ include file="/header-import.jsp"%>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0df65592c31f54572a252b502738e35&libraries=services"></script>
  
