@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<title>피간병인 정보</title>
-
+<title>SC 스위트케어 | 간병 예약</title>
+<%@ include file="/header-import.jsp"%>
 
 <script>
 
@@ -63,7 +63,7 @@ function opChange() {
 		outyn.value="";
 		outyn.focus();
 	}	else {
-		outyn.disabled=true;
+		outyn.disabled=false;
 		outyn.value=outop.options[outop.selectedIndex].value;
 	}
 }
@@ -71,6 +71,17 @@ function opChange() {
 </script>
 </head>
 <body>
+	<%@ include file="/header.jsp"%>
+
+	<!-- One -->
+	<section id="One" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<p>Eleifend vitae urna</p>
+				<h2>SC SuiteCare</h2>
+			</header>
+		</div>
+	</section>
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
@@ -88,12 +99,23 @@ for(int i=0; i<list.size(); i++) {
 	int t_weight = listvo.getT_weight();
 	String t_gender = listvo.getT_gender();
 	String diagnosis = listvo.getDiagnosis();
+	
 	session.setAttribute("t_name", t_name);
 	session.setAttribute("caretaker_code", t_code);
 %>
 
-<h3> <%=tname %>님의 기본 정보</h3>
 
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>maecenas sapien feugiat ex purus</p>
+						<h2><%=tname %>님의 기본 정보</h2>
+					</header>
+
+					<div class="form_wrapper">
 <form name="tinfoform">
 <table border=1>
 <tr><td> 피간병인 코드 </td><td><%=t_code %></td></tr>
@@ -160,9 +182,9 @@ for(int i=0; i<list.size(); i++) {
 	<input type="radio" id="b_no" name="bedsore_yn" value="없음">
 		<label for="b_no">없음</label></td></tr>
 <tr> <td> Q7. 석션이 필요하신가요? </td></tr>
-<tr> <td><input type="radio" id="b_yes" name="suction_yn" value="예">
+<tr> <td><input type="radio" id="s_yes" name="suction_yn" value="예">
 		<label for="s_yes">예</label>
-	<input type="radio" id="b_no" name="suction_yn" value="아니오">
+	<input type="radio" id="s_no" name="suction_yn" value="아니오">
 		<label for="s_no">아니오</label></td></tr>
 <tr> <td> Q8. 주기적인 외부치료가 있으신가요? </td></tr>
 <tr> <td><input type="text" name="outpatient_yn" id="outpatient_yn" disabled>
@@ -190,6 +212,15 @@ for(int i=0; i<list.size(); i++) {
 <%
 }
 %>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<%@ include file="/footer.jsp"%>
+
 </body>
 <script>
  

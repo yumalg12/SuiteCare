@@ -4,22 +4,10 @@
 <html>
 	<head>
 		<title>SC 스위트케어 | 회원가입</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-	</head>
+<%@ include file="/header-import.jsp" %>
 	
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-
-<%@ include file="/header.jsp" %>
-
-<style>
-.addr-label{
-	margin-left: 1.5rem;
-	margin-top: 0.5rem;
-	font-weight: 400;
-}
-</style>
 
 <script>
 function signUpValidation() {
@@ -176,8 +164,10 @@ function setAddress() {
 }
 
 </script>
+	</head>
 
 	<body>
+<%@ include file="/header.jsp" %>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -244,8 +234,8 @@ function setAddress() {
 				<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
 				<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
 			<input type="hidden" id="address" name="m_address" value="">
-
 			</div>
+			
 			<div class="form_row">
 				<label for="sms_yn">SMS 수신 여부</label>
 				<div onclick="javascript:setSMSYN()">

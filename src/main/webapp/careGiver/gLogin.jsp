@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>SC 스위트케어 | 일반 본문</title>
+<title>SC 스위트케어 | 로그인</title>
 	<%@ include file="/header-import.jsp"%>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <script>
 function loginForm() {
 	var loginForm = document.frmLogin;
-	var m_id = document.frmLogin.m_id.value;
-	var m_pw = document.frmLogin.m_pw.value;
+	var id = document.frmLogin.id.value;
+	var pw = document.frmLogin.pw.value;
 	
-	if(!m_id || !m_pw) {
+	if(!id || !pw) {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./caretakerCheck.jsp";s
+		loginForm.action="./gCheck.jsp";
 		loginForm.submit();
 	}
 }
 </script>
 </head>
 <body>
-
 	<%@ include file="/header.jsp"%>
 
 	<!-- One -->
@@ -43,23 +43,23 @@ function loginForm() {
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>간병인 찾기</p>
+						<p>간병인 등록하기</p>
 						<h2>로그인</h2>
 					</header>
 						<div class="form_wrapper">
 					<form name="frmLogin" method="post" onsubmit="return loginForm();">
 
-							<div class="form_row">
-								<label>아이디</label><input type="text" class="form-control" placeholder="아이디"
-									name="m_id">
+							<div class="form-row">
+								<input type="text" class="form-control" placeholder="아이디"
+									name="id"> <br>
 							</div>
-							<div class="form_row">
-								<label>비밀번호</label><input type="password" class="form-control" placeholder="비밀번호"
-									name="m_pw">
+							<div class="form-row">
+								<input type="password" class="form-control" placeholder="비밀번호"
+									name="pw"> <br>
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='tSignup.jsp'">회원가입</span>
+								<span class="button alt" onclick="location.href='gSignup.jsp'">회원가입</span>
 							</div>
 					</form>
 					
@@ -70,7 +70,7 @@ function loginForm() {
 		</div>
 	</section>
 
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="/footer.jsp"%>
 
 
 </body>
