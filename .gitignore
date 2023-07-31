@@ -17,7 +17,6 @@ local.properties
 ### Tomcat ###
 context.xml
 
->>>>>>> Stashed changes
 # External tool builders
 .externalToolBuilders/
 
