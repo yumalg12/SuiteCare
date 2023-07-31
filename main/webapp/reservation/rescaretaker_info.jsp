@@ -175,9 +175,9 @@ for(int i=0; i<list.size(); i++) {
 	<input type="radio" id="b_no" name="bedsore_yn" value="없음">
 		<label for="b_no">없음</label></td></tr>
 <tr> <td> Q7. 석션이 필요하신가요? </td></tr>
-<tr> <td><input type="radio" id="b_yes" name="suction_yn" value="예">
+<tr> <td><input type="radio" id="s_yes" name="suction_yn" value="예">
 		<label for="s_yes">예</label>
-	<input type="radio" id="b_no" name="suction_yn" value="아니오">
+	<input type="radio" id="s_no" name="suction_yn" value="아니오">
 		<label for="s_no">아니오</label></td></tr>
 <tr> <td> Q8. 주기적인 외부치료가 있으신가요? </td></tr>
 <tr> <td><input type="text" name="outpatient_yn" id="outpatient_yn" disabled>
