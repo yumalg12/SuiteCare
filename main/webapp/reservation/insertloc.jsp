@@ -20,7 +20,6 @@ ReservationDAO dao = new ReservationDAO();
 
 int result = dao.updatehome(res_code);
 
-
 if(result==1) {
 		response.sendRedirect("reshome.jsp");
 } else {

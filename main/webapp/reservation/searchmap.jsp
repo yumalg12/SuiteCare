@@ -52,7 +52,6 @@
 </head>
 
 <body>
-
 <form id="submitForm" method="post" >
     <input type="hidden" name="hospname" id="hospname">
     <input type="hidden" name="hospaddr" id="hospaddr">

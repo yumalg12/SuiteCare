@@ -95,9 +95,10 @@ String res_code = (String)session.getAttribute("res_code");
 			</div>
 
 			<div class="form_row">
-				<label class="addr-label">병원 주소</label><input type="text" id="hospaddr" placeholder="병원 주소" title="병원 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">상세 병동</label><input type="text" id="hospdetail_addr" placeholder="상세 병동" title="나머지 주소" onInput="javascript:setAddress()" required>
-
+			    <label>병원 주소</label><span></span>
+				<label class="addr-label">도로명 주소</label><input type="text" id="hospaddr" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
+				<label class="addr-label">나머지 주소</label><input type="text" id="hospdetail_addr" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
+			<input type="hidden" id="addr" name="hospaddr" value=""> <!-- 주소 값으로는 이 input만 전송되게 됩니다 -->
 			</div>
 			<div class="form_button">
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
