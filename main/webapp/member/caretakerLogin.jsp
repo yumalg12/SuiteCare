@@ -5,9 +5,7 @@
 <html>
 <head>
 <title>SC 스위트케어 | 일반 본문</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../assets/css/main.css" />
+	<%@ include file="/header-import.jsp"%>
 
 <script>
 function loginForm() {
@@ -27,7 +25,7 @@ function loginForm() {
 </head>
 <body>
 
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/header.jsp"%>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -51,13 +49,13 @@ function loginForm() {
 						<div class="form_wrapper">
 					<form name="frmLogin" method="post" onsubmit="return loginForm();">
 
-							<div class="form-row">
-								<input type="text" class="form-control" placeholder="아이디"
-									name="m_id"> <br>
+							<div class="form_row">
+								<label>아이디</label><input type="text" class="form-control" placeholder="아이디"
+									name="m_id">
 							</div>
-							<div class="form-row">
-								<input type="password" class="form-control" placeholder="비밀번호"
-									name="m_pw"> <br>
+							<div class="form_row">
+								<label>비밀번호</label><input type="password" class="form-control" placeholder="비밀번호"
+									name="m_pw">
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>

@@ -7,20 +7,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+    <title>병원 주소 검색</title>
+<%@ include file="/header-import.jsp"%>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0df65592c31f54572a252b502738e35&libraries=services"></script>
  
- 
  <style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:100%;padding:1rem;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}
@@ -52,30 +48,34 @@
 </head>
 
 <body>
-
-<form id="submitForm" method="post" >
+	<!-- Two -->
+					<div class="form_wrapper">
+				
+<form id="submitForm" method="post">
     <input type="hidden" name="hospname" id="hospname">
     <input type="hidden" name="hospaddr" id="hospaddr">
 </form>
 
 
 <div class="map_wrap">
-    <div id="map" style="width:800px;height:600px;overflow:hidden;"></div>
+    <div id="map" style="overflow:hidden;"></div>
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
-            <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" placeholder="병원이름을 입력하세요" id="keyword" size="20"> 
-                    <button type="submit">검색하기</button> 
+                    <h2>병원 검색</h2>
+                    <div class="form_row_sub">
+                    <input type="text" class="" placeholder="병원 이름을 입력하세요" id="keyword"> 
+                    <button type="submit" class="button special">검색하기</button> 
+                    </div>
                 </form>
-            </div>
         </div>
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
     </div>
 </div>
+	</div>
 
 <script>
 //마커를 담을 배열입니다
