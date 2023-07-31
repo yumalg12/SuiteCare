@@ -1,4 +1,4 @@
-package member;
+package caregiver;
 import java.sql.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +15,7 @@ public class findDAO {
 		try{
 			String url = "jdbc:mysql://localhost:3306/suitecare";
 			   String id = "root";
-			   String pwd = "mysql";
+			   String pwd = "Ktnwls1218*";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url, id , pwd);
 
@@ -323,7 +323,7 @@ public class findDAO {
 		return ok;
 	}
 	
-	public String cFindPw(String name, String id, String phone) {
+	public String gFindPw(String name, String id, String phone) {
 		String find_pw = null;
 		
 		try {

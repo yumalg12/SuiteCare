@@ -1,4 +1,5 @@
 <%@ page import = "member.*" %>
+<%@ page import = "caregiver.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,7 +26,7 @@ int ok_pwd = dao.cPwcheck(name, id, phone);
 System.out.println("ok_pwd = " + ok_pwd);
 
 if(ok_pwd==1) {
-	String find_pw = dao.cFindPw(name, id, phone);
+	String find_pw = dao.gFindPw(name, id, phone);
 	//System.out.println(find_pw);
 	%>
 	<script>
@@ -38,7 +39,7 @@ if(ok_pwd==1) {
 		System.out.println("아이디 불일치");
 	%>
 	<script>
-	location.href='<%=request.getContextPath()%>/cFindPw.jsp';
+	location.href='<%=request.getContextPath()%>/gFindPw.jsp';
 	</script>
 	
 	<%
@@ -47,7 +48,7 @@ if(ok_pwd==1) {
 	%>
 	<script>
 	alert("정보가 없습니다.")
-	location.href='<%=request.getContextPath()%>/cFindPw.jsp';
+	location.href='<%=request.getContextPath()%>/gFindPw.jsp';
 	</script>
 	<% } %>
 </body>

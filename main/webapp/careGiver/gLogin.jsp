@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>SC 스위트케어 | 로그인</title>
+	<%@ include file="/header-import.jsp"%>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -17,7 +18,7 @@ function loginForm() {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./patientCheck.jsp";
+		loginForm.action="./gCheck.jsp";
 		loginForm.submit();
 	}
 }
@@ -58,7 +59,7 @@ function loginForm() {
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='caregiverSignup.jsp'">회원가입</span>
+								<span class="button alt" onclick="location.href='gSignup.jsp'">회원가입</span>
 							</div>
 					</form>
 					

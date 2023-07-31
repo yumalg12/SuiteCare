@@ -21,9 +21,16 @@
 .form_row_sub {
 	display: grid;
 	grid-template-columns: 1fr 0.5fr;
+	column-gap: 0.3rem;
 }
 
 .form_button {
 	text-align: center;
 	margin: 3rem 0;
 }
+
+.input_with_button {
+width: calc(100% - 90px);
+    display: inline;
+    margin-right: 5px;
+    }

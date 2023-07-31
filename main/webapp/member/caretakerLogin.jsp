@@ -1,29 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>SC 스위트케어 | 로그인</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SC 스위트케어 | 일반 본문</title>
+	<%@ include file="/header-import.jsp"%>
 
 <script>
 function loginForm() {
 	var loginForm = document.frmLogin;
-	var id = document.frmLogin.id.value;
-	var pw = document.frmLogin.pw.value;
+	var m_id = document.frmLogin.m_id.value;
+	var m_pw = document.frmLogin.m_pw.value;
 	
-	if(!id || !pw) {
+	if(!m_id || !m_pw) {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./patientCheck.jsp";
+		loginForm.action="./caretakerCheck.jsp";
 		loginForm.submit();
 	}
 }
 </script>
 </head>
 <body>
+
 	<%@ include file="/header.jsp"%>
 
 	<!-- One -->
@@ -48,17 +49,17 @@ function loginForm() {
 						<div class="form_wrapper">
 					<form name="frmLogin" method="post" onsubmit="return loginForm();">
 
-							<div class="form-row">
-								<input type="text" class="form-control" placeholder="아이디"
-									name="id"> <br>
+							<div class="form_row">
+								<label>아이디</label><input type="text" class="form-control" placeholder="아이디"
+									name="m_id">
 							</div>
-							<div class="form-row">
-								<input type="password" class="form-control" placeholder="비밀번호"
-									name="pw"> <br>
+							<div class="form_row">
+								<label>비밀번호</label><input type="password" class="form-control" placeholder="비밀번호"
+									name="m_pw">
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='patientSignup.jsp'">회원가입</span>
+								<span class="button alt" onclick="location.href='tSignup.jsp'">회원가입</span>
 							</div>
 					</form>
 					
@@ -69,7 +70,7 @@ function loginForm() {
 		</div>
 	</section>
 
-	<%@ include file="/footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 
 </body>

@@ -11,18 +11,18 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>아이디찾기</title>
+    <title>비밀번호찾기</title>
 
     <link href="./css/bootstrap.min.css" rel="stylesheet">
 
     <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  	<link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/style_index.css">
     <link href="./css/signin.css" rel="stylesheet">
     <link href="jumbotron.css" rel="stylesheet">
     
     <script src="./js/ie-emulation-modes-warning.js"></script>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
   
@@ -46,7 +46,8 @@
 }
 </style>
 
-<%@ include file="./dbcon.jsp" %>
+
+
 	<script src="js/bootstrap.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -70,18 +71,20 @@
 <hr>
 
 <div class="container">
-      <form action="./pFindIdCheck.jsp" class="form-signin">
-       <h2 class="form-signin-heading">아이디 찾기</h2><br>
-        <label for="name" class="sr-only">이름</label> 이름
-        <input type="text" id="findname" name="name" class="form-control" placeholder="이름" required autofocus><br>
+      <form action="./gFindPwCheck.jsp" class="form-signin">
+       <h2 class="form-signin-heading">비밀번호 찾기</h2><br>
+        <label for="findname" class="sr-only">이름</label> 이름
+        <input type="text" id="name" name="name" class="form-control" placeholder="이름" required autofocus><br>
        
-        <label for="phone" class="sr-only">핸드폰번호</label> 핸드폰번호
+        <label for="findID" class="sr-only">아이디</label> 아이디
+        <input type="text" id="id" name="id" class="form-control" placeholder="아이디" required autofocus><br>
+         
+        <label for="hp" class="sr-only">핸드폰번호</label> 핸드폰번호
 		<input class="form-control" name="phone" type="text" pattern="\d*" size=20 maxlength="11" placeholder = "'-'를 제외한 핸드폰 번호를 입력하시오"/>
 		<br><br>
-        
-        <button class="btn btn-lg btn-primary btn-block" type="submit">아이디 찾기</button>
+		
+        <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 찾기</button>
       </form>
-
 </div> <!-- /container -->
 
 
