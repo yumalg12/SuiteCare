@@ -8,9 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<title>상세정보 불러오기</title>
-<script>
+<title>SC 스위트케어 | 간병 예약</title>
+<%@ include file="/header-import.jsp"%>
 
+<script>
 function callreservation() {
 	//console.log('확인');
 	var f = document.dtcallinfoForm;
@@ -48,31 +49,54 @@ function updatecall() {
 </script>
 </head>
 <body>
+	<%@ include file="/header.jsp"%>
+
+	<!-- One -->
+	<section id="One" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<p>Eleifend vitae urna</p>
+				<h2>SC SuiteCare</h2>
+			</header>
+		</div>
+	</section>
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String t_name = (String)session.getAttribute("t_name");
-String t_code = (String)session.getAttribute("caretaker_code");
 ReservationDAO dao = new ReservationDAO();
+
 
 List<CaretakerinfoVO> list = dao.listtinfo(m_id, t_name);
 for(int i=0; i<list.size(); i++) {
 	CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);
 	
 	String tname = listvo.getT_name();
-	String tcode = listvo.getT_code();
+	String t_code = listvo.getT_code();
 	int t_age = listvo.getT_age();
 	int t_height = listvo.getT_height();
 	int t_weight = listvo.getT_weight();
 	String t_gender = listvo.getT_gender();
 	String diagnosis = listvo.getDiagnosis();
+	
+	session.setAttribute("caretaker_code", t_code);
 %>
 
-<h3> <%=tname %>님의 기본 정보</h3>
 
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>maecenas sapien feugiat ex purus</p>
+						<h2><%=tname %>님의 기본 정보</h2>
+					</header>
+
+					<div class="form_wrapper">
 <form name="tcallinfoform">
 <table border=1>
-<tr><td> 피간병인 코드 </td><td><%=tcode %></td></tr>
+<tr><td> 피간병인 코드 </td><td><%=t_code %></td></tr>
 <tr><td> 피간병인 이름 </td><td><%=tname %></td></tr>
 <tr><td> 나이 </td><td><%=t_age %>세</td></tr>
 <tr><td> 키 </td><td><%=t_height %>cm</td></tr>
@@ -439,6 +463,15 @@ if (reservation != null) {
 <button type="button" disabled>불러오기</button>
 <button type="button" onclick="callreservation();">예약하기</button>
 </form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<%@ include file="/footer.jsp"%>
 	
 </body>
 <script>

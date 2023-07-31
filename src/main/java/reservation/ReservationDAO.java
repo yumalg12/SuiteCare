@@ -243,17 +243,14 @@ public class ReservationDAO {
 	    return reservation;
 	}
 
-	
-	
-	public int updatehome(String home, String caretaker_code) {
+	public int updatehome(String res_code) {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET location=? where caretaker_code=?";
+			String sql = "UPDATE  `suitecare`.`reservation` SET location='home' where res_code=?";
 			pstmt = conn.prepareStatement(sql);
-		
-			pstmt.setString(1, home);
-			pstmt.setString(2, caretaker_code);
+
+			pstmt.setString(1, res_code);
 			
 			
 			result=pstmt.executeUpdate();
