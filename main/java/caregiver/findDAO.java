@@ -225,7 +225,7 @@ public class findDAO {
 	
 	
 	// 간병인
-	public String gFindId(String name, String phone) {
+	public String cFindId(String name, String phone) {
 		String find_id = null;
 		
 		try {

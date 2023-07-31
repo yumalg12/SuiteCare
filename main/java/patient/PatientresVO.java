@@ -5,7 +5,7 @@ import java.sql.Time;
 
 
 public class PatientresVO {
-	private String patient;
+	private String caretaker;
 	private Date startdate;
 	private Date enddate;
 	private Time starttime;
@@ -17,21 +17,24 @@ public class PatientresVO {
 		System.out.println("PatientresVO 생성자 호출");
 	}
 
+	
+
+	/**
+	 * @return the caretaker
+	 */
+	public String getCaretaker() {
+		return caretaker;
+	}
+
 
 
 	/**
-	 * @return the patient
+	 * @param caretaker the caretaker to set
 	 */
-	public String getPatient() {
-		return patient;
+	public void setCaretaker(String caretaker) {
+		this.caretaker = caretaker;
 	}
 
-	/**
-	 * @param patient the patient to set
-	 */
-	public void setPatient(String patient) {
-		this.patient = patient;
-	}
 
 
 	/**

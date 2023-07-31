@@ -197,8 +197,8 @@ public class CaregiverDAO {
 			if (rs.next()) {
 				String pw = rs.getString("g_pw");
 				if(pw.equals(originPW)) {
-					sql = "update caregiver";
-					sql += " set g_pw=? where g_id = ?";
+					sql = "UPDATE caregiver";
+					sql += " SET g_pw=? WHERE g_id = ?";
 					System.out.println("prepareStatement : " + sql);
 		
 					pstmt = con.prepareStatement(sql);
@@ -216,6 +216,37 @@ public class CaregiverDAO {
 		}
 		
 		return false;
+	}
+	
+	
+	public void update(String id, String name, String gender, String phone, String sms_yn, String email, String email_yn, String address, String location, String representative, String qualification) {
+		try {
+			con = dataFactory.getConnection();
+
+			String sql = "UPDATE caregiver";
+			sql += " SET g_name=?, g_gender=?, g_phone=?, g_sms_yn=?, g_email=?, g_email_yn=?, g_address=?, g_location=?, g_representative=?, g_qualification=?";
+			sql += " WHERE g_id = ?";
+			System.out.println("prepareStatement : " + sql);
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, gender);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, sms_yn);
+			pstmt.setString(5, email);
+			pstmt.setString(6, email_yn);
+			pstmt.setString(7, address);
+			pstmt.setString(8, location);
+			pstmt.setString(9, representative);
+			pstmt.setString(10, qualification);
+			pstmt.setString(11, id);
+
+			pstmt.executeUpdate();
+			pstmt.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 

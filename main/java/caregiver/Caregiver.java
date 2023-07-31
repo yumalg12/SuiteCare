@@ -35,10 +35,17 @@ public class Caregiver extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("userID");
+		
 		CaregiverDAO dao = new CaregiverDAO();
+		LocationDAO loc = new LocationDAO();
 		List<CaregiverVO> info;
+		List<LocationVO> location;
 		info = dao.giver_info("dool");
+		location = loc.location();
 		request.setAttribute("info", info);
+		request.setAttribute("location", location);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/caregiver_info.jsp");
 		dispatch.forward(request, response);
@@ -53,10 +60,10 @@ public class Caregiver extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String command = request.getParameter("command");
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("userID");
 		
 		if (command != null && command.equals("pw_change")) {
-			HttpSession session = request.getSession();
-			String user_id = (String)session.getAttribute("userID");
 			String orgin_pw = request.getParameter("origin_pw");
 			String new_pw = request.getParameter("new_pw");
 			
@@ -75,6 +82,53 @@ public class Caregiver extends HttpServlet {
 						+ "</script>");
 				out.print("</body></html>");
 			}
+		} else if (command != null && command.equals("update")) {
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
+			String address = request.getParameter("address");
+			String location = request.getParameter("location");
+
+			String[] repre = request.getParameterValues("repre");
+			String[] qual = request.getParameterValues("qual");
+			String representative = "";
+			String qualification = "";
+			
+			for(int i=0; i<repre.length; i++) {
+				representative += repre[i];
+				if(!(i == repre.length-1)) {
+					representative += "&";
+				}
+			}
+			
+			for(int i=0; i<qual.length; i++) {
+				qualification += qual[i];
+				if(!(i == qual.length-1)) {
+					qualification += "&";
+				}
+			}
+			
+			System.out.println(representative);
+			System.out.println(qualification);
+			
+			String sms_yn;
+			if(request.getParameter("sms_yn").equals("Y")) {
+				sms_yn = "Y";
+			} else {
+				sms_yn = "N";
+			}
+			
+			String email_yn;
+			if(request.getParameter("email_yn").equals("Y")) {
+				email_yn = "Y";
+			} else {
+				email_yn = "N";
+			}
+			
+			CaregiverDAO dao = new CaregiverDAO();
+			dao.update("dool", name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
+			out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver';</script>");
 		}
 	}
 }

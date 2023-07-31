@@ -142,5 +142,5 @@ public class CaregiverVO {
 	public void setG_signup_date(Date g_signup_date) {
 		this.g_signup_date = g_signup_date;
 	}
-
+	
 }
