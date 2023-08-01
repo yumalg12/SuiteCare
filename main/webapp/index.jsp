@@ -24,6 +24,7 @@
 </style>
 <%@ include file="/header-import.jsp"%>
 </head>
+
 <body>
 	<%@ include file="/header.jsp"%>
 	<!-- Banner -->
