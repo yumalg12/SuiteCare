@@ -100,10 +100,12 @@ String res_code = (String)session.getAttribute("res_code");
 				<label class="addr-label">나머지 주소</label><input type="text" id="hospdetail_addr" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
 			<input type="hidden" id="addr" name="hospaddr" value=""> <!-- 주소 값으로는 이 input만 전송되게 됩니다 -->
 			</div>
-			<div class="form_button">
-		 <input type="button" class="button" onclick="back();" value="뒤로가기">
+			<div class="form_button_three">
 		 <input type="reset" class="button alt" value="초기화"> 
+		 <div>
+		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
+		 </div>
 			</div>
 </form>
 					</div>

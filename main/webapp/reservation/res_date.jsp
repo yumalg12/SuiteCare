@@ -7,8 +7,8 @@
 <html>
 <head>
 <title>SC 스위트케어 | 간병 예약</title>
-
 <%@ include file="/header-import.jsp"%>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -126,7 +126,7 @@ width: auto !important;
 			</div>
 		</div>
 	</section>
-
+<%@include file="/footer.jsp" %>
 </body>
 
 <script>
