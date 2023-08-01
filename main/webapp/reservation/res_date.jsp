@@ -98,18 +98,20 @@ width: auto !important;
 						<br>
 						<form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">
 							<div class="form_row">
-								<label>시작</label>
+								<label>간병 기간</label>
 								<div>
 									<input type="text" id="startdate" name="startdate" class="res_date" >
-									<input type="text" id="starttime" name="starttime" class="res_date" placeholder="시작 시간">
-									<span class="ui-timepicker-trigger">🕑</span>
+									<span style="position: relative; left: -0.4rem;">~</span>
+									<input type="text" id="enddate" name="enddate" class="res_date">
 								</div>
 							</div>
 
 							<div class="form_row">
-								<label>종료</label>
+								<label>간병 시간</label>
 								<div>
-									<input type="text" id="enddate" name="enddate" class="res_date">
+									<input type="text" id="starttime" name="starttime" class="res_date" placeholder="시작 시간">
+									<span class="ui-timepicker-trigger" style="margin-right: -0.7rem;">🕑</span>
+									<span style="position: relative; left: -0.4rem;">~</span>
 									<input type="text" id="endtime" name="endtime" class="res_date" placeholder="종료 시간">
 									<span class="ui-timepicker-trigger">🕑</span>
 								</div>
