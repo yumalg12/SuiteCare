@@ -29,6 +29,20 @@
 	margin: 3rem 0;
 }
 
+.form_button_three {
+	margin: 3rem 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.form_button_three > div {
+	text-align: right;
+}
+
+.form_button_three > input, button {
+	width: fit-content;
+}
+
 .input_with_button {
 width: calc(100% - 90px);
     display: inline;

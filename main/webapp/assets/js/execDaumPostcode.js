@@ -35,7 +35,7 @@ function execDaumPostcode() {
       document.getElementById('zipcode').value = data.zonecode; //5자리 새 우편번호 사용
       document.getElementById('roadAddress').value = fullRoadAddr;
       document.getElementById('jibunAddress').value = data.jibunAddress;
-
+	setAddress()
       window.close();
     }
   }).open();
