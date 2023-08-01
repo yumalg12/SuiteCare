@@ -30,6 +30,8 @@
 	<!-- Banner -->
 	<section class="banner full">
 		<article>
+		<%int num = (int) (Math.random() * 4 + 1); %>
+		<img src="images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
 					<p>
