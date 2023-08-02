@@ -12,13 +12,13 @@
 <body>
 <% 
 request.setCharacterEncoding("utf-8");
-String patient_id = (String)session.getAttribute("patient_id");
-String patient_code = (String)session.getAttribute("patient_code");
+String m_id = (String)session.getAttribute("m_id");
+String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
-ReservationDAO dao = new ReservationDAO();
-String home = request.getParameter("home");
 
-int result = dao.updatehome(home, patient_code);
+ReservationDAO dao = new ReservationDAO();
+
+int result = dao.updatehome(res_code);
 
 if(result==1) {
 		response.sendRedirect("reshome.jsp");

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .form_wrapper {
-	width: 50%;
+	width: 100%;
 	margin: 0 auto;
 	max-width: 576px;
 }
@@ -21,9 +21,36 @@
 .form_row_sub {
 	display: grid;
 	grid-template-columns: 1fr 0.5fr;
+	column-gap: 0.3rem;
 }
 
 .form_button {
 	text-align: center;
 	margin: 3rem 0;
+}
+
+.form_button_three {
+	margin: 3rem 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.form_button_three > div {
+	text-align: right;
+}
+
+.form_button_three > input, button {
+	width: fit-content;
+}
+
+.input_with_button {
+width: calc(100% - 90px);
+    display: inline;
+    margin-right: 5px;
+}
+    
+.addr-label{
+	margin-left: 1.5rem;
+	margin-top: 0.5rem;
+	font-weight: 400;
 }

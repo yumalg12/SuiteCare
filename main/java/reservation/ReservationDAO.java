@@ -34,14 +34,14 @@ public class ReservationDAO {
 		}
 	}
 	
-	public int pinfocheck(String patient_id) {
+	public int tinfocheck(String m_id) {
 		System.out.println("피간병인 정보 확인");
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT count(*) FROM CARETAKER WHERE id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
+		String sql = "SELECT count(*) FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, patient_id);
+		pstmt.setString(1, m_id);
 		
 		rs = pstmt.executeQuery();
 		
@@ -80,22 +80,22 @@ public class ReservationDAO {
 		return ok;
 	}
 	
-	public List<PatientinfoVO> listpname(String patient_id) {
-		List<PatientinfoVO> list= new ArrayList<PatientinfoVO>();
+	public List<CaretakerinfoVO> listtname(String m_id) {
+		List<CaretakerinfoVO> list= new ArrayList<CaretakerinfoVO>();
 		
 		try {
 			connect();
 				
-			String sql = "SELECT patient FROM CARETAKER WHERE id = ?";
+			String sql = "SELECT t_name FROM CARETAKER WHERE m_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, patient_id);
+			pstmt.setString(1, m_id);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String patient_name = rs.getString("patient");
+				String t_name = rs.getString("t_name");
 				
-				PatientinfoVO vo = new PatientinfoVO();
-				vo.setPatient(patient_name);
+				CaretakerinfoVO vo = new CaretakerinfoVO(); 
+				vo.setT_name(t_name);
 				
 				list.add(vo);
 			}
@@ -109,59 +109,36 @@ public class ReservationDAO {
 		return list;
 	}
 	
-	public List<PatientinfoVO> listPinfo(String patient_id, String patient) {
-		List<PatientinfoVO> list= new ArrayList<PatientinfoVO>();
+	public List<CaretakerinfoVO> listtinfo(String m_id, String t_name) {
+		List<CaretakerinfoVO> list= new ArrayList<CaretakerinfoVO>();
 		try {
 			connect();
 				
-			String sql = "SELECT * FROM CARETAKER WHERE id = ? and patient = ?";
+			String sql = "SELECT * FROM CARETAKER WHERE m_id = ? and t_name = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, patient_id);
-			pstmt.setString(2, patient);
+			pstmt.setString(1, m_id);
+			pstmt.setString(2, t_name);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				String patient_name = rs.getString("patient");
-				String patient_code = rs.getString("patient_code");
-				int age = rs.getInt("age");
-				int height = rs.getInt("height");
-				int weight = rs.getInt("weight");
-				String gender = rs.getString("gender");
-				String addr = rs.getString("addr");
-				String detail_addr = rs.getString("detail_addr");
+				String tname = rs.getString("t_name");
+				String t_code = rs.getString("t_code");
+				int t_age = rs.getInt("t_age");
+				int t_height = rs.getInt("t_height");
+				int t_weight = rs.getInt("t_weight");
+				String t_gender = rs.getString("t_gender");
 				String diagnosis = rs.getString("diagnosis");
-				String consciousness = rs.getString("consciousness");
-				String care_meal_yn = rs.getString("care_meal_yn");
-				String care_toilet = rs.getString("care_toilet");
-				String state_paralysis = rs.getString("state_paralysis");
-				String state_mobility = rs.getString("state_mobility");
-				String bedsore_yn = rs.getString("bedsore_yn");
-				String suction_yn = rs.getString("suction_yn");
-				String outpatient_yn = rs.getString("outpatient_yn");
-				String care_night_yn = rs.getString("care_night_yn");
-				String notice = rs.getString("notice");
 				
-				PatientinfoVO vo = new PatientinfoVO();
-				vo.setPatient(patient_name);
-				vo.setPatient_code(patient_code);
-				vo.setAge(age);
-				vo.setHeight(height);
-				vo.setWeight(weight);
-				vo.setGender(gender);
-				vo.setAddr(addr);
-				vo.setDetail_addr(detail_addr);
+				
+				CaretakerinfoVO vo = new CaretakerinfoVO();
+				
+				vo.setT_name(t_name);
+				vo.setT_code(t_code);
+				vo.setT_age(t_age);
+				vo.setT_height(t_height);
+				vo.setT_weight(t_weight);
+				vo.setT_gender(t_gender);
 				vo.setDiagnosis(diagnosis);
-				vo.setConsciousness(consciousness);
-				vo.setCare_meal_yn(care_meal_yn);
-				vo.setCare_toilet(care_toilet);
-				vo.setState_paralysis(state_paralysis);
-				vo.setState_mobility(state_mobility);
-				vo.setBedsore_yn(bedsore_yn);
-				vo.setSuction_yn(suction_yn);
-				vo.setOutpatient_yn(outpatient_yn);
-				vo.setCare_night_yn(care_night_yn);
-				vo.setNotice(notice);
-				
 				
 				list.add(vo);
 			}
@@ -175,7 +152,7 @@ public class ReservationDAO {
 		return list;
 	}
 	
-	public String insert(String patient_id, String patient_code) {
+	public String insert(ReservationVO vo) {
 		
 		String rescode = null;
 		try {
@@ -183,21 +160,31 @@ public class ReservationDAO {
 			
 			
 			String sql = 
-			"INSERT INTO RESERVATION(id, patient_code)"
-					+ "VALUES(?,?)";
+			"INSERT INTO RESERVATION(m_id, caretaker_code, consciousness, care_meal_yn, care_toilet, state_paralysis, state_mobility, bedsore_yn, suction_yn, outpatient_yn, care_night_yn, notice)"
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, patient_id);
-			pstmt.setString(2, patient_code);
+			pstmt.setString(1, vo.getM_id());
+			pstmt.setString(2, vo.getCaretaker_code());
+			pstmt.setString(3, vo.getConsciousness());
+			pstmt.setString(4, vo.getCare_meal_yn());
+			pstmt.setString(5, vo.getCare_toilet());
+			pstmt.setString(6, vo.getState_paralysis());
+			pstmt.setString(7, vo.getState_mobility());
+			pstmt.setString(8, vo.getBedsore_yn());
+			pstmt.setString(9, vo.getSuction_yn());
+			pstmt.setString(10, vo.getOutpatient_yn());
+			pstmt.setString(11, vo.getCare_night_yn());
+			pstmt.setString(12, vo.getNotice());
 			
 			pstmt.executeUpdate();
 			
-			String selectSql = "SELECT res_code FROM RESERVATION WHERE patient_code=? ORDER BY res_code DESC LIMIT 1";
+			String selectSql = "SELECT res_code FROM RESERVATION WHERE caretaker_code=? ORDER BY res_code DESC LIMIT 1";
 			//피간병인 코드별 예약번호를 내림차순으로 정렬하여 가장 최근에 만들어진 예약코드 select
 			
 			stmnt = conn.prepareStatement(selectSql);
-			stmnt.setString(1, patient_code);
+			stmnt.setString(1, vo.getCaretaker_code());
 			
 			rs = stmnt.executeQuery();
 			
@@ -215,16 +202,55 @@ public class ReservationDAO {
 		return rescode;
 	}
 	
-	public int updatehome(String home, String patient_code) {
+	public ReservationVO getLatestReservation(String m_id, String t_code) {
+	    ReservationVO reservation = null;
+	    try {
+	        connect();
+
+	        String sql = "SELECT * FROM reservation WHERE m_id = ? AND caretaker_code = ? ORDER BY res_code DESC LIMIT 1";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, m_id);
+	        pstmt.setString(2, t_code);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            ReservationVO vo = new ReservationVO();
+	            vo.setConsciousness(rs.getString("consciousness"));
+	            vo.setCare_meal_yn(rs.getString("care_meal_yn"));
+	            vo.setCare_toilet(rs.getString("care_toilet"));
+	            vo.setState_paralysis(rs.getString("state_paralysis"));
+	            vo.setState_mobility(rs.getString("state_mobility"));
+	            vo.setBedsore_yn(rs.getString("bedsore_yn"));
+	            vo.setSuction_yn(rs.getString("suction_yn"));
+	            vo.setOutpatient_yn(rs.getString("outpatient_yn"));
+	            vo.setCare_night_yn(rs.getString("care_night_yn"));
+	            vo.setNotice(rs.getString("notice"));
+
+	            reservation = vo;
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return reservation;
+	}
+
+	public int updatehome(String res_code) {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE CARETAKER SET location=? where patient_code=?";
+			String sql = "UPDATE  `suitecare`.`reservation` SET location='home' where res_code=?";
 			pstmt = conn.prepareStatement(sql);
-		
-			pstmt.setString(1, home);
-			pstmt.setString(2, patient_code);
-			
+
+			pstmt.setString(1, res_code);
 			
 			result=pstmt.executeUpdate();
 			
@@ -239,16 +265,18 @@ public class ReservationDAO {
 		} return result;
 	}
 	
-	public int updateaddr(PatientinfoVO vo) {
+	public int updateaddr(ReservationVO vo) {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE CARETAKER SET addr=?, detail_addr=? where patient_code=?";
+			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, vo.getAddr());
 			pstmt.setString(2, vo.getDetail_addr());
-			pstmt.setString(3, vo.getPatient_code());
+			pstmt.setString(3, vo.getCaretaker_code());
+			pstmt.setString(4, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
@@ -269,13 +297,13 @@ public class ReservationDAO {
 		try {
 			connect();
 			
-			String sql = "select * from reservation_info where start_date <= ? AND end_date >= ? and start_time<? and end_time>? and patient_code=?";
+			String sql = "select * from reservation_info where start_date <= ? AND end_date >= ? and start_time<? and end_time>? and caretaker_code=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getEnd_date());
 			pstmt.setString(2, vo.getStart_date());
 			pstmt.setString(3, vo.getEnd_time());
 			pstmt.setString(4, vo.getStart_time());
-			pstmt.setString(5, vo.getPatient_code());
+			pstmt.setString(5, vo.getCaretaker_code());
 			
 			ResultSet rs = pstmt.executeQuery();
 
@@ -299,7 +327,7 @@ public class ReservationDAO {
 			connect();
 			
 			String sql = 
-					"INSERT INTO reservation_info(res_code, start_date, end_date, start_time, end_time, patient_code)"
+					"INSERT INTO reservation_info(res_code, start_date, end_date, start_time, end_time, caretaker_code)"
 							+ "VALUES(?,?,?,?,?,?)";
 					
 					pstmt = conn.prepareStatement(sql);
@@ -309,7 +337,7 @@ public class ReservationDAO {
 					pstmt.setString(3, vo.getEnd_date());
 					pstmt.setString(4, vo.getStart_time());
 					pstmt.setString(5, vo.getEnd_time());
-					pstmt.setString(6, vo.getPatient_code());
+					pstmt.setString(6, vo.getCaretaker_code());
 					
 					result = pstmt.executeUpdate();
 					
@@ -324,17 +352,90 @@ public class ReservationDAO {
 			}
 	
 	
-	public int updatehospaddr(PatientinfoVO vo) {
+	public int updatehospaddr(ReservationVO vo) {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE CARETAKER SET location=?, addr=?, detail_addr=? where patient_code=?";
+			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getLocation());
 			pstmt.setString(2, vo.getAddr());
 			pstmt.setString(3, vo.getDetail_addr());
-			pstmt.setString(4, vo.getPatient_code());
+			pstmt.setString(4, vo.getCaretaker_code());
+			pstmt.setString(5, vo.getRes_code());
+
+			result=pstmt.executeUpdate();
+			
+			System.out.println(result);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { if(pstmt!=null) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} return result;
+	}
+	
+	public List<PrelocationVO> preloclist() {
+		List<PrelocationVO> list= new ArrayList<PrelocationVO>();
+		try {
+			connect();
+				
+			String sql = "SELECT * FROM location";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				int sido_code = rs.getInt("sido_code");
+				String sido = rs.getString("sido");
+				
+				
+				PrelocationVO vo = new PrelocationVO();
+				
+				vo.setSido_code(sido_code);
+				vo.setSido(sido);
+				list.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int updatepre(ReservationInfoVO vo) {
+		int result = 0;
+		try {
+			connect();
+			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual_1=?, pre_qual_2=?, pre_qual_3=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?  where res_code=?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, vo.getPre_location_1());
+			pstmt.setInt(2, vo.getPre_location_2());
+			pstmt.setInt(3, vo.getPre_location_3());
+			pstmt.setString(4, vo.getPre_age_1());
+			pstmt.setString(5, vo.getPre_age_2());
+			pstmt.setString(6, vo.getPre_age_3());
+			pstmt.setString(7, vo.getPre_gender());
+			pstmt.setString(8, vo.getPre_qual_1());
+			pstmt.setString(9, vo.getPre_qual_2());
+			pstmt.setString(10, vo.getPre_qual_3());
+			pstmt.setString(11, vo.getPre_repre_1());
+			pstmt.setString(12, vo.getPre_repre_2());
+			pstmt.setString(13, vo.getPre_repre_3());
+			pstmt.setString(14, vo.getPre_hourwage_1());
+			pstmt.setString(15, vo.getPre_hourwage_2());
+			pstmt.setString(16, vo.getPre_hourwage_3());
+			pstmt.setString(17, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
@@ -348,5 +449,6 @@ public class ReservationDAO {
 			}
 		} return result;
 	}
+	
 	
 }

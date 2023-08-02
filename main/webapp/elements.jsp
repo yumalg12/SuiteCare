@@ -4,9 +4,8 @@
 <html>
 	<head>
 		<title>SC 스위트케어 | 스타일 가이드</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+<%@ include file="/header-import.jsp" %>
+
 	</head>
 	<body>
 <%@ include file="/header.jsp" %>

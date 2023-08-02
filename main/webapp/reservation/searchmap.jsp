@@ -7,6 +7,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+<<<<<<< HEAD
     <title>키워드로 장소검색하고 목록으로 표출하기</title>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0df65592c31f54572a252b502738e35&libraries=services"></script>
  
@@ -23,6 +24,21 @@
 #menu_wrap .option button {margin-left:5px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+=======
+    <title>병원 주소 검색</title>
+
+ <%@ include file="/header-import.jsp"%>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0df65592c31f54572a252b502738e35&libraries=services"></script>
+ 
+ <style>
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:350px;height:100vh;padding:1rem;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #ccc;overflow: hidden;cursor: pointer;min-height: 65px;}
+>>>>>>> 65c6c60319db5c0d6ca4a12765261e941b53b4e4
 #placesList .item span {display: block;margin-top:4px;}
 #placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 #placesList .item .info{padding:10px 0 10px 55px;}
@@ -48,6 +64,21 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+<<<<<<< HEAD
+=======
+
+body{
+overflow: hidden;
+}
+
+form {
+    margin: 0;
+}
+
+ul, li {
+    padding-left: 0;
+}
+>>>>>>> 65c6c60319db5c0d6ca4a12765261e941b53b4e4
 </style>
 </head>
 
@@ -60,14 +91,26 @@
 
 
 <div class="map_wrap">
+<<<<<<< HEAD
     <div id="map" style="width:800px;height:600px;overflow:hidden;"></div>
+=======
+    <div id="map" style="height:100vh;overflow:hidden;"></div>
+>>>>>>> 65c6c60319db5c0d6ca4a12765261e941b53b4e4
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
+<<<<<<< HEAD
                     키워드 : <input type="text" placeholder="병원이름을 입력하세요" id="keyword" size="20"> 
                     <button type="submit">검색하기</button> 
+=======
+                    <h2>병원 검색</h2>
+                    <div class="form_row_sub">
+                    <input type="text" class="" placeholder="병원 이름을 입력하세요" id="keyword"> 
+                    <button type="submit" class="button special">검색하기</button> 
+                    </div>
+>>>>>>> 65c6c60319db5c0d6ca4a12765261e941b53b4e4
                 </form>
             </div>
         </div>
