@@ -27,14 +27,21 @@ td {
 	text-align: center;
 }
 </style>
-
+<script>
+function upcheck() {
+	var f = document.tupdateForm;
+	f.action = "tUpdateCheck.jsp";
+	f.submit();
+}
+</script>
 <body>
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
+String t_name = request.getParameter("t_name");
 
-TakerDAO dao = new TakerDAO();
-List<TakerVO> list = dao.takerList(m_id);
+TakerDAO dao = new TakerDAO(); 
+List<TakerVO> list = dao.takernameList(m_id, t_name);
 
 for(int i=0; i<list.size(); i++) {
 	TakerVO listvo = (TakerVO) list.get(i);
@@ -70,21 +77,23 @@ for(int i=0; i<list.size(); i++) {
 					</header>
 					
 					<!-- Table -->
+					<form name="tupdateForm">
 					<table>
-					<tr><td>이름</td><td>성별</td><td>나이</td><td>키</td><td>몸무게</td><td>지역</td><td>상태(병명)</td></tr>
+					<tr><td>이름</td><td>코드</td><td>성별</td><td>나이</td><td>키</td><td>몸무게</td><td>상태(병명)</td></tr>
 					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>" size="20"></td>
+					<td><input type="text" name="t_code" id="t_code"  value="<%=code %>" size="20"></td>
 					<td><input type="text" name="t_gender" id="t_gender"  value="<%=gender %>" size="20"></td>
 					<td><input type="text" name="t_age" id="t_age"  value="<%=age %>" size="20"></td>
 					<td><input type="text" name="t_height" id="t_height"  value="<%=height %>" size="20"></td>
 					<td><input type="text" name="t_weight" id="t_weight"  value="<%=weight %>" size="20"></td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="주소" size="20"></td>
 					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>" size="20"></td>
 					</tr>
 					</table>
 					<div class="form_button" >
-						<button class="button special" onclick="location.href='tUpdateCheck.jsp'">수정 완료</button>
+						<button class="button special" onclick="upcheck();">수정 완료</button>
 						&nbsp;
 						<span class="button alt" onclick="location.href='../member/mypage.jsp'">취소</span>
+						</form>
 					</div>
 				</div>
 			</div>
