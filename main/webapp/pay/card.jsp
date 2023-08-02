@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -11,17 +11,17 @@
 <body>
 
  <div align="center">
- <p  style="color: #ac2925; margin-top: 30px">½ÇÁ¦ Ãâ±İ °ÇÀÌ ¹ß»ıÇÏ´Ï °áÁ¦±İ¾× 1¿øÀ» ¼±ÅÃÇØÁÖ¼¼¿ä!!!!.</p>
-<input type="radio" name="cd_item" value="1"><span>1¿ø</span>
-<input type="radio" name="cd_item" value="10000"><span>10,000¿ø</span>
-<input type="radio" name="cd_item" value="15000"><span>15,000¿ø</span><br/>
-<input type="radio" name="cd_item" value="20000"><span>20,000¿ø</span>
-<input type="radio" name="cd_item" value="25000"><span>25,000¿ø</span>
-<input type="radio" name="cd_item" value="30000"><span>30,000¿ø</span><br/>
-<input type="radio" name="cd_item" value="35000"><span>35,000¿ø</span>
-<input type="radio" name="cd_item" value="40000"><span>40,000¿ø</span>
-<input type="radio" name="cd_item" value="50000"><span>50,000¿ø</span>
-<button type="button" id="charge_card">Ãæ Àü ÇÏ ±â</button>
+ <p  style="color: #ac2925; margin-top: 30px">ì‹¤ì œ ì¶œê¸ˆ ê±´ì´ ë°œìƒí•˜ë‹ˆ ê²°ì œê¸ˆì•¡ 1ì›ì„ ì„ íƒí•´ì£¼ì„¸ìš”!!!!.</p>
+<input type="radio" name="cd_item" value="1"><span>1ì›</span>
+<input type="radio" name="cd_item" value="10000"><span>10,000ì›</span>
+<input type="radio" name="cd_item" value="15000"><span>15,000ì›</span><br/>
+<input type="radio" name="cd_item" value="20000"><span>20,000ì›</span>
+<input type="radio" name="cd_item" value="25000"><span>25,000ì›</span>
+<input type="radio" name="cd_item" value="30000"><span>30,000ì›</span><br/>
+<input type="radio" name="cd_item" value="35000"><span>35,000ì›</span>
+<input type="radio" name="cd_item" value="40000"><span>40,000ì›</span>
+<input type="radio" name="cd_item" value="50000"><span>50,000ì›</span>
+<button type="button" id="charge_card">ì¶© ì „ í•˜ ê¸°</button>
  </div>
  
  <form id = "cardpay" name = "cardpay" action = "/payment/Payment/addpay.do" method = "get">
@@ -43,7 +43,7 @@
 	     pg: "html5_inicis",
 	     pay_method: "card",
 	     merchant_uid: "sc" + new Date(),
-	     name: "SC ½ºÀ§Æ®ÄÉ¾î",
+	     name: "SC ìŠ¤ìœ„íŠ¸ì¼€ì–´",
 	     amount: c,	     
 	     language: "",
 	     buyer_tel: "010-1111-1111",
@@ -51,10 +51,10 @@
    }, function (rsp) {
 	   console.log(rsp);
 	   if (rsp.success) {
-		  var msg = '°áÁ¦ ¿Ï·á!';
-		  msg += '°áÁ¦ ±İ¾×:' + rsp.paid_amount;
-		  msg += '°áÁ¦¼ö´Ü:' + rsp.pay_method;
-		  msg += 'Ä«µå»ç¸í' + rsp.card_name;
+		  var msg = 'ê²°ì œ ì™„ë£Œ!';
+		  msg += 'ê²°ì œ ê¸ˆì•¡:' + rsp.paid_amount;
+		  msg += 'ê²°ì œìˆ˜ë‹¨:' + rsp.pay_method;
+		  msg += 'ì¹´ë“œì‚¬ëª…' + rsp.card_name;
 		
 		  document.getElementById("amountRsp").value = rsp.paid_amount;
 	 	  document.getElementById("merchant_uidRsp").value = rsp.merchant_uid;
@@ -63,7 +63,7 @@
 	 	  document.getElementById("cardpay").submit();
 	   
    } else{
-	   var msg = '°áÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.';
+	   var msg = 'ê²°ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.';
    }
     alert(msg);
    });
