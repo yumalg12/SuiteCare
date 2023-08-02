@@ -20,6 +20,7 @@
 <body>
 
 	<%@ include file="../header.jsp" %>
+	<% String file_repo = "/suiteCare/src/main/webapp/assets/profile/"; %>
 
 <!-- One -->
    <section id="One" class="wrapper style3">
@@ -45,8 +46,13 @@
 				   <!-- form 시작 -->
 					<form name="infoForm"  id="infoForm" method=post action=caregiver>
 						<c:forEach var="info" items="${info }">
-						
+							
 							<div class="form_wrapper">
+								<div class="form_row">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width:150px; height:150px;"/>
+									<input type="file" name="profile">
+								</div>   
+								
 								<div class="form_row">
 									<label for="id">아이디</label>      
 									<input type="text" name="id" value="${info.g_id }" disabled>
@@ -83,8 +89,8 @@
 								<div class="form_row">
 									<label for="sms_yn">SMS 수신 여부</label>
 									<div onclick="javascript:setSMSYN()">
-									<input type="checkbox" id="sms_switch" checked><label for="sms_switch" id= "sms_switch_text"style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
-									<input type="hidden" name="sms_yn" value = "Y" <c:if test="${info.g_sms_yn eq 'Y' }">checked</c:if>>
+                                    	<input type="checkbox" name="sms_yn" id="sms_switch" value = "Y" <c:if test="${info.g_sms_yn eq 'Y' }">checked</c:if>>
+                                    	<label for="sms_switch" id= "sms_switch_text"style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
 									</div>
 								</div>
 								
@@ -96,8 +102,8 @@
 								<div class="form_row">
 								<label for="email_yn">이메일 수신 여부</label>
 									<div onclick="javascript:setEmailYN()">
-									<input type="checkbox" id="email_switch" checked><label for="email_switch" id= "email_switch_text"style="margin:0.3rem 0 0 0;"> 메일로 소식을 수신합니다.</label>
-									<input type="hidden" name="email_yn" value = "Y" <c:if test="${info.g_email_yn eq 'Y' }">checked</c:if>>
+									<input type="checkbox" name="email_yn" id="email_switch" <c:if test="${info.g_email_yn eq 'Y' }">checked</c:if> value="Y">
+									<label for="email_switch" id="email_switch_text" style="margin:0.3rem 0 0 0;"> 메일로 소식을 수신합니다.</label>
 									</div>
 								</div>
 								
@@ -106,21 +112,37 @@
 									<input type="text" name="address" value="${info.g_address }" id="address">
 								</div>
 							
-							
-								<c:set var="representatives" value="${fn:split(info.g_representative,'&')}" />
-								<div class="form_row" id="repreDiv">
-									<label for="repre" class="representative"> 대표서비스 </label>
-									<c:forEach var="repre" items="${representatives}">
-										<input type="text" value="${repre }" name="repre" class="rtext"><br>
-									</c:forEach>
-									<input type="button" value="추가" id="addRepre">
+								<div class="form_row">
+									<label for="service">서비스</label>
+									<div>
+	                                    <input type="checkbox" name="service" id="service" value = "1">
+	                                    <label for="service" style="margin:0.3rem 0 0 0;">1</label>
+									</div>
+									<div>
+	                                    <input type="checkbox" name="service" id="service2" value = "2">
+	                                    <label for="service2" style="margin:0.3rem 0 0 0;">2</label>
+									</div>
+									<div>
+	                                    <input type="checkbox" name="service" id="service3" value = "3">
+	                                    <label for="service3" style="margin:0.3rem 0 0 0;">3</label>
+									</div>
+									<!-- <div>
+	                                    <input type="checkbox" name="service" id="service_etc" class="act" value = "etc">
+	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
+	                                    <input type="text" id="ser_etc" disabled>
+									</div> -->
 								</div>
-							        
+								
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
-									<label for="qual" class="qualification">자격증 </label>
+									<div class="col">
+										<label for="qual" class="qualification">자격증 </label>
+									</div>
 									<c:forEach var="qual" items="${qualifications}">
-										<input type="text" value="${qual }" name="qual" class="qtext"><br>
+										<div>
+											<input type="text" value="${qual }" name="qual" class="qtext">
+											<span id="delete">삭제</span>
+										</div>
 									</c:forEach>
 									<input type="button" value="추가" id="add">
 								</div>
@@ -160,7 +182,7 @@
 <script>
    
    $(document).on('click', '#addRepre' , function() {
-	   $("#addRepre").before("<input type='text' name='repre' class='rtext'><br>");  
+	   $("#addRepre").before("<input type='text' name='repre' class='rtext'><span id='delete'>삭제</span>");  
 	   
        var repreCnt = 0;
        $("#repreDiv > .rtext").each(function(){
@@ -171,7 +193,7 @@
    });
       
    $(document).on('click', '#add' , function() {
-      $("#add").before("<input type='text' name='qual' class='qtext'><br>");
+      $("#add").before("<input type='text' name='qual' class='qtext'><span id='delete'>삭제</span>");
 
       var qualCnt = 0;
       $("#qualDiv > .qtext").each(function(){
@@ -181,6 +203,12 @@
       $(".qualification").attr("rowspan", qualCnt);
    });
 
+   $(document).on('click', '#delete' , function() {
+	   alert("삭제");
+	   $(this).prev().remove();
+	   $(this).remove();
+   });
+   
    $(document).on('click', '#btn_updt' , function() {
 	   if($("#email").val().length == 0){
 	   		alert("이메일을 입력하세요.");
@@ -205,14 +233,8 @@
 	   
    });
    
-   /* $(document).on('click', '#click' , function() {
-	   $("#rtext").remove();
-	   p = this.parentElement;
-	   p.removeChild(this);
-   }); */
-   
    function change_pw() {
       window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
-	   
+
 </script>
