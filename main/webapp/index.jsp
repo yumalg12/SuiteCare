@@ -44,7 +44,11 @@
 					<div class="grid-style">
 
 						<div>
+<<<<<<< HEAD
 							<div class="box" onclick="location.href='patientLogin.jsp'" style="cursor: pointer;">
+=======
+							<div class="box" onclick="location.href='./member/caretakerLogin.jsp'" style="cursor: pointer;">
+>>>>>>> parent of e2fd0b3 (no message)
 								<div class="conB_content">
 								
                        <i class="fa-solid fa-magnifying-glass icon" style="color: #423730;"></i>              

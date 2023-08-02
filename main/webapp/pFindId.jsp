@@ -46,7 +46,11 @@
 }
 </style>
 
+<<<<<<< HEAD:main/webapp/pFindId.jsp
 <%@ include file="./dbcon.jsp" %>
+=======
+<%@ include file="../dbcon.jsp" %>
+>>>>>>> parent of e2fd0b3 (no message):main/webapp/member/tFindId.jsp
 	<script src="js/bootstrap.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

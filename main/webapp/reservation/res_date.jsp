@@ -18,13 +18,22 @@
 <body>
 <% 
 request.setCharacterEncoding("utf-8");
+<<<<<<< HEAD
 String patient_id = (String)session.getAttribute("patient_id");
 String patient_code = (String)session.getAttribute("patient_code");
+=======
+String m_id = (String)session.getAttribute("m_id");
+String caretaker_code = (String)session.getAttribute("caretaker_code");
+>>>>>>> parent of e2fd0b3 (no message)
 String res_code = (String)session.getAttribute("res_code");
 %>
 
 <h3> 예약코드 : <%=res_code %></h3>
+<<<<<<< HEAD
 <h3> 피간병인 코드 : <%=patient_code %></h3>
+=======
+<h3> 피간병인 코드 : <%=caretaker_code %></h3>
+>>>>>>> parent of e2fd0b3 (no message)
 <br>
 <h3> 간병 시간을 선택해주세요 </h3> 
 <form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">

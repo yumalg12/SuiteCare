@@ -3,9 +3,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<<<<<<< HEAD:main/webapp/patientLogin.jsp
 <title>SC 스위트케어 | 로그인</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+=======
+<title>SC 스위트케어 | 일반 본문</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../assets/css/main.css" />
+>>>>>>> parent of e2fd0b3 (no message):main/webapp/member/caretakerLogin.jsp
 
 <script>
 function loginForm() {
@@ -24,7 +31,12 @@ function loginForm() {
 </script>
 </head>
 <body>
+<<<<<<< HEAD:main/webapp/patientLogin.jsp
 	<%@ include file="/header.jsp"%>
+=======
+
+	<%@ include file="../header.jsp"%>
+>>>>>>> parent of e2fd0b3 (no message):main/webapp/member/caretakerLogin.jsp
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -50,11 +62,19 @@ function loginForm() {
 
 							<div class="form-row">
 								<input type="text" class="form-control" placeholder="아이디"
+<<<<<<< HEAD:main/webapp/patientLogin.jsp
 									name="id"> <br>
 							</div>
 							<div class="form-row">
 								<input type="password" class="form-control" placeholder="비밀번호"
 									name="pw"> <br>
+=======
+									name="m_id"> <br>
+							</div>
+							<div class="form-row">
+								<input type="password" class="form-control" placeholder="비밀번호"
+									name="m_pw"> <br>
+>>>>>>> parent of e2fd0b3 (no message):main/webapp/member/caretakerLogin.jsp
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>

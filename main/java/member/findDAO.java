@@ -10,8 +10,10 @@ public class findDAO {
 	private PreparedStatement pstmt;
 	private Statement stmnt;
 	private Connection conn;
+	private DataSource dataFactory;
 
 	public void connect() {
+<<<<<<< HEAD:main/java/member/findDAO.java
 		try{
 			String url = "jdbc:mysql://localhost:3306/suitecare";
 			   String id = "root";
@@ -21,7 +23,17 @@ public class findDAO {
 
 		System.out.println("MySQL DB 연결 성공");
 		} catch(Exception e) {}
+=======
+			try {
+				Context ctx = new InitialContext();
+				Context envContext = (Context) ctx.lookup("java:/comp/env");
+				dataFactory = (DataSource) envContext.lookup("jdbc/mysql");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+>>>>>>> parent of e2fd0b3 (no message):main/java/caregiver/findDAO.java
 	}
+	
 		
 	
 	// 환자
@@ -225,7 +237,7 @@ public class findDAO {
 	
 	
 	// 간병인
-	public String cFindId(String name, String phone) {
+	public String gFindId(String name, String phone) {
 		String find_id = null;
 		
 		try {

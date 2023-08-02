@@ -7,10 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>집주소입력</title>
 </head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+=======
+<title>주소입력</title>
+</head>
+>>>>>>> parent of e2fd0b3 (no message)
 
 
 <script>
@@ -103,6 +108,7 @@ String res_code = (String)session.getAttribute("res_code");
 
 %>
 <h3> 주소 찾기 </h3>
+<<<<<<< HEAD
 <form name="homeForm">
 <table border=1 cellpadding="2">
 <tr><td align="center"> 병원명 </td>
@@ -121,5 +127,24 @@ String res_code = (String)session.getAttribute("res_code");
 		</td></tr></table>
 		 <input type="button" onclick="back();" value="뒤로가기"> <input type="button" onclick="check();" value="확인"> <input type="reset" value="초기화"> 
 </form>
+=======
+<form name="hospForm">
+<table border=1 cellpadding="2">
+<tr><td align="center"> 병원명 </td>
+<td> <input type="text" name="hospname" id="hospname"> <input type="button" onclick="searchhosp()" value="병원 찾기"></td></tr>
+<tr>
+		<td align="center"> 주소 </td>
+		<td>
+		<br>
+		 <p> 
+		도로명 주소 <br><input type="text" id="hospaddr"  name="hospaddr" size="50"><br><br>
+		나머지 주소 <br><input type="text"  name="hospdetail_addr" size="50" />
+		 </p>
+		</td></tr></table>
+		 <input type="button" onclick="back();" value="뒤로가기"> <input type="button" onclick="check();" value="확인"> <input type="reset" value="초기화"> 
+</form>
+
+
+>>>>>>> parent of e2fd0b3 (no message)
 </body>
 </html>

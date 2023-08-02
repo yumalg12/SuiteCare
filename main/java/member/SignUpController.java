@@ -52,7 +52,13 @@ public class SignUpController extends HttpServlet {
 		
 		dao.addMember(vo);
 		
+<<<<<<< HEAD
         response.sendRedirect("index.jsp");
+=======
+		String context = ((HttpServletRequest)request).getContextPath();
+		//System.out.println("context: "+context);
+        response.sendRedirect(context+"/member/caretakerLogin.jsp");
+>>>>>>> parent of e2fd0b3 (no message)
 		}
 
 	}
