@@ -11,10 +11,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>SC 스위트케어 | 일반 본문</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
+		<title>SC 스위트케어 | 마이페이지</title>
+<%@ include file="/header-import.jsp" %>
+
 	</head>
 	
 	<script>
@@ -28,7 +27,7 @@
 		</script>
 	
 	<body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/header.jsp" %>
 
 	<!-- One -->
 			<section id="One" class="wrapper style3">
@@ -70,7 +69,7 @@
 			%>
 	
 		<form name="patientinfo">
-		<table border=1>
+		<table>
 		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td><td> 수정 </td></tr>
 		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name %>'>수정하기</a></td></tr>
 		</table> 
@@ -174,7 +173,6 @@
 							</div>
 							</section>
 							
-								
-							
+<%@include file="/footer.jsp" %>
 </body>
 </html>

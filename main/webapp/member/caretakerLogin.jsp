@@ -67,10 +67,9 @@ function loginForm() {
 				</div>
 			</div>
 		</div>
-		</div>
 	</section>
 
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="/footer.jsp"%>
 
 
 </body>

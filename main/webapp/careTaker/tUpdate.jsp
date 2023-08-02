@@ -8,24 +8,16 @@
 <html>
 	<head>
 		<title>SC 스위트케어 | 메인페이지</title>
+<%@ include file="/header-import.jsp" %>
 
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />	
-		<link rel="stylesheet" href="../assets/css/main.css" />
 	</head>
 	
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="./assets/js/execDaumPostcode.js"></script>
-
-<%@ include file="../header.jsp" %>
-
 <style>
-td {
-	text-align: center;
-}
-.box {
-	text-align: center;
-}
+.with_unit{
+	width: calc(100% - 40px) !important;
+    display: inline !important;
+    margin-right: 0.2rem !important;
+  }
 </style>
 <script>
 function upcheck() {
@@ -35,6 +27,8 @@ function upcheck() {
 }
 </script>
 <body>
+<%@ include file="/header.jsp" %>
+
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
@@ -79,21 +73,20 @@ for(int i=0; i<list.size(); i++) {
 					<!-- Table -->
 					<form name="tupdateForm">
 					<table>
-					<tr><td>이름</td><td>코드</td><td>성별</td><td>나이</td><td>키</td><td>몸무게</td><td>상태(병명)</td></tr>
-					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>" size="20"></td>
-					<td><input type="text" name="t_code" id="t_code"  value="<%=code %>" size="20"></td>
-					<td><input type="text" name="t_gender" id="t_gender"  value="<%=gender %>" size="20"></td>
-					<td><input type="text" name="t_age" id="t_age"  value="<%=age %>" size="20"></td>
-					<td><input type="text" name="t_height" id="t_height"  value="<%=height %>" size="20"></td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="<%=weight %>" size="20"></td>
-					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>" size="20"></td>
+					<tr><td>이름</td><td style="width: 5rem;">성별</td><td>나이</td><td>키</td><td>몸무게</td><td style="width: 16rem;">지역</td><td style="width: 16rem;">상태 (병명)</td></tr>
+					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>"></td>
+					<td><input type="text" name="t_gender" id="t_gender"  value="<%=gender %>"></td>
+					<td><input type="text" name="t_age" id="t_age"  value="<%=age %>" class="with_unit"> 세</td>
+					<td><input type="text" name="t_height" id="t_height"  value="<%=height %>" class="with_unit"> cm</td>
+					<td><input type="text" name="t_weight" id="t_weight"  value="<%=weight %>" class="with_unit"> kg</td>
+					<td><input type="text" name="t_weight" id="t_weight"  value="주소"></td>
+					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>"></td>
 					</tr>
 					</table>
 					<div class="form_button" >
-						<button class="button special" onclick="upcheck();">수정 완료</button>
+						<span class="button" onclick="history.back(0)">취소</span>
 						&nbsp;
-						<span class="button alt" onclick="location.href='../member/mypage.jsp'">취소</span>
-						</form>
+						<button class="button special" onclick="location.href='tUpdateCheck.jsp'">수정 완료</button>
 					</div>
 				</div>
 			</div>
@@ -101,7 +94,7 @@ for(int i=0; i<list.size(); i++) {
 	</section>
 <% } %>	
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="/footer.jsp" %>
 
 </body>
 </html>l>

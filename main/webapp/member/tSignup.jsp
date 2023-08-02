@@ -155,12 +155,12 @@ function setAddress() {
     let namujiAddress = document.getElementById("namujiAddress").value;
     
     if (!roadAddress){
-    	document.tSignupForm.m_address.value = "(우) " + zipcode + " " + jibunAddress + " " + namujiAddress;
+    	document.tSignupForm.m_address.innerHTML = "(우) " + zipcode + " " + jibunAddress + " " + namujiAddress;
     } else {
-    	document.tSignupForm.m_address.value = "(우) " + zipcode + " " + roadAddress + " " + namujiAddress;    	
+    	document.tSignupForm.m_address.innerHTML = "(우) " + zipcode + " " + roadAddress + " " + namujiAddress;    	
     }
     
-    console.log(document.tSignupForm.m_address.value);
+    console.log(document.tSignupForm.m_address.innerHTML);
 }
 
 </script>
@@ -211,13 +211,14 @@ function setAddress() {
 				<label for="name">이름</label> <input type="text" id="name" name="m_name" pattern="[가-힣]{2,10}" placeholder="한글 실명" title="한글 실명" required>
 			</div>
 			<div class="form_row">
-				<label for="gender">성별</label> <select id="gender" name="m_gender">
-
-					<option value="">성별 선택</option>
-					<option value="여성">여성</option>
-					<option value="남성">남성</option>
-				</select>
-			</div>
+				<label for="t_gender">성별</label>
+				<div>
+				<input type="radio" id="man" name="t_gender" value="남">
+				<label for="man">남자</label>
+				<input type="radio" id="woman" name="t_gender" value="여">
+				<label for="woman">여자</label> 
+				</div>
+			</div>		
 			<div class="form_row">
 				<label for="phone">휴대폰 번호</label>
 				<input type="tel" id="phone" name="m_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
@@ -229,11 +230,11 @@ function setAddress() {
 			<div class="form_row">
 			    <label>주소</label>
 				<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
-				<label class="addr-label">우편번호</label><input type="text" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
-				<label class="addr-label">지번 주소</label><input type="text" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
-			<input type="hidden" id="address" name="m_address" value="">
+				<input type="hidden" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" required>
+				<input type="hidden" id="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
+				<input type="hidden" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" required>
+				<input type="hidden" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
+			<span></span><textarea id="address" name="m_address"></textarea>
 			</div>
 			
 			<div class="form_row">
@@ -252,11 +253,15 @@ function setAddress() {
 
 				</div>
 			</div>
-		</div>
-			<div class="form_button">
-			<input type="hidden" name="type" value="signUp">
+			<div class="form_button_three">
+				<button type="reset" class="button alt">초기화</button>
+				<div>
+				<button onclick = "history.back()" class="button">취소</button>
 				<button type="submit" class="button special">회원가입</button>
+				</div>
 			</div>
+		</div>
+				<input type="hidden" name="type" value="signUp"/>
 	</form>
 
 	<!-- form 끝 -->
