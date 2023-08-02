@@ -164,9 +164,9 @@ String sido = null;
   						<% } %>
 							</select></td></tr>
 <tr><td>선호성별</td>
-<td><input type="radio" id="m" name="pre_gender" value="M">
+<td><input type="radio" id="man" name="pre_gender" value="M">
 		<label for="man">남자</label>
-	<input type="radio" id="w" name=pre_gender value="W">
+	<input type="radio" id="woman" name="pre_gender" value="W">
 		<label for="woman">여자</label></td></tr>
 <tr><td>선호자격증</td>
 <td>

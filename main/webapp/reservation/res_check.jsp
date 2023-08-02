@@ -47,14 +47,14 @@ if(result>0) {
 	%>
 	<script>
 	alert("예약 완료");
-	location.href='<%=request.getContextPath()%>/matchService.jsp';
+	location.href='<%=request.getContextPath()%>/reservation/matchService.jsp';
 	</script>
 	<%
 } else {
 	%>
 	<script>
 	alert("예약 실패");
-	location.href='<%=request.getContextPath()%>reservation/res_date.jsp';
+	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp';
 	</script>
 	<%
 } }
