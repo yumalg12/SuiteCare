@@ -44,11 +44,10 @@ int result = dao.insertresinfo(vo);
 
 if(result>0) {
 	session.removeAttribute("caretaker_code");
-	session.removeAttribute("res_code");
 	%>
 	<script>
 	alert("예약 완료");
-	location.href='<%=request.getContextPath()%>/index.jsp';
+	location.href='<%=request.getContextPath()%>/matchService.jsp';
 	</script>
 	<%
 } else {

@@ -19,16 +19,23 @@
     margin-right: 0.2rem !important;
   }
 </style>
-
+<script>
+function upcheck() {
+	var f = document.tupdateForm;
+	f.action = "tUpdateCheck.jsp";
+	f.submit();
+}
+</script>
 <body>
 <%@ include file="/header.jsp" %>
 
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
+String t_name = request.getParameter("t_name");
 
-TakerDAO dao = new TakerDAO();
-List<TakerVO> list = dao.takerList(m_id);
+TakerDAO dao = new TakerDAO(); 
+List<TakerVO> list = dao.takernameList(m_id, t_name);
 
 for(int i=0; i<list.size(); i++) {
 	TakerVO listvo = (TakerVO) list.get(i);
@@ -64,6 +71,7 @@ for(int i=0; i<list.size(); i++) {
 					</header>
 					
 					<!-- Table -->
+					<form name="tupdateForm">
 					<table>
 					<tr><td>이름</td><td style="width: 5rem;">성별</td><td>나이</td><td>키</td><td>몸무게</td><td style="width: 16rem;">지역</td><td style="width: 16rem;">상태 (병명)</td></tr>
 					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>"></td>

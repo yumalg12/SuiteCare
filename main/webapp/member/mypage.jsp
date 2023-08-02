@@ -71,7 +71,7 @@
 		<form name="patientinfo">
 		<table>
 		<tr><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td><td> 수정 </td></tr>
-		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp'>수정하기</a></td></tr>
+		<tr><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %> </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name %>'>수정하기</a></td></tr>
 		</table> 
 		</form>
 

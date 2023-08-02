@@ -379,4 +379,35 @@ public class ReservationDAO {
 		} return result;
 	}
 	
+	public List<PrelocationVO> preloclist() {
+		List<PrelocationVO> list= new ArrayList<PrelocationVO>();
+		try {
+			connect();
+				
+			String sql = "SELECT * FROM location";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				int sido_code = rs.getInt("sido_code");
+				String sido = rs.getString("sido");
+				
+				
+				PrelocationVO vo = new PrelocationVO();
+				
+				vo.setSido_code(sido_code);
+				vo.setSido(sido);
+				list.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
