@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +22,7 @@
 <button type="button" id="charge_card">충 전 하 기</button>
  </div>
  
- <form id = "cardpay" name = "cardpay" action = "/payment/Payment/addpay.do" method = "get">
+ <form id = "cardpay" name = "cardpay" action = "/suiteCare/Payment/addpay.do" method = "get">
   <input id = "amountRsp" name = "amountRsp" type = "hidden" value ="">
   <input id = "merchant_uidRsp" type = "hidden"  name = "merchant_uidRsp" value =""> 
   <input id = "pay_method" name = "pay_method" type = "hidden" value ="">

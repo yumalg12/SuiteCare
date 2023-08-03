@@ -19,7 +19,7 @@ import java.util.List;
 public class PayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	PayService payservice;
+	
 	PayVO payvo;
 
     public PayController() {
@@ -32,7 +32,7 @@ public class PayController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		
-		payservice = new PayService();
+		
 		
 		
 	}
