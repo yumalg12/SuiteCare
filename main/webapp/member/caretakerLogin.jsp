@@ -8,6 +8,13 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
+<%String m_id = (String) session.getAttribute("m_id");%>
+
+console.log("<%=m_id%>");
+if ("<%=m_id%>" != "null") {
+	window.location.href="mMain.jsp";
+}
+
 function loginForm() {
 	var loginForm = document.frmLogin;
 	var m_id = document.frmLogin.m_id.value;
@@ -17,7 +24,7 @@ function loginForm() {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./caretakerCheck.jsp";s
+		loginForm.action="./caretakerCheck.jsp";
 		loginForm.submit();
 	}
 }
