@@ -47,7 +47,7 @@ if(result == 1) {
 
 	<script>
 		alert("에러, 정보 수정을 완료하지 못했습니다.\n다시 시도해주세요.");
-		window.location.href='../member/mypage.jsp';
+		window.location.href='../member/mMain.jsp';
 	</script>
 <% 
 }

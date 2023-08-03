@@ -43,7 +43,7 @@ function recallcheck() {
 
 function updatecall() {
 	var f = document.tcallinfoform;
-	f.action = "../member/mypage.jsp";
+	f.action = "../member/mMain.jsp";
 	f.submit();
 }
 
