@@ -19,7 +19,7 @@ import java.util.List;
 public class PayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
+	PayDAO payDAO = new PayDAO();
 	PayVO payvo;
 
     public PayController() {
@@ -82,8 +82,9 @@ public class PayController extends HttpServlet {
 	        
 	        out.write(amount + "," + pay_method + "," + merchant_uid);
 	        
-	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method);
 	        PayDAO.addPay(payvo);
+	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method);	        
+			payDAO.addPay(payvo);
 	        
 		}
 		
