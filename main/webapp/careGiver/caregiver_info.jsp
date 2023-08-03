@@ -14,7 +14,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      
 </head>
 
 <body>
@@ -111,33 +110,35 @@
 									<label for="address"> 주소 </label>
 									<input type="text" name="address" value="${info.g_address }" id="address">
 								</div>
-							
+								
+								<c:set var="representatives" value="${info.g_representative}" />
 								<div class="form_row">
 									<label for="service">서비스</label>
 									<div>
-	                                    <input type="checkbox" name="service" id="service" value = "1">
-	                                    <label for="service" style="margin:0.3rem 0 0 0;">1</label>
+	                                    <input type="checkbox" name="service" id="service" value = "욕창"<c:if test='${fn:contains(representatives, "욕창")}'>checked</c:if>>
+	                                    <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
 									</div>
 									<div>
-	                                    <input type="checkbox" name="service" id="service2" value = "2">
-	                                    <label for="service2" style="margin:0.3rem 0 0 0;">2</label>
+	                                    <input type="checkbox" name="service" id="service2" value = "뇌병변"<c:if test='${fn:contains(representatives, "뇌병변")}'>checked</c:if>>
+	                                    <label for="service2" style="margin:0.3rem 0 0 0;">뇌병변</label>
 									</div>
 									<div>
-	                                    <input type="checkbox" name="service" id="service3" value = "3">
-	                                    <label for="service3" style="margin:0.3rem 0 0 0;">3</label>
+	                                    <input type="checkbox" name="service" id="service3" value = "외상환자"<c:if test='${fn:contains(representatives, "외상환자")}'>checked</c:if>>
+	                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
 									</div>
-									<!-- <div>
-	                                    <input type="checkbox" name="service" id="service_etc" class="act" value = "etc">
+									<div>
+	                                    <input type="checkbox" id="service_etc" class="act" value = "etc">
 	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
-	                                    <input type="text" id="ser_etc" disabled>
-									</div> -->
+	                                    <input type="text" name="service" id="ser_etc" disabled />
+									</div>
 								</div>
-								
+							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
 									<div class="col">
 										<label for="qual" class="qualification">자격증 </label>
 									</div>
+									<div>
 									<c:forEach var="qual" items="${qualifications}">
 										<div>
 											<input type="text" value="${qual }" name="qual" class="qtext">
@@ -145,6 +146,7 @@
 										</div>
 									</c:forEach>
 									<input type="button" value="추가" id="add">
+									</div>
 								</div>
 							
 								<div class="form_row">
@@ -181,19 +183,8 @@
 
 <script>
    
-   $(document).on('click', '#addRepre' , function() {
-	   $("#addRepre").before("<input type='text' name='repre' class='rtext'><span id='delete'>삭제</span>");  
-	   
-       var repreCnt = 0;
-       $("#repreDiv > .rtext").each(function(){
-          repreCnt++;
-         });
-       
-       $(".representative").attr("rowspan", repreCnt);
-   });
-      
    $(document).on('click', '#add' , function() {
-      $("#add").before("<input type='text' name='qual' class='qtext'><span id='delete'>삭제</span>");
+      $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
 
       var qualCnt = 0;
       $("#qualDiv > .qtext").each(function(){
@@ -205,7 +196,9 @@
 
    $(document).on('click', '#delete' , function() {
 	   alert("삭제");
+	   $(this).parent().remove();
 	   $(this).prev().remove();
+	   $(this).next().remove();
 	   $(this).remove();
    });
    
@@ -230,8 +223,19 @@
 			   	}
 	   		}
 	   	}
-	   
    });
+   
+	var locked = false;
+	$(function(){
+		$("#service_etc").change(function(){
+			if($("#service_etc").prop("checked")){
+				$("#ser_etc").attr("disabled", false);
+			}else{
+				$("#ser_etc").attr("disabled", true);
+			}
+		});
+	});
+   
    
    function change_pw() {
       window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
