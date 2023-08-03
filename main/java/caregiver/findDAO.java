@@ -10,18 +10,19 @@ public class findDAO {
 	private PreparedStatement pstmt;
 	private Statement stmnt;
 	private Connection conn;
+	private DataSource dataFactory;
 
 	public void connect() {
-		try{
-			String url = "jdbc:mysql://localhost:3306/suitecare";
-			   String id = "root";
-			   String pwd = "Ktnwls1218*";
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(url, id , pwd);
+		try {
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
 
-		System.out.println("MySQL DB 연결 성공");
-		} catch(Exception e) {}
+			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+		
 		
 	
 	// 환자

@@ -229,10 +229,10 @@ function setAddress() {
 			<div class="form_row">
 			    <label>주소</label>
 				<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
-				<label class="addr-label">우편번호</label><input type="text" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
-				<label class="addr-label">지번 주소</label><input type="text" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
+				<label class="addr-label">우편번호</label><input type="text" id="zipcode" name="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
+				<label class="addr-label">지번 주소</label><input type="text" id="jibunAddress" name="jibun" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
+				<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" name="road" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
+				<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" name="namuji placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
 			<input type="hidden" id="address" name="m_address" value="">
 			</div>
 			
