@@ -112,6 +112,7 @@
 								</div>
 								
 								<c:set var="representatives" value="${info.g_representative}" />
+								<c:set var="etc" value="${fn:split(info.g_representative,')')}" />
 								<div class="form_row">
 									<label for="service">서비스</label>
 									<div>
@@ -127,9 +128,9 @@
 	                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
 									</div>
 									<div>
-	                                    <input type="checkbox" id="service_etc" class="act" value = "etc">
+	                                    <input type="checkbox" id="service_etc" class="act" value = "etc"<c:if test='${fn:length(etc) eq 2}'>checked</c:if>>
 	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
-	                                    <input type="text" name="service" id="ser_etc" disabled />
+	                                    <input type="text" name="service" id="ser_etc" value="${etc[1]}" disabled />
 									</div>
 								</div>
 							        
@@ -219,13 +220,16 @@
 			   	} else if($("#sel").val() == 1){
 			   		alert("선호지역을 선택해주세요.");
 			   	} else {
+			   		if($("#service_etc").prop("checked")) {
+			   			var etc = "(기타)" + $("#ser_etc").val();
+			   			$("#ser_etc").val(etc);
+			   		}
 					document.getElementById("infoForm").submit();
 			   	}
 	   		}
 	   	}
    });
    
-	var locked = false;
 	$(function(){
 		$("#service_etc").change(function(){
 			if($("#service_etc").prop("checked")){
@@ -235,7 +239,6 @@
 			}
 		});
 	});
-   
    
    function change_pw() {
       window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
