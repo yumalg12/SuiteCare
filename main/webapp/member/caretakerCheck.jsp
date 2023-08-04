@@ -35,7 +35,7 @@ if(ok== 1) {
 %>
 <script>
 alert("로그인 성공")
-location.href='<%=request.getContextPath()%>/member/mypage.jsp';
+location.href='<%=request.getContextPath()%>/member/mMain.jsp';
 </script>
 <%
 } else if(ok==2) {

@@ -41,8 +41,7 @@ function inserttinfo() {
 	%>
 	<script>
 	alert("등록된 회원정보가 없습니다.");
-	location.href='<%=request.getContextPath()%>
-		/caretaker/takerinfo.jsp';
+	location.href='<%=request.getContextPath()%>/careTaker/takerInfo.jsp';
 	</script>
 
 	<%

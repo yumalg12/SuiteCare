@@ -97,4 +97,4 @@ for(int i=0; i<list.size(); i++) {
 <%@ include file="/footer.jsp" %>
 
 </body>
-</html>l>
+</html>
