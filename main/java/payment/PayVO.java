@@ -23,12 +23,13 @@ public class PayVO {
 	this.scPoint = scPoint;
 	this.merchant_uid = merchant_uid;
 }
-public PayVO(String amount, String merchant_uid, String pay_method) {
-	
-	this.amount = amount;
-	this.merchant_uid = merchant_uid;
-	this.pay_method = pay_method;
-}
+  public PayVO(String amount, String merchant_uid, String pay_method, String m_id) {
+		
+		this.amount = amount;
+		this.merchant_uid = merchant_uid;
+		this.pay_method = pay_method;
+		this.m_id = m_id;
+	}
 public String getM_id() {
 	return m_id;
 }

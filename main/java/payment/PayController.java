@@ -58,7 +58,9 @@ public class PayController extends HttpServlet {
 		doHandle(request, response);
 	}
 	
-	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		PrintWriter out = response.getWriter();
 	
 		System.out.println("컨트롤러도착");
@@ -70,6 +72,8 @@ public class PayController extends HttpServlet {
 		int index = url.lastIndexOf("/");		
 		String path=url.substring(index);		
 		System.out.println(path);
+		String m_id = (String)request.getSession().getAttribute("m_id");
+		System.out.println(m_id);
 		
 		//List<PayVO> addpay = new ArrayList<PayVO>();
 		
@@ -80,14 +84,43 @@ public class PayController extends HttpServlet {
 			String pay_method = request.getParameter("pay_method");
 			//addpay = PayService.insorder();
 	        
-	        out.write(amount + "," + pay_method + "," + merchant_uid);
+	        out.write(amount + "," + pay_method + "," + merchant_uid+ "," + m_id);
 	        
-	        PayDAO.addPay(payvo);
-	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method);	        
+	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method, m_id);
+	        PayDAO payDAO = new PayDAO();
 			payDAO.addPay(payvo);
 	        
 		}
+		else if(path.equals("/kakao.do")){
+			
+			
+			if(m_id != null) {
+			String kakao = "/payment/kakaopay.jsp"; 
+			response.sendRedirect(kakao);
+			}else {
+				String msg = "로그인 정보가 없습니다";
+				out.write("<script>alert('"+msg+"');</script>");
+				String gomain = "/index.jsp";
+				response.sendRedirect(gomain);
+			}
+		}
+		else if(path.equals("/card.do")){
+			
+			
+			if(m_id != null) {
+			String card = "/payment/card.jsp"; 
+			response.sendRedirect(card);
+			}else {
+				String msg = "로그인 정보가 없습니다";
+				out.write("<script>alert('"+msg+"');</script>");
+				String gomain = "/index.jsp";
+				response.sendRedirect(gomain);
+			}
+			
+		}
+		
 		
 	
 
 }}
+
