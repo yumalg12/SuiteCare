@@ -90,7 +90,7 @@
 
 <script>
 function goindexForm() {
-	location.href="../member/mypage.jsp";
+	location.href="../member/mMain.jsp";
 }
 </script>
 

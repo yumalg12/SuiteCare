@@ -62,7 +62,7 @@ if(result == 1) {
 	%>
 	<script>
 		alert("매칭서비스 정보 등록이 완료되었습니다.");
-		window.location.href='../member/mypage.jsp';
+		window.location.href='../member/mMain.jsp';
 	</script>
 	<% 	
 } else {

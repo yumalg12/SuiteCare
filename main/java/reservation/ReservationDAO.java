@@ -39,7 +39,7 @@ public class ReservationDAO {
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT count(*) FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
+		String sql = "SELECT t_code FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, m_id);
 		

@@ -43,7 +43,7 @@ function recallcheck() {
 
 function updatecall() {
 	var f = document.tcallinfoform;
-	f.action = "../member/mypage.jsp";
+	f.action = "../member/mMain.jsp";
 	f.submit();
 }
 
@@ -348,13 +348,13 @@ if (reservation != null) {
 
 <tr> <td>
 <% if(suction_yn.equals("예")) { %>
-<input type="radio" id="b_yes" name="suction_yn" value="예" checked>
+<input type="radio" id="s_yes" name="suction_yn" value="예" checked>
 		<label for="s_yes">예</label>
-	<input type="radio" id="b_no" name="suction_yn" value="아니오">
+	<input type="radio" id="s_no" name="suction_yn" value="아니오">
 		<label for="s_no">아니오</label> <% } else { %>
-<input type="radio" id="b_yes" name="suction_yn" value="예" >
+<input type="radio" id="s_yes" name="suction_yn" value="예" >
 		<label for="s_yes">예</label>
-	<input type="radio" id="b_no" name="suction_yn" value="아니오" checked>
+	<input type="radio" id="s_no" name="suction_yn" value="아니오" checked>
 		<label for="s_no">아니오</label>	<% }  %>	
 		
 		</td></tr>

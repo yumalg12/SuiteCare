@@ -26,9 +26,12 @@
 </head>
 <body>
 	<%@ include file="/header.jsp"%>
+	
 	<!-- Banner -->
 	<section class="banner full">
 		<article>
+		<%int num = (int) (Math.random() * 4 + 1); %>
+			<img src="images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
 					<p>
@@ -40,7 +43,8 @@
 			</div>
 		</article>
 	</section>
-
+<% String m_id = (String)session.getAttribute("m_id");
+String g_id = (String)session.getAttribute("g_id");	%>
 	<!-- One -->
 	<section id="one" class="wrapper style2">
 		<div class="inner">
@@ -48,7 +52,11 @@
 
 				<div>
 					<div class="box"
+					<% if(m_id == null) { %>
 						onclick="location.href='./member/caretakerLogin.jsp'"
+						<% } else { %>
+						onclick="location.href='./member/mMain.jsp'"
+						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
 
@@ -65,7 +73,10 @@
 				</div>
 
 				<div>
-					<div class="box" onclick="location.href='caregiverLogin.jsp'"
+					<div class="box" 
+					<% if(g_id == null) { %>onclick="location.href='caregiverLogin.jsp'"
+						<% } else { %>onclick="location.href='caregiver_info.jsp'"
+							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
 							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>

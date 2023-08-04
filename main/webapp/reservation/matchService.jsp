@@ -167,7 +167,9 @@ String sido = null;
 <td><input type="radio" id="man" name="pre_gender" value="M">
 		<label for="man">남자</label>
 	<input type="radio" id="woman" name="pre_gender" value="W">
-		<label for="woman">여자</label></td></tr>
+		<label for="woman">여자</label>
+	<input type="radio" id="anything" name="pre_gender" value="상관없음">
+		<label for="anything">상관없음</label></td></tr>
 <tr><td>선호자격증</td>
 <td>
 <label>1순위</label><input type="text" name="pre_qual_1" id="pre_qual_1" placeholder="자격증(ex.요양보호사, 간호사 등)">
