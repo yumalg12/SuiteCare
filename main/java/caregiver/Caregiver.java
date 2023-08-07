@@ -36,13 +36,13 @@ public class Caregiver extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		HttpSession session = request.getSession();
-		String user_id = (String)session.getAttribute("userID");
+		String user_id = (String)session.getAttribute("user_id");
 		
 		CaregiverDAO dao = new CaregiverDAO();
 		LocationDAO loc = new LocationDAO();
 		List<CaregiverVO> info;
 		List<LocationVO> location;
-		info = dao.giver_info("dool");
+		info = dao.giver_info(user_id);
 		location = loc.location();
 		request.setAttribute("info", info);
 		request.setAttribute("location", location);
@@ -58,7 +58,7 @@ public class Caregiver extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-
+		
 		String command = request.getParameter("command");
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("userID");
@@ -87,10 +87,10 @@ public class Caregiver extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
-			String address = request.getParameter("address");
+			String address = request.getParameter("g_address");
 			String location = request.getParameter("location");
 
-			String[] repre = request.getParameterValues("repre");
+			String[] repre = request.getParameterValues("service");
 			String[] qual = request.getParameterValues("qual");
 			String representative = "";
 			String qualification = "";
@@ -109,26 +109,14 @@ public class Caregiver extends HttpServlet {
 				}
 			}
 			
-			System.out.println(representative);
-			System.out.println(qualification);
+            String sms_yn=request.getParameter("sms_yn") != null ? request.getParameter("sms_yn") : "N";
+			String email_yn=request.getParameter("email_yn") != null ? request.getParameter("email_yn") : "N";
 			
-			String sms_yn;
-			if(request.getParameter("sms_yn").equals("Y")) {
-				sms_yn = "Y";
-			} else {
-				sms_yn = "N";
-			}
-			
-			String email_yn;
-			if(request.getParameter("email_yn").equals("Y")) {
-				email_yn = "Y";
-			} else {
-				email_yn = "N";
-			}
 			
 			CaregiverDAO dao = new CaregiverDAO();
-			dao.update("dool", name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
+			dao.update(user_id, name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
 			out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver';</script>");
+		
 		}
 	}
 }

@@ -248,6 +248,81 @@ public class CaregiverDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void joinMember(CaregiverVO vo) {
+		try {
+			con = dataFactory.getConnection();
+
+			String g_id = vo.getG_id();
+			String g_pw = vo.getG_pw();
+			String g_name = vo.getG_name();
+			String g_gender = vo.getG_gender();
+			String g_birth = vo.getG_birth();
+			String g_phone = vo.getG_phone();
+			String g_email = vo.getG_email();
+			String g_address = vo.getG_address();
+			
+			String g_sms_yn = vo.getG_sms_yn();
+			String g_eamil_yn = vo.getG_email_yn();
+			
+			String g_profile = vo.getG_profile();
+			String g_representative = vo.getG_representative();
+			String g_qualification = vo.getG_qualification();
+			String g_location = vo.getG_location();
+			/* String g_signup_date = vo.getG_signup_date(); */
+
+			String sql = "insert into caregiver ";
+			sql += " (g_id, g_pw, g_name, g_gender, g_birth, g_phone, g_email, g_address, g_sms_yn, g_email_yn, g_profile, g_representative, g_qualification, g_location)";
+
+			sql += " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			System.out.println("prepareStatement : " + sql);
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, g_pw);
+			pstmt.setString(3, g_name);
+			pstmt.setString(4, g_gender);
+			pstmt.setString(5, g_birth);
+			pstmt.setString(6, g_phone);
+			pstmt.setString(7, g_email);
+			pstmt.setString(8, g_address);
+			pstmt.setString(9, g_sms_yn);
+			pstmt.setString(10, g_eamil_yn);
+			pstmt.setString(11, g_profile);
+			pstmt.setString(12, g_representative);
+			pstmt.setString(13, g_qualification);
+			pstmt.setString(14, g_location);
+			pstmt.executeUpdate();
+			pstmt.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int isDuplicateID(String id) {
+		System.out.println("Received id: " + id);
+
+		try {
+			con = dataFactory.getConnection();
+
+			String sql = "select COUNT(*) from `suitecare`.`caregiver` where g_id='" + id + "'";
+			System.out.println("isDuplicate(): " + sql);
+
+			pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return count;
+			}
+			pstmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
 
 

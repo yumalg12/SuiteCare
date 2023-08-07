@@ -48,7 +48,6 @@ function loginForm() {
 					</header>
 						<div class="form_wrapper">
 					<form name="frmLogin" method="post" onsubmit="return loginForm();">
-
 							<div class="form-row">
 								<input type="text" class="form-control" placeholder="아이디"
 									name="id"> <br>

@@ -14,12 +14,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 </head>
 
 <body>
 
 	<%@ include file="../header.jsp" %>
+	<% String file_repo = "/suiteCare/src/main/webapp/assets/profile/"; %>
 
 <!-- One -->
    <section id="One" class="wrapper style3">
@@ -45,8 +47,12 @@
 				   <!-- form 시작 -->
 					<form name="infoForm"  id="infoForm" method=post action=caregiver>
 						<c:forEach var="info" items="${info }">
-						
+							
 							<div class="form_wrapper">
+								<div class="form_row">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width:150px; height:150px;"/>
+								</div>   
+								
 								<div class="form_row">
 									<label for="id">아이디</label>      
 									<input type="text" name="id" value="${info.g_id }" disabled>
@@ -83,8 +89,8 @@
 								<div class="form_row">
 									<label for="sms_yn">SMS 수신 여부</label>
 									<div onclick="javascript:setSMSYN()">
-									<input type="checkbox" id="sms_switch" checked><label for="sms_switch" id= "sms_switch_text"style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
-									<input type="hidden" name="sms_yn" value = "Y" <c:if test="${info.g_sms_yn eq 'Y' }">checked</c:if>>
+                                    	<input type="checkbox" name="sms_yn" id="sms_switch" value = "Y" <c:if test="${info.g_sms_yn eq 'Y' }">checked</c:if>>
+                                    	<label for="sms_switch" id= "sms_switch_text"style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
 									</div>
 								</div>
 								
@@ -96,33 +102,59 @@
 								<div class="form_row">
 								<label for="email_yn">이메일 수신 여부</label>
 									<div onclick="javascript:setEmailYN()">
-									<input type="checkbox" id="email_switch" checked><label for="email_switch" id= "email_switch_text"style="margin:0.3rem 0 0 0;"> 메일로 소식을 수신합니다.</label>
-									<input type="hidden" name="email_yn" value = "Y" <c:if test="${info.g_email_yn eq 'Y' }">checked</c:if>>
+									<input type="checkbox" name="email_yn" id="email_switch" <c:if test="${info.g_email_yn eq 'Y' }">checked</c:if> value="Y">
+									<label for="email_switch" id="email_switch_text" style="margin:0.3rem 0 0 0;"> 메일로 소식을 수신합니다.</label>
 									</div>
 								</div>
 								
+								<c:set var="address" value="${fn:split(info.g_address,'/')}" />
 								<div class="form_row">
-									<label for="address"> 주소 </label>
-									<input type="text" name="address" value="${info.g_address }" id="address">
+								    <label>주소</label>
+									<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
+									<label class="addr-label">우편번호</label><input type="text" value="${address[0]}" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
+									<label class="addr-label">지번 주소</label><input type="text" value="${address[1]}" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
+									<label class="addr-label">도로명 주소</label><input type="text" value="${address[2]}" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
+									<label class="addr-label">나머지 주소</label><input type="text" value="${address[3]}" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
+									<input type="hidden" id="address" name="g_address" value="">
 								</div>
-							
-							
-								<c:set var="representatives" value="${fn:split(info.g_representative,'&')}" />
-								<div class="form_row" id="repreDiv">
-									<label for="repre" class="representative"> 대표서비스 </label>
-									<c:forEach var="repre" items="${representatives}">
-										<input type="text" value="${repre }" name="repre" class="rtext"><br>
-									</c:forEach>
-									<input type="button" value="추가" id="addRepre">
+								
+								<c:set var="representatives" value="${info.g_representative}" />
+								<c:set var="etc" value="${fn:split(info.g_representative,')')}" />
+								<div class="form_row">
+									<label for="service">서비스</label>
+									<div>
+	                                    <input type="checkbox" name="service" id="service" value = "욕창"<c:if test='${fn:contains(representatives, "욕창")}'>checked</c:if>>
+	                                    <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
+									</div>
+									<div>
+	                                    <input type="checkbox" name="service" id="service2" value = "뇌병변"<c:if test='${fn:contains(representatives, "뇌병변")}'>checked</c:if>>
+	                                    <label for="service2" style="margin:0.3rem 0 0 0;">뇌병변</label>
+									</div>
+									<div>
+	                                    <input type="checkbox" name="service" id="service3" value = "외상환자"<c:if test='${fn:contains(representatives, "외상환자")}'>checked</c:if>>
+	                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
+									</div>
+									<div>
+	                                    <input type="checkbox" id="service_etc" class="act" value = "etc"<c:if test='${fn:length(etc) eq 2}'>checked</c:if>>
+	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
+	                                    <input type="text" name="service" id="ser_etc" value="${etc[1]}" disabled />
+									</div>
 								</div>
 							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
-									<label for="qual" class="qualification">자격증 </label>
+									<div class="col">
+										<label for="qual" class="qualification">자격증 </label>
+									</div>
+									<div>
 									<c:forEach var="qual" items="${qualifications}">
-										<input type="text" value="${qual }" name="qual" class="qtext"><br>
+										<div>
+											<input type="text" value="${qual }" name="qual" class="qtext">
+											<span id="delete">삭제</span>
+										</div>
 									</c:forEach>
 									<input type="button" value="추가" id="add">
+									</div>
 								</div>
 							
 								<div class="form_row">
@@ -159,19 +191,24 @@
 
 <script>
    
-   $(document).on('click', '#addRepre' , function() {
-	   $("#addRepre").before("<input type='text' name='repre' class='rtext'><br>");  
-	   
-       var repreCnt = 0;
-       $("#repreDiv > .rtext").each(function(){
-          repreCnt++;
-         });
-       
-       $(".representative").attr("rowspan", repreCnt);
-   });
-      
+	function setAddress() {
+		//주소를 한 input으로 합치는 함수
+	    let zipcode = document.getElementById("zipcode").value;
+	    let jibunAddress = document.getElementById("jibunAddress").value;
+	    let roadAddress = document.getElementById("roadAddress").value;
+	    let namujiAddress = document.getElementById("namujiAddress").value;
+	    
+	    if (!roadAddress){
+	    	document.infoForm.g_address.value = "(우)" + zipcode + "/" + jibunAddress + "/" + namujiAddress;
+	    } else {
+	    	document.infoForm.g_address.value = "(우)" + zipcode + "/" + roadAddress + "/" + namujiAddress;    	
+	    }
+	    
+	    console.log(document.joinForm.g_address.value);
+	}
+   
    $(document).on('click', '#add' , function() {
-      $("#add").before("<input type='text' name='qual' class='qtext'><br>");
+      $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
 
       var qualCnt = 0;
       $("#qualDiv > .qtext").each(function(){
@@ -181,6 +218,13 @@
       $(".qualification").attr("rowspan", qualCnt);
    });
 
+   $(document).on('click', '#delete' , function() {
+	   $(this).parent().remove();
+	   $(this).prev().remove();
+	   $(this).next().remove();
+	   $(this).remove();
+   });
+   
    $(document).on('click', '#btn_updt' , function() {
 	   if($("#email").val().length == 0){
 	   		alert("이메일을 입력하세요.");
@@ -198,21 +242,28 @@
 			   	} else if($("#sel").val() == 1){
 			   		alert("선호지역을 선택해주세요.");
 			   	} else {
+			   		if($("#service_etc").prop("checked")) {
+			   			var etc = "(기타)" + $("#ser_etc").val();
+			   			$("#ser_etc").val(etc);
+			   		}
 					document.getElementById("infoForm").submit();
 			   	}
 	   		}
 	   	}
-	   
    });
    
-   /* $(document).on('click', '#click' , function() {
-	   $("#rtext").remove();
-	   p = this.parentElement;
-	   p.removeChild(this);
-   }); */
+	$(function(){
+		$("#service_etc").change(function(){
+			if($("#service_etc").prop("checked")){
+				$("#ser_etc").attr("disabled", false);
+			}else{
+				$("#ser_etc").attr("disabled", true);
+			}
+		});
+	});
    
    function change_pw() {
       window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
-	   
+
 </script>
