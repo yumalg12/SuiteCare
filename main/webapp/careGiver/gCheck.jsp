@@ -15,26 +15,26 @@
 		request.setCharacterEncoding("utf-8");
 	%>
 	<%
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
+		String g_id = request.getParameter("g_id");
+		String g_pw = request.getParameter("g_pw");
 		
 		
 		CaregiverDAO dao = new CaregiverDAO();
 		
-		int ok = dao.logincheck(id, pw);
+		int ok = dao.logincheck(g_id, g_pw);
 		System.out.println("ok = " + ok);
 		
 		CaregiverVO vo = new CaregiverVO();
 		
 		if(ok== 1) {
-			vo = dao.userLogin(id, pw);
-			session.setAttribute("user_id", vo.getG_id());
+			vo = dao.userLogin(g_id, g_pw);
+			session.setAttribute("g_id", vo.getG_id());
 			//session.setMaxInactiveInterval(60); //1분간 아이디 유지
 		
 	%>
 	<script>
 		alert("로그인 성공")
-		location.href='<%=request.getContextPath()%>/caregiver';
+		location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
 	</script>
 	<%
 	} else if(ok==2) {
@@ -42,7 +42,7 @@
 	%>
 	<script>
 		alert("비밀번호가 일치하지 않습니다.")
-		location.href='<%=request.getContextPath()%>/gLogin.jsp';
+		location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
 	</script>
 	<%
 	} else if(ok==3) {
@@ -51,7 +51,7 @@
 	%>
 	<script>
 		alert("아이디가 일치하지 않습니다.")
-		location.href='<%=request.getContextPath()%>/gLogin.jsp';
+		location.href='<%=request.getContextPath()%>/careGiver/caregivergLogin.jsp';
 	</script> 
 	<% }%>
 </body>

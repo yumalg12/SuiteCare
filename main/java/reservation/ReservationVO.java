@@ -3,7 +3,7 @@ package reservation;
 public class ReservationVO {
 	private String m_id;
 	private String caretaker_code;
-	private String caragiver_id;
+	private String caregiver_id;
 	private String res_code;
 	private String merchant_uid;
 	private String res_date;
@@ -20,6 +20,18 @@ public class ReservationVO {
 	private String outpatient_yn;
 	private String care_night_yn;
 	private String notice;
+	
+	private String start_date;
+	private String end_date;
+	private String start_time;
+	private String end_time;
+	
+	private String t_name;
+	private int t_age;
+	private int t_height;
+	private int t_weight;
+	private String t_gender;
+	private String diagnosis;
 	
 	public ReservationVO() {
 		System.out.println("ReservationVO 생성자 호출");
@@ -61,15 +73,15 @@ public class ReservationVO {
 	/**
 	 * @return the caragiver_id
 	 */
-	public String getCaragiver_id() {
-		return caragiver_id;
+	public String getCaregiver_id() {
+		return caregiver_id;
 	}
 
 	/**
 	 * @param caragiver_id the caragiver_id to set
 	 */
-	public void setCaragiver_id(String caragiver_id) {
-		this.caragiver_id = caragiver_id;
+	public void setCaregiver_id(String caregiver_id) {
+		this.caregiver_id = caregiver_id;
 	}
 
 	/**
@@ -321,8 +333,106 @@ public class ReservationVO {
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
-	
-	
+
+
+	public String getStart_date() {
+		return start_date;
+	}
+
+
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+
+
+	public String getEnd_date() {
+		return end_date;
+	}
+
+
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
+
+
+	public String getStart_time() {
+		return start_time;
+	}
+
+
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+
+
+	public String getEnd_time() {
+		return end_time;
+	}
+
+
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
+
+
+	public String getT_name() {
+		return t_name;
+	}
+
+
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
+
+
+	public int getT_age() {
+		return t_age;
+	}
+
+
+	public void setT_age(int t_age) {
+		this.t_age = t_age;
+	}
+
+
+	public int getT_height() {
+		return t_height;
+	}
+
+
+	public void setT_height(int t_height) {
+		this.t_height = t_height;
+	}
+
+
+	public int getT_weight() {
+		return t_weight;
+	}
+
+
+	public void setT_weight(int t_weight) {
+		this.t_weight = t_weight;
+	}
+
+
+	public String getT_gender() {
+		return t_gender;
+	}
+
+
+	public void setT_gender(String t_gender) {
+		this.t_gender = t_gender;
+	}
+
+
+	public String getDiagnosis() {
+		return diagnosis;
+	}
+
+
+	public void setDiagnosis(String diagnosis) {
+		this.diagnosis = diagnosis;
+	}
 	
 	
 }

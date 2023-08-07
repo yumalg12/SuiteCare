@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import caretaker.TakerVO;
+
 public class ReservationDAO {
 	private PreparedStatement pstmt;
 	private PreparedStatement stmnt;
@@ -379,6 +381,131 @@ public class ReservationDAO {
 		} return result;
 	}
 	
+
+	public List<ReservationVO> resList(String id) {
+	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	      
+	      try {
+	    	 connect();
+	         
+	         String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as rinfo "
+	         		+ "WHERE c.t_code=r.caretaker_code and r.res_code=rinfo.res_code and r.caregiver_id=?";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	            String res_code = rs.getString("res_code");
+	            String location = rs.getString("location");
+	            
+	        	String start_date = rs.getString("start_date");
+	        	String end_date = rs.getString("end_date");
+	        	String start_time = rs.getString("start_time");
+	        	String end_time = rs.getString("end_time");
+	            
+	        	String tname = rs.getString("t_name");
+
+	            ReservationVO vo = new ReservationVO();
+	            vo.setRes_code(res_code);
+	            vo.setLocation(location);
+	            vo.setStart_date(start_date);
+	            vo.setEnd_date(end_date);
+	            vo.setStart_time(start_time);
+	            vo.setEnd_time(end_time);
+	            vo.setT_name(tname);
+	            
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+	
+	public List<ReservationVO> resList(String id, String res_code) {
+	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	      
+	      try {
+	    	 connect();
+	         
+	         String sql = "SELECT * FROM caretaker as c, reservation as r "
+	         		+ "WHERE c.t_code=r.caretaker_code and r.res_code=?";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, res_code);
+	         
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	        	String m_id = rs.getString("m_id");
+	            String caretaker_code = rs.getString("caretaker_code");
+	            String caregiver_id = rs.getString("caregiver_id");
+	            String rescode = rs.getString("res_code");
+	            String merchant_uid = rs.getString("merchant_uid");
+	            String res_date = rs.getString("res_date");
+	            String location = rs.getString("location");
+	            String addr = rs.getString("addr");
+	            String detail_addr = rs.getString("detail_addr");
+	            String consciousness = rs.getString("consciousness");
+	            String care_meal_yn = rs.getString("care_meal_yn");
+	            String care_toilet = rs.getString("care_toilet");
+	            String state_paralysis = rs.getString("state_paralysis");
+	            String state_mobility = rs.getString("state_mobility");
+	            String bedsore_yn = rs.getString("bedsore_yn");
+	            String suction_yn = rs.getString("suction_yn");
+	            String outpatient_yn = rs.getString("outpatient_yn");
+	            String care_night_yn = rs.getString("care_night_yn");
+	            String notice = rs.getString("notice");
+	            
+	        	String tname = rs.getString("t_name");
+				int t_age = rs.getInt("t_age");
+				int t_height = rs.getInt("t_height");
+				int t_weight = rs.getInt("t_weight");
+				String t_gender = rs.getString("t_gender");
+				String diagnosis = rs.getString("diagnosis");
+	        	
+	            ReservationVO vo = new ReservationVO();
+	            vo.setM_id(m_id);
+	            vo.setCaretaker_code(caretaker_code);
+	            vo.setCaregiver_id(caregiver_id);
+	            vo.setRes_code(rescode);
+	            vo.setMerchant_uid(merchant_uid);
+	            vo.setRes_date(res_date);
+	            vo.setLocation(location);
+	            vo.setAddr(addr);
+	            vo.setDetail_addr(detail_addr);
+	            vo.setConsciousness(consciousness);
+	            vo.setCare_meal_yn(care_meal_yn);
+	            vo.setCare_toilet(care_toilet);
+	            vo.setState_paralysis(state_paralysis);
+	            vo.setState_mobility(state_mobility);
+	            vo.setBedsore_yn(bedsore_yn);
+	            vo.setSuction_yn(suction_yn);
+	            vo.setOutpatient_yn(outpatient_yn);
+	            vo.setCare_night_yn(care_night_yn);
+	            vo.setNotice(notice);
+	            
+	            vo.setT_name(tname);
+				vo.setT_age(t_age);
+				vo.setT_height(t_height);
+				vo.setT_weight(t_weight);
+				vo.setT_gender(t_gender);
+				vo.setDiagnosis(diagnosis);
+	            
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
 	public List<PrelocationVO> preloclist() {
 		List<PrelocationVO> list= new ArrayList<PrelocationVO>();
 		try {

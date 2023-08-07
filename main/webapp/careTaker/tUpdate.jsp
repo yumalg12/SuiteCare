@@ -79,7 +79,7 @@ for(int i=0; i<list.size(); i++) {
 					<td><input type="text" name="t_age" id="t_age"  value="<%=age %>" class="with_unit"> 세</td>
 					<td><input type="text" name="t_height" id="t_height"  value="<%=height %>" class="with_unit"> cm</td>
 					<td><input type="text" name="t_weight" id="t_weight"  value="<%=weight %>" class="with_unit"> kg</td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="주소"></td>
+					<td><input type="text" name="addr" id="addr"  value="주소"></td>
 					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>"></td>
 					</tr>
 					</table>
