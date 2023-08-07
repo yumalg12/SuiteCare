@@ -38,6 +38,7 @@ top: 2px;
 .ui-timepicker-trigger{
 position: relative;
 right: 2.4rem;
+cursor: default;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
@@ -80,6 +81,17 @@ width: auto !important;
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
+	
+	<div class="res-progress">
+	<ul>
+	<li style="z-index: 5">피간병인 선택</li>
+	<li style="z-index: 4">피간병인 정보 입력</li>
+	<li style="z-index: 3">간병장소 선택</li>
+	<li style="z-index: 2" class="active">예약 일시 지정</li>
+	<li style="z-index: 1">빠른매칭 서비스</li>
+	</ul>
+	</div>
+	
 		<div class="inner">
 			<div class="box">
 				<div class="content">
