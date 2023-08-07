@@ -71,7 +71,7 @@ public class TakerDAO {
          
          ResultSet rs = pstmt.executeQuery();
          while(rs.next()) {
-        	String m_id = rs.getString("m_id");
+           String m_id = rs.getString("m_id");
             String t_code = rs.getString("t_code");
             String t_name = rs.getString("t_name");
             String t_gender = rs.getString("t_gender");
@@ -103,49 +103,49 @@ public class TakerDAO {
    }
    
    public List<TakerVO> takernameList(String id, String tname) {
-	      List<TakerVO> list= new ArrayList<TakerVO>();
-	      
-	      try {
-	         conn = dataFactory.getConnection();
-	         
-	         String sql = "SELECT * FROM caretaker where m_id=? and t_name=?";
-	         System.out.println(sql);
-	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, id);
-	         pstmt.setString(2, tname);
-	         
-	         ResultSet rs = pstmt.executeQuery();
-	         while(rs.next()) {
-	        	String m_id = rs.getString("m_id");
-	            String t_code = rs.getString("t_code");
-	            String t_name = rs.getString("t_name");
-	            String t_gender = rs.getString("t_gender");
-	            String t_age = rs.getString("t_age");
-	            String t_height = rs.getString("t_height");
-	            String t_weight = rs.getString("t_weight");
-	            String diagnosis = rs.getString("diagnosis");
-	            
-	            
-	            TakerVO vo = new TakerVO();
-	            vo.setM_id(m_id);
-	            vo.setT_code(t_code);
-	            vo.setT_name(t_name);
-	            vo.setT_gender(t_gender);
-	            vo.setT_age(t_age);
-	            vo.setT_height(t_height);
-	            vo.setT_weight(t_weight);
-	            vo.setDiagnosis(diagnosis);
-	            
-	            list.add(vo);
-	         }
-	         rs.close();
-	         pstmt.close();
-	         conn.close();
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      return list;
-	   }
+         List<TakerVO> list= new ArrayList<TakerVO>();
+         
+         try {
+            conn = dataFactory.getConnection();
+            
+            String sql = "SELECT * FROM `suitecare`.caretaker where m_id=? and t_name=?";
+            System.out.printf("SELECT * FROM `suitecare`.caretaker where m_id='%s' and t_name='%s'\n", id, tname);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            pstmt.setString(2, tname);
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+              String m_id = rs.getString("m_id");
+               String t_code = rs.getString("t_code");
+               String t_name = rs.getString("t_name");
+               String t_gender = rs.getString("t_gender");
+               String t_age = rs.getString("t_age");
+               String t_height = rs.getString("t_height");
+               String t_weight = rs.getString("t_weight");
+               String diagnosis = rs.getString("diagnosis");
+               
+               
+               TakerVO vo = new TakerVO();
+               vo.setM_id(m_id);
+               vo.setT_code(t_code);
+               vo.setT_name(t_name);
+               vo.setT_gender(t_gender);
+               vo.setT_age(t_age);
+               vo.setT_height(t_height);
+               vo.setT_weight(t_weight);
+               vo.setDiagnosis(diagnosis);
+               
+               list.add(vo);
+            }
+            rs.close();
+            pstmt.close();
+            conn.close();
+         } catch(Exception e) {
+            e.printStackTrace();
+         }
+         return list;
+      }
    
    public int update(TakerVO vo) {
       int result = 0;
@@ -153,7 +153,7 @@ public class TakerDAO {
          
          conn = dataFactory.getConnection();
          
-         String sql = "UPDATE caretaker SET t_name=?, t_gender=?, t_age=?, t_height=?, t_weight=?, diagnosis=? where m_id=? and t_code=?";
+         String sql = "UPDATE `suitecare`.caretaker SET t_name=?, t_gender=?, t_age=?, t_height=?, t_weight=?, diagnosis=? where m_id=? and t_code=?";
          pstmt = conn.prepareStatement(sql);
 
          pstmt.setString(1, vo.getT_name());
@@ -164,6 +164,9 @@ public class TakerDAO {
          pstmt.setString(6, vo.getDiagnosis());
          pstmt.setString(7, vo.getM_id());
          pstmt.setString(8, vo.getT_code());
+         System.out.printf("UPDATE `suitecare`.caretaker "
+        		 + "SET t_name='%s', t_gender='%s', t_age='%s', t_height='%s', t_weight='%s', diagnosis='%s' "
+        		 + "where m_id='%s' and t_code='%s'\n", vo.getT_name(), vo.getT_gender(),vo.getT_age(),vo.getT_height(),vo.getT_weight(), vo.getDiagnosis(),vo.getM_id(),vo.getT_code());
          
          result=pstmt.executeUpdate();
          

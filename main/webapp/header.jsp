@@ -4,23 +4,19 @@
 <!-- Header -->
 <header id="header" class="alt">
 	<div class="logo">
-		<a href="<%=request.getContextPath()%>/index.jsp">SC 스위트케어</a>
+		<a href="<%=context%>/index.jsp">SC 스위트케어</a>
 	</div>
 	<a href="#menu">Menu</a>
 </header>
-<%//String userID = (String) session.getAttribute("userID");
-request.setCharacterEncoding("utf-8");
-%>
 
 <!-- Nav -->
 <nav id="menu">
 	<ul class="links">
-		<li><a href="<%=request.getContextPath()%>/index.jsp">Home</a></li>
-		<li><a href="<%=request.getContextPath()%>/generic.jsp">간병인 찾기</a></li>
-		<li><a href="<%=request.getContextPath()%>/generic.jsp">간병일감찾기</a></li>
-		<li><a href="<%=request.getContextPath()%>/generic.jsp">마이페이지</a></li>
-		<li><a href="<%=request.getContextPath()%>/generic.jsp">고객센터</a></li>
-		<li><a href="<%=request.getContextPath()%>/elements.jsp">스타일 가이드</a></li>
-		<li><a href="#">로그아웃</a></li>
+		<li><a href="<%=context%>/index.jsp">Home</a></li>
+		<li><a href="<%=context%>/member/caretakerLogin.jsp">간병인 찾기</a></li>
+		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 등록하기</a></li>
+		<li><a href="<%=context%>/generic.jsp">고객센터</a></li>
+		<li><a href="<%=context%>/elements.jsp">스타일 가이드</a></li>
+		<li><a href="<%=context%>/logout.jsp">로그아웃</a></li>
 	</ul>
 </nav>

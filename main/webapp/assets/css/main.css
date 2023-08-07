@@ -2233,6 +2233,7 @@ table th {
 
 table thead {
 	border-bottom: solid 2px;
+	font-weight: bold;
 }
 
 table tfoot {
@@ -2475,10 +2476,6 @@ table.alt tbody tr td {
 
 .wrapper.style2 table tbody tr {
 	border-color: rgba(0, 0, 0, 0.15);
-}
-
-.wrapper.style2 table tbody tr:nth-child(2n+1) {
-	background-color: rgba(0, 0, 0, 0.075);
 }
 
 .wrapper.style2 table th {

@@ -167,7 +167,7 @@ public class MemberDAO {
 	}
 
 
-	public void addMember(MemberVO vo) {
+	public boolean addMember(MemberVO vo) {
 		
 		try {
 			conn = dataFactory.getConnection();
@@ -203,8 +203,10 @@ public class MemberDAO {
 
 			pstmt.close();
 			conn.close();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

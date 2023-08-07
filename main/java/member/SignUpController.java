@@ -51,15 +51,18 @@ public class SignUpController extends HttpServlet {
 		
 		MemberVO vo = new MemberVO(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn);
 		
-		dao.addMember(vo);
-		
 		String context = ((HttpServletRequest)request).getContextPath();
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>");
-        out.println("alert('회원가입이 완료되었습니다.');");
-        out.println("location.href='"+context+"/member/caretakerLogin.jsp';");
-        out.println("</script>");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		if (dao.addMember(vo)) {
+	        out.println("alert('회원가입이 완료되었습니다.');");
+	        out.println("location.href='"+context+"/member/caretakerLogin.jsp';");
+		} else {
+	        out.println("alert('오류가 발생했습니다.');");
+	        out.println("location.href='"+context+"/member/tSignup.jsp';");
+		}
+		out.println("</script>");
         
 		}
 

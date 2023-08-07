@@ -46,11 +46,19 @@ function signUpValidation() {
 	  }
 
 	  // 성별 검사
-	  if ($("#gender").val() == "") {
-	    alert("성별을 선택하십시오.");
-	    $("#gender").focus();
-	    return false;
-	  }
+		let m_gender = document.getElementsByName("m_gender");
+		let selectGen = "";
+	  for(var i=0; i<m_gender.length; i++) {
+			if(m_gender[i].checked) {
+				selectGen=m_gender[i].value;
+				break;
+			}
+		}
+	
+		if(selectGen==="") {
+		    alert("성별을 선택하십시오.");
+			return false;
+		}
 
 	  // 모든 검증 통과
 	  document.tSignupForm.method = "post";
@@ -213,9 +221,9 @@ function setAddress() {
 			<div class="form_row">
 				<label for="t_gender">성별</label>
 				<div>
-				<input type="radio" id="man" name="t_gender" value="남">
+				<input type="radio" id="man" name="m_gender" value="남">
 				<label for="man">남자</label>
-				<input type="radio" id="woman" name="t_gender" value="여">
+				<input type="radio" id="woman" name="m_gender" value="여">
 				<label for="woman">여자</label> 
 				</div>
 			</div>		
