@@ -58,7 +58,7 @@ public class Caregiver extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-
+		
 		String command = request.getParameter("command");
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("userID");
@@ -87,10 +87,9 @@ public class Caregiver extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
-			String address = request.getParameter("address");
+			String address = request.getParameter("g_address");
 			String location = request.getParameter("location");
 
-			/* String[] repre = request.getParameterValues("repre"); */
 			String[] repre = request.getParameterValues("service");
 			String[] qual = request.getParameterValues("qual");
 			String representative = "";
@@ -115,8 +114,9 @@ public class Caregiver extends HttpServlet {
 			
 			
 			CaregiverDAO dao = new CaregiverDAO();
-			dao.update("dool", name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
+			dao.update(user_id, name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
 			out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver';</script>");
+		
 		}
 	}
 }

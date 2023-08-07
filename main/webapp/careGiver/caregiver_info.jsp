@@ -14,6 +14,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 </head>
 
 <body>
@@ -49,7 +51,6 @@
 							<div class="form_wrapper">
 								<div class="form_row">
 									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width:150px; height:150px;"/>
-									<input type="file" name="profile">
 								</div>   
 								
 								<div class="form_row">
@@ -106,9 +107,15 @@
 									</div>
 								</div>
 								
+								<c:set var="address" value="${fn:split(info.g_address,'/')}" />
 								<div class="form_row">
-									<label for="address"> 주소 </label>
-									<input type="text" name="address" value="${info.g_address }" id="address">
+								    <label>주소</label>
+									<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
+									<label class="addr-label">우편번호</label><input type="text" value="${address[0]}" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
+									<label class="addr-label">지번 주소</label><input type="text" value="${address[1]}" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
+									<label class="addr-label">도로명 주소</label><input type="text" value="${address[2]}" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
+									<label class="addr-label">나머지 주소</label><input type="text" value="${address[3]}" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
+									<input type="hidden" id="address" name="g_address" value="">
 								</div>
 								
 								<c:set var="representatives" value="${info.g_representative}" />
@@ -184,6 +191,22 @@
 
 <script>
    
+	function setAddress() {
+		//주소를 한 input으로 합치는 함수
+	    let zipcode = document.getElementById("zipcode").value;
+	    let jibunAddress = document.getElementById("jibunAddress").value;
+	    let roadAddress = document.getElementById("roadAddress").value;
+	    let namujiAddress = document.getElementById("namujiAddress").value;
+	    
+	    if (!roadAddress){
+	    	document.infoForm.g_address.value = "(우)" + zipcode + "/" + jibunAddress + "/" + namujiAddress;
+	    } else {
+	    	document.infoForm.g_address.value = "(우)" + zipcode + "/" + roadAddress + "/" + namujiAddress;    	
+	    }
+	    
+	    console.log(document.joinForm.g_address.value);
+	}
+   
    $(document).on('click', '#add' , function() {
       $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
 
@@ -196,7 +219,6 @@
    });
 
    $(document).on('click', '#delete' , function() {
-	   alert("삭제");
 	   $(this).parent().remove();
 	   $(this).prev().remove();
 	   $(this).next().remove();
