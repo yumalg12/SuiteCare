@@ -577,5 +577,27 @@ public class ReservationDAO {
 		} return result;
 	}
 	
+	public void delres(String res_code, String caretaker_code) {
+		try {
+			connect();
+			String sql1 = "DELETE FROM reservation_info WHERE res_code=? and caretaker_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, caretaker_code);
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			String sql2 = "DELETE FROM reservation WHERE res_code=? and caretaker_code=?";
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, caretaker_code);
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

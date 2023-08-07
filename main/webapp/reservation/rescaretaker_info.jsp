@@ -87,7 +87,7 @@ request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 ReservationDAO dao = new ReservationDAO();
 String tname = request.getParameter("tname");
-
+System.out.println(m_id + " : " + tname);
 List<CaretakerinfoVO> list = dao.listtinfo(m_id, tname);
 for(int i=0; i<list.size(); i++) {
 	CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);

@@ -21,17 +21,41 @@ function matSubmit() {
 	var pre_age_2 = f.pre_age_2.value;
 	var pre_age_3 = f.pre_age_3.value;
 	var pre_gender = f.pre_gender.value;
-	var pre_qual_1 = f.pre_qual_1.value;
-	var pre_qual_2 = f.pre_qual_2.value;
-	var pre_qual_3 = f.pre_qual_3.value;
-	var pre_repre_1 = f.pre_repre_1.value;
-	var pre_repre_2 = f.pre_repre_2.value;
-	var pre_repre_3 = f.pre_repre_3.value;
+	var pre_qual_1 = document.getElementById("pre_qual_1");
+	var pre_qual_2 = document.getElementById("pre_qual_2");
+	var pre_qual_3 = document.getElementById("pre_qual_3");
+	var pre_repre_1 = document.getElementById("pre_repre_1");
+	var pre_repre_2 = document.getElementById("pre_repre_2");
+	var pre_repre_3 = document.getElementById("pre_repre_3");
 	var pre_hourwage_1 = f.pre_hourwage_1.value;
 	var pre_hourwage_2 = f.pre_hourwage_2.value;
 	var pre_hourwage_3 = f.pre_hourwage_3.value;
 	
+	var inputqual1 = pre_qual_1.value
+	var inputqual2 = pre_qual_2.value
+	var inputqual3 = pre_qual_3.value
+	var inputrepre1 = pre_repre_1.value
+	var inputrepre2 = pre_repre_2.value
+	var inputrepre3 = pre_repre_3.value
 	
+	if(inputqual1==="") {
+		pre_qual_1.value = "지정하지 않음";
+	}
+	if(inputqual2==="") {
+		pre_qual_2.value = "지정하지 않음";
+	}
+	if(inputqual3==="") {
+		pre_qual_3.value = "지정하지 않음";
+	}
+	if(inputrepre1==="") {
+		pre_repre_1.value = "지정하지 않음";
+	}
+	if(inputrepre2==="") {
+		pre_repre_2.value = "지정하지 않음";
+	}
+	if(inputrepre3==="") {
+		pre_repre_3.value = "지정하지 않음";
+	}
 	if(!pre_location_1 || !pre_location_2 || !pre_location_3) {
 		alert("선호 지역을 모두 선택해주세요");
 		return false;
@@ -40,12 +64,6 @@ function matSubmit() {
 		return false;
 	} else if(!pre_gender) {
 		alert("선호성별을 선택해주세요");
-		return false;
-	} else if(!pre_qual_1 || !pre_qual_2 || !pre_qual_3) {
-		alert("선호 자격증을 모두 입력해주세요");
-		return false;
-	} else if(!pre_repre_1 || !pre_repre_2 || !pre_repre_3) {
-		alert("선호 서비스를 모두 입력해주세요");
 		return false;
 	} else if(!pre_hourwage_1 || !pre_hourwage_2 || !pre_hourwage_3) {
 		alert("선호 시급 범위를 모두 선택해주세요");
@@ -111,6 +129,7 @@ String sido = null;
 									%>
 					<option value=<%=sido_code%>><%=sido%></option>				
 									<%} %>
+									<option value="0">지정하지 않음</option>
 									</select>
 <label>2순위</label> <select name="pre_location_2" id="pre_location_2">
 					<option value="">==선택==</option>
@@ -125,6 +144,7 @@ String sido = null;
 									%>
 					<option value=<%=sido_code%>><%=sido%></option>				
 									<%} %>
+									<option value="0">지정하지 않음</option>
 									</select>
 <label>3순위</label> <select name="pre_location_3" id="pre_location_3">
 					<option value="">==선택==</option>
@@ -139,6 +159,7 @@ String sido = null;
 									%>
 					<option value=<%=sido_code%>><%=sido%></option>				
 									<%} %>
+									<option value="0">지정하지 않음</option>
 									</select> </td></tr>
 <tr><td>선호나이대</td>
 <td>
@@ -148,6 +169,7 @@ String sido = null;
     				 String value = start + "~" + (start + 4); %>
     				<option value="<%= value %>"><%= start %>세 ~ <%= start+4%>세</option>
   						<% } %>
+  						<option value="지정하지 않음">지정하지 않음</option>
 							</select>
 <label>2순위</label> <select name="pre_age_2" id="pre_age_2">
 					<option value="">==선택==</option>
@@ -155,6 +177,7 @@ String sido = null;
     				 String value = start + "~" + (start + 4); %>
     				<option value="<%= value %>"><%= start %>세 ~ <%= start+4%>세</option>
   						<% } %>
+  						<option value="지정하지 않음">지정하지 않음</option>
 							</select>
 <label>3순위</label> <select name="pre_age_3" id="pre_age_3">
 					<option value="">==선택==</option>
@@ -162,6 +185,7 @@ String sido = null;
     				 String value = start + "~" + (start + 4); %>
     				<option value="<%= value %>"><%= start %>세 ~ <%= start+4%>세</option>
   						<% } %>
+  						<option value="지정하지 않음">지정하지 않음</option>
 							</select></td></tr>
 <tr><td>선호성별</td>
 <td><input type="radio" id="man" name="pre_gender" value="M">
@@ -170,13 +194,13 @@ String sido = null;
 		<label for="woman">여자</label>
 	<input type="radio" id="anything" name="pre_gender" value="상관없음">
 		<label for="anything">상관없음</label></td></tr>
-<tr><td>선호자격증</td>
+<tr><td>선호자격증 <br>※지정하지 않을 경우 빈칸</td>
 <td>
 <label>1순위</label><input type="text" name="pre_qual_1" id="pre_qual_1" placeholder="자격증(ex.요양보호사, 간호사 등)">
 <label>2순위</label><input type="text" name="pre_qual_2" id="pre_qual_2" placeholder="자격증(ex.요양보호사, 간호사 등)">
 <label>3순위</label><input type="text" name="pre_qual_3" id="pre_qual_3" placeholder="자격증(ex.요양보호사, 간호사 등)">
 </td></tr>
-<tr><td>선호서비스</td>
+<tr><td>선호서비스 <br>※지정하지 않을 경우 빈칸</td>
 <td>
 <label>1순위</label><input type="text" name="pre_repre_1" id="pre_repre_1" placeholder="서비스(ex.치매, 파킨슨 등)">
 <label>2순위</label><input type="text" name="pre_repre_2" id="pre_repre_2" placeholder="서비스(ex.치매, 파킨슨 등)">
@@ -186,6 +210,7 @@ String sido = null;
 <td>
 <label>1순위</label> <select name="pre_hourwage_1" id="pre_hourwage_1">
 					<option value="">==선택==</option>
+					<option value="지정하지 않음">지정하지 않음</option>
 					<% for (int start = 10000; start <= 35000; start += 5000) {
     				 String value = start + "~" + (start + 5000); 
     				 String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
@@ -196,6 +221,7 @@ String sido = null;
 							</select>
 <label>2순위</label> <select name="pre_hourwage_2" id="pre_hourwage_2">
 					<option value="">==선택==</option>
+					<option value="지정하지 않음">지정하지 않음</option>
 					<% for (int start = 10000; start <= 35000; start += 5000) {
     				 String value = start + "~" + (start + 5000); 
     				 String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
@@ -206,6 +232,7 @@ String sido = null;
 							</select>
 <label>3순위</label> <select name="pre_hourwage_3" id="pre_hourwage_3">
 					<option value="">==선택==</option>
+					<option value="지정하지 않음">지정하지 않음</option>
 					<% for (int start = 10000; start <= 35000; start += 5000) {
     				 String value = start + "~" + (start + 5000); 
     				 String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));

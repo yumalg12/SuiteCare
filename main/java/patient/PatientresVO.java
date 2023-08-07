@@ -11,7 +11,8 @@ public class PatientresVO {
 	private Time starttime;
 	private Time endtime;
 	private String caregiver;
-	
+	private String res_code;
+	private String caretaker_code;
 	
 	public PatientresVO() {
 		System.out.println("PatientresVO 생성자 호출");
@@ -123,6 +124,42 @@ public class PatientresVO {
 	 */
 	public void setCaregiver(String caregiver) {
 		this.caregiver = caregiver;
+	}
+
+
+
+	/**
+	 * @return the res_code
+	 */
+	public String getRes_code() {
+		return res_code;
+	}
+
+
+
+	/**
+	 * @param res_code the res_code to set
+	 */
+	public void setRes_code(String res_code) {
+		this.res_code = res_code;
+	}
+
+
+
+	/**
+	 * @return the caretaker_code
+	 */
+	public String getCaretaker_code() {
+		return caretaker_code;
+	}
+
+
+
+	/**
+	 * @param caretaker_code the caretaker_code to set
+	 */
+	public void setCaretaker_code(String caretaker_code) {
+		this.caretaker_code = caretaker_code;
 	}
 
 	

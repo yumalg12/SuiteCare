@@ -55,7 +55,9 @@ public class PatientresDAO {
 				Date end_date = rs.getDate("end_date");
 				Time start_time = rs.getTime("start_time");
 				Time end_time = rs.getTime("end_time");
+				String res_code = rs.getString("res_code");
 				caregiver = rs.getString("caregiver_id");
+				String t_code = rs.getString("caretaker_code");
 				
 				if(caregiver==null) {
 					PatientresVO vo = new PatientresVO();
@@ -65,6 +67,8 @@ public class PatientresDAO {
 					vo.setStarttime(start_time);
 					vo.setEndtime(end_time);
 					vo.setCaregiver(caregiver);
+					vo.setRes_code(res_code);
+					vo.setCaretaker_code(t_code);
 					
 					list.add(vo);
 				} else if(caregiver!=null) {
@@ -81,6 +85,8 @@ public class PatientresDAO {
 					vo.setStarttime(start_time);
 					vo.setEndtime(end_time);
 					vo.setCaregiver(caregiver);
+					vo.setRes_code(res_code);
+					vo.setCaretaker_code(t_code);
 					
 					list.add(vo);
 					
@@ -99,42 +105,5 @@ public class PatientresDAO {
 	}
 
 
-	public List<CaretakerinfoVO> listpinfo(String m_id) {
-		List<CaretakerinfoVO> list= new ArrayList<CaretakerinfoVO>();
-		
-		try {
-			connect();
-			
-			String sql = "SELECT * FROM CARETAKER as c, reservation as r WHERE m_id=? and c.m_id = r.m_id";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m_id);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				String t_name = rs.getString("t_name");
-				String gender = rs.getString("t_gender");
-				int age = rs.getInt("t_age");
-				int height = rs.getInt("t_height");
-				int weight = rs.getInt("t_weight");
-				
-				
-				CaretakerinfoVO vo = new CaretakerinfoVO();
-				
-				vo.setT_name(t_name);
-				vo.setT_gender(gender);
-				vo.setT_age(age);
-				vo.setT_height(height);
-				vo.setT_weight(weight);
-				
-				list.add(vo);
-			}
-		
-		rs.close();
-		pstmt.close();
-		conn.close();
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
-	return list;
-}
+	
 }
