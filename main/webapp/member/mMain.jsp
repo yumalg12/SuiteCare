@@ -11,9 +11,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>SC 스위트케어 | 마이페이지</title>
+		<title>SC 스위트케어 | 메인페이지</title>
 <%@ include file="/header-import.jsp" %>
-
 	</head>
 	
 	<script>
