@@ -19,8 +19,8 @@ import java.util.List;
 public class PayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	PayVO payvo = new PayVO();
 	PayDAO payDAO = new PayDAO();
-	PayVO payvo;
 
     public PayController() {
         super();
@@ -61,33 +61,33 @@ public class PayController extends HttpServlet {
 protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		PrintWriter out = response.getWriter();
+	request.setCharacterEncoding("utf-8");
+	response.setContentType("text/html; charset=utf-8");
 	
-		System.out.println("컨트롤러도착");
-		String nextPage = "";
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		
-		String url = request.getRequestURI();
-		int index = url.lastIndexOf("/");		
-		String path=url.substring(index);		
-		System.out.println(path);
-		String m_id = (String)request.getSession().getAttribute("m_id");
-		System.out.println(m_id);
-		
-		//List<PayVO> addpay = new ArrayList<PayVO>();
+	PrintWriter out = response.getWriter();	
+	System.out.println("컨트롤러도착");		
+	
+	String url = request.getRequestURI();
+	int index = url.lastIndexOf("/");		
+	String path=url.substring(index);		
+	System.out.println(path);
+	
+	String m_id = (String)request.getSession().getAttribute("m_id");
+	System.out.println(m_id);
+	
+	
+	//List<PayVO> addpay = new ArrayList<PayVO>();
 		
 		if(path.equals("/addpay.do")) {
 			
-			String amount = request.getParameter("amountRsp");
+			int amount = Integer.parseInt(request.getParameter("amountRsp"));
 			String merchant_uid = request.getParameter("merchant_uidRsp");
 			String pay_method = request.getParameter("pay_method");
 			//addpay = PayService.insorder();
 	        
-	        out.write(amount + "," + pay_method + "," + merchant_uid+ "," + m_id);
+	        out.write(amount + "," + pay_method + "," + merchant_uid);
 	        
-	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method, m_id);
-	        PayDAO payDAO = new PayDAO();
+	        PayVO payvo = new PayVO(amount, merchant_uid, pay_method, m_id);	        
 			payDAO.addPay(payvo);
 	        
 		}
@@ -95,27 +95,32 @@ protected void doHandle(HttpServletRequest request, HttpServletResponse response
 			
 			
 			if(m_id != null) {
-			String kakao = "/payment/kakaopay.jsp"; 
-			response.sendRedirect(kakao);
-			}else {
-				String msg = "로그인 정보가 없습니다";
-				out.write("<script>alert('"+msg+"');</script>");
-				String gomain = "/index.jsp";
-				response.sendRedirect(gomain);
-			}
+				payvo.setM_id(m_id);
+				payDAO.payInfo(payvo);
+
+				String kakao = "/payment/kakaopay.jsp"; 
+				response.sendRedirect(kakao);
+				}else {
+					String msg = "로그인 정보가 없습니다";
+					out.write("<script>alert('"+msg+"');</script>");
+					//String gomain = "/index.jsp";
+					//response.sendRedirect(gomain);
+				}
 		}
 		else if(path.equals("/card.do")){
 			
 			
 			if(m_id != null) {
-			String card = "/payment/card.jsp"; 
-			response.sendRedirect(card);
-			}else {
-				String msg = "로그인 정보가 없습니다";
-				out.write("<script>alert('"+msg+"');</script>");
-				String gomain = "/index.jsp";
-				response.sendRedirect(gomain);
-			}
+				payvo.setM_id(m_id);
+				payDAO.payInfo(payvo);
+				String card = "/payment/card.jsp"; 
+				response.sendRedirect(card);
+				}else {
+					String msg = "로그인 정보가 없습니다";
+					out.write("<script>alert('"+msg+"');</script>");
+					//String gomain = "/index.jsp";
+					//response.sendRedirect(gomain);
+				}
 			
 		}
 		

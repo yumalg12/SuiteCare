@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
+ <%@ page import="java.util.*"%>
+<%@ page import="payment.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+PayVO payvo = new PayVO();
+%>
 <body>
 <div align="center">
 <input type="radio" name="kp_item" value="5000"><span>5,000원</span>
@@ -46,7 +51,7 @@
      amount: m,
      currency: "KRW",
      language: "",
-     buyer_tel: "010-1111-1111",
+     buyer_tel: <%= payvo.getM_phone()%>,
      
     }, function (rsp) {
  	   console.log(rsp);
