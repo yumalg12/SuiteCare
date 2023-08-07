@@ -29,6 +29,8 @@
 	<!-- Banner -->
 	<section class="banner full">
 		<article>
+		<%int num = (int) (Math.random() * 4 + 1); %>
+<img src="images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
 					<p>
@@ -65,7 +67,7 @@
 				</div>
 
 				<div>
-					<div class="box" onclick="location.href='caregiverLogin.jsp'"
+					<div class="box" onclick="location.href='./careGiver/gLogin.jsp'"
 						style="cursor: pointer;">
 						<div class="conB_content">
 							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>

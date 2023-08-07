@@ -198,7 +198,32 @@ public class MemberDAO {
 		         
 		   }
 	   
+	   public void updatePw(MemberVO vo) {
+		      try {
+		         
+		         conn = dataFactory.getConnection();
+		         
+		         String sql = "UPDATE member SET m_pw=? where m_id=?"; 
+		         pstmt = conn.prepareStatement(sql);
 
+		         pstmt.setString(1, vo.getM_pw());
+		         pstmt.setString(2, vo.getM_id());
+		         
+		         
+		         pstmt.executeUpdate();
+		         System.out.println("비밀번호 변경 완료");
+		         
+		         
+		         pstmt.close();}
+		      
+		       catch(Exception e) {
+		         e.printStackTrace();
+		         }
+
+		         
+		   }
+	   
+	   
 	public void addMember(MemberVO vo) {
 		
 		try {

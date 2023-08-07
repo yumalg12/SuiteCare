@@ -99,7 +99,11 @@
 	      
 	   }
 	
-
+	   function change_pw() {
+		      window.open("http://localhost:8060/suiteCare/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
+		   }
+	   
+	   
 	function setAddress() {
 		//주소를 한 input으로 합치는 함수
 	    let zipcode = document.getElementById("zipcode").value;
