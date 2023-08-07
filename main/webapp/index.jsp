@@ -65,7 +65,7 @@
 				</div>
 
 				<div>
-					<div class="box" onclick="location.href='caregiverLogin.jsp'"
+					<div class="box" onclick="location.href='./careGiver/caregiverLogin.jsp'"
 						style="cursor: pointer;">
 						<div class="conB_content">
 							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>

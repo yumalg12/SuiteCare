@@ -35,7 +35,7 @@ if(ok== 1) {
 %>
 <script>
 alert("로그인 성공")
-location.href='<%=request.getContextPath()%>/member/mypage.jsp';
+location.href='<%=request.getContextPath()%>/member/mMain.jsp';
 </script>
 <%
 } else if(ok==2) {
@@ -44,7 +44,7 @@ location.href='<%=request.getContextPath()%>/member/mypage.jsp';
 %>
 <script>
 alert("비밀번호가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
+location.href='<%=request.getContextPath()%>/member/caretakerLogin.jsp';
 </script>
 <%
 }
@@ -54,7 +54,7 @@ else if(ok==3) {
 %>
 <script>
 alert("아이디가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/caretakerLogin.jsp';
+location.href='<%=request.getContextPath()%>/member/caretakerLogin.jsp';
 </script> 
 <% }%>
 </body>
