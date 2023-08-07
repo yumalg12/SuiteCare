@@ -1,3 +1,4 @@
+<%@ page import = "calendar.*" %>
 <%@ page import = "patient.*" %>
 <%@ page import = "caretaker.*" %>
 <%@ page import = "reservation.*" %>
@@ -7,7 +8,14 @@
 <%@ page import = "java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
+    
+<%
+    request.setCharacterEncoding("UTF-8");
+    String m_id = (String)session.getAttribute("m_id");
+    calendar.CalendarDAO cdao = new calendar.CalendarDAO();
+    List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
+%>   
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,15 +33,8 @@
 			window.location.href = "../reservation/rescaretaker.jsp";
 		}
 		
-		function rescalendar() {
-			window.location.href = "../member/mMain_calendar.jsp";
-		}
-		
-		function delok() {
-			if(!confirm("예약을 취소하시겠습니까?")) {
-				
-				return false;
-			}
+		function restable() {
+			window.location.href = "../member/mMain.jsp";
 		}
 		</script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
@@ -66,7 +67,7 @@
 							</header>
 		<% 
 		request.setCharacterEncoding("utf-8");
-		String m_id = (String)session.getAttribute("m_id");
+
 		TakerDAO dao = new TakerDAO();
 
 		
@@ -114,68 +115,15 @@
 								<p>간병인 서비스</p>
 								<h2>예약 정보</h2>
 							</header>
-			<form name="resinfo">
-			<table border=1>
-			<tr><td> 피간병인 </td><td> 간병인</td> <td> 근무기간 </td> <td> 근무시간</td> <td> 결제금액 </td> <td> 결제여부</td><td>비고</td></tr>
-
-
-			<%
-//아래로는 아직 확인못함
-			PatientresDAO dao2 = new PatientresDAO();
-			List<PatientresVO> reslist = dao2.listres(m_id);
-			for(int i=0; i<reslist.size(); i++) {
-				PatientresVO listvo = (PatientresVO) reslist.get(i);
-	
-				String patient = listvo.getCaretaker();
-				Date start_date = listvo.getStartdate();
-				Date end_date = listvo.getEnddate();
-				Time start_time = listvo.getStarttime();
-				Time end_time = listvo.getEndtime();
-				String caregiver = listvo.getCaregiver();
-				String res_code = listvo.getRes_code();
-				String caretaker_code = listvo.getCaretaker_code();
-	
-				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-	
-				long worktime = end_time.getTime() - start_time.getTime();
-				int workHours = (int) (worktime / (1000 * 60 * 60));
-
-				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
-	
-				int salary = totalWorkDays * workHours * 10000;
-	
-	 			String fSalary = String.format("%,d", salary);
-	
-				if(caregiver==null) {
-			%>
-
-			<tr><td> <%=patient %> </td><td> 미지정 </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td><td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
-
-
-			<%
-			} else if(caregiver!= null) {
-				%>
-
-			<tr><td> <%=patient %> </td><td> <%=caregiver %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td><td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
-
-			<%
-			} 
-
-			}
-			%>
-			</table>
-			</form>
+			<div id='calendar'></div>
 			<div style="text-align: center;" class="form_btn">
 			<input type="button" class = "button special" onclick="rescaregiver();" value="간병인 신청하기">
-			<input type="button" class = "button special" onclick="rescalendar();" value="달력으로 보기">
+			<input type="button" class = "button special" onclick="restable();" value="표로 보기">
 			</div>
 			</div>
 			</div>
 			</div>
 			</section>
-
-
 		<!-- four -->
 			<section id="four" class="wrapper style2">
 				<div class="inner">
@@ -192,5 +140,59 @@
 							
 <%@include file="/footer.jsp" %>
 </body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		contentHeight: 650,
+		initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+		locale : 'ko',
+		headerToolbar : { // 헤더에 표시할 툴 바
+			start : "",
+			center : "prev title next",
+            end : 'dayGridMonth,dayGridWeek,dayGridDay'
+		},
+		
+		titleFormat : function(date) {
+			return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+		},
+		//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+		selectable : true, // 달력 일자 드래그 설정가능
+		droppable : true,
+		editable : true,
+		nowIndicator: true, // 현재 시간 마크
+		events : [
+			 <% for (CalendarVO cvo : clist) { %>
+             {
+                 title: '<%= cvo.getT_name() %>',
+                 start: '<%= cvo.getStart_date() %>',
+                 end: '<%= cvo.getEnd_date() %>',
+                 t_name: '<%= cvo.getT_name() %>',
+                 start_time: '<%= cvo.getStart_time() %>',
+                 end_time: '<%= cvo.getEnd_time() %>',
+                 res_code: '<%=cvo.getRes_code()%>',
+                 color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
+                
+             },
+         <% } %>
+				] ,
+		 eventClick: function(info) {
+	            // 이벤트를 클릭하면 이벤트 세부 정보를 추출합니다.
+	            var eventDetails = info.event.extendedProps;
+	            var name = eventDetails.t_name;
+	            var startTime = eventDetails.start_time;
+	            var endTime = eventDetails.end_time;
+	            var reservationCode = eventDetails.res_code;
 
+	            // 이벤트 세부 정보를 담은 알림창을 생성합니다.
+	            var message = "이름: " + name + "\n";
+	            message += "시간: " + startTime + " ~ " + endTime + "\n";
+	            message += "예약 코드: " + reservationCode;
+
+	            alert(message);
+	        }
+	});
+	calendar.render();
+});
+</script>
 </html>

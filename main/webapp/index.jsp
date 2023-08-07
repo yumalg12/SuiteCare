@@ -45,7 +45,7 @@
 		</article>
 	</section>
 <% String m_id = (String)session.getAttribute("m_id");
-String g_id = (String)session.getAttribute("g_id");	%>
+String user_id = (String)session.getAttribute("user_id");	%>
 	<!-- One -->
 	<section id="one" class="wrapper style2">
 		<div class="inner">
@@ -75,7 +75,7 @@ String g_id = (String)session.getAttribute("g_id");	%>
 
 				<div>
 					<div class="box" 
-					<% if(g_id == null) { %>onclick="location.href='caregiverLogin.jsp'"
+					<% if(user_id == null) { %>onclick="location.href='caregiverLogin.jsp'"
 						<% } else { %>onclick="location.href='caregiver_info.jsp'"
 							<% } %>
 						style="cursor: pointer;">
