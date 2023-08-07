@@ -9,6 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>수정 확인</title>
+<%@ include file="/header-import.jsp" %>
+
 </head>
 <body>
 <%
@@ -39,15 +41,15 @@ if(result == 1) {
 	%>
 	<script>
 		alert("회원정보 수정이 완료되었습니다.");
-		window.location.href='./mMain.jsp';
+		window.location.href='<%=context%>/member/mMain.jsp';
 	</script>
 	<% 	
 } else {
 %>
 
 	<script>
-		alert("에러, 정보 수정을 완료하지 못했습니다.\n다시 시도해주세요.");
-		window.location.href='../member/mMain.jsp';
+		alert("정보 수정을 완료하지 못했습니다.\n다시 시도해주세요.");
+		history.back();
 	</script>
 <% 
 }

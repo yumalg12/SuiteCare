@@ -22,6 +22,7 @@
 <script>
 function upcheck() {
 	var f = document.tupdateForm;
+	f.method = "post";
 	f.action = "tUpdateCheck.jsp";
 	f.submit();
 }
@@ -71,23 +72,33 @@ for(int i=0; i<list.size(); i++) {
 					</header>
 					
 					<!-- Table -->
-					<form name="tupdateForm">
+					<form name="tupdateForm" action="javascript:upcheck();">
 					<table>
-					<tr><td>이름</td><td style="width: 5rem;">성별</td><td>나이</td><td>키</td><td>몸무게</td><td style="width: 16rem;">지역</td><td style="width: 16rem;">상태 (병명)</td></tr>
-					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>"></td>
-					<td><input type="text" name="t_gender" id="t_gender"  value="<%=gender %>"></td>
-					<td><input type="text" name="t_age" id="t_age"  value="<%=age %>" class="with_unit"> 세</td>
-					<td><input type="text" name="t_height" id="t_height"  value="<%=height %>" class="with_unit"> cm</td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="<%=weight %>" class="with_unit"> kg</td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="주소"></td>
+					<tr style="font-weight: bold;">
+					<td>이름</td>
+					<td style="width: 5rem;">성별</td>
+					<td style="width: 9rem;">나이</td>
+					<td style="width: 9rem;">키</td>
+					<td style="width: 9rem;">몸무게</td>
+					<td style="width: 16rem;">지역</td>
+					<td style="width: 16rem;">상태 (병명)</td>
+					</tr>
+					<tr><td><input type="text" name="t_name" id="t_name"  value="<%=name %>" maxlength="15">
+							<input type="hidden" name="t_code" value="<%=code %>"></td>
+					<td><input type="text" name="t_gender" id="t_gender"  value="<%=gender %>" pattern="[남여]" placeholder="남/여" maxlength="1"></td>
+					<td><input type="number" name="t_age" id="t_age"  value="<%=age %>" class="with_unit" min="0" max="150" maxlength="3"> 세</td>
+					<td><input type="number" name="t_height" id="t_height"  value="<%=height %>" class="with_unit" min="50" max="250" maxlength="3"> cm</td>
+					<td><input type="number" name="t_weight" id="t_weight"  value="<%=weight %>" class="with_unit" min="10" max="350" maxlength="3"> kg</td>
+					<td><input type="text" name="t_weight" id="t_weight"  value="OO시 OO동"></td> <!-- 테이블에 없는 변수인데 추가될 예정인가요? -->
 					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>"></td>
 					</tr>
 					</table>
 					<div class="form_button" >
 						<span class="button" onclick="history.back(0)">취소</span>
 						&nbsp;
-						<button class="button special" onclick="location.href='tUpdateCheck.jsp'">수정 완료</button>
+						<button class="button special">수정 완료</button>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>

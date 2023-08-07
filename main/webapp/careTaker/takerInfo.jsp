@@ -98,7 +98,7 @@ function goindexForm() {
 		<div class="form_wrapper">
 			<div class="form_row">
 				<label for="t_name">이름</label>
-				<input class="form-control" type="text" id="t_name" name="t_name" placeholder="피간병인 이름을 입력하세요.">
+				<input type="text" id="t_name" name="t_name" placeholder="피간병인 이름을 입력하세요." maxlength="15">
 			</div>
 			
 			<div class="form_row">
@@ -113,22 +113,22 @@ function goindexForm() {
 			
 			<div class="form_row">
 				<label for="t_age">나이</label>
-				<input class="form-control" type="number" id="t_age" name="t_age" placeholder="피간병인 나이를 입력하세요." min="0" max="150">
+				<input type="number" id="t_age" name="t_age" placeholder="피간병인 나이를 입력하세요." min="0" max="150" maxlength="3">
 			</div>
 			
 			<div class="form_row">
 				<label for="t_height">키 (cm)</label>
-				<input class="form-control" type="number" id="t_height" name="t_height" placeholder="피간병인 키를 입력하세요." min="50" max="250">
+				<input type="number" id="t_height" name="t_height" placeholder="피간병인 키를 입력하세요." min="50" max="250" maxlength="3">
 			</div>
 				
 			<div class="form_row">
 				<label for="t_weight">몸무게 (kg)</label>
-				<input class="form-control" type="number" id="t_weight" name="t_weight" placeholder="피간병인 몸무게를 입력하세요." min="10" max="350">
+				<input type="number" id="t_weight" name="t_weight" placeholder="피간병인 몸무게를 입력하세요." min="10" max="350" maxlength="3">
 			</div>
 				
 			<div class="form_row">
 				<label for="diagnosis">진단명</label>
-				<input class="form-control" type="text" id="diagnosis" name="diagnosis" placeholder="진단명을 입력하세요.">
+				<input type="text" id="diagnosis" name="diagnosis" placeholder="진단명을 입력하세요.">
 			</div>
 		<div class="form_button_three">
 			<input class="button alt" type="reset" value=초기화>
