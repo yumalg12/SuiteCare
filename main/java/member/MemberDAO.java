@@ -7,6 +7,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import caretaker.TakerVO;
+
 public class MemberDAO {
 	private PreparedStatement pstmt;
 	private Connection conn;
@@ -141,7 +143,7 @@ public class MemberDAO {
 				String m_gender = rs.getString("m_gender");
 				String m_phone = rs.getString("m_phone");
 				String m_email = rs.getString("m_email");
-				String m_address = rs.getString("m_address");
+				String m_address = rs.getString("m_address");	
 				String m_sms_yn = rs.getString("m_sms_yn");
 				String m_email_yn = rs.getString("m_email_yn");
 				
@@ -150,7 +152,7 @@ public class MemberDAO {
 				vo.setM_pw(m_pw);
 				vo.setM_name(m_name);
 				vo.setM_gender(m_gender);
-				vo.setM_email(m_email);
+				vo.setM_email(m_email);			
 				vo.setM_address(m_address);
 				vo.setM_phone(m_phone);
 				vo.setM_email_yn(m_email_yn);
@@ -166,8 +168,63 @@ public class MemberDAO {
 		return list;
 	}
 
+	
+	   public void update(MemberVO vo) {
+		      try {
+		         
+		         conn = dataFactory.getConnection();
+		         
+		         String sql = "UPDATE member SET m_phone=?, m_email=?, m_address=?, m_sms_yn=?, m_email_yn=? where m_id=?"; 
+		         pstmt = conn.prepareStatement(sql);
 
-	public boolean addMember(MemberVO vo) {
+		         pstmt.setString(1, vo.getM_phone());
+		         pstmt.setString(2, vo.getM_email());
+		         pstmt.setString(3, vo.getM_address());
+		         pstmt.setString(4, vo.getM_sms_yn());
+		         pstmt.setString(5, vo.getM_email_yn());
+		         pstmt.setString(6, vo.getM_id());
+		         
+		         
+		         pstmt.executeUpdate();
+		         System.out.println("정보 등록 완료");
+		         
+		         
+		         pstmt.close();}
+		      
+		       catch(Exception e) {
+		         e.printStackTrace();
+		         }
+
+		         
+		   }
+	   
+	   public void updatePw(MemberVO vo) {
+		      try {
+		         
+		         conn = dataFactory.getConnection();
+		         
+		         String sql = "UPDATE member SET m_pw=? where m_id=?"; 
+		         pstmt = conn.prepareStatement(sql);
+
+		         pstmt.setString(1, vo.getM_pw());
+		         pstmt.setString(2, vo.getM_id());
+		         
+		         
+		         pstmt.executeUpdate();
+		         System.out.println("비밀번호 변경 완료");
+		         
+		         
+		         pstmt.close();}
+		      
+		       catch(Exception e) {
+		         e.printStackTrace();
+		         }
+
+		         
+		   }
+	   
+	   
+	public void addMember(MemberVO vo) {
 		
 		try {
 			conn = dataFactory.getConnection();
@@ -203,10 +260,8 @@ public class MemberDAO {
 
 			pstmt.close();
 			conn.close();
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
 	

@@ -74,10 +74,7 @@ String g_id = (String)session.getAttribute("g_id");	%>
 				</div>
 
 				<div>
-					<div class="box" 
-					<% if(g_id == null) { %>onclick="location.href='./careGiver/caregiverLogin.jsp'"
-						<% } else { %>onclick="location.href='./careGiver/caregiver_info.jsp'"
-							<% } %>
+					<div class="box" onclick="location.href='./careGiver/gLogin.jsp'"
 						style="cursor: pointer;">
 						<div class="conB_content">
 							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>

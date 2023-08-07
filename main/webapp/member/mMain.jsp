@@ -26,7 +26,7 @@
       </script>
    
    <body>
-<%@ include file="/header.jsp" %>
+<%@ include file="../header.jsp" %>
 
    <!-- One -->
          <section id="One" class="wrapper style3">
@@ -171,6 +171,6 @@
                      </section>
                      
                         
-<%@include file="/footer.jsp" %>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

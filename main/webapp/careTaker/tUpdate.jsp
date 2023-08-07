@@ -39,27 +39,27 @@ TakerDAO dao = new TakerDAO();
 List<TakerVO> list = dao.takernameList(m_id, t_name);
 
 for(int i=0; i<list.size(); i++) {
-	TakerVO listvo = (TakerVO) list.get(i);
-	
-	String id = listvo.getM_id();
-	String code = listvo.getT_code();
-	String name = listvo.getT_name();
-	String gender = listvo.getT_gender();
-	String age = listvo.getT_age();
-	String height = listvo.getT_height();
-	String weight = listvo.getT_weight();
-	String diagnosis = listvo.getDiagnosis();
+   TakerVO listvo = (TakerVO) list.get(i);
+   
+   String id = listvo.getM_id();
+   String code = listvo.getT_code();
+   String name = listvo.getT_name();
+   String gender = listvo.getT_gender();
+   String age = listvo.getT_age();
+   String height = listvo.getT_height();
+   String weight = listvo.getT_weight();
+   String diagnosis = listvo.getDiagnosis();
 %>
 
 <!-- One -->
-	<section id="One" class="wrapper style3">
-		<div class="inner">
-			<header class="align-center">
-				<p>adsfasdfsdf</p>
-				<h2>Suite Care</h2>
-			</header>
-		</div>
-	</section>
+   <section id="One" class="wrapper style3">
+      <div class="inner">
+         <header class="align-center">
+            <p>adsfasdfsdf</p>
+            <h2>Suite Care</h2>
+         </header>
+      </div>
+   </section>
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
