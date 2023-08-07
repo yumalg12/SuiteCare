@@ -75,7 +75,7 @@ String user_id = (String)session.getAttribute("user_id");	%>
 
 				<div>
 					<div class="box" 
-					<% if(user_id == null) { %>onclick="location.href='./careGiver/gLogin.jsp'"
+					<% if(user_id == null) { %>onclick="location.href='./careGiver/caregiverLogin.jsp'"
 						<% } else { %>onclick="location.href='caregiver_info.jsp'"
 							<% } %>
 						style="cursor: pointer;">
