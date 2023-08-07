@@ -44,7 +44,7 @@ function recheck() {
 
 function update() {
 	var f = document.tinfoform;
-	f.action = "../member/mypage.jsp";
+	f.action = "../member/mMain.jsp";
 	f.submit();
 }
 

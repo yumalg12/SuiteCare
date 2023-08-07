@@ -7,8 +7,8 @@
 <html>
 <head>
 <title>SC 스위트케어 | 간병 예약</title>
-
 <%@ include file="/header-import.jsp"%>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -98,18 +98,20 @@ width: auto !important;
 						<br>
 						<form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">
 							<div class="form_row">
-								<label>시작</label>
+								<label>간병 기간</label>
 								<div>
 									<input type="text" id="startdate" name="startdate" class="res_date" >
-									<input type="text" id="starttime" name="starttime" class="res_date" placeholder="시작 시간">
-									<span class="ui-timepicker-trigger">🕑</span>
+									<span style="position: relative; left: -0.4rem;">~</span>
+									<input type="text" id="enddate" name="enddate" class="res_date">
 								</div>
 							</div>
 
 							<div class="form_row">
-								<label>종료</label>
+								<label>간병 시간</label>
 								<div>
-									<input type="text" id="enddate" name="enddate" class="res_date">
+									<input type="text" id="starttime" name="starttime" class="res_date" placeholder="시작 시간">
+									<span class="ui-timepicker-trigger" style="margin-right: -0.7rem;">🕑</span>
+									<span style="position: relative; left: -0.4rem;">~</span>
 									<input type="text" id="endtime" name="endtime" class="res_date" placeholder="종료 시간">
 									<span class="ui-timepicker-trigger">🕑</span>
 								</div>
@@ -124,7 +126,7 @@ width: auto !important;
 			</div>
 		</div>
 	</section>
-
+<%@include file="/footer.jsp" %>
 </body>
 
 <script>

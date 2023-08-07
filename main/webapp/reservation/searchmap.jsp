@@ -62,12 +62,6 @@ ul, li {
 
 <body>
 
-<form id="submitForm" method="post" >
-    <input type="hidden" name="hospname" id="hospname">
-    <input type="hidden" name="hospaddr" id="hospaddr">
-</form>
-
-
 <div class="map_wrap">
     <div id="map" style="height:100vh;overflow:hidden;"></div>
 
@@ -174,9 +168,7 @@ function displayPlaces(places) {
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
 
-        // 마커와 검색결과 항목에 mouseover 했을때
-        // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        // mouseout 했을 때는 인포윈도우를 닫습니다
+        // 마커와 검색결과 항목에 클릭했을때 해당 장소에 인포윈도우에 장소명을 표시합니다
         (function(marker, title, address) {
             kakao.maps.event.addListener(marker, 'click', function() {
                 displayInfowindow(marker, title, address);
@@ -290,16 +282,9 @@ function displayInfowindow(marker, title, address) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
     
-   document.getElementById('hospname').value = title;
-    document.getElementById('hospaddr').value = address;
-    
-
     window.opener.setHospitalInfo(title, address);
-
     // 팝업창 닫기
     window.close();
-   
-   
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다

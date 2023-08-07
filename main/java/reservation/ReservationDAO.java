@@ -41,7 +41,7 @@ public class ReservationDAO {
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT count(*) FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
+		String sql = "SELECT t_code FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, m_id);
 		
@@ -381,6 +381,7 @@ public class ReservationDAO {
 		} return result;
 	}
 	
+
 	public List<ReservationVO> resList(String id) {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
@@ -504,4 +505,77 @@ public class ReservationDAO {
 	      }
 	      return list;
 	   }
+
+	public List<PrelocationVO> preloclist() {
+		List<PrelocationVO> list= new ArrayList<PrelocationVO>();
+		try {
+			connect();
+				
+			String sql = "SELECT * FROM location";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				int sido_code = rs.getInt("sido_code");
+				String sido = rs.getString("sido");
+				
+				
+				PrelocationVO vo = new PrelocationVO();
+				
+				vo.setSido_code(sido_code);
+				vo.setSido(sido);
+				list.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int updatepre(ReservationInfoVO vo) {
+		int result = 0;
+		try {
+			connect();
+			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual_1=?, pre_qual_2=?, pre_qual_3=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?  where res_code=?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, vo.getPre_location_1());
+			pstmt.setInt(2, vo.getPre_location_2());
+			pstmt.setInt(3, vo.getPre_location_3());
+			pstmt.setString(4, vo.getPre_age_1());
+			pstmt.setString(5, vo.getPre_age_2());
+			pstmt.setString(6, vo.getPre_age_3());
+			pstmt.setString(7, vo.getPre_gender());
+			pstmt.setString(8, vo.getPre_qual_1());
+			pstmt.setString(9, vo.getPre_qual_2());
+			pstmt.setString(10, vo.getPre_qual_3());
+			pstmt.setString(11, vo.getPre_repre_1());
+			pstmt.setString(12, vo.getPre_repre_2());
+			pstmt.setString(13, vo.getPre_repre_3());
+			pstmt.setString(14, vo.getPre_hourwage_1());
+			pstmt.setString(15, vo.getPre_hourwage_2());
+			pstmt.setString(16, vo.getPre_hourwage_3());
+			pstmt.setString(17, vo.getRes_code());
+			
+			result=pstmt.executeUpdate();
+			
+			System.out.println(result);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { if(pstmt!=null) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} return result;
+	}
+	
+	
 }

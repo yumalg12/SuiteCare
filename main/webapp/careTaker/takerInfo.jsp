@@ -3,13 +3,12 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>SC 스위트케어 | 일반 본문</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
+		<title>SC 스위트케어 | 간병 신청</title>
+<%@ include file="/header-import.jsp" %>
+
 	</head>
 	<body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/header.jsp" %>
 
 <%String m_id = (String)session.getAttribute("m_id"); %>	
 
@@ -18,7 +17,7 @@
 				<div class="inner">
 					<header class="align-center">
 						<p>Eleifend vitae urna</p>
-						<h2>Generic Page Template</h2>
+						<h2>SC SuitCare</h2>
 					</header>
 				</div>
 			</section>
@@ -32,7 +31,6 @@
 								<p>간병 서비스를 제공받을 분</p>
 								<h2>기본 정보 등록</h2>
 							</header>
-							
 
 <script >
 	function validateForm() {
@@ -90,7 +88,7 @@
 
 <script>
 function goindexForm() {
-	location.href="../member/mypage.jsp";
+	location.href="../member/mMain.jsp";
 }
 </script>
 
@@ -100,58 +98,52 @@ function goindexForm() {
 		<div class="form_wrapper">
 			<div class="form_row">
 				<label for="t_name">이름</label>
-				<div class ="form_row_sub">
 				<input class="form-control" type="text" id="t_name" name="t_name" placeholder="피간병인 이름을 입력하세요.">
-				</div>
 			</div>
-			<br>
+			
 			<div class="form_row">
 				<label for="t_gender">성별</label>
-				<input class = "form-control" type="radio" id="man" name="t_gender" value="남">
+				<div>
+				<input type="radio" id="man" name="t_gender" value="남">
 				<label for="man">남자</label>
-				<input class = "form-control" type="radio" id="woman" name="t_gender" value="여">
-				<label for="woman">여자</label> <br><br>
-				</div>			
+				<input type="radio" id="woman" name="t_gender" value="여">
+				<label for="woman">여자</label> 
+				</div>
+			</div>			
 			
 			<div class="form_row">
 				<label for="t_age">나이</label>
-				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="t_age" name="t_age" placeholder="피간병인 나이를 입력하세요.">
-				</div>
+				<input class="form-control" type="number" id="t_age" name="t_age" placeholder="피간병인 나이를 입력하세요." min="0" max="150">
 			</div>
-			<br>
+			
 			<div class="form_row">
-				<label for="t_height">키(cm)</label>
-				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="t_height" name="t_height" placeholder="피간병인 키를 입력하세요.">
-				</div>
+				<label for="t_height">키 (cm)</label>
+				<input class="form-control" type="number" id="t_height" name="t_height" placeholder="피간병인 키를 입력하세요." min="50" max="250">
 			</div>
-			<br>	
+				
 			<div class="form_row">
-				<label for="t_weight">몸무게(kg)</label>
-				<div class ="form_row_sub">
-				<input class="form-control" type="text" id="t_weight" name="t_weight" placeholder="피간병인 몸무게를 입력하세요.">
-				</div>
+				<label for="t_weight">몸무게 (kg)</label>
+				<input class="form-control" type="number" id="t_weight" name="t_weight" placeholder="피간병인 몸무게를 입력하세요." min="10" max="350">
 			</div>
-			<br>	
+				
 			<div class="form_row">
 				<label for="diagnosis">진단명</label>
-				<div class ="form_row_sub">
 				<input class="form-control" type="text" id="diagnosis" name="diagnosis" placeholder="진단명을 입력하세요.">
-				</div>
 			</div>
-			</div>
-			<br>				
-		<div style="text-align: center;" class="form_btn">
+		<div class="form_button_three">
+			<input class="button alt" type="reset" value=초기화>
+			<div>
+	 		<input class="button" type="button" value=취소 onClick="goindexForm()">
 			<input class="button special" type="submit" value=등록 >
-			<input class="button special" type="reset" value=초기화>
-	 	<!-- <input class="button special" type="hidden" name="command" value="addMember"> -->	
-	 		<input class="button special" type="button" value=취소 onClick="goindexForm()">
+			</div>
 		</div>
-		<br>
-		<br>
+	 	<!-- <input class="button special" type="hidden" name="command" value="addMember"> -->	
+		</div>
+		
 	</form>
 	<!-- form 끝 -->
+		
+</div>
 </div>
 </div>
 </section>
