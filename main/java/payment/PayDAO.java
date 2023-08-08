@@ -63,10 +63,10 @@ public void payInfo(PayVO payvo) {
 			ResultSet rs = pstmt.executeQuery();
 			String m_name = rs.getString("m_name");
 			String m_phone = rs.getString("m_phone");
-			String m_eamil = rs.getString("m_email");
+			String m_email = rs.getString("m_email");
 			payvo.setM_name(m_name);
 			payvo.setM_phone(m_phone);
-			payvo.setM_eamil(m_eamil);
+			payvo.setM_email(m_email);
 									
 		}catch (SQLException e) {
 				e.printStackTrace();
