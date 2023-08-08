@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    
+    pageEncoding="UTF-8"%> 
+<%@ page import="java.util.*"%>
+<%@ page import="payment.*"%>   
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>iamport</title>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <body>
+<%
+PayVO payvo = new PayVO();
+String m_phone = payvo.getM_phone();
+%>
 
  <div align="center">
  <p  style="color: #ac2925; margin-top: 30px">실제 출금 건이 발생하니 결제금액 1원을 선택해주세요!!!!.</p>
@@ -19,6 +26,7 @@
 <input type="radio" name="cd_item" value="35000"><span>35,000원</span>
 <input type="radio" name="cd_item" value="40000"><span>40,000원</span>
 <input type="radio" name="cd_item" value="50000"><span>50,000원</span>
+<%= m_phone %>
 <button type="button" id="charge_card">충 전 하 기</button>
  </div>
  
@@ -44,7 +52,7 @@
 	     name: "SC 스위트케어",
 	     amount: c,	     
 	     language: "",
-	     buyer_tel: "010-1111-1111",
+	     buyer_tel: "<%= m_phone %>",
 	     
    }, function (rsp) {
 	   console.log(rsp);

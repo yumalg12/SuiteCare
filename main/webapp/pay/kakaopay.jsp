@@ -12,6 +12,7 @@
 </head>
 <%
 PayVO payvo = new PayVO();
+String m_phone = payvo.getM_phone();
 %>
 <body>
 <div align="center">
@@ -24,6 +25,7 @@ PayVO payvo = new PayVO();
 <input type="radio" name="kp_item" value="35000"><span>35,000원</span>
 <input type="radio" name="kp_item" value="40000"><span>40,000원</span>
 <input type="radio" name="kp_item" value="50000"><span>50,000원</span>
+<span><%= m_phone %></span>
 <button type="button" class="btn btn-outline-dark" id="charge_kakao">충 전 하 기</button>
  </div>
  
@@ -51,7 +53,7 @@ PayVO payvo = new PayVO();
      amount: m,
      currency: "KRW",
      language: "",
-     buyer_tel: <%= payvo.getM_phone()%>,
+     buyer_tel: <%=m_phone%>,
      
     }, function (rsp) {
  	   console.log(rsp);

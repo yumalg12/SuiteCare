@@ -20,7 +20,7 @@ public class PayVO {
 	}
 
 	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, double scPoint,
-			String merchant_uid) {
+			String merchant_uid, String m_name) {
 		super();
 		this.m_id = m_id;
 		this.m_phone = m_phone;
@@ -64,12 +64,12 @@ public class PayVO {
 		this.m_phone = m_phone;
 	}
 
-	public String getM_eamil() {
+	public String getM_email() {
 		return m_email;
 	}
 
-	public void setM_eamil(String m_eamil) {
-		this.m_email = m_eamil;
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 
 	public String getPay_method() {
