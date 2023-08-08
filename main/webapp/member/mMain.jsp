@@ -1,197 +1,342 @@
-<%@ page import = "patient.*" %>
-<%@ page import = "caretaker.*" %>
-<%@ page import = "reservation.*" %>
-<%@ page import = "java.sql.*" %>
-<%@ page import = "java.sql.Time" %>
-<%@ page import = "java.sql.Date" %>
-<%@ page import = "java.util.*" %>
+<%@ page import="calendar.*"%>
+<%@ page import="patient.*"%>
+<%@ page import="caretaker.*"%>
+<%@ page import="reservation.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.sql.Time"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>SC 스위트케어 | 마이페이지</title>
-<%@ include file="/header-import.jsp" %>
+<head>
+<title>SC 스위트케어 | 마이페이지</title>
+<%@ include file="/header-import.jsp"%>
 
-	</head>
-	
-	<script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
-		function insertTinfo() {
-			window.location.href = "../careTaker/takerInfo.jsp";
-		}
-		function rescaregiver() {
-			window.location.href = "../reservation/rescaretaker.jsp";
-		}
-		
-		function rescalendar() {
-			window.location.href = "../member/mMain_calendar.jsp";
-		}
-		
-		function delok() {
-			if(!confirm("예약을 취소하시겠습니까?")) {
-				
-				return false;
-			}
-		}
-		</script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+<style>
+.fc-col-header {
+    margin: 0;
+    padding: 0;
+}
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+text-decoration:none;
+ cursor: default;
+}
+.fc-daygrid-day:hover{
+font-weight: bold;
+background-color: #DFD7BF50;
+}
+.fc-scroller{
+overflow:hidden !important;
+}
+.fc .fc-button-primary{
+background-color: transparent;
+border: none;
+outline: none;
+}
+.fc .fc-button-primary:hover{
+background-color: #cccccc50;
+}
+.fc .fc-daygrid-day.fc-day-today{
+background-color: #A4907Caa;
+font-weight: bold;
+}
+.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
+background-color: #DFD7BFaa;
+font-weight: bold;
+}
+.fc .fc-toolbar.fc-header-toolbar{
+margin-left: 7.2rem;
+}
+.fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    display: inline;
+    position: relative;
+    top: 0.4rem;
+}
+</style>
+
+</head>
+
+<script>
+
+function insertTinfo() {
+	window.location.href = "../careTaker/takerInfo.jsp";
+}
+
+function rescaregiver() {
+	window.location.href = "../reservation/rescaretaker.jsp";
+}
+
+function delok() {
+	if(!confirm("예약을 취소하시겠습니까?")) {
+		return false;
+	}
+}
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-	<body>
-<%@ include file="/header.jsp" %>
 
-   <!-- One -->
-         <section id="One" class="wrapper style3">
-            <div class="inner">
-               <header class="align-center">
-                  <p>Eleifend vitae urna</p>
-                  <h2>SC SuiteCare</h2>
-               </header>
-            </div>
-         </section>
+<body>
+	<%@ include file="/header.jsp"%>
 
-		<!-- Two -->
-			<section id="two" class="wrapper style2">
-				<div class="inner">
-					<div class="box">
-						<div class="content">
-							<header class="align-center">
-								<p>간병 받을 분</p>
-								<h2>기본 정보</h2>
-							</header>
-							
-	 <form name="patientinfo">
-      <table>
-      <thead>
-      <tr><td>No.</td><td>이름</td><td> 성별</td> <td> 나이 </td> <td> 키</td> <td> 몸무게 </td><td> 진단명 </td><td> 수정 </td></tr>
-      </thead>
-      <% 
-      request.setCharacterEncoding("utf-8");
-      String m_id = (String)session.getAttribute("m_id");				
+	<!-- One -->
+	<section id="One" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<p>Eleifend vitae urna</p>
+				<h2>SC SuiteCare</h2>
+			</header>
+		</div>
+	</section>
 
-	      TakerDAO dao = new TakerDAO();
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>간병 받을 분</p>
+						<h2>기본 정보</h2>
+					</header>
 
-	      List<TakerVO> list = dao.takerList(m_id);
-	      for(int i=0; i<list.size(); i++) {
-	         TakerVO listt = (TakerVO) list.get(i);
-	   
-	         String t_name = listt.getT_name();
-	         String t_gender = listt.getT_gender();
-	         String t_age = listt.getT_age();
-	         String t_height = listt.getT_height();
-	         String t_weight = listt.getT_weight();
-	         String diagnosis = listt.getDiagnosis();
-	   
-	         %>
-	      <tr><td> <%=i+1 %> </td><td> <%=t_name %> </td><td> <%=t_gender %> </td><td> <%=t_age %>세 </td> <td> <%=t_height %>cm </td> <td> <%=t_weight %>kg </td> <td> <%=diagnosis %> </td><td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name %>'>수정하기</a></td></tr>
-	      <%
-	      }
-	      %>
-	      </table> 
-	      </form>
+					<form name="patientinfo">
+						<table>
+							<thead>
+								<tr>
+									<td>No.</td> <td>이름</td> <td>성별</td> <td>나이</td>
+									<td>키</td> <td>몸무게</td> <td>진단명</td> <td>수정</td>
+								</tr>
+							</thead>
+							<%
+							request.setCharacterEncoding("utf-8");
+							String m_id = (String) session.getAttribute("m_id");
 
+							TakerDAO dao = new TakerDAO();
 
-		     <div style="text-align: center;" class="form_btn">
-      <input type="button" class = "button special" onclick="insertTinfo();" value="피간병인 정보 등록하기">
-         </div>
-         </div>
-         </div>
-         </div>
-         </section>
-                  
-                     
-      <!-- three -->
-         <section id="three" class="wrapper style2">
-            <div class="inner">
-               <div class="box">
-                  <div class="content">
-                     <header class="align-center">
-                        <p>간병인 서비스</p>
-                        <h2>예약 정보</h2>
-                     </header>
-         <form name="resinfo">
-         <table>
-         <thead>
-         <tr><td> 피간병인 </td><td> 간병인</td> <td> 근무기간 </td> <td> 근무시간</td> <td> 결제금액 </td> <td> 결제여부</td> <td> 비고</td></tr>
-         </thead>
-			<%
-//아래로는 아직 확인못함
-			PatientresDAO dao2 = new PatientresDAO();
-			List<PatientresVO> reslist = dao2.listres(m_id);
-			for(int i=0; i<reslist.size(); i++) {
-				PatientresVO listvo = (PatientresVO) reslist.get(i);
-	
-				String patient = listvo.getCaretaker();
-				Date start_date = listvo.getStartdate();
-				Date end_date = listvo.getEnddate();
-				Time start_time = listvo.getStarttime();
-				Time end_time = listvo.getEndtime();
-				String caregiver = listvo.getCaregiver();
-				String res_code = "test"; //listvo.getRes_code();
-				String caretaker_code = "test"; //listvo.getCaretaker_code();
-	
-				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-	
-				long worktime = end_time.getTime() - start_time.getTime();
-				int workHours = (int) (worktime / (1000 * 60 * 60));
+							List<TakerVO> list = dao.takerList(m_id);
+							for (int i = 0; i < list.size(); i++) {
+								TakerVO listt = (TakerVO) list.get(i);
 
-				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
-	
-				int salary = totalWorkDays * workHours * 10000;
-	
-	 			String fSalary = String.format("%,d", salary);
-	
-				if(caregiver==null) {
-			%>
-
-			<tr><td> <%=patient %> </td><td> 미지정 </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td>
-			<td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
+								String t_name = listt.getT_name();
+								String t_gender = listt.getT_gender();
+								String t_age = listt.getT_age();
+								String t_height = listt.getT_height();
+								String t_weight = listt.getT_weight();
+								String diagnosis = listt.getDiagnosis();
+							%>
+							<tr>
+								<td><%=i + 1%></td>
+								<td><%=t_name%></td>
+								<td><%=t_gender%></td>
+								<td><%=t_age%>세</td>
+								<td><%=t_height%>cm</td>
+								<td><%=t_weight%>kg</td>
+								<td><%=diagnosis%></td>
+								<td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name%>'>수정하기</a></td>
+							</tr>
+							<%
+							}
+							%>
+						</table>
+					</form>
 
 
-			<%
-			} else if(caregiver!= null) {
-				%>
-
-			<tr><td> <%=patient %> </td><td> <%=caregiver %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td><td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
-
-			<%
-			} 
-
-			}
-			%>
-			</table>
-			</form>
-			<div style="text-align: center;" class="form_btn">
-			<input type="button" class = "button" onclick="rescalendar();" value="달력으로 보기">
-			<input type="button" class = "button special" onclick="rescaregiver();" value="간병인 신청하기">
+					<div style="text-align: center;" class="form_button">
+						<input type="button" class="button special"
+							onclick="insertTinfo();" value="피간병인 정보 등록하기">
+					</div>
+				</div>
 			</div>
-			</div>
-			</div>
-			</div>
-			</section>
+		</div>
+	</section>
 
 
-		<!-- four -->
-			<section id="four" class="wrapper style2">
-				<div class="inner">
-					<div class="box">
-						<div class="content">
-							<header class="align-center">
-								<p>스위트 케어</p>
-								<h2>빠른 매칭 서비스</h2>
-							</header>
-							</div>
-							</div>
-							</div>
-							</section>
-							
-<%@include file="/footer.jsp" %>
+	<!-- three -->
+	<section id="three" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>간병인 서비스</p>
+						<h2>예약 정보</h2>
+					</header>
+					<div>
+						<input type="button" class="button" id="calToggle" onclick="rescalendar();" value="달력으로 보기">
+					</div>
+					<div id='calendar'></div>
+					<div id='restable'>
+						<%
+						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
+						List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
+						%>
+						<form name="resinfo">
+							<table>
+								<thead>
+									<tr>
+										<td>피간병인</td> <td>간병인</td> <td>근무기간</td> <td>근무시간</td>
+										<td>결제금액</td> <td>결제여부</td> <td>비고</td>
+									</tr>
+								</thead>
+								<%
+								//아래로는 아직 확인못함
+								PatientresDAO dao2 = new PatientresDAO();
+								List<PatientresVO> reslist = dao2.listres(m_id);
+								for (int i = 0; i < reslist.size(); i++) {
+									PatientresVO listvo = (PatientresVO) reslist.get(i);
+
+									String patient = listvo.getCaretaker();
+									Date start_date = listvo.getStartdate();
+									Date end_date = listvo.getEnddate();
+									Time start_time = listvo.getStarttime();
+									Time end_time = listvo.getEndtime();
+									String caregiver = listvo.getCaregiver();
+									String res_code = listvo.getRes_code();
+									String caretaker_code = listvo.getCaretaker_code();
+
+									String workDate = start_date + "~" + end_date;
+									String workTimes = start_time + "~" + end_time;
+
+									long worktime = end_time.getTime() - start_time.getTime();
+									int workHours = (int) (worktime / (1000 * 60 * 60));
+
+									int totalWorkDays = (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+									int salary = totalWorkDays * workHours * 10000;
+
+									String fSalary = String.format("%,d", salary);
+
+									if (caregiver == null) {
+								%>
+
+								<tr>
+									<td><%=patient%></td> <td>미지정</td> <td><%=workDate%></td>
+									<td><%=workTimes%></td> <td><%=fSalary%>원</td> <td>...</td>
+									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
+										onclick="return delok();">취소</a></td>
+								</tr>
+
+								<%
+								} else if (caregiver != null) {
+								%>
+								<tr>
+									<td><%=patient%></td> <td><%=caregiver%></td> <td><%=workDate%></td>
+									<td><%=workTimes%></td> <td><%=fSalary%>원</td> <td>...</td>
+									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
+										onclick="return delok();">취소</a></td>
+								</tr>
+
+								<%
+								}
+								}
+								%>
+							</table>
+						</form>
+						</div>
+						<div style="text-align: center;" class="form_button">
+							<input type="button" class="button special" onclick="rescaregiver();" value="간병인 신청하기">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- four -->
+	<section id="four" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>스위트 케어</p>
+						<h2>빠른 매칭 서비스</h2>
+					</header>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<%@include file="/footer.jsp"%>
 </body>
+<script>
+function rescalendar() {
+	//토글버튼 변경하고 목록 테이블 없애기
+	document.getElementById('calToggle').setAttribute("onClick", "restable()");
+	document.getElementById('calToggle').value = "목록으로 보기";
+	document.getElementById('calToggle').style.position = "absolute";
+	document.getElementById('calToggle').style.top = "15.9rem";
+	document.getElementById('restable').style.display = "none";
+	document.getElementById('calendar').style.display = "";
+	
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		contentHeight: 650,
+		initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+		locale : 'ko',
+		headerToolbar : { // 헤더에 표시할 툴 바
+			start : "",
+			center : "prev title next",
+            end : 'dayGridMonth,dayGridWeek,dayGridDay'
+		},
+		
+		titleFormat : function(date) {
+			return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+		},
+		//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+		selectable : true, // 달력 일자 드래그 설정가능
+		droppable : true,
+		editable : true,
+		nowIndicator: true, // 현재 시간 마크
+		events : [
+			 <%for (CalendarVO cvo : clist) {%>
+             {
+                 title: '<%=cvo.getT_name()%>',
+                 start: '<%=cvo.getStart_date()%>',
+                 end: '<%=cvo.getEnd_date()%>',
+                 t_name: '<%=cvo.getT_name()%>',
+                 start_time: '<%=cvo.getStart_time()%>',
+                 end_time: '<%=cvo.getEnd_time()%>',
+                 res_code: '<%=cvo.getRes_code()%>',
+                 color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
+                
+             },
+         <%}%>
+				] ,
+		 eventClick: function(info) {
+	            // 이벤트를 클릭하면 이벤트 세부 정보를 추출합니다.
+	            var eventDetails = info.event.extendedProps;
+	            var name = eventDetails.t_name;
+	            var startTime = eventDetails.start_time;
+	            var endTime = eventDetails.end_time;
+	            var reservationCode = eventDetails.res_code;
 
+	            // 이벤트 세부 정보를 담은 알림창을 생성합니다.
+	            var message = "이름: " + name + "\n";
+	            message += "시간: " + startTime + " ~ " + endTime + "\n";
+	            message += "예약 코드: " + reservationCode;
+
+	            alert(message);
+	        }
+	});
+	calendar.render();
+};
+
+function restable() {
+	//토글버튼 변경하고 달력 없애고 목록 표시하기
+	document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
+	document.getElementById('calToggle').value = "달력으로 보기";
+	document.getElementById('calToggle').style.position = "";
+	document.getElementById('calToggle').style.top = "";
+	document.getElementById('calendar').style.display = "none";
+	document.getElementById('restable').style.display = "";
+};
+
+</script>
 </html>
