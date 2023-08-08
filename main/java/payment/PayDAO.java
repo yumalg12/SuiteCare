@@ -29,16 +29,20 @@ public class PayDAO {
 		try {
 			conn = dataFactory.getConnection();
 			String merchant_uid = payvo.getMerchant_uid();
-			String amount = payvo.getAmout();
-			String pay_method = payvo.getPay_method();	
+			int amount = payvo.getAmout();
+			String pay_method = payvo.getPay_method();
 			String m_id = payvo.getM_id();
-			String query = "INSERT INTO t_payment(merchant_uid, amount, pay_method, m_id)" + " VALUES(?, ? ,?,?)";
+			double scPoint = payvo.getScPoint();
+			String m_phone = payvo.getM_phone();
+			String query = "INSERT INTO t_payment(merchant_uid, amount, pay_method, m_id, scPoint, m_phone)" + " VALUES(?, ? ,?, ?, ?,?)";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, merchant_uid);
-			pstmt.setString(2, amount);
+			pstmt.setInt(2, amount);
 			pstmt.setString(3, pay_method);
-			pstmt.setString(4, m_id);	
+			pstmt.setString(4, m_id);
+			pstmt.setDouble(5, scPoint);
+			pstmt.setString(6, m_phone);
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
@@ -60,8 +64,8 @@ public void payInfo(PayVO payvo) {
 			String m_name = rs.getString("m_name");
 			String m_phone = rs.getString("m_phone");
 			String m_eamil = rs.getString("m_email");
-			payvo.setM_eamil(m_name);
-			payvo.setM_eamil(m_phone);
+			payvo.setM_name(m_name);
+			payvo.setM_phone(m_phone);
 			payvo.setM_eamil(m_eamil);
 									
 		}catch (SQLException e) {

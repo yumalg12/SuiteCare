@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-  String test_id = "yay"; 
+  String test_id = "aaaa"; 
   session.setAttribute("m_id", test_id);
 %>
 <input type = "button" name = "kakaopay" onclick = "location.href='/suiteCare/Payment/kakao.do'" value = "카카오페이">
