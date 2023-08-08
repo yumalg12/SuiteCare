@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>  
 <%@ page import="java.util.*"%>
 <%@ page import="payment.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +12,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%
-PayVO payvo = new PayVO();
-String m_phone = payvo.getM_phone();
-%>
 <body>
+
 <div align="center">
+
 <input type="radio" name="kp_item" value="5000"><span>5,000원</span>
 <input type="radio" name="kp_item" value="10000"><span>10,000원</span>
 <input type="radio" name="kp_item" value="15000"><span>15,000원</span><br/>
@@ -25,7 +25,6 @@ String m_phone = payvo.getM_phone();
 <input type="radio" name="kp_item" value="35000"><span>35,000원</span>
 <input type="radio" name="kp_item" value="40000"><span>40,000원</span>
 <input type="radio" name="kp_item" value="50000"><span>50,000원</span>
-<span><%= m_phone %></span>
 <button type="button" class="btn btn-outline-dark" id="charge_kakao">충 전 하 기</button>
  </div>
  
@@ -33,6 +32,9 @@ String m_phone = payvo.getM_phone();
   <input id = "amountRsp" type = "hidden" name = "amountRsp" value ="">
   <input id = "merchant_uidRsp" type = "hidden"  name = "merchant_uidRsp" value =""> 
   <input id = "pay_method" type = "hidden" name = "pay_method" value ="">
+<c:forEach var="pay" items="${list }">
+  <input type="hidden" id="phone" value="${pay.m_phone }">
+</c:forEach>
  </form> 
 
 <script> 
@@ -44,7 +46,7 @@ String m_phone = payvo.getM_phone();
 	 IMP.init(userCode);
 	 var m = $('input[name="kp_item"]:checked').val();//라디오박스 체크 값 변수에 저장
      console.log(m);
-	
+	 
     IMP.request_pay({
      pg: "kakaopay",
      pay_method: "kakao",
@@ -53,7 +55,7 @@ String m_phone = payvo.getM_phone();
      amount: m,
      currency: "KRW",
      language: "",
-     buyer_tel: <%=m_phone%>,
+     buyer_tel: document.getElementById("phone").value,
      
     }, function (rsp) {
  	   console.log(rsp);

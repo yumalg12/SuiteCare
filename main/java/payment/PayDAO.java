@@ -52,7 +52,8 @@ public class PayDAO {
 		
 	}
 	
-public void payInfo(PayVO payvo) {
+public List<PayVO> payInfo(PayVO payvo) {
+	List<PayVO> list = new ArrayList<PayVO>();
 		
 		try {
 			conn = dataFactory.getConnection();
@@ -61,17 +62,19 @@ public void payInfo(PayVO payvo) {
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
-			String m_name = rs.getString("m_name");
-			String m_phone = rs.getString("m_phone");
-			String m_email = rs.getString("m_email");
-			payvo.setM_name(m_name);
-			payvo.setM_phone(m_phone);
-			payvo.setM_email(m_email);
-									
+			if (rs.next()) {
+				String m_name = rs.getString("m_name");
+				String m_phone = rs.getString("m_phone");
+				String m_email = rs.getString("m_email");
+				PayVO vo = new PayVO(m_name,m_phone,m_email);
+				list.add(vo);
+			}
 		}catch (SQLException e) {
 				e.printStackTrace();
 			}
 		
-		
+		return list;					
 	}
+
+
 }

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%> 
 <%@ page import="java.util.*"%>
 <%@ page import="payment.*"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +12,6 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <body>
-<%
-PayVO payvo = new PayVO();
-String m_phone = payvo.getM_phone();
-%>
 
  <div align="center">
  <p  style="color: #ac2925; margin-top: 30px">실제 출금 건이 발생하니 결제금액 1원을 선택해주세요!!!!.</p>
@@ -26,7 +24,6 @@ String m_phone = payvo.getM_phone();
 <input type="radio" name="cd_item" value="35000"><span>35,000원</span>
 <input type="radio" name="cd_item" value="40000"><span>40,000원</span>
 <input type="radio" name="cd_item" value="50000"><span>50,000원</span>
-<%= m_phone %>
 <button type="button" id="charge_card">충 전 하 기</button>
  </div>
  
@@ -34,6 +31,9 @@ String m_phone = payvo.getM_phone();
   <input id = "amountRsp" name = "amountRsp" type = "hidden" value ="">
   <input id = "merchant_uidRsp" type = "hidden"  name = "merchant_uidRsp" value =""> 
   <input id = "pay_method" name = "pay_method" type = "hidden" value ="">
+  <c:forEach var="pay" items="${list }">
+  <input type="hidden" id="phone" value="${pay.m_phone }">
+</c:forEach>
 </form> 
 
 <script>
@@ -52,7 +52,7 @@ String m_phone = payvo.getM_phone();
 	     name: "SC 스위트케어",
 	     amount: c,	     
 	     language: "",
-	     buyer_tel: "<%= m_phone %>",
+	     buyer_tel: document.getElementById("phone").value,
 	     
    }, function (rsp) {
 	   console.log(rsp);
