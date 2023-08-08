@@ -57,6 +57,12 @@ color: black;
 width: auto !important;
 }
 </style>
+
+<script>
+window.onbeforeunload = function () {
+	return ''; 
+}
+</script>
 </head>
 <body>
 

@@ -14,6 +14,10 @@
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
+
 function back() {
 	var f = document.homeForm;
 	f.action = "rescareloc.jsp";

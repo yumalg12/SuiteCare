@@ -10,6 +10,9 @@
 <title>SC 스위트케어 | 빠른 매칭 서비스</title>
 <%@ include file="/header-import.jsp"%>
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
 
 function matSubmit() {
 	//console.log('확인');

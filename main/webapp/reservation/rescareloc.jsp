@@ -24,6 +24,12 @@ form:hover {
 	margin-top: 3rem;
 }
 </style>
+
+<script>
+window.onbeforeunload = function () {
+	return ''; 
+}
+</script>
 </head>
 
 <body>
