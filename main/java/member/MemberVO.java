@@ -179,7 +179,14 @@ public class MemberVO {
 	}
 
 
+	public Date getM_signup_date() {
+		return m_signup_date;
+	}
 
+
+	public void setM_signup_date(Date m_signup_date) {
+		this.m_signup_date = m_signup_date;
+	}
 	
 	
 }
