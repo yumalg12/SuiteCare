@@ -204,6 +204,7 @@ public class ReservationDAO {
 		return rescode;
 	}
 	
+	
 	public ReservationVO getLatestReservation(String m_id, String t_code) {
 	    ReservationVO reservation = null;
 	    try {
@@ -321,25 +322,46 @@ public class ReservationDAO {
 		}
 		return check_ok;
 	}
-
-	public int insertresinfo(ReservationInfoVO vo) {
+	public void insertrescode(ReservationInfoVO vo) {
+		try {
+			connect();
+			
+			String sql = 
+					"INSERT INTO reservation_info(res_code, caretaker_code)"
+							+ "VALUES(?,?)";
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, vo.getRes_code());
+					pstmt.setString(2, vo.getCaretaker_code());
+					
+					 pstmt.executeUpdate();
+					
+					System.out.println("info 코드 입력 완료");
+					
+					
+					pstmt.close();}
+				 catch(Exception e) {
+					e.printStackTrace();
+					}
+			}
+	
+	public int updateresinfo(ReservationInfoVO vo) {
 		
 		int result = 0;
 		try {
 			connect();
 			
 			String sql = 
-					"INSERT INTO reservation_info(res_code, start_date, end_date, start_time, end_time, caretaker_code)"
-							+ "VALUES(?,?,?,?,?,?)";
+					 "UPDATE reservation_info SET start_date=?, end_date=?,start_time=?, end_time=? where res_code=?";
 					
 					pstmt = conn.prepareStatement(sql);
 					
-					pstmt.setString(1, vo.getRes_code());
-					pstmt.setString(2, vo.getStart_date());
-					pstmt.setString(3, vo.getEnd_date());
-					pstmt.setString(4, vo.getStart_time());
-					pstmt.setString(5, vo.getEnd_time());
-					pstmt.setString(6, vo.getCaretaker_code());
+					pstmt.setString(1, vo.getStart_date());
+					pstmt.setString(2, vo.getEnd_date());
+					pstmt.setString(3, vo.getStart_time());
+					pstmt.setString(4, vo.getEnd_time());
+					pstmt.setString(5, vo.getRes_code());
 					
 					result = pstmt.executeUpdate();
 					
@@ -542,7 +564,7 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual_1=?, pre_qual_2=?, pre_qual_3=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?  where res_code=?";
+			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?  where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -553,16 +575,14 @@ public class ReservationDAO {
 			pstmt.setString(5, vo.getPre_age_2());
 			pstmt.setString(6, vo.getPre_age_3());
 			pstmt.setString(7, vo.getPre_gender());
-			pstmt.setString(8, vo.getPre_qual_1());
-			pstmt.setString(9, vo.getPre_qual_2());
-			pstmt.setString(10, vo.getPre_qual_3());
-			pstmt.setString(11, vo.getPre_repre_1());
-			pstmt.setString(12, vo.getPre_repre_2());
-			pstmt.setString(13, vo.getPre_repre_3());
-			pstmt.setString(14, vo.getPre_hourwage_1());
-			pstmt.setString(15, vo.getPre_hourwage_2());
-			pstmt.setString(16, vo.getPre_hourwage_3());
-			pstmt.setString(17, vo.getRes_code());
+			pstmt.setString(8, vo.getPre_qual());
+			pstmt.setString(9, vo.getPre_repre_1());
+			pstmt.setString(10, vo.getPre_repre_2());
+			pstmt.setString(11, vo.getPre_repre_3());
+			pstmt.setString(12, vo.getPre_hourwage_1());
+			pstmt.setString(13, vo.getPre_hourwage_2());
+			pstmt.setString(14, vo.getPre_hourwage_3());
+			pstmt.setString(15, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			

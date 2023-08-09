@@ -128,7 +128,7 @@ public class Join extends HttpServlet {
 		
 		dao.joinMember(vo);
 		
-		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='index.jsp';</script>");
+		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='/';</script>");
 	}
 
 }

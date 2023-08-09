@@ -14,6 +14,10 @@
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
+
 function back() {
 	var f = document.homeForm;
 	f.action = "rescareloc.jsp";
@@ -48,6 +52,11 @@ function setAddress() {
     console.log(document.homeForm.addr.value);
 }
 
+function reshstop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
+
 </script>
 
 </head>
@@ -60,6 +69,7 @@ request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
+String r_code = (String)session.getAttribute("r_code");
 
 %>
 	<!-- One -->
@@ -74,6 +84,17 @@ String res_code = (String)session.getAttribute("res_code");
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
+	
+	<div class="res-progress">
+	<ul>
+	<li style="z-index: 5">피간병인 선택</li>
+	<li style="z-index: 4">피간병인 정보 입력</li>
+	<li style="z-index: 3" class="active">간병장소 선택</li>
+	<li style="z-index: 2">예약 일시 지정</li>
+	<li style="z-index: 1">빠른매칭 서비스</li>
+	</ul>
+	</div>
+	
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -100,6 +121,7 @@ String res_code = (String)session.getAttribute("res_code");
 		 <div>
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
+		 <input type="button" class="button" onclick="reshstop();" value="예약 중지">
 		 </div>
 			</div>
 </form>

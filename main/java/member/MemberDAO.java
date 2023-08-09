@@ -259,6 +259,7 @@ public class MemberDAO {
 
 			pstmt.close();
 			conn.close();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

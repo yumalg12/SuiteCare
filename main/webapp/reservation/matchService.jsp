@@ -10,6 +10,9 @@
 <title>SC 스위트케어 | 빠른 매칭 서비스</title>
 <%@ include file="/header-import.jsp"%>
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
 
 function matSubmit() {
 	//console.log('확인');
@@ -21,9 +24,7 @@ function matSubmit() {
 	var pre_age_2 = f.pre_age_2.value;
 	var pre_age_3 = f.pre_age_3.value;
 	var pre_gender = f.pre_gender.value;
-	var pre_qual_1 = document.getElementById("pre_qual_1");
-	var pre_qual_2 = document.getElementById("pre_qual_2");
-	var pre_qual_3 = document.getElementById("pre_qual_3");
+	var pre_qual = document.getElementById("pre_qual");
 	var pre_repre_1 = document.getElementById("pre_repre_1");
 	var pre_repre_2 = document.getElementById("pre_repre_2");
 	var pre_repre_3 = document.getElementById("pre_repre_3");
@@ -31,21 +32,13 @@ function matSubmit() {
 	var pre_hourwage_2 = f.pre_hourwage_2.value;
 	var pre_hourwage_3 = f.pre_hourwage_3.value;
 	
-	var inputqual1 = pre_qual_1.value
-	var inputqual2 = pre_qual_2.value
-	var inputqual3 = pre_qual_3.value
+	var inputqual = pre_qual.value
 	var inputrepre1 = pre_repre_1.value
 	var inputrepre2 = pre_repre_2.value
 	var inputrepre3 = pre_repre_3.value
 	
-	if(inputqual1==="") {
-		pre_qual_1.value = "지정하지 않음";
-	}
-	if(inputqual2==="") {
-		pre_qual_2.value = "지정하지 않음";
-	}
-	if(inputqual3==="") {
-		pre_qual_3.value = "지정하지 않음";
+	if(inputqual==="") {
+		pre_qual.value = "지정하지 않음";
 	}
 	if(inputrepre1==="") {
 		pre_repre_1.value = "지정하지 않음";
@@ -74,7 +67,10 @@ function matSubmit() {
 		return true;
 	}
 	}
-	
+function resmstop() {
+	alert("매칭정보 입력이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
 </script>
 </head>
 <body>
@@ -93,6 +89,9 @@ function matSubmit() {
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String res_code = (String)session.getAttribute("res_code");
+String r_code = request.getParameter("res_code");
+session.setAttribute("r_code", r_code);
+
 ReservationDAO dao = new ReservationDAO();
 
 int sido_code = 0;
@@ -102,6 +101,17 @@ String sido = null;
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
+	
+	<div class="res-progress">
+	<ul>
+	<li style="z-index: 5">피간병인 선택</li>
+	<li style="z-index: 4">피간병인 정보 입력</li>
+	<li style="z-index: 3">간병장소 선택</li>
+	<li style="z-index: 2">예약 일시 지정</li>
+	<li style="z-index: 1" class="active">빠른매칭 서비스</li>
+	</ul>
+	</div>
+	
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -113,7 +123,9 @@ String sido = null;
 					<div class="form_wrapper">
 <form name="preferenceForm">
 <table border=1>
-<tr><td> 예약 코드 </td><td><%=res_code %></td></tr>
+<tr><td> 예약 코드 </td>
+<td><%if(res_code!=null) { %><%=res_code %> <%}
+							else if(res_code==null) {%> <%=r_code%> <% }%></td></tr>
 <tr> <td>선호지역 </td>
 <td>
 <label>1순위</label> <select name="pre_location_1" id="pre_location_1">
@@ -196,9 +208,7 @@ String sido = null;
 		<label for="anything">상관없음</label></td></tr>
 <tr><td>선호자격증 <br>※지정하지 않을 경우 빈칸</td>
 <td>
-<label>1순위</label><input type="text" name="pre_qual_1" id="pre_qual_1" placeholder="자격증(ex.요양보호사, 간호사 등)">
-<label>2순위</label><input type="text" name="pre_qual_2" id="pre_qual_2" placeholder="자격증(ex.요양보호사, 간호사 등)">
-<label>3순위</label><input type="text" name="pre_qual_3" id="pre_qual_3" placeholder="자격증(ex.요양보호사, 간호사 등)">
+<input type="text" name="pre_qual" id="pre_qual" placeholder="자격증(ex.요양보호사, 간호사 등)">
 </td></tr>
 <tr><td>선호서비스 <br>※지정하지 않을 경우 빈칸</td>
 <td>
@@ -243,6 +253,7 @@ String sido = null;
 							</select></td></tr>
 </table>
 <button type="button" onclick="matSubmit();">제출</button>
+ <input type="button" class="button" onclick="resmstop();" value="매칭 중지">
 </form>
 </body>
 </html>

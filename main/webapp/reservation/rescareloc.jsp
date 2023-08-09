@@ -24,6 +24,12 @@ form:hover {
 	margin-top: 3rem;
 }
 </style>
+<script>
+function resstop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
+</script>
 </head>
 
 <body>
@@ -43,15 +49,28 @@ form:hover {
 	String m_id = (String) session.getAttribute("m_id");
 	String caretaker_code = (String) session.getAttribute("caretaker_code");
 	String res_code = (String) session.getAttribute("res_code");
+	String r_code = request.getParameter("res_code");
+	session.setAttribute("r_code", r_code);
 	%>
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
+	
+	<div class="res-progress">
+	<ul>
+	<li style="z-index: 5">피간병인 선택</li>
+	<li style="z-index: 4">피간병인 정보 입력</li>
+	<li style="z-index: 3" class="active">간병장소 선택</li>
+	<li style="z-index: 2">예약 일시 지정</li>
+	<li style="z-index: 1">빠른매칭 서비스</li>
+	</ul>
+	</div>
+	
 		<div class="inner">
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
 						<p>maecenas sapien feugiat ex purus</p>
-						<h2>간병장소 정하기</h2>
+						<h2>간병장소 선택</h2>
 					</header>
 
 					<!-- One -->
@@ -87,6 +106,8 @@ form:hover {
 							</div>
 						</form>
 
+						 <input type="button" class="button" onclick="resstop();" value="예약 중지">
+						
 					</div>
 				</div>
 			</div>
@@ -108,5 +129,7 @@ form:hover {
 		// 폼을 서버로 전송 (form.submit() 호출)
 		form.submit();
 	}
+	
+	
 </script>
 </html>

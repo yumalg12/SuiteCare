@@ -12,10 +12,9 @@
 <html>
 	<head>
 		<title>SC 스위트케어 | 일반 본문</title>
-<%@ include file="../header-import.jsp" %>
+
+		<%@ include file="../header-import.jsp" %>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
 	</head>
 	
 	<style>
@@ -151,12 +150,12 @@
 			</table>
 			</form>
 
-			</div>
-			</div>
-			</div>
-			</section>
-			
-				
-							
+						</div>
+					</div>
+				</div>
+			</section>	
+								
+<%@ include file="../footer.jsp" %>				
+
 </body>
 </html>
