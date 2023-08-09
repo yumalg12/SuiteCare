@@ -18,6 +18,18 @@
 </style>
 
 <script>
+window.onbeforeunload = function (event) {
+	  // 이벤트 객체를 받아와 목적지 url을 확인합니다.
+	  var destination = event.currentTarget.performance.navigation.redirectCount > 0
+	    ? document.referrer
+	    : document.location.href;
+	  
+	  if (destination !== "res_insert.jsp") {
+	    return '';
+	  }
+	};
+
+
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");

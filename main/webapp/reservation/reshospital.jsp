@@ -11,6 +11,9 @@
 <%@ include file="/header-import.jsp"%>
 
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
 
 function back() {
 	var f = document.hospForm;
@@ -50,6 +53,11 @@ function check() {
 	f.submit(); 
 	return true;}
 }
+
+function reshostop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
 </script>
 
 </head>
@@ -62,7 +70,7 @@ request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
-
+String r_code = (String)session.getAttribute("r_code");
 %>
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -115,6 +123,7 @@ String res_code = (String)session.getAttribute("res_code");
 		 <div>
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
+		  <input type="button" class="button" onclick="reshostop();" value="예약 중지">
 		 </div>
 			</div>
 </form>

@@ -48,6 +48,13 @@ if(m_id !=null && caretaker_code!=null) {
 	String res_code = dao.insert(vo);
 	session.setAttribute("res_code", res_code);
 
+	ReservationInfoVO infovo = new ReservationInfoVO();
+	
+	infovo.setCaretaker_code(caretaker_code);
+	infovo.setRes_code(res_code);
+	
+	dao.insertrescode(infovo);
+	
 %>
 <script>
 	alert("예약코드가 생성되었습니다.\n<%=res_code%>");

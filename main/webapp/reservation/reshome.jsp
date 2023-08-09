@@ -14,6 +14,10 @@
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
+
 function back() {
 	var f = document.homeForm;
 	f.action = "rescareloc.jsp";
@@ -48,6 +52,11 @@ function setAddress() {
     console.log(document.homeForm.addr.value);
 }
 
+function reshstop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
+
 </script>
 
 </head>
@@ -60,6 +69,7 @@ request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
+String r_code = (String)session.getAttribute("r_code");
 
 %>
 	<!-- One -->
@@ -111,6 +121,7 @@ String res_code = (String)session.getAttribute("res_code");
 		 <div>
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
+		 <input type="button" class="button" onclick="reshstop();" value="예약 중지">
 		 </div>
 			</div>
 </form>

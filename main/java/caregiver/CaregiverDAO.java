@@ -306,7 +306,7 @@ public class CaregiverDAO {
 		try {
 			con = dataFactory.getConnection();
 
-			String sql = "select COUNT(*) from `suitecare`.`caregiver` where g_id='" + id + "'";
+			String sql = "select COUNT(*) from caregiver where g_id='" + id + "'";
 			System.out.println("isDuplicate(): " + sql);
 
 			pstmt = con.prepareStatement(sql);

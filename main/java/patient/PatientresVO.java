@@ -6,6 +6,8 @@ import java.sql.Time;
 
 public class PatientresVO {
 	private String caretaker;
+	private String t_gender;
+	private String t_age;
 	private Date startdate;
 	private Date enddate;
 	private Time starttime;
@@ -13,6 +15,9 @@ public class PatientresVO {
 	private String caregiver;
 	private String res_code;
 	private String caretaker_code;
+	private String location;
+	private String addr;
+	private String detail_addr;
 	
 	public PatientresVO() {
 		System.out.println("PatientresVO 생성자 호출");
@@ -160,6 +165,48 @@ public class PatientresVO {
 	 */
 	public void setCaretaker_code(String caretaker_code) {
 		this.caretaker_code = caretaker_code;
+	}
+
+
+
+
+	public String getT_gender() {
+		return t_gender;
+    
+	public void setT_gender(String t_gender) {
+		this.t_gender = t_gender;
+
+    
+  public String getT_age() {
+		return t_age;
+      
+  public void setT_age(String t_age) {
+		this.t_age = t_age;
+        
+    
+    
+	public String getLocation() {
+		return location;
+
+	public void setLocation(String location) {
+		this.location = location;
+
+    
+    
+	public String getAddr() {
+		return addr;
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+	public String getDetail_addr() {
+		return detail_addr;
+	}
+
+	public void setDetail_addr(String detail_addr) {
+		this.detail_addr = detail_addr;
 	}
 
 	
