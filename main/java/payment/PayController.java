@@ -39,7 +39,7 @@ public class PayController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-		System.out.println("컨트롤러도착");
+		System.out.println("PayContoller 호출됨");
 
 		String url = request.getRequestURI();
 		int index = url.lastIndexOf("/");
@@ -70,28 +70,29 @@ public class PayController extends HttpServlet {
 				List<PayVO> list = payDAO.payInfo(payvo);
 
 				String kakao = "/pay/kakaopay.jsp";
-				// response.sendRedirect(kakao);
 				request.setAttribute("list", list);
 				RequestDispatcher dispatch = request.getRequestDispatcher(kakao);
 				dispatch.forward(request, response);
 			} else {
 				String msg = "로그인 정보가 없습니다";
 				out.write("<script>alert('" + msg + "');</script>");
-				// String gomain = "/index.jsp";
-				// response.sendRedirect(gomain);
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
 			}
 		} else if (path.equals("/card.do")) {
 
 			if (m_id != null) {
 				payvo.setM_id(m_id);
-				payDAO.payInfo(payvo);
-				String card = "/suiteCare/pay/card.jsp";
-				response.sendRedirect(card);
+				List<PayVO> list = payDAO.payInfo(payvo);
+
+				String card = "/pay/card.jsp";
+				request.setAttribute("list", list);
+				RequestDispatcher dispatch = request.getRequestDispatcher(card);
+				dispatch.forward(request, response);
 			} else {
 				String msg = "로그인 정보가 없습니다";
 				out.write("<script>alert('" + msg + "');</script>");
-				// String gomain = "/index.jsp";
-				// response.sendRedirect(gomain);
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+
 			}
 
 		}
