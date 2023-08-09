@@ -11,6 +11,9 @@
 <%@ include file="/header-import.jsp"%>
 
 <script>
+window.onbeforeunload = function () {
+	return ''; 
+}
 
 function back() {
 	var f = document.hospForm;

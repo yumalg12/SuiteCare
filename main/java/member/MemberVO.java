@@ -9,7 +9,6 @@ public class MemberVO {
 	private String m_gender;
 	private String m_phone;
 	private String m_email;
-	private String zipcode;
 	
 	private String m_address;
 	private String m_sms_yn; 
@@ -30,7 +29,6 @@ public class MemberVO {
 		this.m_gender = m_gender;
 		this.m_phone = m_phone;
 		this.m_email = m_email;
-		this.zipcode = zipcode;
 		this.m_address = m_address;
 		this.m_sms_yn = m_sms_yn;
 		this.m_email_yn = m_email_yn;
