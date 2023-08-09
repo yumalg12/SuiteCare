@@ -24,10 +24,10 @@ form:hover {
 	margin-top: 3rem;
 }
 </style>
-
 <script>
-window.onbeforeunload = function () {
-	return ''; 
+function resstop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
 }
 </script>
 </head>
@@ -49,6 +49,8 @@ window.onbeforeunload = function () {
 	String m_id = (String) session.getAttribute("m_id");
 	String caretaker_code = (String) session.getAttribute("caretaker_code");
 	String res_code = (String) session.getAttribute("res_code");
+	String r_code = request.getParameter("res_code");
+	session.setAttribute("r_code", r_code);
 	%>
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
@@ -104,6 +106,8 @@ window.onbeforeunload = function () {
 							</div>
 						</form>
 
+						 <input type="button" class="button" onclick="resstop();" value="예약 중지">
+						
 					</div>
 				</div>
 			</div>
@@ -125,5 +129,7 @@ window.onbeforeunload = function () {
 		// 폼을 서버로 전송 (form.submit() 호출)
 		form.submit();
 	}
+	
+	
 </script>
 </html>

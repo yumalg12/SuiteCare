@@ -13,6 +13,9 @@ public class PatientresVO {
 	private String caregiver;
 	private String res_code;
 	private String caretaker_code;
+	private String location;
+	private String addr;
+	private String detail_addr;
 	
 	public PatientresVO() {
 		System.out.println("PatientresVO 생성자 호출");
@@ -160,6 +163,60 @@ public class PatientresVO {
 	 */
 	public void setCaretaker_code(String caretaker_code) {
 		this.caretaker_code = caretaker_code;
+	}
+
+
+
+	/**
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+
+
+	/**
+	 * @return the addr
+	 */
+	public String getAddr() {
+		return addr;
+	}
+
+
+
+	/**
+	 * @param addr the addr to set
+	 */
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+
+	/**
+	 * @return the detail_addr
+	 */
+	public String getDetail_addr() {
+		return detail_addr;
+	}
+
+
+
+	/**
+	 * @param detail_addr the detail_addr to set
+	 */
+	public void setDetail_addr(String detail_addr) {
+		this.detail_addr = detail_addr;
 	}
 
 	

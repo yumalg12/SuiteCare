@@ -15,6 +15,8 @@ request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
+String r_code = (String)session.getAttribute("r_code");
+
 ReservationDAO dao = new ReservationDAO();
 String start_date = request.getParameter("startdate");
 String end_date = request.getParameter("enddate");
@@ -23,12 +25,13 @@ String end_time = request.getParameter("endtime");
 
 ReservationInfoVO vo = new ReservationInfoVO();
 
-vo.setRes_code(res_code);
 vo.setStart_date(start_date);
 vo.setEnd_date(end_date);
 vo.setStart_time(start_time);
 vo.setEnd_time(end_time);
-vo.setCaretaker_code(caretaker_code);
+
+if(res_code!=null) {
+vo.setRes_code(res_code);
 
 int check_ok = dao.checkres(vo);
 
@@ -40,10 +43,11 @@ if(check_ok==0) {
 	</script>
 	<% 
 } else {
-int result = dao.insertresinfo(vo);
+int result = dao.updateresinfo(vo);
 
 if(result>0) {
 	session.removeAttribute("caretaker_code");
+	
 	%>
 	<script>
 	alert("예약 완료");
@@ -57,7 +61,38 @@ if(result>0) {
 	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp';
 	</script>
 	<%
-} }
+} } } else if(res_code==null) {
+	
+	vo.setRes_code(r_code);
+
+int check_ok = dao.checkres(vo);
+
+if(check_ok==0) {
+	%>	
+	<script>
+	alert("기존 예약과 중복되었습니다. \n 확인해주세요.");
+	window.location.href='./res_date.jsp';
+	</script>
+	<% 
+} else {
+int result = dao.updateresinfo(vo);
+
+if(result>0) {
+	session.removeAttribute("r_code");
+	%>
+	<script>
+	alert("일시 지정 완료");
+	location.href='<%=request.getContextPath()%>/member/mMain.jsp';
+	</script>
+	<%
+} else {
+	%>
+	<script>
+	alert("일시 지정 실패");
+	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp';
+	</script>
+	<%
+} } } 
 %>
 </body>
 </html>

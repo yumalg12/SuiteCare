@@ -74,6 +74,10 @@ function delok() {
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
+
+							session.removeAttribute("caretaker_code");
+							session.removeAttribute("res_code");
+							
 							String m_id = (String) session.getAttribute("m_id");
 
 							TakerDAO dao = new TakerDAO();
@@ -138,8 +142,9 @@ function delok() {
 							<table>
 								<thead>
 									<tr>
-										<td>피간병인</td> <td>간병인</td> <td>근무기간</td> <td>근무시간</td>
-										<td>결제금액</td> <td>결제여부</td> <td>비고</td>
+										<td>예약코드</td> <td>이름</td> <td>상세정보</td> <td>간병장소</td>
+										<td>주소</td> <td>간병일시/시간</td> <td>매칭서비스정보</td>
+										<td>간병인</td> <td>비고</td>
 									</tr>
 								</thead>
 								<%
@@ -149,7 +154,7 @@ function delok() {
 								for (int i = 0; i < reslist.size(); i++) {
 									PatientresVO listvo = (PatientresVO) reslist.get(i);
 
-									String patient = listvo.getCaretaker();
+									String t_name = listvo.getCaretaker();
 									Date start_date = listvo.getStartdate();
 									Date end_date = listvo.getEnddate();
 									Time start_time = listvo.getStarttime();
@@ -157,41 +162,49 @@ function delok() {
 									String caregiver = listvo.getCaregiver();
 									String res_code = listvo.getRes_code();
 									String caretaker_code = listvo.getCaretaker_code();
+									String location = listvo.getLocation();
+									String addr = listvo.getAddr();
+									String detail_addr = listvo.getDetail_addr();
 
-									String workDate = start_date + "~" + end_date;
 									String workTimes = start_time + "~" + end_time;
 
-									long worktime = end_time.getTime() - start_time.getTime();
-									int workHours = (int) (worktime / (1000 * 60 * 60));
-
-									int totalWorkDays = (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-									int salary = totalWorkDays * workHours * 10000;
-
-									String fSalary = String.format("%,d", salary);
-
-									if (caregiver == null) {
 								%>
 
 								<tr>
-									<td><%=patient%></td> <td>미지정</td> <td><%=workDate%></td>
-									<td><%=workTimes%></td> <td><%=fSalary%>원</td> <td>...</td>
+									<td><%=res_code%></td> <td><%=t_name%></td> 
+									<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
+									
+									<td><% if(location==null) { %>
+									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(location!=null){if(location.equals("home")) {%>자택<%} 
+									else { %><%=location%><%}} %></td>
+									
+									<td><% if(addr==null) { %>
+									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(addr!=null){%><%=addr%> 
+									<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
+									
+									<td><% if(start_date==null ) { %>
+									<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+									
+									<td><%
+									List<TpreferenceVO> preList = dao2.listtpre(res_code);
+									for(TpreferenceVO prevo : preList) {
+										String pre_age_1 = prevo.getPre_age_1();
+										
+										if(pre_age_1 == null) { %>
+										<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+										else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
+										<%}} %></td>
+										
+									<td><% if(caregiver==null) { %>미지정 <%}	else if(caregiver!=null){%><%=caregiver%><%} %></td>
+									
 									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 										onclick="return delok();">취소</a></td>
 								</tr>
 
 								<%
-								} else if (caregiver != null) {
-								%>
-								<tr>
-									<td><%=patient%></td> <td><%=caregiver%></td> <td><%=workDate%></td>
-									<td><%=workTimes%></td> <td><%=fSalary%>원</td> <td>...</td>
-									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
-								</tr>
-
-								<%
-								}
 								}
 								%>
 							</table>
@@ -295,5 +308,16 @@ function restable() {
 	document.getElementById('restable').style.display = "";
 };
 
+</script>
+<script>
+function openPopup(resCode) {
+  var popupUrl = "mMain_detailInfo.jsp?popres_code=" + resCode;
+  window.open(popupUrl, "Popup", "width=800, height=800");
+}
+
+function openmatPopup(resCode) {
+	 var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
+	  window.open(popupUrl, "Popup", "width=800, height=800");
+}
 </script>
 </html>
