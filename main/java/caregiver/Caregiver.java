@@ -36,7 +36,7 @@ public class Caregiver extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		HttpSession session = request.getSession();
-		String user_id = (String)session.getAttribute("user_id");
+		String user_id = (String)session.getAttribute("g_id");
 		
 		CaregiverDAO dao = new CaregiverDAO();
 		LocationDAO loc = new LocationDAO();
@@ -61,7 +61,7 @@ public class Caregiver extends HttpServlet {
 		
 		String command = request.getParameter("command");
 		HttpSession session = request.getSession();
-		String user_id = (String)session.getAttribute("userID");
+		String user_id = (String)session.getAttribute("g_id");
 		
 		if (command != null && command.equals("pw_change")) {
 			String orgin_pw = request.getParameter("origin_pw");
