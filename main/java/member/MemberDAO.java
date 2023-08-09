@@ -224,7 +224,7 @@ public class MemberDAO {
 		   }
 	   
 	   
-	public void addMember(MemberVO vo) {
+	public boolean addMember(MemberVO vo) {
 		
 		try {
 			conn = dataFactory.getConnection();
@@ -238,7 +238,6 @@ public class MemberDAO {
 			String m_address = vo.getM_address();
 			String m_sms_yn = vo.getM_sms_yn();
 			String m_email_yn = vo.getM_email_yn();
-			
 
 			String sql = "insert into `suitecare`.`member`(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn) "+
 					"values(?,?,?,?,?,?,?,?,?)";
@@ -263,6 +262,7 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	public int isDuplicateID(String id) {

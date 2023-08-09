@@ -12,6 +12,7 @@
 <html>
 	<head>
 		<title>SC 스위트케어 | 일반 본문</title>
+<%@ include file="../header-import.jsp" %>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -96,16 +97,66 @@
 								<p>나에게 들어온</p>
 								<h2>피간병인 신청 리스트</h2>
 							</header>
-			<form name="applinfo">
-			<table border=1>
-			<tr><td>이름</td><td>성별</td><td>나이</td><td>지역</td><td>날짜</td><td>시간</td><td>정보</td></tr>
+			<form name="applyinfo">
+			<table>
+			<thead>
+			<tr><td>피간병인</td><td>성별</td><td>나이</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>비고</td></tr>
+			</thead>
+			<% PatientresDAO dao2 = new PatientresDAO();
+			List<PatientresVO> reslist = dao2.applylist();
+			for(int i=0; i<reslist.size(); i++) {
+				PatientresVO listvo = (PatientresVO) reslist.get(i);
+	
+				String name = listvo.getCaretaker();
+				String gender = listvo.getT_gender();
+				String age = listvo.getT_age();
+				Date start_date = listvo.getStartdate();
+				Date end_date = listvo.getEnddate();
+				Time start_time = listvo.getStarttime();
+				Time end_time = listvo.getEndtime();
+				String caregiver = listvo.getCaregiver();
+				String res_code = "test"; //listvo.getRes_code();
+				String caretaker_code = "test"; //listvo.getCaretaker_code();
+	
+				String workDate = start_date + "~" + end_date;
+				String workTimes = start_time + "~" + end_time;
+	
+				long worktime = end_time.getTime() - start_time.getTime();
+				int workHours = (int) (worktime / (1000 * 60 * 60));
+
+				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
+	
+				int salary = totalWorkDays * workHours * 10000;
+	
+	 			String fSalary = String.format("%,d", salary);
+	
+				if(caregiver==null) {
+			%>
+
+			<tr><td> <%=name %> </td><td> <%=gender %> </td><td> <%=age %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td>
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return more_info();">더보기</a></td></tr>
+
+
+			<%
+			} else if(caregiver!= null) {
+				%>
+
+			<tr><td> <%=name %> </td><td> <%=gender %> </td><td> <%=age %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td><td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
+
+			<%
+			} 
+
+			}
+			%>
 			</table>
 			</form>
-						</div>
-					</div>
-				</div>
-			</section>	
-								
+
+			</div>
+			</div>
+			</div>
+			</section>
+			
+				
 							
 </body>
 </html>

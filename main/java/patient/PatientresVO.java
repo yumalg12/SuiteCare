@@ -6,6 +6,8 @@ import java.sql.Time;
 
 public class PatientresVO {
 	private String caretaker;
+	private String t_gender;
+	private String t_age;
 	private Date startdate;
 	private Date enddate;
 	private Time starttime;
@@ -160,6 +162,42 @@ public class PatientresVO {
 	 */
 	public void setCaretaker_code(String caretaker_code) {
 		this.caretaker_code = caretaker_code;
+	}
+
+
+
+	/**
+	 * @return the t_gender
+	 */
+	public String getT_gender() {
+		return t_gender;
+	}
+
+
+
+	/**
+	 * @param t_gender the t_gender to set
+	 */
+	public void setT_gender(String t_gender) {
+		this.t_gender = t_gender;
+	}
+
+
+
+	/**
+	 * @return the t_age
+	 */
+	public String getT_age() {
+		return t_age;
+	}
+
+
+
+	/**
+	 * @param t_age the t_age to set
+	 */
+	public void setT_age(String t_age) {
+		this.t_age = t_age;
 	}
 
 	
