@@ -57,6 +57,12 @@ color: black;
 width: auto !important;
 }
 </style>
+<script>
+function resdstop() {
+	alert("예약이 중지되었습니다.");
+	window.location.href = "../member/mMain.jsp";
+}
+</script>
 </head>
 <body>
 
@@ -67,6 +73,8 @@ width: auto !important;
 	String m_id = (String) session.getAttribute("m_id");
 	String caretaker_code = (String) session.getAttribute("caretaker_code");
 	String res_code = (String) session.getAttribute("res_code");
+	String r_code = request.getParameter("res_code");
+	session.setAttribute("r_code", r_code);
 	%>
 
 	<!-- One -->
@@ -102,10 +110,9 @@ width: auto !important;
 
 					<div class="form_wrapper">
 						<div class="form_row">
-							<label>예약 코드</label> <input type="text" value="<%=res_code%>" disabled>
-						</div>
-						<div class="form_row">
-							<label>피간병인 코드</label> <input type="text" value="<%=caretaker_code%>" disabled>
+							<label>예약 코드</label> 
+							<input type="text" value="<%if(res_code!=null) { %><%=res_code %> <%}
+							else if(res_code==null) {%> <%=r_code%> <% }%>" disabled>
 						</div>
 						<br>
 						<form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">
@@ -130,6 +137,7 @@ width: auto !important;
 							</div>
 							<div class="form_button">
 								<input type="submit" class="button special" value="예약하기">
+								 <input type="button" class="button" onclick="resdstop();" value="예약 중지">
 							</div>
 						</form>
 
@@ -205,6 +213,8 @@ $(function() {
 		}
 
 	}
+	
+	
 </script>
 
 </html>
