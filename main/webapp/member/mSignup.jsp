@@ -262,9 +262,9 @@ function setAddress() {
 				</div>
 			</div>
 			<div class="form_button_three">
-				<button type="reset" class="button alt">초기화</button>
+				<button onclick="history.back()" class="button alt">취소</button>
 				<div>
-				<button onclick = "history.back()" class="button">취소</button>
+				<button type="reset" class="button">초기화</button>
 				<button type="submit" class="button special">회원가입</button>
 				</div>
 			</div>

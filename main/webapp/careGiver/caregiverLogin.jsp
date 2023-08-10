@@ -58,7 +58,7 @@ function loginForm() {
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='gJoin.jsp'">회원가입</span>
+								<span class="button alt" onclick="location.href='gSignup.jsp'">회원가입</span>
 							</div>
 					</form>
 					

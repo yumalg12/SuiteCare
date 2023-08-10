@@ -205,10 +205,12 @@
 						
 							<div class="form_row">
 								<label for="gender">성별</label>
+								<div>
 								<input type="radio" id="man" name="g_gender" value="M">
 								<label for="man">남자</label>
 								<input type="radio" id="woman" name="g_gender" value="W">
 								<label for="woman">여자</label> <br><br>
+								</div>
 							</div>
 						         
 							<div class="form_row">
