@@ -89,7 +89,7 @@ for(int i=0; i<list.size(); i++) {
 					<td><input type="number" name="t_age" id="t_age"  value="<%=age %>" class="with_unit" min="0" max="150" maxlength="3"> 세</td>
 					<td><input type="number" name="t_height" id="t_height"  value="<%=height %>" class="with_unit" min="50" max="250" maxlength="3"> cm</td>
 					<td><input type="number" name="t_weight" id="t_weight"  value="<%=weight %>" class="with_unit" min="10" max="350" maxlength="3"> kg</td>
-					<td><input type="text" name="t_weight" id="t_weight"  value="OO시 OO동"></td> <!-- 테이블에 없는 변수인데 추가될 예정인가요? -->
+					<td><input type="text" name="addr" id="addr"  value="OO시 OO동"></td> <!-- 테이블에 없는 변수인데 추가될 예정인가요? -->
 					<td><input type="text" name="diagnosis" id="diagnosis"  value="<%=diagnosis %>"></td>
 					</tr>
 					</table>

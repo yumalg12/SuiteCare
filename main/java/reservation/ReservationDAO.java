@@ -272,14 +272,13 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, vo.getAddr());
 			pstmt.setString(2, vo.getDetail_addr());
-			pstmt.setString(3, vo.getCaretaker_code());
-			pstmt.setString(4, vo.getRes_code());
+			pstmt.setString(3, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
@@ -380,15 +379,14 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where caretaker_code=? and res_code=?";
+			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getLocation());
 			pstmt.setString(2, vo.getAddr());
 			pstmt.setString(3, vo.getDetail_addr());
-			pstmt.setString(4, vo.getCaretaker_code());
-			pstmt.setString(5, vo.getRes_code());
+			pstmt.setString(4, vo.getRes_code());
 
 			result=pstmt.executeUpdate();
 			

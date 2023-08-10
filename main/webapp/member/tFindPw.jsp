@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
  <head>
+ 	<%@ include file="/header-import.jsp"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -71,7 +72,7 @@
 <hr>
 
 <div class="container">
-      <form action="./pFindPwCheck.jsp" class="form-signin">
+      <form action="./tFindPwCheck.jsp" class="form-signin">
        <h2 class="form-signin-heading">비밀번호 찾기</h2><br>
         <label for="findname" class="sr-only">이름</label> 이름
         <input type="text" id="name" name="name" class="form-control" placeholder="이름" required autofocus><br>
@@ -80,7 +81,7 @@
         <input type="text" id="id" name="id" class="form-control" placeholder="아이디" required autofocus><br>
          
         <label for="hp" class="sr-only">핸드폰번호</label> 핸드폰번호
-		<input class="form-control" name="phone" type="text" pattern="\d*" size=20 maxlength="11" placeholder = "'-'를 제외한 핸드폰 번호를 입력하시오"/>
+		<input class="form-control" name="phone" type="text" size=20 maxlength="13"  placeholder = "000-0000-0000 형식으로 입력해주세요"/>
 		<br><br>
 		
         <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 찾기</button>

@@ -10,24 +10,63 @@
     
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>SC 스위트케어 | 일반 본문</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
-	</head>
-	
-	<style>
-	tr,td{
-		text-align: center;
-	}
-	</style>
+<head>
+<title>SC 스위트케어 | 매칭정보</title>
+<%@ include file="/header-import.jsp"%>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<style>
+.fc-col-header {
+    margin: 0;
+    padding: 0;
+}
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+text-decoration:none;
+ cursor: default;
+}
+.fc-daygrid-day:hover{
+font-weight: bold;
+background-color: #DFD7BF50;
+}
+.fc-scroller{
+overflow:hidden !important;
+}
+.fc .fc-button-primary{
+background-color: transparent;
+border: none;
+outline: none;
+}
+.fc .fc-button-primary:hover{
+background-color: #cccccc50;
+}
+.fc .fc-daygrid-day.fc-day-today{
+background-color: #A4907Caa;
+font-weight: bold;
+}
+.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
+background-color: #DFD7BFaa;
+font-weight: bold;
+}
+.fc .fc-toolbar.fc-header-toolbar{
+margin-left: 7.2rem;
+}
+.fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    display: inline;
+    position: relative;
+    top: 0.4rem;
+}
+</style>
+
+</head>
 	<script>
 	
 	</script>
 	
 	<body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/header.jsp" %>
 
 	<!-- One -->
 			<section id="One" class="wrapper style3">
@@ -48,8 +87,7 @@
 								<p>나와 매칭된</p>
 								<h2>피간병인 정보</h2>
 							</header>
-			<table border=1>
-			<tr><td>이름</td><td>코드</td><td>성별</td><td>나이</td><td>키</td><td>몸무게</td><td>상태(병명)</td></tr>
+			
 			<%
 			request.setCharacterEncoding("utf-8");
 			String g_id = (String)session.getAttribute("g_id");
@@ -85,20 +123,32 @@
     			int t_weight = listvo.getT_weight();
     			String diagnosis = listvo.getDiagnosis();
 				
-        		out.println("<tr><td>" + t_name + "</td><td>" + caretaker_code + "</td><td>" + t_gender + "</td>");
-				out.println("<td>" + t_age + "</td><td>" + t_height + "</td><td>" + t_weight + "</td>");
-				out.println("<td>" + diagnosis + "</td></tr>");
 				%>
-				</table>
+	
 				
 				<table border=1>
-				<tr><td>식사케어 여부</td><td>대소변케어 여부</td><td>마비 상태</td><td>거동 및 운동상태</td><td>욕창 유무</td><td>석션 필요 유무</td><td>주기적 외부 치료 여부</td><td>야간케어 여부</td></tr>
-				<tr><td><%=care_meal_yn%></td><td><%=care_toilet%></td><td><%=state_paralysis%></td><td><%=state_mobility%></td><td><%=bedsore_yn%></td><td><%=suction_yn%></td><td><%=outpatient_yn%></td><td><%=care_night_yn%></td></tr>
-				</table>
 				
-				<table border=1>
-				<tr><td>주소</td><td>의식상태</td><td>유의사항</td><td>예약날짜</td><td>예약코드</td><td>결제주문번호</td></tr>
-				<tr><td><%=addr%> (<%=detail_addr%>)</td><td><%=consciousness%></td><td><%=notice%></td><td><%=res_date%></td><td><%=rescode%></td><td><%=merchant_uid%></td></tr>
+				<tr><td>이름</td><td><%=t_name %></td></tr>
+				<tr><td>예약날짜</td><td><%=res_date%></td></tr>
+				<tr><td>성별</td><td><%=t_gender %></td></tr>
+				<tr><td>나이</td><td><%=t_age %>세</td></tr>
+				<tr><td>키</td><td><%=t_height %>cm</td></tr>
+				<tr><td>몸무게</td><td><%=t_weight %>kg</td></tr>
+				<tr><td>식사케어 여부</td><td><%=care_meal_yn %></td></tr>
+				<tr><td>대소변케어 여부</td><td><%=care_toilet %></td></tr>
+				<tr><td>마비 상태</td><td><%=state_paralysis %></td></tr>
+				<tr><td>거동 및 운동상태</td><td><%=state_mobility %></td></tr>
+				<tr><td>욕창 유무</td><td><%=bedsore_yn %></td></tr>
+				<tr><td>석션 필요 유무</td><td><%=suction_yn%></td></tr>
+				<tr><td>주기적 외부 치료 여부</td><td><%=outpatient_yn%></td></tr>
+				<tr><td>야간케어 여부</td><td><%=care_night_yn%></td></tr>
+				<tr><td>주소</td><td><%=addr%> <%if(detail_addr!=null) { %>(<%=detail_addr%>) <% } %></td></tr>
+				<tr><td>의식상태</td><td><%=consciousness%></td></tr>
+				<tr><td>유의사항</td><td><%=notice%></td></tr>
+				<tr><td>예약코드</td><td><%=rescode%></td></tr>
+				<tr><td>결제주문번호</td><td><%=merchant_uid%></td></tr>
+				<tr><td>비고</td><td></td></tr>
+				</table>
 				
 			<%
 			}
@@ -109,6 +159,6 @@
 				</div>
 			</section>
 								
-							
+<%@include file="/footer.jsp"%>								
 </body>
 </html>

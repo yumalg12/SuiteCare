@@ -10,23 +10,64 @@
     
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>SC 스위트케어 | 일반 본문</title>
-		<%@ include file="../header-import.jsp" %>
-		<meta charset="utf-8" />
-	</head>
+<head>
+<title>SC 스위트케어 | 마이페이지</title>
+<%@ include file="/header-import.jsp"%>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<style>
+.fc-col-header {
+    margin: 0;
+    padding: 0;
+}
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+text-decoration:none;
+ cursor: default;
+}
+.fc-daygrid-day:hover{
+font-weight: bold;
+background-color: #DFD7BF50;
+}
+.fc-scroller{
+overflow:hidden !important;
+}
+.fc .fc-button-primary{
+background-color: transparent;
+border: none;
+outline: none;
+}
+.fc .fc-button-primary:hover{
+background-color: #cccccc50;
+}
+.fc .fc-daygrid-day.fc-day-today{
+background-color: #A4907Caa;
+font-weight: bold;
+}
+.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
+background-color: #DFD7BFaa;
+font-weight: bold;
+}
+.fc .fc-toolbar.fc-header-toolbar{
+margin-left: 7.2rem;
+}
+.fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    display: inline;
+    position: relative;
+    top: 0.4rem;
+}
+</style>
+
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 	
-	<style>
-	tr,td{
-		text-align: center;
-	}
-	</style>
-	<script>
-	
-	</script>
-	
-	<body>
-<%@ include file="../header.jsp" %>
+<body>
+<%@ include file="/header.jsp" %>
 
 	<!-- One -->
 			<section id="One" class="wrapper style3">
@@ -61,6 +102,7 @@
 
 				String res_code = listvo.getRes_code();
 	            String location = listvo.getLocation();
+	            if(location.equals("home")) {location="자택";}
 	            String start_date = listvo.getStart_date();
 				String end_date = listvo.getEnd_date();
 				String start_time = listvo.getStart_time();
@@ -95,16 +137,65 @@
 								<p>나에게 들어온</p>
 								<h2>피간병인 신청 리스트</h2>
 							</header>
-			<form name="applinfo">
-			<table border=1>
-			<tr><td>이름</td><td>성별</td><td>나이</td><td>지역</td><td>날짜</td><td>시간</td><td>정보</td></tr>
+			<form name="applyinfo">
+			<table>
+			<thead>
+			  <tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td></tr>
+
+			</thead>
+			<% PatientresDAO dao2 = new PatientresDAO();
+			List<PatientresVO> reslist = dao2.applylist();
+			for(int i=0; i<reslist.size(); i++) {
+				PatientresVO listvo = (PatientresVO) reslist.get(i);
+	
+				String name = listvo.getCaretaker();
+				String gender = listvo.getT_gender();
+				String age = listvo.getT_age();
+				Date start_date = listvo.getStartdate();
+				Date end_date = listvo.getEnddate();
+				Time start_time = listvo.getStarttime();
+				Time end_time = listvo.getEndtime();
+				String caregiver = listvo.getCaregiver();
+				String res_code = listvo.getRes_code();
+				String caretaker_code = listvo.getCaretaker_code();
+				String location = listvo.getLocation();
+	            String addr = listvo.getAddr();
+	            String detail_addr = listvo.getDetail_addr();
+			
+	            if(location!=null && addr!=null && start_date!=null && start_time!=null) {
+	            
+				String workDate = start_date + "~" + end_date;
+				String workTimes = start_time + "~" + end_time;
+	
+				long worktime = end_time.getTime() - start_time.getTime();
+				int workHours = (int) (worktime / (1000 * 60 * 60));
+
+				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
+	
+				int salary = totalWorkDays * workHours * 10000;
+	
+	 			String fSalary = String.format("%,d", salary);
+	 			
+	 			 int idx = addr.indexOf(" ");
+		            String address = addr.substring(0, idx); 
+			%>
+
+			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
+			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			 <td> <%=fSalary%>원 </td>
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>" onclick="return more_info();">더보기</a></td></tr>
+			<%
+			}}
+			%>
 			</table>
 			</form>
+
 						</div>
 					</div>
 				</div>
 			</section>	
 								
-<%@ include file="../footer.jsp" %>				
+<%@include file="/footer.jsp"%>					
+
 </body>
 </html>

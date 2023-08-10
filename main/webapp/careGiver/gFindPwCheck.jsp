@@ -31,7 +31,7 @@ if(ok_pwd==1) {
 	%>
 	<script>
 	alert("회원님의 비밀번호는 <%=find_pw%>입니다.");
-	location.href='<%=request.getContextPath()%>/caregiverLogin.jsp';
+	location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
 	</script>
 	
 	<%
@@ -39,7 +39,7 @@ if(ok_pwd==1) {
 		System.out.println("아이디 불일치");
 	%>
 	<script>
-	location.href='<%=request.getContextPath()%>/gFindPw.jsp';
+	location.href='<%=request.getContextPath()%>/careGiver/gFindPw.jsp';
 	</script>
 	
 	<%
@@ -48,7 +48,7 @@ if(ok_pwd==1) {
 	%>
 	<script>
 	alert("정보가 없습니다.")
-	location.href='<%=request.getContextPath()%>/gFindPw.jsp';
+	location.href='<%=request.getContextPath()%>/careGiver/gFindPw.jsp';
 	</script>
 	<% } %>
 </body>

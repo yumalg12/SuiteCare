@@ -70,7 +70,8 @@ String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
 String r_code = (String)session.getAttribute("r_code");
-
+System.out.println("res_code : "+res_code);
+System.out.println("r_code : "+r_code);
 %>
 	<!-- One -->
 	<section id="One" class="wrapper style3">

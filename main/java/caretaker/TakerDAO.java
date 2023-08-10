@@ -180,4 +180,93 @@ public class TakerDAO {
          }
       } return result;
    }
+   
+   
+   public List<TakerVO> gtList() {
+	      List<TakerVO> list= new ArrayList<TakerVO>();
+	      
+	      try {
+	         conn = dataFactory.getConnection();
+	         
+	         String sql = "SELECT * FROM caretaker";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	           String m_id = rs.getString("m_id");
+	            String t_code = rs.getString("t_code");
+	            String t_name = rs.getString("t_name");
+	            String t_gender = rs.getString("t_gender");
+	            String t_age = rs.getString("t_age");
+	            String t_height = rs.getString("t_height");
+	            String t_weight = rs.getString("t_weight");
+	            String diagnosis = rs.getString("diagnosis");
+	            
+	            
+	            TakerVO vo = new TakerVO();
+	            vo.setM_id(m_id);
+	            vo.setT_code(t_code);
+	            vo.setT_name(t_name);
+	            vo.setT_gender(t_gender);
+	            vo.setT_age(t_age);
+	            vo.setT_height(t_height);
+	            vo.setT_weight(t_weight);
+	            vo.setDiagnosis(diagnosis);
+	            
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+   
+   public List<TakerVO> gtresList(String res_code) {
+	      List<TakerVO> list= new ArrayList<TakerVO>();
+	      
+	      try {
+	         conn = dataFactory.getConnection();
+	         
+	         String sql = "SELECT * FROM caretaker as c, reservation as r where r.res_code=? and c.t_code=r.caretaker_code";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, res_code);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	           String m_id = rs.getString("m_id");
+	            String t_code = rs.getString("t_code");
+	            String t_name = rs.getString("t_name");
+	            String t_gender = rs.getString("t_gender");
+	            String t_age = rs.getString("t_age");
+	            String t_height = rs.getString("t_height");
+	            String t_weight = rs.getString("t_weight");
+	            String diagnosis = rs.getString("diagnosis");
+	            
+	            
+	            TakerVO vo = new TakerVO();
+	            vo.setM_id(m_id);
+	            vo.setT_code(t_code);
+	            vo.setT_name(t_name);
+	            vo.setT_gender(t_gender);
+	            vo.setT_age(t_age);
+	            vo.setT_height(t_height);
+	            vo.setT_weight(t_weight);
+	            vo.setDiagnosis(diagnosis);
+	            
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+   
 }

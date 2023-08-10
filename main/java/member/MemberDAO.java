@@ -1,6 +1,7 @@
 package member;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 import javax.naming.Context;
@@ -238,7 +239,6 @@ public class MemberDAO {
 			String m_address = vo.getM_address();
 			String m_sms_yn = vo.getM_sms_yn();
 			String m_email_yn = vo.getM_email_yn();
-			
 
 			String sql = "insert into `suitecare`.`member`(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn) "+
 					"values(?,?,?,?,?,?,?,?,?)";
@@ -291,7 +291,48 @@ public class MemberDAO {
 		return -1;
 	}
 	
-	
+	public List<MemberVO> listMembers() {
+		List<MemberVO> list= new ArrayList<MemberVO>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT * FROM member";
+			pstmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String m_id = rs.getString("m_id");
+				String m_pw = rs.getString("m_pw");
+				String m_name = rs.getString("m_name");
+				String m_gender = rs.getString("m_gender");
+				String m_phone = rs.getString("m_phone");
+				String m_email = rs.getString("m_email");
+				String m_address = rs.getString("m_address");	
+				String m_sms_yn = rs.getString("m_sms_yn");
+				String m_email_yn = rs.getString("m_email_yn");
+				Date m_signup_date = rs.getDate("m_signup_date");
+				
+				MemberVO vo = new MemberVO();
+				vo.setM_id(m_id);
+				vo.setM_pw(m_pw);
+				vo.setM_name(m_name);
+				vo.setM_gender(m_gender);
+				vo.setM_email(m_email);			
+				vo.setM_address(m_address);
+				vo.setM_phone(m_phone);
+				vo.setM_email_yn(m_email_yn);
+				vo.setM_sms_yn(m_sms_yn);
+				vo.setM_signup_date(m_signup_date);
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 
 

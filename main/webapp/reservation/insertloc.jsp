@@ -18,31 +18,27 @@ String res_code = (String)session.getAttribute("res_code");
 String r_code = (String)session.getAttribute("r_code");
 
 ReservationDAO dao = new ReservationDAO();
+System.out.println("res_code : "+res_code);
+System.out.println("r_code : "+r_code);
+try {
+    if (res_code != null || r_code != null) {
+        String targetCode = (res_code != null) ? res_code : r_code;
+        
+        int result = dao.updatehome(targetCode);
 
-if(res_code!=null) {
-int result = dao.updatehome(res_code);
-
-if(result==1) {
-		response.sendRedirect("reshome.jsp");
-} else {
-%>
-<script>
-alert("업데이트 오류");
-location.href='<%=request.getContextPath()%>/reservation/rescareloc.jsp';
-</script>
-
-<% }} else if(res_code==null) {
-	int result = dao.updatehome(r_code);
-
-	if(result==1) {
-			response.sendRedirect("reshome.jsp");
-	} else {
-	%>
-	<script>
-	alert("업데이트 오류");
-	location.href='<%=request.getContextPath()%>/reservation/rescareloc.jsp';
-	</script>
-
-	<% }} %>
+        if (result == 1) {
+            response.sendRedirect("reshome.jsp");
+        } else {
+        	%>
+        	<script>
+        	 alert("업데이트 오류");
+             location.href='<%=request.getContextPath()%>/reservation/reshome.jsp';
+        	</script>
+        	<%
+        	     
+        	} }}catch (Exception e) {
+        	e.printStackTrace();
+        	}
+        	%>
 </body>
 </html>

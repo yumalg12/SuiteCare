@@ -7,24 +7,36 @@
 <title>SC 스위트케어 | 일반 본문</title>
 	<%@ include file="/header-import.jsp"%>
 
-	<script>
-		function loginForm() {
-			var loginForm = document.frmLogin;
-			var id = document.frmLogin.g_id.value;
-			var pw = document.frmLogin.g_pw.value;
-			
-			if(!id || !pw) {
-				alert("아이디와 비밀번호를 모두 입력해주세요.")
-			}
-			else {
-				loginForm.action="./gCheck.jsp";
-				loginForm.submit();
-			}
-		}
-	</script>
+<script>
+
+<%String m_id = (String) session.getAttribute("m_id");%>
+function loginForm() {
+	var loginForm = document.frmLogin;
+	var id = document.frmLogin.g_id.value;
+	var pw = document.frmLogin.g_pw.value;
+	
+	if(!id || !pw) {
+		alert("아이디와 비밀번호를 모두 입력해주세요.")
+	}
+	else {
+		loginForm.action="./gCheck.jsp";
+		loginForm.submit();
+	}
+}
+</script>
 </head>
 
 <body>
+<% if(m_id!=null) {
+	%><script> 
+	 var confirmed = confirm("기존 로그인된 계정에서 로그아웃합니다. \n계속하시겠습니까?");
+     if (confirmed) {
+         window.location.href = "../logout.jsp"; // 로그아웃 처리 페이지로 이동
+     }else {
+    	    window.location.href = "../member/mMain.jsp"; 
+     }
+	</script>
+<% } else {%>
 	<%@ include file="/header.jsp"%>
 	
 	<!-- One -->
@@ -60,7 +72,11 @@
 								<button type="submit" class="button special">로그인</button>
 								<span class="button alt" onclick="location.href='gSignup.jsp'">회원가입</span>
 							</div>
-						</form>
+					</form>
+					<div class="form_button" >
+								<span class="button alt" onclick="location.href='gFindId.jsp'">아이디찾기</span>
+								<span class="button alt" onclick="location.href='gFindPw.jsp'">비밀번호찾기</span>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -69,5 +85,6 @@
 	
 	<%@ include file="/footer.jsp"%>
 
+<% } %>
 </body>
 </html>
