@@ -8,6 +8,8 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
+
+<%String m_id = (String) session.getAttribute("m_id");%>
 function loginForm() {
 	var loginForm = document.frmLogin;
 	var id = document.frmLogin.g_id.value;
@@ -24,6 +26,14 @@ function loginForm() {
 </script>
 </head>
 <body>
+<% if(m_id!=null) {
+	%><script> 
+	 var confirmed = confirm("피간병인 회원정보의 로그아웃을 진행하시겠습니까?");
+     if (confirmed) {
+         window.location.href = "../logout.jsp"; // 로그아웃 처리 페이지로 이동
+     }
+	</script>
+<% } else {%>
 	<%@ include file="/header.jsp"%>
 
 	<!-- One -->
@@ -71,6 +81,6 @@ function loginForm() {
 
 	<%@ include file="/footer.jsp"%>
 
-
+<% } %>
 </body>
 </html>
