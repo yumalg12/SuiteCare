@@ -109,3 +109,7 @@
 	clip-path: polygon(0 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100%
 		calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0 100%);
 }
+
+input[type="text"]:read-only, input[type="text"]:disabled, input[type="password"]:read-only, input[type="password"]:disabled {
+    filter: opacity(0.6);
+}
