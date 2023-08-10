@@ -12,12 +12,16 @@ public class findDAO {
 	private Connection conn;
 	private DataSource dataFactory;
 
-	public void connect() {
+	public void connect() throws Exception {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
-
-			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+			
+			
+			DataSource dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		//	dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
+			
+			conn=dataFactory.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -32,14 +36,14 @@ public class findDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT id FROM patient WHERE name=? and phone=?";
+			String sql = "SELECT m_id FROM member WHERE m_name=? and m_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, phone);
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				find_id = rs.getString("id");
+				find_id = rs.getString("m_id");
 				System.out.println(find_id);
 				
 			}
@@ -76,7 +80,8 @@ public class findDAO {
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT name FROM patient WHERE phone=?";
+		
+		String sql = "SELECT * FROM member WHERE m_phone=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
 		
@@ -84,7 +89,7 @@ public class findDAO {
 		
 		
 		if(rs.next()) {
-			if(rs.getString("name").equals(name)) {
+			if(rs.getString("m_name").equals(name)) {
 				System.out.println("이름, 휴대전화정보 일치");
 				ok=1;
 			} else {
@@ -130,7 +135,7 @@ public class findDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT pw FROM patient WHERE name=? and id=? and phone=?";
+			String sql = "SELECT * FROM member WHERE m_name=? and m_id=? and m_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, id);
@@ -138,7 +143,7 @@ public class findDAO {
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				find_pw = rs.getString("pw");
+				find_pw = rs.getString("m_pw");
 				System.out.println(find_pw);
 				
 			}
@@ -175,7 +180,7 @@ public class findDAO {
 		int ok_pwd = 0;
 		try {
 		connect();
-		String sql = "SELECT id FROM patient WHERE phone=? and name=?";
+		String sql = "SELECT m_id FROM member WHERE m_phone=? and m_name=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
 		pstmt.setString(2, name);
@@ -184,7 +189,7 @@ public class findDAO {
 		
 		
 		if(rs.next()) {
-			if(rs.getString("id").equals(id)) {
+			if(rs.getString("m_id").equals(id)) {
 				System.out.println("정보 일치");
 				ok_pwd=1;
 			} else {
@@ -232,14 +237,14 @@ public class findDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT id FROM caregiver WHERE name=? and phone=?";
+			String sql = "SELECT g_id FROM caregiver WHERE g_name=? and g_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, phone);
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				find_id = rs.getString("id");
+				find_id = rs.getString("g_id");
 				System.out.println(find_id);
 				
 			}
@@ -276,7 +281,7 @@ public class findDAO {
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT name FROM caregiver WHERE phone=?";
+		String sql = "SELECT g_name FROM caregiver WHERE g_phone=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
 		
@@ -284,7 +289,7 @@ public class findDAO {
 		
 		
 		if(rs.next()) {
-			if(rs.getString("name").equals(name)) {
+			if(rs.getString("g_name").equals(name)) {
 				System.out.println("이름, 휴대전화정보 일치");
 				ok=1;
 			} else {
@@ -330,7 +335,7 @@ public class findDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT pw FROM caregiver WHERE name=? and id=? and phone=?";
+			String sql = "SELECT g_pw FROM caregiver WHERE g_name=? and g_id=? and g_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, id);
@@ -338,7 +343,7 @@ public class findDAO {
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				find_pw = rs.getString("pw");
+				find_pw = rs.getString("g_pw");
 				System.out.println(find_pw);
 				
 			}
@@ -375,7 +380,7 @@ public class findDAO {
 		int ok_pwd = 0;
 		try {
 		connect();
-		String sql = "SELECT id FROM caregiver WHERE phone=? and name=?";
+		String sql = "SELECT g_id FROM caregiver WHERE g_phone=? and g_name=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, phone);
 		pstmt.setString(2, name);
@@ -384,7 +389,7 @@ public class findDAO {
 		
 		
 		if(rs.next()) {
-			if(rs.getString("id").equals(id)) {
+			if(rs.getString("g_id").equals(id)) {
 				System.out.println("정보 일치");
 				ok_pwd=1;
 			} else {

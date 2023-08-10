@@ -102,6 +102,7 @@ margin-left: 7.2rem;
 
 				String res_code = listvo.getRes_code();
 	            String location = listvo.getLocation();
+	            if(location.equals("home")) {location="자택";}
 	            String start_date = listvo.getStart_date();
 				String end_date = listvo.getEnd_date();
 				String start_time = listvo.getStart_time();
@@ -139,7 +140,8 @@ margin-left: 7.2rem;
 			<form name="applyinfo">
 			<table>
 			<thead>
-			<tr><td>피간병인</td><td>성별</td><td>나이</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>비고</td></tr>
+			  <tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td></tr>
+
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
 			List<PatientresVO> reslist = dao2.applylist();
@@ -154,9 +156,14 @@ margin-left: 7.2rem;
 				Time start_time = listvo.getStarttime();
 				Time end_time = listvo.getEndtime();
 				String caregiver = listvo.getCaregiver();
-				String res_code = "test"; //listvo.getRes_code();
-				String caretaker_code = "test"; //listvo.getCaretaker_code();
-	
+				String res_code = listvo.getRes_code();
+				String caretaker_code = listvo.getCaretaker_code();
+				String location = listvo.getLocation();
+	            String addr = listvo.getAddr();
+	            String detail_addr = listvo.getDetail_addr();
+			
+	            if(location!=null && addr!=null && start_date!=null && start_time!=null) {
+	            
 				String workDate = start_date + "~" + end_date;
 				String workTimes = start_time + "~" + end_time;
 	
@@ -168,24 +175,17 @@ margin-left: 7.2rem;
 				int salary = totalWorkDays * workHours * 10000;
 	
 	 			String fSalary = String.format("%,d", salary);
-	
-				if(caregiver==null) {
+	 			
+	 			 int idx = addr.indexOf(" ");
+		            String address = addr.substring(0, idx); 
 			%>
 
-			<tr><td> <%=name %> </td><td> <%=gender %> </td><td> <%=age %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td>
-			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return more_info();">더보기</a></td></tr>
-
-
+			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
+			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			 <td> <%=fSalary%>원 </td>
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>" onclick="return more_info();">더보기</a></td></tr>
 			<%
-			} else if(caregiver!= null) {
-				%>
-
-			<tr><td> <%=name %> </td><td> <%=gender %> </td><td> <%=age %> </td><td> <%=workDate %> </td> <td> <%=workTimes %> </td> <td> <%=fSalary %>원 </td> <td> ... </td><td><a href="../reservation/resdelete.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>" onclick="return delok();">취소</a></td></tr>
-
-			<%
-			} 
-
-			}
+			}}
 			%>
 			</table>
 			</form>

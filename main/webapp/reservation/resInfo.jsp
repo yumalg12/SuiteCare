@@ -35,11 +35,11 @@
 							</header>
       <% 
       request.setCharacterEncoding("utf-8");
-
+		String res_code = request.getParameter("res_code");
       
       TakerDAO dao = new TakerDAO();
 
-      List<TakerVO> list = dao.gtList();
+      List<TakerVO> list = dao.gtresList(res_code);
       for(int i=0; i<list.size(); i++) {
          TakerVO listt = (TakerVO) list.get(i);
    
