@@ -34,9 +34,11 @@ function loginForm() {
 <body>
 <% if(g_id!=null) {
 	%><script> 
-	 var confirmed = confirm("간병인 회원정보의 로그아웃을 진행하시겠습니까?");
+	 var confirmed = confirm("기존 로그인된 계정에서 로그아웃합니다. \n계속하시겠습니까?");
      if (confirmed) {
          window.location.href = "../logout.jsp"; // 로그아웃 처리 페이지로 이동
+     } else {
+    	    window.location.href = "../careGiver/gMain.jsp"; 
      }
 	</script>
 <% } else {%>
@@ -77,6 +79,10 @@ function loginForm() {
 								<span class="button alt" onclick="location.href='tSignup.jsp'">회원가입</span>
 							</div>
 					</form>
+							<div class="form_button" >
+								<span class="button alt" onclick="location.href='tFindId.jsp'">아이디찾기</span>
+								<span class="button alt" onclick="location.href='tFindPw.jsp'">비밀번호찾기</span>
+							</div>
 					
 					</div>
 				</div>
