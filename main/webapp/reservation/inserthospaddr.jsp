@@ -27,44 +27,37 @@ ReservationVO vo = new ReservationVO();
 vo.setLocation(hospname);
 vo.setAddr(hospaddr);
 vo.setDetail_addr(hospdetail_addr);
-vo.setCaretaker_code(caretaker_code);
-if(res_code!=null) {
-vo.setRes_code(res_code);
+try {
+    if (res_code != null || r_code != null) {
+        String targetCode = (res_code != null) ? res_code : r_code;
+        vo.setRes_code(targetCode);
 
-int result = dao.updatehospaddr(vo);
+        int result = dao.updateaddr(vo);
 
-
-if(result==1) {
-	response.sendRedirect("res_date.jsp");
-} else {
+        if (result == 1) {
+            if (res_code != null) {
+                response.sendRedirect("res_date.jsp");
+            } else {
+            	session.removeAttribute("r_code");
 %>
 <script>
-alert("업데이트 오류");
-location.href='<%=request.getContextPath()%>/reservation/reshospital.jsp';
+    alert("자택주소 업데이트 완료");
+    window.location.href='../member/mMain.jsp';
 </script>
+<%
+            }
+        } else {
+        	%>
+        	<script>
+        	 alert("업데이트 오류");
+             location.href='<%=request.getContextPath()%>/reservation/reshome.jsp';
+        	</script>
+        	<%
+        	     
+        	} }}catch (Exception e) {
+        	e.printStackTrace();
+        	}
+        	%>
 
-<% }} else if(res_code==null) {
-	vo.setRes_code(r_code);
-
-int result = dao.updatehospaddr(vo);
-
-
-if(result==1) {
-	session.removeAttribute("r_code");
-	%>
-	<script>
-	alert("병원주소 업데이트 완료");
-	window.location.href='../member/mMain.jsp';
-	</script>
-	<%
-} else {
-%>
-<script>
-alert("업데이트 오류");
-location.href='<%=request.getContextPath()%>/reservation/reshospital.jsp';
-</script>
-
-<% }}%>
-}
 </body>
 </html>

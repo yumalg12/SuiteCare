@@ -87,8 +87,7 @@ margin-left: 7.2rem;
 								<p>나와 매칭된</p>
 								<h2>피간병인 정보</h2>
 							</header>
-			<table border=1>
-			<tr><td>이름</td><td>코드</td><td>성별</td><td>나이</td><td>키</td><td>몸무게</td><td>상태(병명)</td></tr>
+			
 			<%
 			request.setCharacterEncoding("utf-8");
 			String g_id = (String)session.getAttribute("g_id");
@@ -124,20 +123,32 @@ margin-left: 7.2rem;
     			int t_weight = listvo.getT_weight();
     			String diagnosis = listvo.getDiagnosis();
 				
-        		out.println("<tr><td>" + t_name + "</td><td>" + caretaker_code + "</td><td>" + t_gender + "</td>");
-				out.println("<td>" + t_age + "</td><td>" + t_height + "</td><td>" + t_weight + "</td>");
-				out.println("<td>" + diagnosis + "</td></tr>");
 				%>
-				</table>
+	
 				
 				<table border=1>
-				<tr><td>식사케어 여부</td><td>대소변케어 여부</td><td>마비 상태</td><td>거동 및 운동상태</td><td>욕창 유무</td><td>석션 필요 유무</td><td>주기적 외부 치료 여부</td><td>야간케어 여부</td></tr>
-				<tr><td><%=care_meal_yn%></td><td><%=care_toilet%></td><td><%=state_paralysis%></td><td><%=state_mobility%></td><td><%=bedsore_yn%></td><td><%=suction_yn%></td><td><%=outpatient_yn%></td><td><%=care_night_yn%></td></tr>
-				</table>
 				
-				<table border=1>
-				<tr><td>주소</td><td>의식상태</td><td>유의사항</td><td>예약날짜</td><td>예약코드</td><td>결제주문번호</td></tr>
-				<tr><td><%=addr%> (<%=detail_addr%>)</td><td><%=consciousness%></td><td><%=notice%></td><td><%=res_date%></td><td><%=rescode%></td><td><%=merchant_uid%></td></tr>
+				<tr><td>이름</td><td><%=t_name %></td></tr>
+				<tr><td>예약날짜</td><td><%=res_date%></td></tr>
+				<tr><td>성별</td><td><%=t_gender %></td></tr>
+				<tr><td>나이</td><td><%=t_age %>세</td></tr>
+				<tr><td>키</td><td><%=t_height %>cm</td></tr>
+				<tr><td>몸무게</td><td><%=t_weight %>kg</td></tr>
+				<tr><td>식사케어 여부</td><td><%=care_meal_yn %></td></tr>
+				<tr><td>대소변케어 여부</td><td><%=care_toilet %></td></tr>
+				<tr><td>마비 상태</td><td><%=state_paralysis %></td></tr>
+				<tr><td>거동 및 운동상태</td><td><%=state_mobility %></td></tr>
+				<tr><td>욕창 유무</td><td><%=bedsore_yn %></td></tr>
+				<tr><td>석션 필요 유무</td><td><%=suction_yn%></td></tr>
+				<tr><td>주기적 외부 치료 여부</td><td><%=outpatient_yn%></td></tr>
+				<tr><td>야간케어 여부</td><td><%=care_night_yn%></td></tr>
+				<tr><td>주소</td><td><%=addr%> <%if(detail_addr!=null) { %>(<%=detail_addr%>) <% } %></td></tr>
+				<tr><td>의식상태</td><td><%=consciousness%></td></tr>
+				<tr><td>유의사항</td><td><%=notice%></td></tr>
+				<tr><td>예약코드</td><td><%=rescode%></td></tr>
+				<tr><td>결제주문번호</td><td><%=merchant_uid%></td></tr>
+				<tr><td>비고</td><td></td></tr>
+				</table>
 				
 			<%
 			}

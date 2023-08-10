@@ -34,7 +34,7 @@ if(ok1== 1) {
 %>
 <script>
 alert("회원님의 아이디는 <%=find_id%>입니다.");
-location.href='<%=request.getContextPath()%>/caregiverLogin.jsp';
+location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
 </script>
 <%
 } else if(ok1==2) {
@@ -43,7 +43,7 @@ location.href='<%=request.getContextPath()%>/caregiverLogin.jsp';
 %>
 <script>
 alert("이름정보가 다릅니다.")
-location.href='<%=request.getContextPath()%>/cFindId.jsp';
+location.href='<%=request.getContextPath()%>/careGiver/gFindId.jsp';
 </script>
 <%
 } else if(ok1==3) {
@@ -52,7 +52,7 @@ location.href='<%=request.getContextPath()%>/cFindId.jsp';
 %>
 <script>
 alert("휴대전화 정보가 없습니다.")
-location.href='<%=request.getContextPath()%>/cFindId.jsp';
+location.href='<%=request.getContextPath()%>/careGiver/gFindId.jsp';
 </script>
 <% } 
 
