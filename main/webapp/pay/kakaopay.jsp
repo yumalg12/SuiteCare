@@ -56,7 +56,7 @@
 					</div>
 
 					<form id="kakaopay" name="kakaopay"
-						action="<%=context%>/Payment/addpay.do" method="get">
+						action="<%= context%>/Payment/addpay.do" method="get">
 						<input id="amountRsp" type="hidden" name="amountRsp" value="">
 						<input id="merchant_uidRsp" type="hidden" name="merchant_uidRsp" value="">
 						<input id="pay_method" type="hidden" name="pay_method" value="">
