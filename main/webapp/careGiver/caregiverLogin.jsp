@@ -8,8 +8,14 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
+<%String g_id = (String) session.getAttribute("g_id");
+String m_id = (String) session.getAttribute("m_id");%>
 
-<%String m_id = (String) session.getAttribute("m_id");%>
+console.log("<%=g_id%>");
+if ("<%=g_id%>" != "null") {
+	window.location.href="gMain.jsp";
+}
+
 function loginForm() {
 	var loginForm = document.frmLogin;
 	var id = document.frmLogin.g_id.value;
