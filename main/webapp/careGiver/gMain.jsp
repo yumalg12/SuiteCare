@@ -140,7 +140,7 @@ margin-left: 7.2rem;
 			<form name="applyinfo">
 			<table>
 			<thead>
-			  <tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td></tr>
+			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td></tr>
 
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
@@ -159,14 +159,17 @@ margin-left: 7.2rem;
 				String res_code = listvo.getRes_code();
 				String caretaker_code = listvo.getCaretaker_code();
 				String location = listvo.getLocation();
-	            String addr = listvo.getAddr();
-	            String detail_addr = listvo.getDetail_addr();
+
+	            
+  
+        String addr = listvo.getAddr();
+	      String detail_addr = listvo.getDetail_addr();
 			
-	            if(location!=null && addr!=null && start_date!=null && start_time!=null) {
+	      if(location!=null && addr!=null && start_date!=null && start_time!=null) {
 	            
 				String workDate = start_date + "~" + end_date;
 				String workTimes = start_time + "~" + end_time;
-	
+
 				long worktime = end_time.getTime() - start_time.getTime();
 				int workHours = (int) (worktime / (1000 * 60 * 60));
 
@@ -180,10 +183,13 @@ margin-left: 7.2rem;
 		            String address = addr.substring(0, idx); 
 			%>
 
+
+
 			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
 			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
 			 <td> <%=fSalary%>원 </td>
-			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>" onclick="return more_info();">더보기</a></td></tr>
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td></tr>
+
 			<%
 			}}
 			%>
