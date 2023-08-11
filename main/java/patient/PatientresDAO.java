@@ -36,12 +36,13 @@ public class PatientresDAO {
 
 	public List<PatientresVO> listres(String m_id) {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();
-		String caregiver = null;
 
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, CARETAKER as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, CARETAKER as c "
+					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code and "
+					+ "res.res_code=resinfo.res_code";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 
@@ -56,10 +57,9 @@ public class PatientresDAO {
 				String location = rs.getString("location");
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
-				caregiver = rs.getString("caregiver_id");
+				String caregiver = rs.getString("caregiver_id");
 				String t_code = rs.getString("caretaker_code");
 
-				if (caregiver == null) {
 					PatientresVO vo = new PatientresVO();
 					vo.setCaretaker(caretaker);
 					vo.setStartdate(start_date);
@@ -72,31 +72,25 @@ public class PatientresDAO {
 					vo.setDetail_addr(detail_addr);
 					vo.setRes_code(res_code);
 					vo.setCaretaker_code(t_code);
-
-					list.add(vo);
-				} else if (caregiver != null) {
-					String cgsql = "SELECT g_name FROM caregiver where g_id = ?";
+					
+					if (caregiver != null) {
+					String cgsql = "SELECT * FROM caregiver where g_id = ?";
 					stmnt = conn.prepareStatement(cgsql);
 					stmnt.setString(1, caregiver);
+						
+					ResultSet rs2 = stmnt.executeQuery();
+					
+					if(rs2.next()) {
+					String gname = rs2.getString("g_name");
 
-					caregiver = rs.getString("g_name");
-
-					PatientresVO vo = new PatientresVO();
-					vo.setCaretaker(caretaker);
-					vo.setStartdate(start_date);
-					vo.setEnddate(end_date);
-					vo.setStarttime(start_time);
-					vo.setEndtime(end_time);
-					vo.setCaregiver(caregiver);
-					vo.setRes_code(res_code);
-					vo.setCaretaker_code(t_code);
-
+					vo.setCaregiver(gname);
+					
+					} } else {
+					vo.setCaregiver(caregiver); 
+					}
 					list.add(vo);
-
-					stmnt.close();
 				}
 
-			}
 
 			rs.close();
 			pstmt.close();

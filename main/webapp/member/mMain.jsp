@@ -187,7 +187,9 @@
 										else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
 										<%}} %></td>
 										
-									<td><% if(caregiver==null) { %>미지정 <%}	else if(caregiver!=null){%><%=caregiver%><%} %></td>
+									<td><% if(caregiver==null) { %>
+										<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a> <%}	
+									else if(caregiver!=null){%><%=caregiver%><%} %></td>
 									
 									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 										onclick="return delok();">취소</a></td>

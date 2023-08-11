@@ -165,7 +165,7 @@ margin-left: 7.2rem;
         String addr = listvo.getAddr();
 	      String detail_addr = listvo.getDetail_addr();
 			
-	      if(location!=null && addr!=null && start_date!=null && start_time!=null) {
+	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
 	            
 				String workDate = start_date + "~" + end_date;
 				String workTimes = start_time + "~" + end_time;

@@ -38,7 +38,9 @@
 					</header>
 					<%
 					request.setCharacterEncoding("utf-8");
+					String g_id = (String)session.getAttribute("g_id");
 					String res_code = request.getParameter("res_code");
+					session.setAttribute("applycode", res_code);
 					String caretaker_code = request.getParameter("caretaker_code");
 
 					PatientresDAO dao = new PatientresDAO();
@@ -92,11 +94,11 @@
 
 					<!-- form 시작 -->
 					<form name="Registform" method="post"
-						onSubmit="return validateForm();" action="./takerInfoCheck.jsp">
+						onSubmit="return validateForm();" action="../book/applybook.jsp">
 						<div class="form_wrapper">
 							<div class="form_row">
-								<label for="t_name">예약코드</label> <input type="text"
-									value="<%=res_code%>" disabled>
+								<label for="res_code">예약코드</label> 
+								<input type="text" value="<%=res_code%>"  disabled>
 							</div>
 
 							<div class="form_row">
