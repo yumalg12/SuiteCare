@@ -43,7 +43,7 @@ public class Join extends HttpServlet {
 			location = loc.location();
 			request.setAttribute("location", location);
 			
-			RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gJoin.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gSignup.jsp");
 			dispatch.forward(request, response);
 		} else if (type.equals("isDuplicateID")) {
 			String id = request.getParameter("id");
@@ -106,9 +106,6 @@ public class Join extends HttpServlet {
         String g_sms_yn=multi.getParameter("g_sms_yn") != null ? multi.getParameter("g_sms_yn") : "N";
 		String g_email_yn=multi.getParameter("g_email_yn") != null ? multi.getParameter("g_email_yn") : "N";
 		
-		
-		out.print(">>>>>!!!");
-		
 		CaregiverVO vo = new CaregiverVO();
 		CaregiverDAO dao = new CaregiverDAO();
 		vo.setG_id(g_id);
@@ -128,7 +125,9 @@ public class Join extends HttpServlet {
 		
 		dao.joinMember(vo);
 		
-		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='/';</script>");
+		String context = ((HttpServletRequest)request).getContextPath();
+		
+		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='" +context+ "/index.jsp';</script>");
 	}
 
 }
