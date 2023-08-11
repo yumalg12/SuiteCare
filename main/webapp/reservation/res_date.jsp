@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<script src="<%=context%>/assets/js/progress.js"></script>
 
 <style>
 .res_date {
@@ -90,13 +91,13 @@ function resdstop() {
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
-	<div class="res-progress">
+	<div id="res-progress">
 	<ul>
-	<li style="z-index: 5">피간병인 선택</li>
-	<li style="z-index: 4">피간병인 정보 입력</li>
-	<li style="z-index: 3">간병장소 선택</li>
-	<li style="z-index: 2" class="active">예약 일시 지정</li>
-	<li style="z-index: 1">빠른매칭 서비스</li>
+	<li>피간병인 선택</li>
+	<li>피간병인 정보 입력</li>
+	<li>간병장소 선택</li>
+	<li class="active">예약 일시 지정</li>
+	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
 	
@@ -136,8 +137,8 @@ function resdstop() {
 								</div>
 							</div>
 							<div class="form_button">
+								 <input type="button" class="button alt" onclick="resdstop();" value="예약 중지">
 								<input type="submit" class="button special" value="예약하기">
-								 <input type="button" class="button" onclick="resdstop();" value="예약 중지">
 							</div>
 						</form>
 

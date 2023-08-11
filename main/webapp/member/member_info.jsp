@@ -11,12 +11,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SC 스위트케어 | 일반 본문</title>
+	<title>마이페이지 | SC 스위트케어</title>
 		<%@ include file="/header-import.jsp"%>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="../assets/css/main.css" />
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
       
@@ -100,7 +96,7 @@
 	   }
 	
 	   function change_pw() {
-		      window.open("http://localhost:8060/suiteCare/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
+		      window.open("<%=context%>/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
 		   }
 	   
 	   
@@ -150,21 +146,23 @@
 	<form name="minfoForm" method="post" onSubmit="return validateForm();" action="./member_infoCheck.jsp">
 		<div class="form_wrapper">
 			<div class="form_row">
-				<label for="id">아이디</label> <div class="form_row_sub">
-				<input type="text" id="id" name=m_name value= "<%=m_id%>"disabled></div>
+				<label for="id">아이디</label>
+				<input type="text" id="id" name=m_name value= "<%=m_id%>" readonly>
 			</div>
 			<div class="form_row">
 				<label for="pw">비밀번호</label>
-				<input type="password" name="pw" value= "<%=m_pw%>"disabled><br>
-				<input type="button" value="비밀번호 변경" onclick="change_pw()">
+				<div class="form_row_sub">
+				<input type="password" name="pw" value= "asdfasdfasdf" readonly>
+				<span class="button" onclick="change_pw()">비밀번호 변경</span>		
+				</div>
 			</div>
 			<div class="form_row">
 				<label for="name">이름</label> 
-				<input type="text" id="name" name=m_name value="<%=m_name%>" disabled>
+				<input type="text" id="name" name=m_name value="<%=m_name%>" readonly>
 			</div>
 			<div class="form_row">
 				<label for="gender">성별</label>
-				<input type="text" id="gender" name=m_gender value="<%=m_gender%>" disabled>
+				<input type="text" id="gender" name=m_gender value="<%=m_gender%>" readonly>
 
 			</div>
 			<div class="form_row">
@@ -178,8 +176,9 @@
 
 			<div class="form_row">
 			    <label>주소</label>
-			    <input class="form-control" type="text" id="address" name="m_address" value="<%=m_address%>"><span></span>
-				<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span><span></span>
+				<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
+				<span></span>
+			    <textarea class="form-control" id="address" name="m_address"><%=m_address%></textarea>
 			</div>
 			
 			<div class="form_row">

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-
+<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
 <style>
 .info-row{
 	margin-bottom: 1rem;
@@ -18,22 +18,12 @@
 </style>
 
 <script>
-window.onbeforeunload = function (event) {
-	  // 이벤트 객체를 받아와 목적지 url을 확인합니다.
-	  var destination = event.currentTarget.performance.navigation.redirectCount > 0
-	    ? document.referrer
-	    : document.location.href;
-	  
-	  if (destination !== "res_insert.jsp") {
-	    return '';
-	  }
-	};
-
-
 <%
 request.setCharacterEncoding("utf-8");
 String m_id = (String)session.getAttribute("m_id");
 String t_name = (String)request.getParameter("tname");
+session.setAttribute("t_name", t_name);
+
 ReservationDAO dao = new ReservationDAO();
 
 List<CaretakerinfoVO> list = dao.listtinfo(m_id, t_name);
@@ -265,13 +255,13 @@ function resetInputValues(){
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
-	<div class="res-progress">
+	<div id="res-progress">
 	<ul>
-	<li style="z-index: 5">피간병인 선택</li>
-	<li style="z-index: 4" class="active">피간병인 정보 입력</li>
-	<li style="z-index: 3">간병장소 선택</li>
-	<li style="z-index: 2">예약 일시 지정</li>
-	<li style="z-index: 1">빠른매칭 서비스</li>
+	<li>피간병인 선택</li>
+	<li class="active">피간병인 정보 입력</li>
+	<li>간병장소 선택</li>
+	<li>예약 일시 지정</li>
+	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
 	
@@ -286,7 +276,6 @@ function resetInputValues(){
 					<div class="form_wrapper">
 <form name="tinfoform">
 <div class="form_row">
-<label> 피간병인 코드</label><input type="text" value="<%=t_code %>" readonly>
 <label> 피간병인 정보</label><input type="text" value="<%=t_name %> (<%=t_age %>세, <%=t_gender %>성)" readonly>
 <label> 키 / 몸무게</label><input type="text" value="<%=t_height %>cm / <%=t_weight %>kg" readonly>
 <label> 진단명		</label><input type="text" value="<%=diagnosis %>" readonly>
@@ -412,9 +401,9 @@ function resetInputValues(){
 </div>    
     
 	<div class="form_button_three" >
-<input type="reset" class="button alt" value="초기화" onclick="resetInputValues();"/>
+<span class="button special" onclick="loadinfo();">기존 정보 불러오기</span>
 <div>
-<span class="button" onclick="loadinfo();">기존 정보 불러오기</span>
+<input type="reset" class="button" value="초기화" onclick="resetInputValues();"/>
 <button type="button" class="button special" onclick="reservation();">예약하기</button>
 </div>
     </div>

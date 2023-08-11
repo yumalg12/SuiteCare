@@ -9,11 +9,8 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-
+<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
 <script>
-window.onbeforeunload = function () {
-	return ''; 
-}
 
 function back() {
 	var f = document.hospForm;
@@ -85,13 +82,13 @@ String r_code = (String)session.getAttribute("r_code");
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
-	<div class="res-progress">
+	<div id="res-progress">
 	<ul>
-	<li style="z-index: 5">피간병인 선택</li>
-	<li style="z-index: 4">피간병인 정보 입력</li>
-	<li style="z-index: 3" class="active">간병장소 선택</li>
-	<li style="z-index: 2">예약 일시 지정</li>
-	<li style="z-index: 1">빠른매칭 서비스</li>
+	<li>피간병인 선택</li>
+	<li>피간병인 정보 입력</li>
+	<li class="active">간병장소 선택</li>
+	<li>예약 일시 지정</li>
+	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
 	
@@ -119,11 +116,10 @@ String r_code = (String)session.getAttribute("r_code");
 				<label class="addr-label">상세호수</label><input type="text" id="hospdetail_addr" name="hospdetail_addr" placeholder="상세호수" title="나머지 주소" >
 			</div>
 			<div class="form_button_three">
-		 <input type="reset" class="button alt" value="초기화"> 
+		  <input type="button" class="button alt" onclick="reshostop();" value="예약 중지">
 		 <div>
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
-		  <input type="button" class="button" onclick="reshostop();" value="예약 중지">
 		 </div>
 			</div>
 </form>

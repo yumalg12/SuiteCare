@@ -12,11 +12,8 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-
+<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
 <script>
-window.onbeforeunload = function () {
-	return ''; 
-}
 
 function back() {
 	var f = document.homeForm;
@@ -86,13 +83,13 @@ System.out.println("r_code : "+r_code);
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
-	<div class="res-progress">
+	<div id="res-progress">
 	<ul>
-	<li style="z-index: 5">피간병인 선택</li>
-	<li style="z-index: 4">피간병인 정보 입력</li>
-	<li style="z-index: 3" class="active">간병장소 선택</li>
-	<li style="z-index: 2">예약 일시 지정</li>
-	<li style="z-index: 1">빠른매칭 서비스</li>
+	<li>피간병인 선택</li>
+	<li>피간병인 정보 입력</li>
+	<li class="active">간병장소 선택</li>
+	<li>예약 일시 지정</li>
+	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
 	
@@ -118,11 +115,10 @@ System.out.println("r_code : "+r_code);
 			<input type="hidden" id="addr" name="addr" value=""> <!-- 주소 값으로는 이 input만 전송되게 됩니다 -->
 			</div>
 			<div class="form_button_three">
-		 <input type="reset" class="button alt" value="초기화"> 
+		 <input type="button" class="button alt" onclick="reshstop();" value="예약 중지">
 		 <div>
 		 <input type="button" class="button" onclick="back();" value="뒤로가기">
 		 <input type="button" class="button special" onclick="check();" value="확인">
-		 <input type="button" class="button" onclick="reshstop();" value="예약 중지">
 		 </div>
 			</div>
 </form>

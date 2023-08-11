@@ -55,11 +55,11 @@
 	font-weight: 400;
 }
 
-.res-progress {
+#res-progress {
 	text-align: center;
 }
 
-.res-progress li {
+#res-progress li {
 	background-color: #423730;
 	display: inline-block;
 	color: #423730;
@@ -71,7 +71,7 @@
 	position: relative;
 }
 
-.res-progress li::before {
+#res-progress li::before {
 	content: "";
 	position: absolute;
 	top: 0.5px;
@@ -84,7 +84,7 @@
 		calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0 100%);
 }
 
-.res-progress li.active {
+#res-progress li.active {
 	background-color: #423730;
 	display: inline-block;
 	color: white;
@@ -97,7 +97,7 @@
 	position: relative;
 }
 
-.res-progress li.active::before {
+#res-progress li.active::before {
 	content: "";
 	position: absolute;
 	top: 1px;
@@ -108,4 +108,8 @@
 	background-color: #423730;
 	clip-path: polygon(0 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100%
 		calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0 100%);
+}
+
+input[type="text"]:read-only, input[type="text"]:disabled, input[type="password"]:read-only, input[type="password"]:disabled {
+    filter: opacity(0.6);
 }

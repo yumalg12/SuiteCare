@@ -14,12 +14,15 @@ String gid = (String)session.getAttribute("g_id");	%>
 <nav id="menu">
 	<ul class="links">
 		<li><a href="<%=context%>/index.jsp">Home</a></li>
-		<li><a href="<%=context%>/member/caretakerLogin.jsp">간병인 찾기</a></li>
-		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 등록하기</a></li>
-		<li><a href="<%=context%>/generic.jsp">고객센터</a></li>
+		<li><a href="<%=context%>/member/mLogin.jsp">피간병인 메인</a></li>
+		<li><a href="<%=context%>/member/member_info.jsp">피간병인 마이페이지</a></li>
+		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 메인</a></li>
+		<li><a href="<%=context%>/careGiver/caregiver_info.jsp">간병인 마이페이지</a></li>
+		<li><a href="<%=context%>/pay/paycon.jsp">결제 페이지</a></li>
+		<li><a href="<%=context%>/logout.jsp">로그아웃</a></li>
+		<li><a href="">&nbsp;</a></li>
+		<li><a href="<%=context%>/generic.jsp">템플릿 기본틀</a></li>
 		<li><a href="<%=context%>/elements.jsp">스타일 가이드</a></li>
-		<li><a href="<%=context%>/pay/paycon.jsp">결제 페이지 접근용 임시메뉴</a></li>
-		<% if(mid!=null || gid!=null) { %><li><a href="<%=context%>/logout.jsp">로그아웃</a></li> <% } %>
-		<p>메뉴는 모두 임시입니다! 원하시는 대로 수정해 주세요👍</p>
+		<p>메뉴는 모두 임시입니다! 필요한 대로 수정해 주세요👍</p>
 	</ul>
 </nav>

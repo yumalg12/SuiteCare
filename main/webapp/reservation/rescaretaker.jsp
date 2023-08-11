@@ -8,6 +8,7 @@
 <head>
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
+<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
 <script>
 function checkForm() {
 	var selectname=document.getElementById("tname").value;
@@ -65,13 +66,13 @@ function inserttinfo() {
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
-	<div class="res-progress">
+	<div id="res-progress">
 	<ul>
-	<li style="z-index: 5" class="active">피간병인 선택</li>
-	<li style="z-index: 4">피간병인 정보 입력</li>
-	<li style="z-index: 3">간병장소 선택</li>
-	<li style="z-index: 2">예약 일시 지정</li>
-	<li style="z-index: 1">빠른매칭 서비스</li>
+	<li class="active">피간병인 선택</li>
+	<li>피간병인 정보 입력</li>
+	<li>간병장소 선택</li>
+	<li>예약 일시 지정</li>
+	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
 	
@@ -105,7 +106,7 @@ function inserttinfo() {
 									%>
 								</select>
 								<div style="text-align: center; margin: 1rem;">
-								<span class="button alt" onclick="inserttinfo();">다른 피간병인 정보 등록하기</span> 
+								<a onclick="inserttinfo();" style="cursor: pointer; ">다른 피간병인 정보 등록하기</a> 
 								</div>
 								</div>
 							</div>
