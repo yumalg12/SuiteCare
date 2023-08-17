@@ -17,7 +17,7 @@ String gid = (String)session.getAttribute("g_id");	%>
 		<li><a href="<%=context%>/member/mLogin.jsp">피간병인 메인</a></li>
 		<li><a href="<%=context%>/member/member_info.jsp">피간병인 마이페이지</a></li>
 		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 메인</a></li>
-		<li><a href="<%=context%>/careGiver/caregiver_info.jsp">간병인 마이페이지</a></li>
+		<li><a href="<%=context%>/caregiver">간병인 마이페이지</a></li>
 		<li><a href="<%=context%>/pay/paycon.jsp">결제 페이지</a></li>
 		<li><a href="<%=context%>/logout.jsp">로그아웃</a></li>
 		<li><a href="">&nbsp;</a></li>
