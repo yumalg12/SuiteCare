@@ -67,7 +67,7 @@ public class Join extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 			
-		String path = "C:\\ThisIsJava\\workspace\\suiteCare\\src\\main\\webapp\\assets\\profile";
+		String path = "C:\\JavaProgram\\suiteCare\\src\\main\\webapp\\assets\\profile";
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());

@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
+
 public class BookDAO {
 	private PreparedStatement pstmt;
 	private PreparedStatement stmnt;
@@ -117,5 +118,185 @@ public class BookDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	
+	public int approvebook(String res_code, String b_id) {
+		int result = 0;
+		try {
+			connect();
+			String sql = "UPDATE  `suitecare`.`book` SET b_status='거절' where res_code=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, res_code);
+			
+			int updeny = pstmt.executeUpdate();
+			
+			if(updeny>0) {
+				String usql = "UPDATE  `suitecare`.`book` SET b_status='승인' where b_id=?";
+				stmnt = conn.prepareStatement(usql);
+				
+				stmnt.setString(1, b_id);
+				
+				result = stmnt.executeUpdate();				
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { 
+			if(pstmt!=null ) pstmt.close();
+			if(stmnt!=null) stmnt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} return result;
+	}
+	
+	public int denybook(String b_id) {
+		int result = 0;
+		try {
+			connect();
+			String sql = "UPDATE  `suitecare`.`book` SET b_status='거절' where b_id=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, b_id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { 
+			if(pstmt!=null ) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} return result;
+	}
+	
+	public int updategid(String g_id, String res_code) {
+		int result = 0;
+		try {
+			connect();
+			String sql =  "UPDATE  `suitecare`.`reservation` SET caregiver_id=? where res_code=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, res_code);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { 
+			if(pstmt!=null ) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} return result;
+	}
+	
+	public List<BookVO> listbst(String g_id, String res_code) {
+		List<BookVO> list= new ArrayList<BookVO>();
+		
+		try {
+			connect();
+				
+			String sql = "SELECT b_status FROM book WHERE g_id=? and res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, res_code);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String b_status = rs.getString("b_status");
+				
+				BookVO vo = new BookVO(); 
+
+				vo.setB_status(b_status);
+				
+				list.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<BookVO> gList(String g_id) {
+		List<BookVO> list= new ArrayList<BookVO>();
+		
+		try {
+			connect();
+				
+			String sql = "SELECT * FROM caregiver WHERE g_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String g_name = rs.getString("g_name");
+				String g_gender = rs.getString("g_gender");
+				String g_birth = rs.getString("g_birth");
+				String g_address = rs.getString("g_address");
+				String g_profile = rs.getString("g_profile");
+				String g_representative = rs.getString("g_representative");
+				String g_qualification = rs.getString("g_qualification");
+				int g_location = rs.getInt("g_location");
+				
+				
+				BookVO vo = new BookVO(); 
+
+				vo.setG_name(g_name);
+				vo.setG_gender(g_gender);
+				vo.setG_birth(g_birth);
+				vo.setG_address(g_address);
+				vo.setG_profile(g_profile);
+				vo.setG_representative(g_representative);
+				vo.setG_qualification(g_qualification);
+				vo.setG_location(g_location);
+				
+				list.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public String gloc(int g_location) {
+		String locname = null;
+		
+		try {
+			connect();
+			
+			String sql = "SELECT sido FROM location WHERE sido_code=?";
+			
+			stmnt = conn.prepareStatement(sql);
+			stmnt.setInt(1,g_location);
+			
+			rs = stmnt.executeQuery();
+			
+			if(rs.next()) {
+				locname = rs.getString("sido");
+				//System.out.println(locname);
+			}
+			rs.close();
+			stmnt.close();
+			pstmt.close();}
+		 catch(Exception e) {
+			e.printStackTrace();
+			}
+
+		return locname;
 	}
 }

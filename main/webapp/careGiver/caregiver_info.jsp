@@ -21,7 +21,7 @@
 <body>
 
 	<%@ include file="../header.jsp" %>
-	<% String file_repo = "/suiteCare/src/main/webapp/assets/profile/"; %>
+	<% String file_repo = "/suiteCare/assets/profile/"; %>
 
 <!-- One -->
    <section id="One" class="wrapper style3">

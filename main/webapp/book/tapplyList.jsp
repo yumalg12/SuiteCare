@@ -10,10 +10,15 @@
 	<title>SC 스위트케어 | 매칭 신청 리스트</title>
 	<%@ include file="/header-import.jsp"%>
 </head>
+<script>
+function backmain() {
+	window.location.href = "../member/mMain.jsp";
+}
+</script>
 <body>
 <% String m_id = (String)session.getAttribute("m_id");
 String res_code = request.getParameter("res_code");
-System.out.println(res_code);
+//System.out.println(res_code);
 %>
 	<%@ include file="../header.jsp" %>
 
@@ -56,8 +61,12 @@ System.out.println(res_code);
 										String b_status = applyvo.getB_status();
 										%>
 									<tr>
-									<td><%=rescode%></td> <td><%=b_id%></td> <td><%=g_name%></td> 
-									<td><%=b_status%></td> <td>비고</td>	
+									<td><%=rescode%></td> <td><%=b_id%></td> 
+									<td><%=g_name%><br>
+										<a href="./ginfoList.jsp?g_id=<%=g_id%>&res_code=<%=res_code%>&b_id=<%=b_id%>">더보기</a></td> 
+									<td><%=b_status%></td> 
+									<td><a href="./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a><br>
+									<a href="./tdeny.jsp?b_id=<%=b_id%>&res_code=<%=res_code%>">거절</a></td></tr>	
 								<%
 									}
 								%>
