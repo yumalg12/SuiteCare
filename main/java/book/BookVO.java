@@ -14,7 +14,10 @@ public class BookVO {
 	private String g_profile;
 	private String g_representative;
 	private String g_qualification;
-	private String g_location;
+	private int g_location;
+	
+	private int sido_code;
+	private String sido;
 	
 	public BookVO() {
 		System.out.println("BookVO");
@@ -191,15 +194,43 @@ public class BookVO {
 	/**
 	 * @return the g_location
 	 */
-	public String getG_location() {
+	public int getG_location() {
 		return g_location;
 	}
 
 	/**
 	 * @param g_location the g_location to set
 	 */
-	public void setG_location(String g_location) {
+	public void setG_location(int g_location) {
 		this.g_location = g_location;
+	}
+
+	/**
+	 * @return the sido_code
+	 */
+	public int getSido_code() {
+		return sido_code;
+	}
+
+	/**
+	 * @param sido_code the sido_code to set
+	 */
+	public void setSido_code(int sido_code) {
+		this.sido_code = sido_code;
+	}
+
+	/**
+	 * @return the sido
+	 */
+	public String getSido() {
+		return sido;
+	}
+
+	/**
+	 * @param sido the sido to set
+	 */
+	public void setSido(String sido) {
+		this.sido = sido;
 	}
 	
 	

@@ -30,6 +30,7 @@ public class PatientresVO {
 	private String outpatient_yn;
 	private String care_night_yn;
 	private String notice;
+	private String g_name;
 	
 
 	public PatientresVO() {
@@ -244,4 +245,19 @@ public class PatientresVO {
 		this.notice = notice;
 	}
 
+	/**
+	 * @return the g_name
+	 */
+	public String getG_name() {
+		return g_name;
+	}
+
+	/**
+	 * @param g_name the g_name to set
+	 */
+	public void setG_name(String g_name) {
+		this.g_name = g_name;
+	}
+	
+	
 }

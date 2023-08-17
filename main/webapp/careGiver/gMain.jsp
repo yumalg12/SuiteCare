@@ -1,4 +1,5 @@
 <%@ page import = "patient.*" %>
+<%@ page import = "book.*" %>
 <%@ page import = "caretaker.*" %>
 <%@ page import = "reservation.*" %>
 <%@ page import = "java.sql.*" %>
@@ -140,7 +141,8 @@ margin-left: 7.2rem;
 			<form name="applyinfo">
 			<table>
 			<thead>
-			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td></tr>
+			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
+			<td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td><td>매칭신청현황</td></tr>
 
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
@@ -162,8 +164,8 @@ margin-left: 7.2rem;
 
 	            
   
-        String addr = listvo.getAddr();
-	      String detail_addr = listvo.getDetail_addr();
+        		String addr = listvo.getAddr();
+	      		String detail_addr = listvo.getDetail_addr();
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
 	            
@@ -183,15 +185,101 @@ margin-left: 7.2rem;
 		            String address = addr.substring(0, idx); 
 			%>
 
-
-
 			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
 			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
 			 <td> <%=fSalary%>원 </td>
-			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td></tr>
-
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
+			<td> <%
+			BookDAO bdao = new BookDAO();
+			List<BookVO> blist = bdao.listbst(g_id, res_code);
+			
+			if(blist.isEmpty()) {
+				%> 미신청 <% } else {
+			for(int j=0; j<blist.size(); j++) {
+				BookVO blistvo = (BookVO) blist.get(j);
+				String b_status = blistvo.getB_status();
+				
+				if(b_status!=null) {
+				%>
+				<%=b_status %>
+				<%
+				} else { %>
+				 미신청
+				<% }}}
+				%> </td></tr>
 			<%
 			}}
+			%>
+			</table>
+			</form>
+
+						</div>
+					</div>
+				</div>
+			</section>	
+			
+			
+			<!-- four -->
+			<section id="four" class="wrapper style2">
+				<div class="inner">
+					<div class="box">
+						<div class="content">
+							<header class="align-center">
+								<p>내가 지원한</p>
+								<h2>피간병인 신청 리스트</h2>
+							</header>
+			<form name="matchinfo">
+			<table>
+			<thead>
+			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
+
+			</thead>
+			<% 
+			List<PatientresVO> matlist = dao2.applylist();
+			for(int i=0; i<matlist.size(); i++) {
+				PatientresVO listmat = (PatientresVO) matlist.get(i);
+	
+				String name = listmat.getCaretaker();
+				String gender = listmat.getT_gender();
+				String age = listmat.getT_age();
+				Date start_date = listmat.getStartdate();
+				Date end_date = listmat.getEnddate();
+				Time start_time = listmat.getStarttime();
+				Time end_time = listmat.getEndtime();
+				String caregiver = listmat.getCaregiver();
+				String res_code = listmat.getRes_code();
+				String caretaker_code = listmat.getCaretaker_code();
+				String location = listmat.getLocation();
+
+	            
+  
+        		String addr = listmat.getAddr();
+	      		String detail_addr = listmat.getDetail_addr();
+	      		
+	      		 BookDAO bkdao = new BookDAO();
+					List<BookVO> bklist = bkdao.listbst(g_id, res_code);
+					
+					if(!bklist.isEmpty()) {
+						for(int j=0; j<bklist.size(); j++) {
+							BookVO bklistvo = (BookVO) bklist.get(j);
+							String b_status = bklistvo.getB_status();
+			
+	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
+	            
+				String workDate = start_date + "~" + end_date;
+				String workTimes = start_time + "~" + end_time;
+
+	 			
+	 			 int idx = addr.indexOf(" ");
+		            String address = addr.substring(0, idx); 
+		            
+			%>
+
+			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
+			<td> <%=b_status %> </td></tr>
+			<%
+			}}}}
 			%>
 			</table>
 			</form>

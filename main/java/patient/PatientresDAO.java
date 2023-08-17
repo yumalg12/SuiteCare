@@ -82,8 +82,10 @@ public class PatientresDAO {
 					
 					if(rs2.next()) {
 					String gname = rs2.getString("g_name");
+					String g_id = rs2.getString("g_id");
 
-					vo.setCaregiver(gname);
+					vo.setCaregiver(g_id);
+					vo.setG_name(gname);
 					
 					} } else {
 					vo.setCaregiver(caregiver); 
