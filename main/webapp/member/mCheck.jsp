@@ -44,7 +44,7 @@ location.href='<%=request.getContextPath()%>/member/mMain.jsp';
 %>
 <script>
 alert("비밀번호가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/member/caretakerLogin.jsp';
+location.href='<%=request.getContextPath()%>/member/mLogin.jsp';
 </script>
 <%
 }
@@ -54,7 +54,7 @@ else if(ok==3) {
 %>
 <script>
 alert("아이디가 일치하지 않습니다.")
-location.href='<%=request.getContextPath()%>/member/caretakerLogin.jsp';
+location.href='<%=request.getContextPath()%>/member/mLogin.jsp';
 </script> 
 <% }%>
 </body>

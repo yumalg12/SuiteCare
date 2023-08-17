@@ -1,93 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
- <head>
- 	<%@ include file="/header-import.jsp"%>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<head>
 
-    <title>아이디찾기</title>
+<title>SC 스위트케어 | 아이디 찾기</title>
+<%@ include file="/header-import.jsp"%>
 
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-  	<link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/style_index.css">
-    <link href="./css/signin.css" rel="stylesheet">
-    <link href="jumbotron.css" rel="stylesheet">
-    
-    <script src="./js/ie-emulation-modes-warning.js"></script>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
-  
-<style>
-.navbar{
-	background-color: white;
-	border: none;
-	padding: 10px;
-	margin: 10px;
-	margin-left: 70px;
-    margin-right: 70px;
-}
 
-.btn {
-	background-color: #3F2305;
-	border: none;
-}
-.btn-primary:hover {
-  	color: #fff;
-  	background-color: #DFD7BF;
-}
-</style>
-
-
-	<script src="js/bootstrap.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://kit.fontawesome.com/d75ead5752.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	<script src="./js/script.js"></script>
 <body>
-<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<a class = "navbar-brand" href="index.jsp">SC 스위트케어</a>
+	<%@ include file="/header.jsp"%>
+
+	<!-- One -->
+	<section id="One" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<p>adsfasdfsdf</p>
+				<h2>Suite Care</h2>
+			</header>
 		</div>
-		
-		<div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="patientLogin.jsp">간병인찾기</a>
-				<li><a href="caregiverLogin.jsp">간병일감찾기</a>
-				<li><a href="customerServiceCenter.jsp">고객센터</a>
-			</ul>
-		</div>
-</nav>
-<hr>
+	</section>
 
-<div class="container">
-      <form action="./tFindIdCheck.jsp" class="form-signin">
-       <h2 class="form-signin-heading">아이디 찾기</h2><br>
-        <label for="name" class="sr-only">이름</label> 이름
-        <input type="text" id="findname" name="name" class="form-control" placeholder="이름" required autofocus><br>
-       
-        <label for="phone" class="sr-only">핸드폰번호</label> 핸드폰번호
-		<input class="form-control" name="phone" type="text" size=20 maxlength="13" placeholder = "000-0000-0000 형식으로 입력해주세요"/>
-		<br><br>
-        
-        <button class="btn btn-lg btn-primary btn-block" type="submit">아이디 찾기</button>
-      </form>
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>tFindId.jsp</p>
+						<h2>아이디 찾기</h2>
+					</header>
 
-</div> <!-- /container -->
+					<div class="form_wrapper">
+						<form action="./tFindIdCheck.jsp" class="form-signin">
+							<div class="form_row">
+							<label for="name">이름</label>
+							<input type="text" id="findname" name="name" pattern="[가-힣]{2,10}" placeholder="이름" title="한글 실명" required autofocus>
+							</div>
+							<div class="form_row">
+							<label for="phone">핸드폰번호</label>
+							<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
+							</div>
+							<div class="form_button">
+							<button class="button special" type="submit">아이디 찾기</button>
+							</div>
+						</form>
 
+					</div>
+					<!-- /container -->
+</div></div></div></section>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<%@ include file="/footer.jsp" %>
 
 </body>
 </html>

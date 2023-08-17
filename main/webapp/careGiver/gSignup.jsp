@@ -11,9 +11,6 @@
 	<title>SC 스위트케어 | 일반 본문</title>
 		<%@ include file="/header-import.jsp"%>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="../assets/css/main.css" />
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 	<script>
@@ -139,9 +136,9 @@
 	    let namujiAddress = document.getElementById("namujiAddress").value;
 	    
 	    if (!roadAddress){
-	    	document.joinForm.g_address.value = "(우)" + zipcode + "/" + jibunAddress + "/ /" + namujiAddress;
+	    	document.joinForm.g_address.value = "(우)" + zipcode + " " + jibunAddress + " " + namujiAddress;
 	    } else {
-	    	document.joinForm.g_address.value = "(우)" + zipcode + "/ /" + roadAddress + "/" + namujiAddress;    	
+	    	document.joinForm.g_address.value = "(우)" + zipcode + " " + roadAddress + " " + namujiAddress;    	
 	    }
 	    
 	    console.log(document.joinForm.g_address.value);
@@ -165,21 +162,21 @@
       </div>
    </section>
 
-<!-- Two -->
-   <section id="two" class="wrapper style2">
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
+						<p>asdf</p>
 						<h2>회원가입</h2>
 					</header>
-					<br><br>
 					
 				   <!-- form 시작 -->
 					<form name="joinForm"  id="joinForm" method=post action=join enctype="multipart/form-data">
 						<div class="form_wrapper">
 							<div class="form_row">
-								<input type="file" name="g_profile">
+								<label>프로필 사진</label><input type="file" name="g_profile">
 							</div>   
 							
 							<div class="form_row">
@@ -205,21 +202,21 @@
 						
 							<div class="form_row">
 								<label for="gender">성별</label>
-								<div>
-								<input type="radio" id="man" name="g_gender" value="M">
-								<label for="man">남자</label>
-								<input type="radio" id="woman" name="g_gender" value="W">
-								<label for="woman">여자</label> <br><br>
+								<div style="margin-top: 0.3rem;">
+									<input type="radio" id="man" name="g_gender" value="M">
+									<label for="man">남자</label>
+									<input type="radio" id="woman" name="g_gender" value="W">
+									<label for="woman">여자</label>
 								</div>
 							</div>
 						         
 							<div class="form_row">
 								<label for="birth">생년월일</label>
-								<input type="text" name="g_birth" placeholder="생년월일">
+								<input type="date" name="g_birth" placeholder="생년월일">
 							</div>
 							<div class="form_row">
 								<label for="phone"> 휴대폰 </label>
-								<input type="text" name="g_phone" placeholder="휴대폰" id="phone">
+								<input type="tel" id="phone" name="g_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							
 							<div class="form_row">
@@ -232,8 +229,7 @@
 							
 							<div class="form_row">
 								<label for="email"> 이메일 </label>
-								<input type="text" name="g_email" placeholder="이메일" id="email">
-								
+								<input type="email" id="email" name="g_email" placeholder="이메일 주소 (xxx@xxxxx.xxx 형식)" title="이메일 주소 (xxx@xxxxx.xxx 형식)" required>
 							</div>
 							<div class="form_row">
 							<label for="email_yn">이메일 수신 여부</label>
@@ -246,15 +242,16 @@
 							<div class="form_row">
 							    <label>주소</label>
 								<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
-								<label class="addr-label">우편번호</label><input type="text" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
-								<label class="addr-label">지번 주소</label><input type="text" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
-								<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
-								<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
-								<input type="hidden" id="address" name="g_address" value="">
+								<input type="hidden" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" required>
+								<input type="hidden" id="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
+								<input type="hidden" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" required>
+								<input type="hidden" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
+							<span></span><textarea id="address" name="g_address"></textarea>
 							</div>
 							
 							<div class="form_row">
 								<label for="service">서비스</label>
+								<div>
 								<div>
                                     <input type="checkbox" name="service" id="service" value = "욕창">
                                     <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
@@ -272,18 +269,16 @@
                                     <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
                                     <input type="text" name="service" id="ser_etc" disabled />
 								</div>
+								</div>
 							</div>
 						        
 							<div class="form_row" id="qualDiv">
-								<div class="col">
 									<label for="qual" class="qualification">자격증 </label>
-								</div>
 								<div>
-									<div>
+									<div class="form_row_sub">
 										<input type="text" placeholder="자격증" name="qual" class="qtext">
-										<span id="delete">삭제</span>
+										<input type="button" value="추가" id="add">
 									</div>
-									<input type="button" value="추가" id="add">
 								</div>
 							</div>
 						
@@ -299,7 +294,7 @@
 							</div> 
 						</div>
 					
-						<div style="text-align: center;" class="form_btn">
+						<div class="form_button">
 							<input type="hidden" name="command" value="signup">
 							<button type="submit" class="button special" id="join" onclick="signUpValidation();">회원가입</button>
 						</div>
@@ -315,7 +310,7 @@
 
 <script>
    $(document).on('click', '#add' , function() {
-      $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
+      $("#add").parent().after("<div class='form_row_sub'><input type='text' placeholder='자격증' name='qual' class='qtext'><span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span></div>");
 
       var qualCnt = 0;
       $("#qualDiv > .qtext").each(function(){
