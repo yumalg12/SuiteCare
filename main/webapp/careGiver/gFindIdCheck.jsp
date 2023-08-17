@@ -51,7 +51,7 @@ location.href='<%=request.getContextPath()%>/careGiver/gFindId.jsp';
 	
 %>
 <script>
-alert("휴대전화 정보가 없습니다.")
+alert("입력한 정보와 일치하는 가입정보가 없습니다.");
 location.href='<%=request.getContextPath()%>/careGiver/gFindId.jsp';
 </script>
 <% } 

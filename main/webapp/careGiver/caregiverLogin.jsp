@@ -30,6 +30,15 @@ function loginForm() {
 	}
 }
 </script>
+
+<style>
+.form_button a {
+cursor: pointer;
+}
+.form_button a:hover {
+text-decoration: underline;
+}
+</style>
 </head>
 
 <body>
@@ -80,8 +89,8 @@ function loginForm() {
 							</div>
 					</form>
 					<div class="form_button" >
-								<span class="button alt" onclick="location.href='gFindId.jsp'">아이디찾기</span>
-								<span class="button alt" onclick="location.href='gFindPw.jsp'">비밀번호찾기</span>
+								<a onclick="location.href='gFindId.jsp'">아이디찾기</a>&nbsp;
+								<a onclick="location.href='gFindPw.jsp'">비밀번호찾기</a>
 							</div>
 					</div>
 				</div>
