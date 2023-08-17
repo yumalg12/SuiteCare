@@ -15,7 +15,27 @@
 String res_code = request.getParameter("res_code");
 System.out.println(res_code);
 %>
+	<%@ include file="../header.jsp" %>
 
+<!-- One -->
+   <section id="One" class="wrapper style3">
+      <div class="inner">
+         <header class="align-center">
+            <p>Eleifend vitae urna</p>
+            <h2>Suite Care</h2>
+         </header>
+      </div>
+   </section>
+
+<!-- Two -->
+   <section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p> SuiteCare </p>
+						<h2>매칭 신청 리스트</h2>
+					</header>
 <form name="applyForm">
 							<table>
 								<thead>
@@ -41,5 +61,8 @@ System.out.println(res_code);
 								<%
 									}
 								%>
+								</tr></table></form></div></div></div></section>
+					<%@ include file="../footer.jsp" %>
+								
 </body>
 </html>

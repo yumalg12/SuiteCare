@@ -85,10 +85,8 @@ function PWValidation(){
 function setEmailYN() {
 	//체크박스에 따라 DB에 넘어갈 값 변경
 	if (document.tSignupForm.email_switch.checked){
-		document.getElementById("email_switch_text").innerHTML = "Yes";
 		document.tSignupForm.m_email_yn.value = "Y";
 	} else {
-		document.getElementById("email_switch_text").innerHTML = "No";
 		document.tSignupForm.m_email_yn.value = "N";			
 	}
 }
@@ -96,10 +94,8 @@ function setEmailYN() {
 function setSMSYN() {
 	//체크박스에 따라 DB에 넘어갈 값 변경
 	if (document.tSignupForm.sms_switch.checked){
-		document.getElementById("sms_switch_text").innerHTML = "Yes";
 		document.tSignupForm.m_sms_yn.value = "Y";
 	} else {
-		document.getElementById("sms_switch_text").innerHTML = "No";
 		document.tSignupForm.m_sms_yn.value = "N";			
 	}
 }
@@ -248,7 +244,7 @@ function setAddress() {
 			<div class="form_row">
 				<label for="sms_yn">SMS 수신 여부</label>
 				<div onclick="javascript:setSMSYN()">
-					<input type="checkbox" id="sms_switch" checked><label for="sms_switch" id="sms_switch_text" style="margin:0.3rem 0 0 0;">Yes</label>
+					<input type="checkbox" id="sms_switch" checked><label for="sms_switch" id="sms_switch_text" style="margin:0.3rem 0 0 0;">SMS 소식을 수신합니다.</label>
 					<input type="hidden" id="sms_yn" name="m_sms_yn" value="Y"/>
 
 				</div>
@@ -256,7 +252,7 @@ function setAddress() {
 			<div class="form_row">
 				<label for="email_yn">이메일 수신 여부</label>
 				<div onclick="javascript:setEmailYN()">
-					<input type="checkbox" id="email_switch" checked><label for="email_switch" id="email_switch_text" style="margin:0.3rem 0 0 0;">Yes</label>
+					<input type="checkbox" id="email_switch" checked><label for="email_switch" id="email_switch_text" style="margin:0.3rem 0 0 0;">메일로 소식을 수신합니다.</label>
 					<input type="hidden" id="email_yn" name="m_email_yn" value="Y"/>
 
 				</div>
