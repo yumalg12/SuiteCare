@@ -51,7 +51,7 @@
 	%>
 	<script>
 		alert("아이디가 일치하지 않습니다.")
-		location.href='<%=request.getContextPath()%>/careGiver/caregivergLogin.jsp';
+		location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
 	</script> 
 	<% }%>
 </body>

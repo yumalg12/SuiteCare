@@ -47,7 +47,7 @@ if(ok_pwd==1) {
 		System.out.println("정보 불일치");
 	%>
 	<script>
-	alert("정보가 없습니다.")
+	alert("입력한 정보와 일치하는 가입정보가 없습니다.");
 	location.href='<%=request.getContextPath()%>/careGiver/gFindPw.jsp';
 	</script>
 	<% } %>
