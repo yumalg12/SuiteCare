@@ -225,11 +225,11 @@ function setAddress() {
 			</div>		
 			<div class="form_row">
 				<label for="phone">휴대폰 번호</label>
-				<input type="tel" id="phone" name="m_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
+				<input type="tel" id="phone" name="m_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
 			</div>
 			<div class="form_row">
 				<label for="email">이메일</label>
-				<input class="form-control" type="email" id="email" name="m_email" placeholder="이메일 주소 (xxx@xxxxx.xxx 형식)" title="이메일 주소 (xxx@xxxxx.xxx 형식)" required>
+				<input type="email" id="email" name="m_email" placeholder="이메일 주소 (xxx@xxxxx.xxx 형식)" title="이메일 주소 (xxx@xxxxx.xxx 형식)" required>
 			</div>
 			<div class="form_row">
 			    <label>주소</label>

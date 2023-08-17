@@ -1711,7 +1711,7 @@ label {
 }
 
 input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"],
-	select, textarea {
+	input[type="date"], select, textarea {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	-ms-appearance: none;
@@ -1728,7 +1728,7 @@ input[type="text"], input[type="number"], input[type="tel"], input[type="passwor
 }
 
 input[type="text"]:invalid, input[type="number"]:invalid, input[type="tel"]:invalid , input[type="password"]:invalid,
-	input[type="email"]:invalid, select:invalid, textarea:invalid {
+	input[type="date"]:invalid, input[type="email"]:invalid, select:invalid, textarea:invalid {
 	box-shadow: none;
 }
 
@@ -1765,7 +1765,7 @@ input[type="text"]:invalid, input[type="number"]:invalid, input[type="tel"]:inva
 }
 
 input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"],
-	select {
+	input[type="date"], select {
 	height: 2.75rem;
 }
 
@@ -1864,13 +1864,13 @@ label {
 	color: #555;
 }
 
-input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"], textarea {
+input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"], input[type="date"], textarea {
 	background: #ffffffaa;
 	border-color: rgba(144, 144, 144, 0.25);
 }
 
 input[type="text"]:disabled, input[type="number"]:disabled, input[type="tel"]:disabled, input[type="password"]:disabled, 
-input[type="email"]:disabled, textarea:disabled {
+input[type="date"]:disabled, input[type="email"]:disabled, textarea:disabled {
 	background: #ffffff00;
 }
 
@@ -1880,7 +1880,7 @@ select {
 }
 
 input[type="text"]:focus, input[type="number"]:focus, input[type="tel"]:focus, input[type="password"]:focus,
-	input[type="email"]:focus, select:focus, textarea:focus {
+	input[type="email"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
 	border-color: #423730;
 	box-shadow: 0 0 0 1px #423730;
 }
