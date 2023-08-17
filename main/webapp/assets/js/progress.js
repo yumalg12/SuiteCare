@@ -16,7 +16,7 @@ $(document).ready(() => {
 
   Array.from(liarr).forEach((e, i) => {
     e.style.zIndex = zindex--;
-	e.setAttribute("onclick", 'javascript:' + (tname ? `location.href='${hrefs[i]}'` : `(() => alert('간병 서비스를 받으실 분을 먼저 선택하세요.'))()`));
+	//e.setAttribute("onclick", 'javascript:' + (tname ? `location.href='${hrefs[i]}'` : `(() => alert('간병 서비스를 받으실 분을 먼저 선택하세요.'))()`));
 	//테스트용 코드. 추후 제거하거나 업데이트할 예정
   });
   

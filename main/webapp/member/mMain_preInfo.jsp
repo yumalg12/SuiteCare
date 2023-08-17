@@ -36,7 +36,6 @@ String res_code = request.getParameter("popres_code");
 
 PatientresDAO dao = new PatientresDAO();
 List<TpreferenceVO> tpreList = dao.listtpre(res_code);
-for(TpreferenceVO vo : tpreList) {
 	%>
 	<div class="inner">
 			<div class="box">
@@ -46,44 +45,50 @@ for(TpreferenceVO vo : tpreList) {
 						<h2>매칭서비스 정보</h2>
 					</header>
 	<table>
-	<tr><td>선호지역</td>
-	<td>1순위 : 
-	<%=vo.getPre_location_1() %><br>
-	2순위 : 
-	<%=vo.getPre_location_2() %><br>
-	3순위 : 
-	<%=vo.getPre_location_3() %>
-	</td><tr>
-	<tr><td>선호나이대</td>
-	<td>1순위 : 
-	<%=vo.getPre_age_1() %><br>
-	2순위 : 
-	<%=vo.getPre_age_2() %><br>
-	3순위 : 
-	<%=vo.getPre_age_3() %>
-	</td><tr>
-	<tr><td>선호성별</td><td><%=vo.getPre_gender() %></td><tr>
-	<tr><td>선호자격증</td><td><%=vo.getPre_qual() %></td><tr>
-	<tr><td>선호서비스</td>
-	<td>1순위 : 
-	<%=vo.getPre_repre_1() %><br>
-	2순위 : 
-	<%=vo.getPre_repre_2() %><br>
-	3순위 : 
-	<%=vo.getPre_repre_3() %>
-	</td><tr>
-	<tr><td>시급</td>
-	<td>1순위 : 
-	<%=vo.getPre_hourwage_1() %><br>
-	2순위 : 
-	<%=vo.getPre_hourwage_2() %><br>
-	3순위 : 
-	<%=vo.getPre_hourwage_3() %>
-	</td><tr>
+	<%
+	for(TpreferenceVO vo : tpreList) {
+	%>
+	<tr>
+		<td>선호지역</td>
+		<td>1순위 : <%=dao.convertSidoCode(vo.getPre_location_1()) %><br>
+			2순위 : <%=dao.convertSidoCode(vo.getPre_location_2()) %><br>
+			3순위 : <%=dao.convertSidoCode(vo.getPre_location_3()) %>
+		</td>
+	</tr>
+	<tr>
+		<td>선호나이대</td>
+		<td>1순위 : <%=vo.getPre_age_1() %><br>
+			2순위 : <%=vo.getPre_age_2() %><br>
+			3순위 : <%=vo.getPre_age_3() %>
+		</td>
+	</tr>
+	<tr>
+		<td>선호성별</td>
+		<td><%=vo.getPre_gender() %></td>
+	</tr>
+	<tr>
+		<td>선호자격증</td>
+		<td><%=vo.getPre_qual() %></td>
+	</tr>
+	<tr>
+		<td>선호서비스</td>
+		<td>1순위 : <%=vo.getPre_repre_1() %><br>
+			2순위 : <%=vo.getPre_repre_2() %><br>
+			3순위 : <%=vo.getPre_repre_3() %>
+		</td>
+	</tr>
+	<tr>
+		<td>시급</td>
+		<td>1순위 : <%=vo.getPre_hourwage_1() %><br>
+			2순위 : <%=vo.getPre_hourwage_2() %><br>
+			3순위 : <%=vo.getPre_hourwage_3() %>
+		</td>
+	</tr>
+	
+	<%
+	}
+	%>
 	</table>	
-<%
-}
-%>
-
+</div></div></div>
 </body>
 </html>
