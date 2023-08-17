@@ -3,6 +3,7 @@ package patient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.List;
@@ -82,8 +83,10 @@ public class PatientresDAO {
 					
 					if(rs2.next()) {
 					String gname = rs2.getString("g_name");
+					String g_id = rs2.getString("g_id");
 
-					vo.setCaregiver(gname);
+					vo.setCaregiver(g_id);
+					vo.setG_name(gname);
 					
 					} } else {
 					vo.setCaregiver(caregiver); 
@@ -337,5 +340,34 @@ public class PatientresDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public String convertSidoCode(int sidoCode) {
+		String loc = null;
+		
+		String sql = "select * from `location` where `sido_code` = '"+sidoCode+"'";
+		System.out.println(sql);
+
+		try {
+			connect();
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				loc = rs.getString("sido");
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return loc;
+		
 	}
 }

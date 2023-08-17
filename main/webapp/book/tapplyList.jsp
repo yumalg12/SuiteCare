@@ -10,12 +10,37 @@
 	<title>SC 스위트케어 | 매칭 신청 리스트</title>
 	<%@ include file="/header-import.jsp"%>
 </head>
+<script>
+function backmain() {
+	window.location.href = "../member/mMain.jsp";
+}
+</script>
 <body>
 <% String m_id = (String)session.getAttribute("m_id");
 String res_code = request.getParameter("res_code");
-System.out.println(res_code);
+//System.out.println(res_code);
 %>
+	<%@ include file="../header.jsp" %>
 
+<!-- One -->
+   <section id="One" class="wrapper style3">
+      <div class="inner">
+         <header class="align-center">
+            <p>Eleifend vitae urna</p>
+            <h2>Suite Care</h2>
+         </header>
+      </div>
+   </section>
+
+<!-- Two -->
+   <section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p> SuiteCare </p>
+						<h2>매칭 신청 리스트</h2>
+					</header>
 <form name="applyForm">
 							<table>
 								<thead>
@@ -36,10 +61,17 @@ System.out.println(res_code);
 										String b_status = applyvo.getB_status();
 										%>
 									<tr>
-									<td><%=rescode%></td> <td><%=b_id%></td> <td><%=g_name%></td> 
-									<td><%=b_status%></td> <td>비고</td>	
+									<td><%=rescode%></td> <td><%=b_id%></td> 
+									<td><%=g_name%><br>
+										<a href="./ginfoList.jsp?g_id=<%=g_id%>&res_code=<%=res_code%>&b_id=<%=b_id%>">더보기</a></td> 
+									<td><%=b_status%></td> 
+									<td><a href="./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a><br>
+									<a href="./tdeny.jsp?b_id=<%=b_id%>&res_code=<%=res_code%>">거절</a></td></tr>	
 								<%
 									}
 								%>
+								</tr></table></form></div></div></div></section>
+					<%@ include file="../footer.jsp" %>
+								
 </body>
 </html>

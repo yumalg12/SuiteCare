@@ -457,7 +457,7 @@ public class ReservationDAO {
 	         System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 	         pstmt.setString(1, res_code);
-	         
+
 	         rs = pstmt.executeQuery();
 	         while(rs.next()) {
 	        	String m_id = rs.getString("m_id");

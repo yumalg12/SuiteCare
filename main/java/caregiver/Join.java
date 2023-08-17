@@ -71,6 +71,7 @@ public class Join extends HttpServlet {
 		String upPath = "assets/profile";
 		String rootPath = getServletContext().getRealPath("/");
 		String path = rootPath + upPath;
+			
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());

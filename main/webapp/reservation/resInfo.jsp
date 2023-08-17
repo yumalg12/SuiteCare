@@ -96,106 +96,102 @@
 					<form name="Registform" method="post"
 						onSubmit="return validateForm();" action="../book/applybook.jsp">
 						<div class="form_wrapper">
+						<div>
+							<h3>간병 정보</h3>
+
 							<div class="form_row">
 								<label for="res_code">예약코드</label> 
-								<input type="text" value="<%=res_code%>"  disabled>
-							</div>
-
-							<div class="form_row">
-								<label for="t_name">이름</label> <input type="text"
-									value="<%=name%>" disabled>
-							</div>
-
-							<div class="form_row">
-								<label for="t_gender">성별</label> <input type="text"
-									value="<%=gender%>" disabled>
-							</div>
-
-							<div class="form_row">
-								<label for="t_age">나이</label> <input type="number"
-									value="<%=age%>" disabled>
+								<input type="text" value="<%=res_code%>"  readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="address">지역</label> <input type="text"
-									value="<%=address%>" disabled>
+									value="<%=address%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="workDate"> 간병 기간</label> <input type="text"
-									value="<%=workDate%>" disabled>
+									value="<%=workDate.substring(0,10)%> ~ <%=workDate.substring(13)%>" readonly>
 							</div>
 
 							<div class="form_row">
-								<label for="workTimes"> 간병 시간 </label> <input type="text"
-									value="<%=workTimes%>" disabled>
+								<label for="workTimes"> 출퇴근 시간 </label> <input type="text"
+									value="<%=workTimes%>" readonly>
 							</div>
+							
+						</div>
+							<hr>
+							<div>
+							<h3>환자 기본 정보</h3>
 
 							<div class="form_row">
-								<label for="t_height">키 (cm)</label> <input type="text"
-									value="<%=t_height%>" disabled>
+								<label for="t_name">피간병인 정보</label> <input type="text" value="<%=name%> (<%=age%>세, <%=gender%>성)" readonly>
 							</div>
-
+							
 							<div class="form_row">
-								<label for="t_weight">몸무게 (kg)</label> <input type="text"
-									value="<%=t_weight%>" disabled>
+								<label for="t_height">키 / 몸무게</label> <input type="text"
+									value="<%=t_height%>cm, <%=t_weight%>kg" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="diagnosis">진단명</label> <input type="text"
-									value="<%=diagnosis%>" disabled>
+									value="<%=diagnosis%>" readonly>
 							</div>
 
+							</div>
+							<hr>
+							<div>
+							<h3>환자 상세 상태</h3>
 							<div class="form_row">
 								<label for="consciousness">의식 상태</label> <input type="text"
-									value="<%=consciousness%>" disabled>
+									value="<%=consciousness%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="care_meal_yn">식사 케어</label> <input type="text"
-									value="<%=care_meal_yn%>" disabled>
+									value="<%=care_meal_yn%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="care_toilet"> 화장실 케어</label> <input type="text"
-									value="<%=care_toilet%>" disabled>
+									value="<%=care_toilet%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="state_paralysis">마비 상태</label> <input type="text"
-									value="<%=state_paralysis%>" disabled>
+									value="<%=state_paralysis%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="state_mobility">거동 및 운동 상태</label> <input type="text"
-									value="<%=state_mobility%>" disabled>
+									value="<%=state_mobility%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="bedsore_yn">욕창 여부</label> <input type="text"
-									value="<%=bedsore_yn%>" disabled>
+									value="<%=bedsore_yn%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="suction_yn">석션 필요 여부</label> <input type="text"
-									value="<%=suction_yn%>" disabled>
+									value="<%=suction_yn%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="outpatient_yn">외부 치료 여부</label> <input type="text"
-									value="<%=outpatient_yn%>" disabled>
+									value="<%=outpatient_yn%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="care_night_yn">야간 돌봄 신청</label> <input type="text"
-									value="<%=care_night_yn%>" disabled>
+									value="<%=care_night_yn%>" readonly>
 							</div>
 
 							<div class="form_row">
 								<label for="notice">유의 사항</label> <input type="text"
-									value="<%=notice%>" disabled>
+									value="<%=notice%>" readonly>
 							</div>
-
+							</div>
 					
 							<div class="form_button">
 								<input class="button alt" type="button" value=뒤로가기> <input

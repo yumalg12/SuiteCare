@@ -14,7 +14,7 @@
 String res_code = (String)session.getAttribute("applycode");
 String b_status = "신청완료";
 
-System.out.println(res_code + " & " + g_id);
+//System.out.println(res_code + " & " + g_id);
 
 BookDAO dao = new BookDAO();
 
