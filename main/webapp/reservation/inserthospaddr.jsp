@@ -32,7 +32,7 @@ try {
         String targetCode = (res_code != null) ? res_code : r_code;
         vo.setRes_code(targetCode);
 
-        int result = dao.updateaddr(vo);
+        int result = dao.updatehospaddr(vo);
 
         if (result == 1) {
             if (res_code != null) {
