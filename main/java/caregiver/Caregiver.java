@@ -103,9 +103,11 @@ public class Caregiver extends HttpServlet {
 			}
 			
 			for(int i=0; i<qual.length; i++) {
-				qualification += qual[i];
-				if(!(i == qual.length-1)) {
-					qualification += "&";
+				if (qual[i] != "") {
+					qualification += qual[i];
+					if(!(i == qual.length-1)) {
+						qualification += "&";
+					}
 				}
 			}
 			
