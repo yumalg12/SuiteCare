@@ -1,5 +1,6 @@
 package caregiver;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -66,8 +67,11 @@ public class Join extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		
+		String upPath = "assets/profile";
+		String rootPath = getServletContext().getRealPath("/");
+		String path = rootPath + upPath;
 			
-		String path = "C:\\JavaProgram\\suiteCare\\src\\main\\webapp\\assets\\profile";
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());
@@ -126,7 +130,6 @@ public class Join extends HttpServlet {
 		dao.joinMember(vo);
 		
 		String context = ((HttpServletRequest)request).getContextPath();
-		
 		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='" +context+ "/index.jsp';</script>");
 	}
 
