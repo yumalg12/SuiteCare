@@ -145,7 +145,7 @@ function loadinfo(){
 		document.getElementById("toilet_self").checked = true;
 		break;
 	case "동행하여 화장실 이용":
-		document.getElementById("toielt_assistance").checked = true;
+		document.getElementById("toilet_assistance").checked = true;
 		break;
 	case "기저귀":
 		document.getElementById("diapers").checked = true;

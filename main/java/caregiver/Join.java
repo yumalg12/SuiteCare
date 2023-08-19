@@ -75,7 +75,10 @@ public class Join extends HttpServlet {
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());
-		
+		System.out.println("request : " + request);
+		System.out.println("path : " + path);
+		System.out.println("maxSize : " + request);
+		System.out.println("encoding : " + encoding);
 		
 		String g_id = multi.getParameter("g_id");
 		String g_pw = multi.getParameter("g_pw");

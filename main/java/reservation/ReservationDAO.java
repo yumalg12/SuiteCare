@@ -380,14 +380,14 @@ public class ReservationDAO {
 		try {
 			connect();
 			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where res_code=?";
-
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getLocation());
 			pstmt.setString(2, vo.getAddr());
 			pstmt.setString(3, vo.getDetail_addr());
 			pstmt.setString(4, vo.getRes_code());
-
+			System.out.println(vo.getLocation());
 			result=pstmt.executeUpdate();
 			
 			System.out.println(result);
