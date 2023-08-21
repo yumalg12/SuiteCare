@@ -12,12 +12,19 @@ public class BookVO {
 	private String g_email;
 	private String g_address;
 	private String g_profile;
-	private String g_representative;
+	private String g_service1;
+	private String g_service2;
+	private String g_service3;
 	private String g_qualification;
-	private int g_location;
+	private String g_location1;
+	private String g_location2;
+	private String g_location3;
+	private String g_hourwage1;
+	private String g_hourwage2;
+	private String g_hourwage3;
 	
-	private int sido_code;
-	private String sido;
+	
+	
 	
 	public BookVO() {
 		System.out.println("BookVO");
@@ -163,18 +170,47 @@ public class BookVO {
 		this.g_profile = g_profile;
 	}
 
+	
 	/**
-	 * @return the g_representative
+	 * @return the g_service1
 	 */
-	public String getG_representative() {
-		return g_representative;
+	public String getG_service1() {
+		return g_service1;
 	}
 
 	/**
-	 * @param g_representative the g_representative to set
+	 * @param g_service1 the g_service1 to set
 	 */
-	public void setG_representative(String g_representative) {
-		this.g_representative = g_representative;
+	public void setG_service1(String g_service1) {
+		this.g_service1 = g_service1;
+	}
+
+	/**
+	 * @return the g_service2
+	 */
+	public String getG_service2() {
+		return g_service2;
+	}
+
+	/**
+	 * @param g_service2 the g_service2 to set
+	 */
+	public void setG_service2(String g_service2) {
+		this.g_service2 = g_service2;
+	}
+
+	/**
+	 * @return the g_service3
+	 */
+	public String getG_service3() {
+		return g_service3;
+	}
+
+	/**
+	 * @param g_service3 the g_service3 to set
+	 */
+	public void setG_service3(String g_service3) {
+		this.g_service3 = g_service3;
 	}
 
 	/**
@@ -192,46 +228,90 @@ public class BookVO {
 	}
 
 	/**
-	 * @return the g_location
+	 * @return the g_location1
 	 */
-	public int getG_location() {
-		return g_location;
+	public String getG_location1() {
+		return g_location1;
 	}
 
 	/**
-	 * @param g_location the g_location to set
+	 * @param g_location1 the g_location1 to set
 	 */
-	public void setG_location(int g_location) {
-		this.g_location = g_location;
+	public void setG_location1(String g_location1) {
+		this.g_location1 = g_location1;
 	}
 
 	/**
-	 * @return the sido_code
+	 * @return the g_location2
 	 */
-	public int getSido_code() {
-		return sido_code;
+	public String getG_location2() {
+		return g_location2;
 	}
 
 	/**
-	 * @param sido_code the sido_code to set
+	 * @param g_location2 the g_location2 to set
 	 */
-	public void setSido_code(int sido_code) {
-		this.sido_code = sido_code;
+	public void setG_location2(String g_location2) {
+		this.g_location2 = g_location2;
 	}
 
 	/**
-	 * @return the sido
+	 * @return the g_location3
 	 */
-	public String getSido() {
-		return sido;
+	public String getG_location3() {
+		return g_location3;
 	}
 
 	/**
-	 * @param sido the sido to set
+	 * @param g_location3 the g_location3 to set
 	 */
-	public void setSido(String sido) {
-		this.sido = sido;
+	public void setG_location3(String g_location3) {
+		this.g_location3 = g_location3;
 	}
-	
+
+	/**
+	 * @return the g_hourwage1
+	 */
+	public String getG_hourwage1() {
+		return g_hourwage1;
+	}
+
+	/**
+	 * @param g_hourwage1 the g_hourwage1 to set
+	 */
+	public void setG_hourwage1(String g_hourwage1) {
+		this.g_hourwage1 = g_hourwage1;
+	}
+
+	/**
+	 * @return the g_hourwage2
+	 */
+	public String getG_hourwage2() {
+		return g_hourwage2;
+	}
+
+	/**
+	 * @param g_hourwage2 the g_hourwage2 to set
+	 */
+	public void setG_hourwage2(String g_hourwage2) {
+		this.g_hourwage2 = g_hourwage2;
+	}
+
+	/**
+	 * @return the g_hourwage3
+	 */
+	public String getG_hourwage3() {
+		return g_hourwage3;
+	}
+
+	/**
+	 * @param g_hourwage3 the g_hourwage3 to set
+	 */
+	public void setG_hourwage3(String g_hourwage3) {
+		this.g_hourwage3 = g_hourwage3;
+	}
+
+
+
 	
 }
