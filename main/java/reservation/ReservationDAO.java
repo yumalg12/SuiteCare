@@ -535,9 +535,9 @@ public class ReservationDAO {
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, vo.getPre_location_1());
-			pstmt.setInt(2, vo.getPre_location_2());
-			pstmt.setInt(3, vo.getPre_location_3());
+			pstmt.setString(1, vo.getPre_location_1());
+			pstmt.setString(2, vo.getPre_location_2());
+			pstmt.setString(3, vo.getPre_location_3());
 			pstmt.setString(4, vo.getPre_age_1());
 			pstmt.setString(5, vo.getPre_age_2());
 			pstmt.setString(6, vo.getPre_age_3());
