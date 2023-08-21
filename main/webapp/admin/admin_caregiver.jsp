@@ -92,9 +92,9 @@ margin-left: 7.2rem;
 					<table>
 							<thead>
 								<tr>
-									<td>No.</td> <td>프로필 사진</td> <td>아이디</td> <td>이름</td> <td>성별</td> <td>생년월일</td>
+									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td> <td>생년월일</td>
 									<td>핸드폰번호</td> <td>이메일</td> <td>주소</td> <td>sms 수신동의</td> 
-									<td>email 수신동의</td> <td>대표 서비스</td> <td>자격증</td> <td>활동 지역</td> <td>가입일</td> <td>정보</td>
+									<td>email 수신동의</td> <td>대표 서비스</td> <td>자격증</td> <td>활동 지역</td> <td>가입일</td>
 								</tr>
 							</thead>
 							<%
@@ -107,7 +107,6 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
-                                String g_profile = listt.getG_profile();
 								String g_id = listt.getG_id();
 								String g_name = listt.getG_name();
 								String g_gender = listt.getG_gender();
@@ -126,7 +125,6 @@ margin-left: 7.2rem;
 							%>
 							<tr>
 								<td><%=i + 1%></td>
-								<td><%=g_profile%></td>
 								<td><%=g_id%></td>
 								<td><%=g_name%></td>
 								<td><%=g_gender%></td>
@@ -140,7 +138,7 @@ margin-left: 7.2rem;
 								<td><%=g_representative%></td>
 								<td><%=g_location%></td>
 								<td><%=g_signup_date%></td>
-								<td><a href='../admin/admin_tinfo.jsp?m_id=<%=g_id%>'>더보기</a></td>
+								
 							</tr>
 							<%
 							}
