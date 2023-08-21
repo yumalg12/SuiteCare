@@ -31,7 +31,7 @@ if(checkb==0) {
 	dao.insertbook(vo);
 	%>
 	<script>
-	alert("매칭신청이 완료되었습니다..")
+	alert("매칭신청이 완료되었습니다.")
 	location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
 	</script>
 	<%
