@@ -34,11 +34,17 @@ for (int i = 0; i < glist.size(); i++) {
 	String g_gender = gvo.getG_gender();
 	String g_birth = gvo.getG_birth();
 	String g_address = gvo.getG_address();
-	String g_representative = gvo.getG_representative();
+	String g_service1 = gvo.getG_service1();
+	String g_service2 = gvo.getG_service2();
+	String g_service3 = gvo.getG_service3();
 	String g_qualification = gvo.getG_qualification();
-	int g_location = gvo.getG_location();
+	String g_location1 = gvo.getG_location1();
+	String g_location2 = gvo.getG_location2();
+	String g_location3 = gvo.getG_location3();
+	String g_hourwage1 = gvo.getG_hourwage1();
+	String g_hourwage2 = gvo.getG_hourwage2();
+	String g_hourwage3 = gvo.getG_hourwage3();
 	
-	String g_locname = dao.gloc(g_location);
 
 	String profile = file_repo + g_profile;
 
@@ -84,8 +90,18 @@ for (int i = 0; i < glist.size(); i++) {
 			<tr><td>성별</td><td><% if(g_gender.equals("W")) { %> 여 <% }else { %> 남 <% } %></td></tr>
 			<tr><td>나이</td><td><%=age%>세</td></tr>
 			<tr><td>거주지역</td><td><%=address %></td></tr>
-			<tr><td>활동지역</td><td><%=g_locname %></td></tr>
-			<tr><td>주요서비스</td><td><%= g_representative%></td></tr>
+			<tr><td>활동지역</td><td>1순위 : <%=g_location1 %><br>
+			2순위 : <%=g_location2 %><br>
+			3순위 : <%=g_location3 %>
+		</td></tr>
+			<tr><td>주요서비스</td><td>1순위 : <%=g_service1 %><br>
+			2순위 : <%=g_service2 %><br>
+			3순위 : <%=g_service3 %>
+		</td></tr>
+		<tr><td>시급</td><td>1순위 : <%=g_hourwage1 %><br>
+			2순위 : <%=g_hourwage2 %><br>
+			3순위 : <%=g_hourwage3 %>
+		</td></tr>
 			<tr><td>보유자격증</td><td><%=g_qualification %></td></tr>
 		</table>
 	

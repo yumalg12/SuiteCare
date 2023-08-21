@@ -245,10 +245,16 @@ public class BookDAO {
 				String g_birth = rs.getString("g_birth");
 				String g_address = rs.getString("g_address");
 				String g_profile = rs.getString("g_profile");
-				String g_representative = rs.getString("g_representative");
+				String g_service1 = rs.getString("g_service1");
+				String g_service2 = rs.getString("g_service2");
+				String g_service3 = rs.getString("g_service3");
 				String g_qualification = rs.getString("g_qualification");
-				int g_location = rs.getInt("g_location");
-				
+				String g_location1 = rs.getString("g_location1");
+				String g_location2 = rs.getString("g_location2");
+				String g_location3 = rs.getString("g_location3");
+				String g_hourwage1 = rs.getString("g_hourwage1");
+				String g_hourwage2 = rs.getString("g_hourwage2");
+				String g_hourwage3 = rs.getString("g_hourwage3");
 				
 				BookVO vo = new BookVO(); 
 
@@ -257,9 +263,16 @@ public class BookDAO {
 				vo.setG_birth(g_birth);
 				vo.setG_address(g_address);
 				vo.setG_profile(g_profile);
-				vo.setG_representative(g_representative);
+				vo.setG_service1(g_service1);
+				vo.setG_service2(g_service2);
+				vo.setG_service3(g_service3);
 				vo.setG_qualification(g_qualification);
-				vo.setG_location(g_location);
+				vo.setG_location1(g_location1);
+				vo.setG_location2(g_location2);
+				vo.setG_location3(g_location3);
+				vo.setG_hourwage1(g_hourwage1);
+				vo.setG_hourwage2(g_hourwage2);
+				vo.setG_hourwage3(g_hourwage3);
 				
 				list.add(vo);
 			}
@@ -273,30 +286,5 @@ public class BookDAO {
 		return list;
 	}
 	
-	public String gloc(int g_location) {
-		String locname = null;
-		
-		try {
-			connect();
-			
-			String sql = "SELECT sido FROM location WHERE sido_code=?";
-			
-			stmnt = conn.prepareStatement(sql);
-			stmnt.setInt(1,g_location);
-			
-			rs = stmnt.executeQuery();
-			
-			if(rs.next()) {
-				locname = rs.getString("sido");
-				//System.out.println(locname);
-			}
-			rs.close();
-			stmnt.close();
-			pstmt.close();}
-		 catch(Exception e) {
-			e.printStackTrace();
-			}
-
-		return locname;
-	}
+	
 }
