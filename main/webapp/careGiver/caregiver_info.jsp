@@ -1,10 +1,10 @@
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
-<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,6 @@
 		<%@ include file="/header-import.jsp"%>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-
 </head>
 
 <body>
@@ -62,12 +61,12 @@
 							   
 								<div class="form_row">
 									<label for="pw">비밀번호</label>
-								<div class="form_row_sub">
+									<div class="form_row_sub">
 									<input type="password" name="pw" value="asdfasdf" readonly>
 									<input type="button" value="비밀번호 변경" onclick="change_pw()">
 								</div>
 								</div>
-
+							
 								<div class="form_row">
 									<label for="name">이름</label>
 									<input type="text" name="name" id="name" value="${info.g_name }">
@@ -75,12 +74,10 @@
 							
 								<div class="form_row">
 									<label for="gender">성별</label>
-									<div style="margin-top: 0.3rem;">
 									<input type="radio" id="man" name="gender" value="M"<c:if test="${info.g_gender eq 'M' }">checked</c:if>>
 									<label for="man">남자</label>
 									<input type="radio" id="woman" name="gender" value="W"<c:if test="${info.g_gender eq 'W' }">checked</c:if>>
-									<label for="woman">여자</label>
-									</div>
+									<label for="woman">여자</label> <br><br>
 								</div>
 							         
 								<div class="form_row">
@@ -113,7 +110,6 @@
 									</div>
 								</div>
 								
-								<c:set var="address" value="${fn:split(info.g_address,'/')}" />
 								<div class="form_row">
 								    <label>주소</label>
 									<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
@@ -121,56 +117,163 @@
 								    <textarea class="form-control" id="address" name="g_address">${address[0]} ${address[1]} ${address[2]} ${address[3]}</textarea>
 								</div>
 								
-								
-								<c:set var="representatives" value="${info.g_representative}" />
-								<c:set var="etc" value="${fn:split(info.g_representative,')')}" />
 								<div class="form_row">
-									<label for="service">서비스</label>
+									<label for="location">서비스</label>
 									<div>
-									<div>
-	                                    <input type="checkbox" name="service" id="service" value = "욕창"<c:if test='${fn:contains(representatives, "욕창")}'>checked</c:if>>
-	                                    <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
-									</div>
-									<div>
-	                                    <input type="checkbox" name="service" id="service2" value = "뇌병변"<c:if test='${fn:contains(representatives, "뇌병변")}'>checked</c:if>>
-	                                    <label for="service2" style="margin:0.3rem 0 0 0;">뇌병변</label>
-									</div>
-									<div>
-	                                    <input type="checkbox" name="service" id="service3" value = "외상환자"<c:if test='${fn:contains(representatives, "외상환자")}'>checked</c:if>>
-	                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
-									</div>
-									<div>
-	                                    <input type="checkbox" id="service_etc" class="act" value = "etc"<c:if test='${fn:length(etc) eq 2}'>checked</c:if>>
-	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
-	                                    <input type="text" name="service" id="ser_etc" value="${etc[1]}" readonly />
-									</div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="ser1" value="${info.g_service1}"/>
+											<select name="g_service1"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser1 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser1 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser1 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser1 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser1 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser1 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser1 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser1 eq '운전'}">selected</c:if>>운전</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="ser2" value="${info.g_service2}"/>
+											<select name="g_service2"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser2 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser2 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser2 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser2 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser2 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser2 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser2 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser2 eq '운전'}">selected</c:if>>운전</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="ser3" value="${info.g_service3}"/>
+											<select name="g_service3"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser3 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser3 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser3 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser3 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser3 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser3 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser3 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser3 eq '운전'}">selected</c:if>>운전</option>
+											</select>
+										</div>
 									</div>
 								</div>
 							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
-									<label for="qual" class="qualification">자격증 </label>
-								<div>
-								<c:forEach var="qual" items="${qualifications}">
-									<div class="form_row_sub">
-										<input type="text" placeholder="자격증" value="${qual }" name="qual" class="qtext">
-										<span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span>
+									<div class="col">
+										<label for="qual" class="qualification">자격증 </label>
 									</div>
-								</c:forEach>
+									<div>
+									<c:forEach var="qual" items="${qualifications}">
+										<div>
+											<input type="text" value="${qual }" name="qual" class="qtext">
+											<span id="delete">삭제</span>
+										</div>
+									</c:forEach>
+									<input type="button" value="추가" id="add">
+									</div>
 								</div>
-							</div>
-							
+								
 								<div class="form_row">
 									<label for="location">선호지역</label>
-									<select name="location"  id="sel">
-										<c:set var="g_loc" value="${info.g_location}"/>
-										<option value = "1">선택</option>
-										<c:forEach var="loc" items="${location }">
-											<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq g_loc}">selected</c:if>>${loc.sido }</option>
-										</c:forEach>
-									</select>
+									<div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="loc1" value="${info.g_location1}"/>
+											<select name="g_location1"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc1 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc1 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc1 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc1 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc1 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc1 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="loc2" value="${info.g_location2}"/>
+											<select name="g_location2"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc2 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc2 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc2 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc2 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc2 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc2 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="loc3" value="${info.g_location3}"/>
+											<select name="g_location3"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc3 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc3 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc3 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc3 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc3 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc3 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
+											</select>
+										</div>
+									</div>
 								</div> 
-							
+								
+								<div class="form_row">
+									<label for="location">선호시급</label>
+									<div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="hw1" value="${info.g_hourwage1}"/>
+											<select name="g_hourwage1"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw1 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw1 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="hw2" value="${info.g_hourwage2}"/>
+											<select name="g_hourwage2"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw2 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw2 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="hw3" value="${info.g_hourwage3}"/>
+											<select name="g_hourwage3"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw3 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
+									</div>
+								</div> 
+								
 								<div class="form_row">
 									<label for="signup_date">가입날짜</label>
 									<input type="text" value="${info.g_signup_date }" readonly>
@@ -185,7 +288,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div>	
 	</section>
 
 	<%@ include file="../footer.jsp"%>
@@ -211,28 +314,26 @@
 	}
    
    $(document).on('click', '#add' , function() {
-	      $("#add").parent().parent().append("<div class='form_row_sub'><input type='text' placeholder='자격증' name='qual' class='qtext'><span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span></div>");
+      $("#add").parent().parent().append("<div class='form_row_sub'><input type='text' placeholder='자격증' name='qual' class='qtext'><span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span></div>");
 
-	      var qualCnt = 0;
-	      $("#qualDiv > .qtext").each(function(){
-	         qualCnt++;
-	        });
-	   
-	      $(".qualification").attr("rowspan", qualCnt);
-	   });
-
-	   $(document).on('click', '#delete' , function() {
-		   $(this).parent().remove();
-		   $(this).prev().remove();
-		   $(this).next().remove();
-		   $(this).remove();
-	   });
-	   
-	   $(document).ready(function() {
-			$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
-			$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
-		});
-
+      var qualCnt = 0;
+      $("#qualDiv > .qtext").each(function(){
+         qualCnt++;
+        });
+   
+      $(".qualification").attr("rowspan", qualCnt);
+   });
+   $(document).on('click', '#delete' , function() {
+	   $(this).parent().remove();
+	   $(this).prev().remove();
+	   $(this).next().remove();
+	   $(this).remove();
+   });
+   
+   $(document).ready(function() {
+	$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
+	$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
+});
    
    $(document).on('click', '#btn_updt' , function() {
 	   if($("#email").val().length == 0){
@@ -248,31 +349,21 @@
 			   		alert("올바른 휴대폰 번호를 입력하세요.");
 			   	} else if($("#address").val().length == 0){
 			   		alert("주소를 입력하세요.");
-			   	} else if($("#sel").val() == 1){
+			   	} else if($("#sel").val() == 0){
+			   		alert("서비스를 선택해주세요.");
+			   	} else if($("#loc").val() == 0){
 			   		alert("선호지역을 선택해주세요.");
+			   	} else if($("#hw").val() == 0){
+			   		alert("선호시급을 선택해주세요.");
 			   	} else {
-			   		if($("#service_etc").prop("checked")) {
-			   			var etc = "(기타)" + $("#ser_etc").val();
-			   			$("#ser_etc").val(etc);
-			   		}
 					document.getElementById("infoForm").submit();
 			   	}
 	   		}
 	   	}
    });
    
-	$(function(){
-		$("#service_etc").change(function(){
-			if($("#service_etc").prop("checked")){
-				$("#ser_etc").attr("readonly", false);
-			}else{
-				$("#ser_etc").attr("readonly", true);
-			}
-		});
-	});
-   
    function change_pw() {
-      window.open("<%=context%>/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
+      window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
 
 </script>

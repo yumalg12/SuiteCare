@@ -150,10 +150,17 @@ public class CaregiverDAO {
 				String address = rs.getString("g_address");
 				String sms_yn = rs.getString("g_sms_yn");
 				String email_yn = rs.getString("g_email_yn");
-				String profile = rs.getString("g_profile");;
-				String representative = rs.getString("g_representative");;
-				String qualification = rs.getString("g_qualification");;
-				String location = rs.getString("g_location");;
+				String profile = rs.getString("g_profile");
+				String service1 = rs.getString("g_service1");
+				String service2 = rs.getString("g_service2");
+				String service3 = rs.getString("g_service3");
+				String qualification = rs.getString("g_qualification");
+				String location1 = rs.getString("g_location1");
+				String location2 = rs.getString("g_location2");
+				String location3 = rs.getString("g_location3");
+				String hourwage1 = rs.getString("g_hourwage1");
+				String hourwage2 = rs.getString("g_hourwage2");
+				String hourwage3 = rs.getString("g_hourwage3");
 				Date signup_date = rs.getDate("g_signup_date");
 				
 				CaregiverVO vo = new CaregiverVO();
@@ -168,9 +175,16 @@ public class CaregiverDAO {
 				vo.setG_sms_yn(sms_yn);
 				vo.setG_email_yn(email_yn);
 				vo.setG_profile(profile);
-				vo.setG_representative(representative);
+				vo.setG_service1(service1);
+				vo.setG_service2(service2);
+				vo.setG_service3(service3);
 				vo.setG_qualification(qualification);
-				vo.setG_location(location);
+				vo.setG_location1(location1);
+				vo.setG_location2(location2);
+				vo.setG_location3(location3);
+				vo.setG_hourwage1(hourwage1);
+				vo.setG_hourwage2(hourwage2);
+				vo.setG_hourwage3(hourwage3);
 				vo.setG_signup_date(signup_date);
 				list.add(vo);
 			}
@@ -272,27 +286,52 @@ public class CaregiverDAO {
 	}
 	
 	
-	public void update(String id, String name, String gender, String phone, String sms_yn, String email, String email_yn, String address, String location, String representative, String qualification) {
+	public void update(String id, CaregiverVO vo) {
+		String g_name = vo.getG_name();
+		String g_gender = vo.getG_gender();
+		String g_phone = vo.getG_phone();
+		String g_email = vo.getG_email();
+		String g_address = vo.getG_address();
+		String g_sms_yn = vo.getG_sms_yn();
+		String g_eamil_yn = vo.getG_email_yn();
+		String g_service1 = vo.getG_service1();
+		String g_service2 = vo.getG_service2();
+		String g_service3 = vo.getG_service3();
+		String g_qualification = vo.getG_qualification();
+		String g_location1 = vo.getG_location1();
+		String g_location2 = vo.getG_location2();
+		String g_location3 = vo.getG_location3();
+		String g_hourwage1 = vo.getG_hourwage1();
+		String g_hourwage2 = vo.getG_hourwage2();
+		String g_hourwage3 = vo.getG_hourwage3();
+		
 		try {
 			con = dataFactory.getConnection();
 
 			String sql = "UPDATE caregiver";
-			sql += " SET g_name=?, g_gender=?, g_phone=?, g_sms_yn=?, g_email=?, g_email_yn=?, g_address=?, g_location=?, g_representative=?, g_qualification=?";
+			sql += " SET g_name=?, g_gender=?, g_phone=?, g_sms_yn=?, g_email=?, g_email_yn=?, g_address=?, g_service1=?, g_service2=?, g_service3=?, g_qualification=?, g_location1=?, g_location2=?, g_location3=?, g_hourwage1=?, g_hourwage2=?, g_hourwage3=?";
 			sql += " WHERE g_id = ?";
 			System.out.println("prepareStatement : " + sql);
-
+			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, gender);
-			pstmt.setString(3, phone);
-			pstmt.setString(4, sms_yn);
-			pstmt.setString(5, email);
-			pstmt.setString(6, email_yn);
-			pstmt.setString(7, address);
-			pstmt.setString(8, location);
-			pstmt.setString(9, representative);
-			pstmt.setString(10, qualification);
-			pstmt.setString(11, id);
+			pstmt.setString(1, g_name);
+			pstmt.setString(2, g_gender);
+			pstmt.setString(3, g_phone);
+			pstmt.setString(4, g_sms_yn);
+			pstmt.setString(5, g_email);
+			pstmt.setString(6, g_eamil_yn);
+			pstmt.setString(7, g_address);
+			pstmt.setString(8, g_service1);
+			pstmt.setString(9, g_service2);
+			pstmt.setString(10, g_service3);
+			pstmt.setString(11, g_qualification);
+			pstmt.setString(12, g_location1);
+			pstmt.setString(13, g_location2);
+			pstmt.setString(14, g_location3);
+			pstmt.setString(15, g_hourwage1);
+			pstmt.setString(16, g_hourwage2);
+			pstmt.setString(17, g_hourwage3);
+			pstmt.setString(18, id);
 
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -314,20 +353,25 @@ public class CaregiverDAO {
 			String g_phone = vo.getG_phone();
 			String g_email = vo.getG_email();
 			String g_address = vo.getG_address();
-			
 			String g_sms_yn = vo.getG_sms_yn();
 			String g_eamil_yn = vo.getG_email_yn();
-			
 			String g_profile = vo.getG_profile();
-			String g_representative = vo.getG_representative();
+			String g_service1 = vo.getG_service1();
+			String g_service2 = vo.getG_service2();
+			String g_service3 = vo.getG_service3();
+			
 			String g_qualification = vo.getG_qualification();
-			String g_location = vo.getG_location();
-			/* String g_signup_date = vo.getG_signup_date(); */
+			String g_location1 = vo.getG_location1();
+			String g_location2 = vo.getG_location2();
+			String g_location3 = vo.getG_location3();
+			String g_hourwage1 = vo.getG_hourwage1();
+			String g_hourwage2 = vo.getG_hourwage2();
+			String g_hourwage3 = vo.getG_hourwage3();
 
 			String sql = "insert into caregiver ";
-			sql += " (g_id, g_pw, g_name, g_gender, g_birth, g_phone, g_email, g_address, g_sms_yn, g_email_yn, g_profile, g_representative, g_qualification, g_location)";
+			sql += " (g_id, g_pw, g_name, g_gender, g_birth, g_phone, g_email, g_address, g_sms_yn, g_email_yn, g_profile, g_service1, g_service2, g_service3, g_qualification, g_location1, g_location2, g_location3, g_hourwage1, g_hourwage2, g_hourwage3)";
 
-			sql += " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			sql += " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			System.out.println("prepareStatement : " + sql);
 
 			pstmt = con.prepareStatement(sql);
@@ -342,9 +386,16 @@ public class CaregiverDAO {
 			pstmt.setString(9, g_sms_yn);
 			pstmt.setString(10, g_eamil_yn);
 			pstmt.setString(11, g_profile);
-			pstmt.setString(12, g_representative);
-			pstmt.setString(13, g_qualification);
-			pstmt.setString(14, g_location);
+			pstmt.setString(12, g_service1);
+			pstmt.setString(13, g_service2);
+			pstmt.setString(14, g_service3);
+			pstmt.setString(15, g_qualification);
+			pstmt.setString(16, g_location1);
+			pstmt.setString(17, g_location2);
+			pstmt.setString(18, g_location3);
+			pstmt.setString(19, g_hourwage1);
+			pstmt.setString(20, g_hourwage2);
+			pstmt.setString(21, g_hourwage3);
 			pstmt.executeUpdate();
 			pstmt.close();
 
