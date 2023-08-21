@@ -44,6 +44,11 @@ public class Join extends HttpServlet {
 			location = loc.location();
 			request.setAttribute("location", location);
 			
+			ServiceDAO ser_dao = new ServiceDAO();
+			List<ServiceVO> service;
+			service = ser_dao.service();
+			request.setAttribute("service", service);
+			
 			RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gSignup.jsp");
 			dispatch.forward(request, response);
 		} else if (type.equals("isDuplicateID")) {
@@ -75,6 +80,16 @@ public class Join extends HttpServlet {
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());
+		File file = multi.getFile("g_profile");
+		
+		String g_profile = "";
+		if(file != null) {
+			g_profile = file.getName();
+			System.out.println("profile : " + g_profile);
+		} else {
+			g_profile = "man.png";
+		}
+		
 		System.out.println("request : " + request);
 		System.out.println("path : " + path);
 		System.out.println("maxSize : " + request);
@@ -88,21 +103,22 @@ public class Join extends HttpServlet {
 		String g_phone = multi.getParameter("g_phone");
 		String g_email = multi.getParameter("g_email");
 		String g_address = multi.getParameter("g_address");
-		String g_profile = multi.getFilesystemName("g_profile");
-		String g_location = multi.getParameter("g_location");
 		
-		String[] repre = multi.getParameterValues("service");
+		int service1 = Integer.parseInt(multi.getParameter("g_service1"));
+		int service2 = Integer.parseInt(multi.getParameter("g_service2"));
+		int service3 = Integer.parseInt(multi.getParameter("g_service3"));
+		
+		int g_location1 = Integer.parseInt(multi.getParameter("g_location1"));
+		int g_location2 = Integer.parseInt(multi.getParameter("g_location2"));
+		int g_location3 = Integer.parseInt(multi.getParameter("g_location3"));
+		
+		String g_hourwage1 = multi.getParameter("g_hourwage1");
+		String g_hourwage2 = multi.getParameter("g_hourwage2");
+		String g_hourwage3 = multi.getParameter("g_hourwage3");
+		
+		
 		String[] qual = multi.getParameterValues("qual");
-		String representative = "";
 		String qualification = "";
-		
-		for(int i=0; i<repre.length; i++) {
-			representative += repre[i];
-			if(!(i == repre.length-1)) {
-				representative += "&";
-			}
-		}
-		
 		for(int i=0; i<qual.length; i++) {
 			qualification += qual[i];
 			if(!(i == qual.length-1)) {
@@ -126,9 +142,16 @@ public class Join extends HttpServlet {
 		vo.setG_sms_yn(g_sms_yn);
 		vo.setG_email_yn(g_email_yn);
 		vo.setG_profile(g_profile);
-		vo.setG_representative(representative);
+		vo.setG_service1(service1);
+		vo.setG_service2(service2);
+		vo.setG_service3(service3);
 		vo.setG_qualification(qualification);
-		vo.setG_location(g_location);
+		vo.setG_location1(g_location1);
+		vo.setG_location2(g_location2);
+		vo.setG_location3(g_location3);
+		vo.setG_hourwage1(g_hourwage1);
+		vo.setG_hourwage2(g_hourwage2);
+		vo.setG_hourwage3(g_hourwage3);
 		
 		dao.joinMember(vo);
 		

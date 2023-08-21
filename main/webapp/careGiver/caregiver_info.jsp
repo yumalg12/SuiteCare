@@ -107,39 +107,54 @@
 									</div>
 								</div>
 								
-								<c:set var="address" value="${fn:split(info.g_address,'/')}" />
 								<div class="form_row">
 								    <label>주소</label>
 									<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
-									<label class="addr-label">우편번호</label><input type="text" value="${address[0]}" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()" required>
-									<label class="addr-label">지번 주소</label><input type="text" value="${address[1]}" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()" required>
-									<label class="addr-label">도로명 주소</label><input type="text" value="${address[2]}" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
-									<label class="addr-label">나머지 주소</label><input type="text" value="${address[3]}" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
-									<input type="hidden" id="address" name="g_address" value="">
+									<input type="hidden" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" required>
+									<input type="hidden" id="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
+									<input type="hidden" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" required>
+									<input type="hidden" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
+									<span></span><textarea id="address" name="g_address">${info.g_address}</textarea>
 								</div>
 								
-								<c:set var="representatives" value="${info.g_representative}" />
-								<c:set var="etc" value="${fn:split(info.g_representative,')')}" />
 								<div class="form_row">
-									<label for="service">서비스</label>
-									<div>
-	                                    <input type="checkbox" name="service" id="service" value = "욕창"<c:if test='${fn:contains(representatives, "욕창")}'>checked</c:if>>
-	                                    <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
+								<label for="location">서비스</label>
+								<div>
+									<div class="form_row">
+										<label class="rank-label">1순위</label>
+										<c:set var="ser1" value="${info.g_service1}"/>
+										<select name="g_service1"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${ser1 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }" <c:if test="${service.service_code eq ser1}">selected</c:if>>${service.service_name }</option>
+											</c:forEach>
+										</select>
 									</div>
-									<div>
-	                                    <input type="checkbox" name="service" id="service2" value = "뇌병변"<c:if test='${fn:contains(representatives, "뇌병변")}'>checked</c:if>>
-	                                    <label for="service2" style="margin:0.3rem 0 0 0;">뇌병변</label>
+									<div class="form_row">
+										<label class="rank-label">2순위</label>
+										<c:set var="ser2" value="${info.g_service2}"/>
+										<select name="g_service2"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${ser2 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }" <c:if test="${service.service_code eq ser2}">selected</c:if>>${service.service_name }</option>
+											</c:forEach>
+										</select>
 									</div>
-									<div>
-	                                    <input type="checkbox" name="service" id="service3" value = "외상환자"<c:if test='${fn:contains(representatives, "외상환자")}'>checked</c:if>>
-	                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
-									</div>
-									<div>
-	                                    <input type="checkbox" id="service_etc" class="act" value = "etc"<c:if test='${fn:length(etc) eq 2}'>checked</c:if>>
-	                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
-	                                    <input type="text" name="service" id="ser_etc" value="${etc[1]}" disabled />
+									<div class="form_row">
+										<label class="rank-label">3순위</label>
+										<c:set var="ser3" value="${info.g_service3}"/>
+										<select name="g_service3"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${ser3 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }" <c:if test="${service.service_code eq ser3}">selected</c:if>>${service.service_name }</option>
+											</c:forEach>
+										</select>
 									</div>
 								</div>
+							</div>
 							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
@@ -156,18 +171,92 @@
 									<input type="button" value="추가" id="add">
 									</div>
 								</div>
-							
+								
 								<div class="form_row">
-									<label for="location">선호지역</label>
-									<select name="location"  id="sel">
-										<c:set var="g_loc" value="${info.g_location}"/>
-										<option value = "1">선택</option>
-										<c:forEach var="loc" items="${location }">
-											<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq g_loc}">selected</c:if>>${loc.sido }</option>
-										</c:forEach>
-									</select>
-								</div> 
+								<label for="location">선호지역</label>
+								<div>
+									<div class="form_row">
+										<label class="rank-label">1순위</label>
+										<c:set var="loc1" value="${info.g_location1}"/>
+										<select name="g_location1"  id="loc">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${loc1 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc1}">selected</c:if>>${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">2순위</label>
+										<c:set var="loc2" value="${info.g_location2}"/>
+										<select name="g_location2"  id="loc">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${loc2 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc2}">selected</c:if>>${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">3순위</label>
+										<c:set var="loc3" value="${info.g_location3}"/>
+										<select name="g_location3"  id="loc">
+											<option value = "1">==선택==</option>
+											<option value="0" <c:if test="${loc3 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc3}">selected</c:if>>${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div> 
 							
+							<div class="form_row">
+								<label for="location">선호시급</label>
+								<div>
+									<div class="form_row">
+										<label class="rank-label">1순위</label>
+										<c:set var="hw1" value="${info.g_hourwage1}"/>
+										<select name="g_hourwage1"  id="hw">
+											<option value = "0">==선택==</option>
+											<option value="1" <c:if test="${hw1 eq 1}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }원 미만</option>
+											</c:forEach>
+											<option value="2" <c:if test="${hw1 eq 2}">selected</c:if>>그 이상</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">2순위</label>
+										<c:set var="hw2" value="${info.g_hourwage2}"/>
+										<select name="g_hourwage2"  id="hw">
+											<option value = "0">==선택==</option>
+											<option value="1" <c:if test="${hw2 eq 1}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }원 미만</option>
+											</c:forEach>
+											<option value="2" <c:if test="${hw2 eq 2}">selected</c:if>>그 이상</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">3순위</label>
+										<c:set var="hw3" value="${info.g_hourwage3}"/>
+										<select name="g_hourwage3"  id="hw">
+											<option value = "0">==선택==</option>
+											<option value="1" <c:if test="${hw3 eq 1}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }원 미만</option>
+											</c:forEach>
+											<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
+										</select>
+									</div>
+								</div>
+							</div> 
+						</div>
+								
 								<div class="form_row">
 									<label for="signup_date">가입날짜</label>
 									<input type="text" value="${info.g_signup_date }" disabled>
@@ -239,28 +328,18 @@
 			   		alert("올바른 휴대폰 번호를 입력하세요.");
 			   	} else if($("#address").val().length == 0){
 			   		alert("주소를 입력하세요.");
-			   	} else if($("#sel").val() == 1){
+			   	} else if($("#sel").val() == 0){
+			   		alert("서비스를 선택해주세요.");
+			   	} else if($("#loc").val() == 0){
 			   		alert("선호지역을 선택해주세요.");
+			   	} else if($("#hw").val() == 0){
+			   		alert("선호시급을 선택해주세요.");
 			   	} else {
-			   		if($("#service_etc").prop("checked")) {
-			   			var etc = "(기타)" + $("#ser_etc").val();
-			   			$("#ser_etc").val(etc);
-			   		}
 					document.getElementById("infoForm").submit();
 			   	}
 	   		}
 	   	}
    });
-   
-	$(function(){
-		$("#service_etc").change(function(){
-			if($("#service_etc").prop("checked")){
-				$("#ser_etc").attr("disabled", false);
-			}else{
-				$("#ser_etc").attr("disabled", true);
-			}
-		});
-	});
    
    function change_pw() {
       window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");

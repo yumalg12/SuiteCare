@@ -40,12 +40,17 @@ public class Caregiver extends HttpServlet {
 		
 		CaregiverDAO dao = new CaregiverDAO();
 		LocationDAO loc = new LocationDAO();
+		ServiceDAO ser = new ServiceDAO();
 		List<CaregiverVO> info;
 		List<LocationVO> location;
+		List<ServiceVO> service;
 		info = dao.giver_info(user_id);
 		location = loc.location();
+		service = ser.service();
+		
 		request.setAttribute("info", info);
 		request.setAttribute("location", location);
+		request.setAttribute("service", service);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/caregiver_info.jsp");
 		dispatch.forward(request, response);
@@ -88,19 +93,18 @@ public class Caregiver extends HttpServlet {
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
 			String address = request.getParameter("g_address");
-			String location = request.getParameter("location");
-
-			String[] repre = request.getParameterValues("service");
-			String[] qual = request.getParameterValues("qual");
-			String representative = "";
-			String qualification = "";
+			int location1 = Integer.parseInt(request.getParameter("g_location1"));
+			int location2 = Integer.parseInt(request.getParameter("g_location2"));
+			int location3 = Integer.parseInt(request.getParameter("g_location3"));
+			int service1 = Integer.parseInt(request.getParameter("g_service1"));
+			int service2 = Integer.parseInt(request.getParameter("g_service2"));
+			int service3 = Integer.parseInt(request.getParameter("g_service3"));
+			String hourwage1 = request.getParameter("g_hourwage1");
+			String hourwage2 = request.getParameter("g_hourwage2");
+			String hourwage3 = request.getParameter("g_hourwage3");
 			
-			for(int i=0; i<repre.length; i++) {
-				representative += repre[i];
-				if(!(i == repre.length-1)) {
-					representative += "&";
-				}
-			}
+			String[] qual = request.getParameterValues("qual");
+			String qualification = "";
 			
 			for(int i=0; i<qual.length; i++) {
 				qualification += qual[i];
@@ -112,9 +116,27 @@ public class Caregiver extends HttpServlet {
             String sms_yn=request.getParameter("sms_yn") != null ? request.getParameter("sms_yn") : "N";
 			String email_yn=request.getParameter("email_yn") != null ? request.getParameter("email_yn") : "N";
 			
+			CaregiverVO vo = new CaregiverVO();
+			vo.setG_name(name);
+			vo.setG_gender(gender);
+			vo.setG_phone(phone);
+			vo.setG_email(email);
+			vo.setG_address(address);
+			vo.setG_sms_yn(sms_yn);
+			vo.setG_email_yn(email_yn);
+			vo.setG_service1(service1);
+			vo.setG_service2(service2);
+			vo.setG_service3(service3);
+			vo.setG_qualification(qualification);
+			vo.setG_location1(location1);
+			vo.setG_location2(location2);
+			vo.setG_location3(location3);
+			vo.setG_hourwage1(hourwage1);
+			vo.setG_hourwage2(hourwage2);
+			vo.setG_hourwage3(hourwage3);
 			
 			CaregiverDAO dao = new CaregiverDAO();
-			dao.update(user_id, name, gender, phone, sms_yn, email, email_yn, address, location, representative, qualification);
+			dao.update(user_id, vo);
 			out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver';</script>");
 		
 		}

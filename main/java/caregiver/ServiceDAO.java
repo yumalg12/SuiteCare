@@ -1,23 +1,22 @@
 package caregiver;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class LocationDAO {
+public class ServiceDAO {
 	private PreparedStatement pstmt;
 	private Connection con;
 	private DataSource dataFactory;
 	private ResultSet rs;
 	
-	public LocationDAO() {
+	public ServiceDAO() {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
@@ -27,24 +26,24 @@ public class LocationDAO {
 			e.printStackTrace();
 		}
 	}
-
-	public List<LocationVO> location() {
-		List<LocationVO> list = new ArrayList<LocationVO>();
+	
+	public List<ServiceVO> service() {
+		List<ServiceVO> list = new ArrayList<ServiceVO>();
 		
 		try {
 			con = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM location";
+			String sql = "SELECT * FROM service";
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int sido_code = rs.getInt("sido_code");
-				String sido = rs.getString("sido");
+				int service_code = rs.getInt("service_code");
+				String service_name = rs.getString("service_name");
 				
-				LocationVO vo = new LocationVO();
-				vo.setSido_code(sido_code);
-				vo.setSido(sido);
+				ServiceVO vo = new ServiceVO();
+				vo.setService_code(service_code);
+				vo.setService_name(service_name);
 				list.add(vo);
 			}
 			rs.close();

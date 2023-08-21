@@ -14,9 +14,16 @@ public class CaregiverVO {
 	private String g_sms_yn; 
 	private String g_email_yn;
 	private String g_profile;
-	private String g_representative;
+	private int g_service1;
+	private int g_service2;
+	private int g_service3;
 	private String g_qualification;
-	private String g_location;
+	private int g_location1;
+	private int g_location2;
+	private int g_location3;
+	private String g_hourwage1;
+	private String g_hourwage2;
+	private String g_hourwage3;
 	private Date g_signup_date;
 	
 	public CaregiverVO() {
@@ -111,12 +118,28 @@ public class CaregiverVO {
 		this.g_profile = g_profile;
 	}
 
-	public String getG_representative() {
-		return g_representative;
+	public int getG_service1() {
+		return g_service1;
 	}
 
-	public void setG_representative(String g_representative) {
-		this.g_representative = g_representative;
+	public void setG_service1(int g_service1) {
+		this.g_service1 = g_service1;
+	}
+
+	public int getG_service2() {
+		return g_service2;
+	}
+
+	public void setG_service2(int g_service2) {
+		this.g_service2 = g_service2;
+	}
+
+	public int getG_service3() {
+		return g_service3;
+	}
+
+	public void setG_service3(int g_service3) {
+		this.g_service3 = g_service3;
 	}
 
 	public String getG_qualification() {
@@ -127,12 +150,52 @@ public class CaregiverVO {
 		this.g_qualification = g_qualification;
 	}
 
-	public String getG_location() {
-		return g_location;
+	public int getG_location1() {
+		return g_location1;
 	}
 
-	public void setG_location(String g_location) {
-		this.g_location = g_location;
+	public void setG_location1(int g_location1) {
+		this.g_location1 = g_location1;
+	}
+
+	public int getG_location2() {
+		return g_location2;
+	}
+
+	public void setG_location2(int g_location2) {
+		this.g_location2 = g_location2;
+	}
+
+	public int getG_location3() {
+		return g_location3;
+	}
+
+	public void setG_location3(int g_location3) {
+		this.g_location3 = g_location3;
+	}
+
+	public String getG_hourwage1() {
+		return g_hourwage1;
+	}
+
+	public void setG_hourwage1(String g_hourwage1) {
+		this.g_hourwage1 = g_hourwage1;
+	}
+
+	public String getG_hourwage2() {
+		return g_hourwage2;
+	}
+
+	public void setG_hourwage2(String g_hourwage2) {
+		this.g_hourwage2 = g_hourwage2;
+	}
+
+	public String getG_hourwage3() {
+		return g_hourwage3;
+	}
+
+	public void setG_hourwage3(String g_hourwage3) {
+		this.g_hourwage3 = g_hourwage3;
 	}
 
 	public Date getG_signup_date() {

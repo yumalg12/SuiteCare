@@ -177,6 +177,10 @@
 						<div class="form_wrapper">
 							<div class="form_row">
 								<label>프로필 사진</label><input type="file" name="g_profile">
+								<div onclick="javascript:setImg()">
+									<input type="checkbox" id="default_img" name="default_img" value="default">
+                                   	<label for="default_img" id= "default_img_text"style="margin:0.3rem 0 0 0;">기본 프로필사진 사용</label>
+								</div>
 							</div>   
 							
 							<div class="form_row">
@@ -246,29 +250,42 @@
 								<input type="hidden" id="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
 								<input type="hidden" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" required>
 								<input type="hidden" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
-							<span></span><textarea id="address" name="g_address"></textarea>
+								<span></span><textarea id="address" name="g_address"></textarea>
 							</div>
 							
 							<div class="form_row">
-								<label for="service">서비스</label>
+								<label for="location">서비스</label>
 								<div>
-								<div>
-                                    <input type="checkbox" name="service" id="service" value = "욕창">
-                                    <label for="service" style="margin:0.3rem 0 0 0;">욕창</label>
-								</div>
-								<div>
-                                    <input type="checkbox" name="service" id="service2" value = "뇌병변">
-                                    <label for="service2" style="margin:0.3rem 0 0 0;">뇌병변</label>
-								</div>
-								<div>
-                                    <input type="checkbox" name="service" id="service3" value = "외상환자">
-                                    <label for="service3" style="margin:0.3rem 0 0 0;">외상환자</label>
-								</div>
-								<div>
-                                    <input type="checkbox" id="service_etc" class="act" value = "etc">
-                                    <label for="service_etc" style="margin:0.3rem 0 0 0;">기타</label>
-                                    <input type="text" name="service" id="ser_etc" disabled />
-								</div>
+									<div class="form_row">
+									<label class="rank-label">1순위</label>
+										<select name="g_service1"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }">${service.service_name }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">2순위</label>
+										<select name="g_service2"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }">${service.service_name }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">3순위</label>
+										<select name="g_service3"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="service" items="${service }">
+												<option value="${service.service_code }">${service.service_name }</option>
+											</c:forEach>
+										</select>
+									</div>
 								</div>
 							</div>
 						        
@@ -284,13 +301,98 @@
 						
 							<div class="form_row">
 								<label for="location">선호지역</label>
-								<select name="g_location"  id="sel">
-									<c:set var="g_loc" value="${info.g_location}"/>
-									<option value = "1">선택</option>
-									<c:forEach var="loc" items="${location }">
-										<option value="${loc.sido_code }">${loc.sido }</option>
-									</c:forEach>
-								</select>
+								<div>
+									<div class="form_row">
+									<label class="rank-label">1순위</label>
+										<select name="g_location1"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }">${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">2순위</label>
+										<select name="g_location2"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }">${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">3순위</label>
+										<select name="g_location3"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<c:forEach var="loc" items="${location }">
+												<option value="${loc.sido_code }">${loc.sido }</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div> 
+							
+							<div class="form_row">
+								<label for="location">선호시급</label>
+								<div>
+									<div class="form_row">
+									<label class="rank-label">1순위</label>
+										<select name="g_hourwage1"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<%
+											for (int start = 10000; start <= 35000; start += 5000) {
+												String value = start + "~" + (start + 5000);
+												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											%>
+											<option value="<%=value%>"><%=displayValue%>원 미만
+											</option>
+											<%
+											}
+											%>
+											<option value="그이상">그 이상</option>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">2순위</label>
+										<select name="g_hourwage2"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<%
+											for (int start = 10000; start <= 35000; start += 5000) {
+												String value = start + "~" + (start + 5000);
+												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											%>
+											<option value="<%=value%>"><%=displayValue%>원 미만
+											</option>
+											<%
+											}
+											%>
+											<option value="그이상">그 이상</option>
+										</select>
+									</div>
+									<div class="form_row">
+									<label class="rank-label">3순위</label>
+										<select name="g_hourwage3"  id="sel">
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
+											<%
+											for (int start = 10000; start <= 35000; start += 5000) {
+												String value = start + "~" + (start + 5000);
+												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											%>
+											<option value="<%=value%>"><%=displayValue%>원 미만
+											</option>
+											<%
+											}
+											%>
+											<option value="그이상">그 이상</option>
+										</select>
+									</div>
+								</div>
 							</div> 
 						</div>
 					
