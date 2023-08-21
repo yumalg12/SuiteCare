@@ -19,9 +19,9 @@ String r_code = (String)session.getAttribute("r_code");
 ReservationDAO dao = new ReservationDAO();
 
 
- int pre_location_1 = Integer.parseInt(request.getParameter("pre_location_1"));
- int pre_location_2 = Integer.parseInt(request.getParameter("pre_location_2"));
- int pre_location_3 = Integer.parseInt(request.getParameter("pre_location_3"));
+String pre_location_1 = request.getParameter("pre_location_1");
+ String pre_location_2 = request.getParameter("pre_location_2");
+ String pre_location_3 = request.getParameter("pre_location_3");
  String pre_age_1 = request.getParameter("pre_age_1");
  String pre_age_2 = request.getParameter("pre_age_2");
  String pre_age_3 = request.getParameter("pre_age_3");
