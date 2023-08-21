@@ -103,7 +103,7 @@ margin-left: 7.2rem;
 
 							CaregiverDAO dao = new CaregiverDAO();
 
-							List<CaregiverVO> list = dao.giver_admin_info();
+							List<CaregiverVO> list = dao.giver_info();
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
@@ -117,14 +117,9 @@ margin-left: 7.2rem;
 								String g_sms_yn = listt.getG_sms_yn();
 								String g_email_yn = listt.getG_email_yn();
 								String g_qualification = listt.getG_qualification();								
-								
-								String g_location1 = listt.getG_location1();
-								String g_location2 = listt.getG_location2();
-								String g_location3 = listt.getG_location3();
-								String g_hourwage1 = listt.getG_hourwage1();
-								String g_hourwage2 = listt.getG_hourwage2();
-								String g_hourwage3 = listt.getG_hourwage3();
-								Date signup_date = listt.getG_signup_date();
+								String g_representative = listt.getG_representative();
+								String g_location = listt.getG_location();
+								Date g_signup_date = listt.getG_signup_date();
 								
 								String phone = g_phone.substring(0,3) + "-" + g_phone.substring(3,7) + "-" + g_phone.substring(7,11);
 							%>
@@ -140,14 +135,10 @@ margin-left: 7.2rem;
 								<td><%=g_sms_yn%></td>
 								<td><%=g_email_yn%></td>
 								<td><%=g_qualification%></td>
-								<td><%=g_location1%></td>
-								<td><%=g_location2%></td>
-								<td><%=g_location3%></td>
+								<td><%=g_representative%></td>
+								<td><%=g_location%></td>
+								<td><%=g_signup_date%></td>
 								
-								<td><%=g_hourwage1%></td>
-								<td><%=g_hourwage2%></td>
-								<td><%=g_hourwage3%></td>
-								<td><%=signup_date%></td>
 							</tr>
 							<%
 							}

@@ -34,7 +34,7 @@ public class PayDAO {
 			String m_id = payvo.getM_id();
 			double scPoint = payvo.getScPoint();
 			String m_phone = payvo.getM_phone();
-			String query = "INSERT INTO t_pay(merchant_uid, amount, pay_method, m_id, scPoint, m_phone)" + " VALUES(?, ? ,?, ?, ?,?)";
+			String query = "INSERT INTO t_payment(merchant_uid, amount, pay_method, m_id, scPoint, m_phone)" + " VALUES(?, ? ,?, ?, ?,?)";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, merchant_uid);
