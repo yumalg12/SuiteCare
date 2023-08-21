@@ -240,7 +240,7 @@ public class MemberDAO {
 			String m_sms_yn = vo.getM_sms_yn();
 			String m_email_yn = vo.getM_email_yn();
 
-			String sql = "insert into `suitecare`.`member`(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn) "+
+			String sql = "insert into `member`(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn) "+
 					"values(?,?,?,?,?,?,?,?,?)";
 			
 			System.out.println("addMember(): "+sql);
@@ -273,7 +273,7 @@ public class MemberDAO {
 		try {
 			conn = dataFactory.getConnection();
 
-			String sql = "select COUNT(*) from `suitecare`.`member` where m_id='" + id + "'";
+			String sql = "select COUNT(*) from `member` where m_id='" + id + "'";
 			System.out.println("isDuplicate(): " + sql);
 
 			pstmt = conn.prepareStatement(sql);
