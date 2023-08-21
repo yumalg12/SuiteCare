@@ -183,6 +183,59 @@ public class CaregiverDAO {
 		return list;
 	}
 	
+	public List<CaregiverVO> giver_info() {
+		List<CaregiverVO> list= new ArrayList<CaregiverVO>();
+		try {
+			con = dataFactory.getConnection();
+			
+			String sql = "SELECT * FROM caregiver";
+			pstmt = con.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("g_id");
+				String pw = rs.getString("g_pw");
+				String name = rs.getString("g_name");
+				String gender = rs.getString("g_gender");
+				String birth = rs.getString("g_birth");
+				String phone = rs.getString("g_phone");
+				String email = rs.getString("g_email");
+				String address = rs.getString("g_address");
+				String sms_yn = rs.getString("g_sms_yn");
+				String email_yn = rs.getString("g_email_yn");
+				String profile = rs.getString("g_profile");;
+				String representative = rs.getString("g_representative");;
+				String qualification = rs.getString("g_qualification");;
+				String location = rs.getString("g_location");;
+				Date signup_date = rs.getDate("g_signup_date");
+				
+				CaregiverVO vo = new CaregiverVO();
+				vo.setG_id(id);
+				vo.setG_pw(pw);
+				vo.setG_name(name);
+				vo.setG_gender(gender);
+				vo.setG_birth(birth);
+				vo.setG_phone(phone);
+				vo.setG_email(email);
+				vo.setG_address(address);
+				vo.setG_sms_yn(sms_yn);
+				vo.setG_email_yn(email_yn);
+				vo.setG_profile(profile);
+				vo.setG_representative(representative);
+				vo.setG_qualification(qualification);
+				vo.setG_location(location);
+				vo.setG_signup_date(signup_date);
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	
 	public boolean pwupdate(String id, String originPW, String newPW) {
 		try {
