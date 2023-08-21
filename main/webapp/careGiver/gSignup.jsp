@@ -185,23 +185,23 @@
 							
 							<div class="form_row">
 								<label for="id">아이디</label> <div class="form_row_sub">
-								<input type="text" id="id" placeholder="아이디 (영문, 숫자 4~20자)" title="아이디 (영문, 숫자 4~20자)" maxlength="20" required>
+								<input type="text" id="id" placeholder="아이디" title="아이디 (영문, 숫자 4~20자)" maxlength="20" required>
 								<input type="hidden" id="g_id" name="g_id">
 								<span class="button default" onclick="javascript:isDuplicateID()">중복확인</span></div>
 							</div>
 										   
 							<div class="form_row">
-								<label for="pw">비밀번호</label> <input type="password" id="pw" name="g_pw" placeholder="비밀번호 (4자 이상)" title="비밀번호 (4자 이상)" oninput="javascript:PWValidation();" required>
+								<label for="pw">비밀번호</label> <input type="password" id="pw" name="g_pw" placeholder="비밀번호" title="비밀번호 (4자 이상)" oninput="javascript:PWValidation();" required>
 							</div>
 							<div class="form_row">
 								<label for="pw">비밀번호 확인</label>
-								<input type="password" id="pw_check" placeholder="비밀번호 확인 (비밀번호와 동일한 값)" title="바밀번호 확인 (비밀번호와 동일한 값)" oninput="javascript:PWValidation()" required>
+								<input type="password" id="pw_check" placeholder="비밀번호 확인" title="바밀번호 확인 (비밀번호와 동일한 값)" oninput="javascript:PWValidation()" required>
 								<span class="pw_check_notice"></span><span class="pw_check_notice" style="color: red; display: none;"><i class="fa-solid fa-circle-exclamation"></i> 비밀번호 확인이 일치하지 않습니다.</span>
 							</div>
 						
 							<div class="form_row">
 								<label for="name">이름</label>
-								<input type="text" name="g_name" id="name" placeholder="이름">
+								<input type="text" name="g_name" id="name" placeholder="이름" required>
 							</div>
 						
 							<div class="form_row">
@@ -220,20 +220,20 @@
 							</div>
 							<div class="form_row">
 								<label for="phone"> 휴대폰 </label>
-								<input type="tel" id="phone" name="g_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
+								<input type="tel" id="phone" name="g_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							
 							<div class="form_row">
 								<label for="sms_yn">SMS 수신 여부</label>
 								<div onclick="javascript:setSMSYN()">
                                    	<input type="checkbox" name="g_sms_yn" id="sms_switch" value = "Y">
-                                   	<label for="sms_switch" id= "sms_switch_text"style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
+                                   	<label for="sms_switch" id= "sms_switch_text" style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
 								</div>
 							</div>
 							
 							<div class="form_row">
 								<label for="email"> 이메일 </label>
-								<input type="email" id="email" name="g_email" placeholder="이메일 주소 (xxx@xxxxx.xxx 형식)" title="이메일 주소 (xxx@xxxxx.xxx 형식)" required>
+								<input type="email" id="email" name="g_email" placeholder="이메일 주소" title="이메일 주소 (xxx@xxxxx.xxx 형식)" required>
 							</div>
 							<div class="form_row">
 							<label for="email_yn">이메일 수신 여부</label>
@@ -250,7 +250,7 @@
 								<input type="hidden" id="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
 								<input type="hidden" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" required>
 								<input type="hidden" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
-								<span></span><textarea id="address" name="g_address"></textarea>
+							<span></span><textarea id="address" name="g_address" required></textarea>
 							</div>
 							
 							<div class="form_row">

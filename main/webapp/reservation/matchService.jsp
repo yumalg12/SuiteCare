@@ -47,6 +47,9 @@
 		if (inputrepre3 === "") {
 			pre_repre_3.value = "지정하지 않음";
 		}
+		
+		
+		
 		if (!pre_location_1 || !pre_location_2 || !pre_location_3) {
 			alert("선호 지역을 모두 선택해주세요");
 			return false;
@@ -59,11 +62,19 @@
 		} else if (!pre_hourwage_1 || !pre_hourwage_2 || !pre_hourwage_3) {
 			alert("선호 시급 범위를 모두 선택해주세요");
 			return false;
-		} else {
+		} else if(
+				(pre_hourwage_1 !== "지정하지 않음" && pre_hourwage_2 !== "지정하지 않음") ||
+			    (pre_hourwage_1 !== "지정하지 않음" && pre_hourwage_3 !== "지정하지 않음") ||
+			    (pre_hourwage_2 !== "지정하지 않음" && pre_hourwage_3 !== "지정하지 않음")
+			) {
+				if(pre_hourwage_1==pre_hourwage_2 || pre_hourwage_1==pre_hourwage_3 || pre_hourwage_2==pre_hourwage_3 ) {
+			alert("선호 시급 범위가 중복되었습니다.");
+			return false;
+		}}	
 			f.action = "matchScheck.jsp";
 			f.submit();
 			return true;
-		}
+		
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
