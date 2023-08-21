@@ -116,6 +116,7 @@ public class Join extends HttpServlet {
 				if(!(i == qual.length-1)) {
 					qualification += "&";
 				}
+			}
 		}
 		
         String g_sms_yn=multi.getParameter("g_sms_yn") != null ? multi.getParameter("g_sms_yn") : "N";
