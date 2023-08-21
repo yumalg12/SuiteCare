@@ -45,11 +45,13 @@ for (int i = 0; i < glist.size(); i++) {
 	String profile = file_repo + g_profile;
 
 	
-	String[] parts = g_address.split("/");
-	String g_addr = parts[2];
-	String[] addrparts = g_addr.split(" ");
-	String g_addrloc = addrparts[0]+" " + addrparts[1];
+	//String[] parts = g_address.split("/");
+	//String g_addr = parts[2];
+	//String[] addrparts = g_addr.split(" ");
+	//String g_addrloc = addrparts[0]+" " + addrparts[1];
 
+	 int idx = g_address.indexOf(" ");
+	 String address = g_address.substring(0, idx); 
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
    Date birthDate = dateFormat.parse(g_birth);
