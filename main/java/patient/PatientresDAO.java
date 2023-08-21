@@ -299,9 +299,9 @@ public class PatientresDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
-				int pre_location_1 = rs.getInt("pre_location_1");
-				int pre_location_2 = rs.getInt("pre_location_2");
-				int pre_location_3 = rs.getInt("pre_location_2");
+				String pre_location_1 = rs.getString("pre_location_1");
+				String pre_location_2 = rs.getString("pre_location_2");
+				String pre_location_3 = rs.getString("pre_location_3");
 				String pre_age_1 = rs.getString("pre_age_1");
 				String pre_age_2 = rs.getString("pre_age_2");
 				String pre_age_3 = rs.getString("pre_age_3");
@@ -315,7 +315,7 @@ public class PatientresDAO {
 				String pre_hourwage_3 = rs.getString("pre_hourwage_3");
 
 				TpreferenceVO vo = new TpreferenceVO();
-
+				
 				vo.setPre_location_1(pre_location_1);
 				vo.setPre_location_2(pre_location_2);
 				vo.setPre_location_3(pre_location_3);
@@ -342,32 +342,5 @@ public class PatientresDAO {
 		return list;
 	}
 	
-	public String convertSidoCode(int sidoCode) {
-		String loc = null;
-		
-		String sql = "select * from `location` where `sido_code` = '"+sidoCode+"'";
-		System.out.println(sql);
-
-		try {
-			connect();
-			
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				loc = rs.getString("sido");
-			}
-			
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return loc;
-		
-	}
+	
 }
