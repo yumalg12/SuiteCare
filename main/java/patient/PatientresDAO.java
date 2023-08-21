@@ -111,7 +111,7 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, CARETAKER as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -165,7 +165,7 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, CARETAKER as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and res.res_code = ? and res.caretaker_code =?";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and res.res_code = ? and res.caretaker_code =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, res_code);
 			pstmt.setString(2, caretaker_code);
