@@ -39,19 +39,10 @@ public class Caregiver extends HttpServlet {
 		String user_id = (String)session.getAttribute("g_id");
 		
 		CaregiverDAO dao = new CaregiverDAO();
-		LocationDAO loc = new LocationDAO();
-		ServiceDAO ser = new ServiceDAO();
 		List<CaregiverVO> info;
-		List<LocationVO> location;
-		List<ServiceVO> service;
 		info = dao.giver_info(user_id);
-		location = loc.location();
-		service = ser.service();
 		
 		request.setAttribute("info", info);
-		request.setAttribute("location", location);
-		request.setAttribute("service", service);
-		
 		RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/caregiver_info.jsp");
 		dispatch.forward(request, response);
 	}
@@ -93,12 +84,12 @@ public class Caregiver extends HttpServlet {
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
 			String address = request.getParameter("g_address");
-			int location1 = Integer.parseInt(request.getParameter("g_location1"));
-			int location2 = Integer.parseInt(request.getParameter("g_location2"));
-			int location3 = Integer.parseInt(request.getParameter("g_location3"));
-			int service1 = Integer.parseInt(request.getParameter("g_service1"));
-			int service2 = Integer.parseInt(request.getParameter("g_service2"));
-			int service3 = Integer.parseInt(request.getParameter("g_service3"));
+			String location1 = request.getParameter("g_location1");
+			String location2 = request.getParameter("g_location2");
+			String location3 = request.getParameter("g_location3");
+			String service1 = request.getParameter("g_service1");
+			String service2 = request.getParameter("g_service2");
+			String service3 = request.getParameter("g_service3");
 			String hourwage1 = request.getParameter("g_hourwage1");
 			String hourwage2 = request.getParameter("g_hourwage2");
 			String hourwage3 = request.getParameter("g_hourwage3");

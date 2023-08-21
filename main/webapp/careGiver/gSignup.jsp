@@ -261,9 +261,13 @@
 										<select name="g_service1"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }">${service.service_name }</option>
-											</c:forEach>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -271,9 +275,13 @@
 										<select name="g_service2"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }">${service.service_name }</option>
-											</c:forEach>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -281,9 +289,13 @@
 										<select name="g_service3"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }">${service.service_name }</option>
-											</c:forEach>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
 										</select>
 									</div>
 								</div>
@@ -307,9 +319,11 @@
 										<select name="g_location1"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }">${loc.sido }</option>
-											</c:forEach>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -317,9 +331,11 @@
 										<select name="g_location2"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }">${loc.sido }</option>
-											</c:forEach>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -327,9 +343,11 @@
 										<select name="g_location3"  id="sel">
 											<option value = "1">==선택==</option>
 											<option value="0">지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }">${loc.sido }</option>
-											</c:forEach>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 								</div>

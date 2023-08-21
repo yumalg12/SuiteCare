@@ -39,16 +39,6 @@ public class Join extends HttpServlet {
 		String type = request.getParameter("type");
 		CaregiverDAO dao = new CaregiverDAO();
 		if(type == null) {
-			LocationDAO loc = new LocationDAO();
-			List<LocationVO> location;
-			location = loc.location();
-			request.setAttribute("location", location);
-			
-			ServiceDAO ser_dao = new ServiceDAO();
-			List<ServiceVO> service;
-			service = ser_dao.service();
-			request.setAttribute("service", service);
-			
 			RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gSignup.jsp");
 			dispatch.forward(request, response);
 		} else if (type.equals("isDuplicateID")) {
@@ -104,13 +94,13 @@ public class Join extends HttpServlet {
 		String g_email = multi.getParameter("g_email");
 		String g_address = multi.getParameter("g_address");
 		
-		int service1 = Integer.parseInt(multi.getParameter("g_service1"));
-		int service2 = Integer.parseInt(multi.getParameter("g_service2"));
-		int service3 = Integer.parseInt(multi.getParameter("g_service3"));
+		String service1 = multi.getParameter("g_service1");
+		String service2 = multi.getParameter("g_service2");
+		String service3 = multi.getParameter("g_service3");
 		
-		int g_location1 = Integer.parseInt(multi.getParameter("g_location1"));
-		int g_location2 = Integer.parseInt(multi.getParameter("g_location2"));
-		int g_location3 = Integer.parseInt(multi.getParameter("g_location3"));
+		String g_location1 = multi.getParameter("g_location1");
+		String g_location2 = multi.getParameter("g_location2");
+		String g_location3 = multi.getParameter("g_location3");
 		
 		String g_hourwage1 = multi.getParameter("g_hourwage1");
 		String g_hourwage2 = multi.getParameter("g_hourwage2");

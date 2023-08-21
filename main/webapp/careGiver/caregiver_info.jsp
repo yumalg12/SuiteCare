@@ -1,10 +1,10 @@
+<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
-<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,10 +125,14 @@
 											<c:set var="ser1" value="${info.g_service1}"/>
 											<select name="g_service1"  id="sel">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${ser1 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="service" items="${service }">
-													<option value="${service.service_code }" <c:if test="${service.service_code eq ser1}">selected</c:if>>${service.service_name }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${ser1 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser1 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser1 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser1 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser1 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser1 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser1 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser1 eq '운전'}">selected</c:if>>운전</option>
 											</select>
 										</div>
 										<div class="form_row">
@@ -136,10 +140,14 @@
 											<c:set var="ser2" value="${info.g_service2}"/>
 											<select name="g_service2"  id="sel">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${ser2 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="service" items="${service }">
-													<option value="${service.service_code }" <c:if test="${service.service_code eq ser2}">selected</c:if>>${service.service_name }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${ser2 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser2 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser2 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser2 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser2 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser2 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser2 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser2 eq '운전'}">selected</c:if>>운전</option>
 											</select>
 										</div>
 										<div class="form_row">
@@ -147,10 +155,14 @@
 											<c:set var="ser3" value="${info.g_service3}"/>
 											<select name="g_service3"  id="sel">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${ser3 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="service" items="${service }">
-													<option value="${service.service_code }" <c:if test="${service.service_code eq ser3}">selected</c:if>>${service.service_name }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${ser3 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="요리" <c:if test="${ser3 eq '요리'}">selected</c:if>>요리</option>
+												<option value="목욕" <c:if test="${ser3 eq '목욕'}">selected</c:if>>목욕</option>
+												<option value="재활운동보조" <c:if test="${ser3 eq '재활운동보조'}">selected</c:if>>재활운동보조</option>
+												<option value="외출동행" <c:if test="${ser3 eq '외출동행'}">selected</c:if>>외출동행</option>
+												<option value="청소" <c:if test="${ser3 eq '청소'}">selected</c:if>>청소</option>
+												<option value="빨래" <c:if test="${ser3 eq '빨래'}">selected</c:if>>빨래</option>
+												<option value="운전" <c:if test="${ser3 eq '운전'}">selected</c:if>>운전</option>
 											</select>
 										</div>
 									</div>
@@ -180,10 +192,12 @@
 											<c:set var="loc1" value="${info.g_location1}"/>
 											<select name="g_location1"  id="loc">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${loc1 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="loc" items="${location }">
-													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc1}">selected</c:if>>${loc.sido }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${loc1 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc1 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc1 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc1 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc1 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc1 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
 											</select>
 										</div>
 										<div class="form_row">
@@ -191,10 +205,12 @@
 											<c:set var="loc2" value="${info.g_location2}"/>
 											<select name="g_location2"  id="loc">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${loc2 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="loc" items="${location }">
-													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc2}">selected</c:if>>${loc.sido }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${loc2 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc2 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc2 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc2 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc2 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc2 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
 											</select>
 										</div>
 										<div class="form_row">
@@ -202,10 +218,12 @@
 											<c:set var="loc3" value="${info.g_location3}"/>
 											<select name="g_location3"  id="loc">
 												<option value = "1">==선택==</option>
-												<option value="0" <c:if test="${loc3 eq 0}">selected</c:if>>지정하지 않음</option>
-												<c:forEach var="loc" items="${location }">
-													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc3}">selected</c:if>>${loc.sido }</option>
-												</c:forEach>
+												<option value="0" <c:if test="${loc3 eq '0'}">selected</c:if>>지정하지 않음</option>
+												<option value="서울특별시" <c:if test="${loc3 eq '서울특별시'}">selected</c:if>>서울특별시</option>
+												<option value="부산광역시" <c:if test="${loc3 eq '부산광역시'}">selected</c:if>>부산광역시</option>
+												<option value="인천광역시" <c:if test="${loc3 eq '인천광역시'}">selected</c:if>>인천광역시</option>
+												<option value="경기도" <c:if test="${loc3 eq '경기도'}">selected</c:if>>경기도</option>
+												<option value="제주특별자치도" <c:if test="${loc3 eq '제주특별자치도'}">selected</c:if>>제주특별자치도</option>
 											</select>
 										</div>
 									</div>

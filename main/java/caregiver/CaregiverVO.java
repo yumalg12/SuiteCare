@@ -14,13 +14,13 @@ public class CaregiverVO {
 	private String g_sms_yn; 
 	private String g_email_yn;
 	private String g_profile;
-	private int g_service1;
-	private int g_service2;
-	private int g_service3;
+	private String g_service1;
+	private String g_service2;
+	private String g_service3;
 	private String g_qualification;
-	private int g_location1;
-	private int g_location2;
-	private int g_location3;
+	private String g_location1;
+	private String g_location2;
+	private String g_location3;
 	private String g_hourwage1;
 	private String g_hourwage2;
 	private String g_hourwage3;
@@ -118,27 +118,27 @@ public class CaregiverVO {
 		this.g_profile = g_profile;
 	}
 
-	public int getG_service1() {
+	public String getG_service1() {
 		return g_service1;
 	}
 
-	public void setG_service1(int g_service1) {
+	public void setG_service1(String g_service1) {
 		this.g_service1 = g_service1;
 	}
 
-	public int getG_service2() {
+	public String getG_service2() {
 		return g_service2;
 	}
 
-	public void setG_service2(int g_service2) {
+	public void setG_service2(String g_service2) {
 		this.g_service2 = g_service2;
 	}
 
-	public int getG_service3() {
+	public String getG_service3() {
 		return g_service3;
 	}
 
-	public void setG_service3(int g_service3) {
+	public void setG_service3(String g_service3) {
 		this.g_service3 = g_service3;
 	}
 
@@ -150,27 +150,27 @@ public class CaregiverVO {
 		this.g_qualification = g_qualification;
 	}
 
-	public int getG_location1() {
+	public String getG_location1() {
 		return g_location1;
 	}
 
-	public void setG_location1(int g_location1) {
+	public void setG_location1(String g_location1) {
 		this.g_location1 = g_location1;
 	}
 
-	public int getG_location2() {
+	public String getG_location2() {
 		return g_location2;
 	}
 
-	public void setG_location2(int g_location2) {
+	public void setG_location2(String g_location2) {
 		this.g_location2 = g_location2;
 	}
 
-	public int getG_location3() {
+	public String getG_location3() {
 		return g_location3;
 	}
 
-	public void setG_location3(int g_location3) {
+	public void setG_location3(String g_location3) {
 		this.g_location3 = g_location3;
 	}
 
