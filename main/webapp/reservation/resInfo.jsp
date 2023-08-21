@@ -194,7 +194,7 @@
 							</div>
 					
 							<div class="form_button">
-								<input class="button alt" type="button" value=뒤로가기> <input
+								<input class="button alt" type="button" value=뒤로가기 onclick="history.back()"> 
 									class="button special" type="submit" value=간병지원하기>
 							</div>
 						</div>
