@@ -43,13 +43,11 @@ for (int i = 0; i < glist.size(); i++) {
 	String profile = file_repo + g_profile;
 
 	
-	//String[] parts = g_address.split("/");
-	//String g_addr = parts[2];
-	//String[] addrparts = g_addr.split(" ");
-	//String g_addrloc = addrparts[0]+" " + addrparts[1];
+	String[] parts = g_address.split("/");
+	String g_addr = parts[2];
+	String[] addrparts = g_addr.split(" ");
+	String g_addrloc = addrparts[0]+" " + addrparts[1];
 
-	 int idx = g_address.indexOf(" ");
-     String address = g_address.substring(0, idx); 
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
    Date birthDate = dateFormat.parse(g_birth);
@@ -83,7 +81,7 @@ for (int i = 0; i < glist.size(); i++) {
 			<tr><td>이름</td><td><%=g_name%></td></tr>
 			<tr><td>성별</td><td><% if(g_gender.equals("W")) { %> 여 <% }else { %> 남 <% } %></td></tr>
 			<tr><td>나이</td><td><%=age%>세</td></tr>
-			<tr><td>거주지역</td><td><%=address %></td></tr>
+			<tr><td>거주지역</td><td><%=g_addrloc %></td></tr>
 			<tr><td>활동지역</td><td><%=g_locname %></td></tr>
 			<tr><td>주요서비스</td><td><%= g_representative%></td></tr>
 			<tr><td>보유자격증</td><td><%=g_qualification %></td></tr>

@@ -341,55 +341,37 @@
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
 										<select name="g_hourwage1"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0">지정하지 않음</option>
-											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
-											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
-											<%
-											}
-											%>
-											<option value="그이상">그 이상</option>
+											<option value = "0">==선택==</option>
+											<option value="1">지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }">${display }원 미만</option>
+											</c:forEach>
+											<option value="2">그 이상</option>
 										</select>
 									</div>
 									<div class="form_row">
 									<label class="rank-label">2순위</label>
 										<select name="g_hourwage2"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0">지정하지 않음</option>
-											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
-											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
-											<%
-											}
-											%>
-											<option value="그이상">그 이상</option>
+											<option value = "0">==선택==</option>
+											<option value="1">지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }">${display }원 미만</option>
+											</c:forEach>
+											<option value="2">그 이상</option>
 										</select>
 									</div>
 									<div class="form_row">
 									<label class="rank-label">3순위</label>
 										<select name="g_hourwage3"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0">지정하지 않음</option>
-											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
-											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
-											<%
-											}
-											%>
-											<option value="그이상">그 이상</option>
+											<option value = "0">==선택==</option>
+											<option value="1">지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="35000" step="5000">
+												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+												<option value="${start }">${display }원 미만</option>
+											</c:forEach>
+											<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
 										</select>
 									</div>
 								</div>

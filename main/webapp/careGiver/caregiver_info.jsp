@@ -10,9 +10,12 @@
 <head>
 	<title>SC 스위트케어 | 일반 본문</title>
 		<%@ include file="/header-import.jsp"%>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-
 </head>
 
 <body>
@@ -46,28 +49,21 @@
 						<c:forEach var="info" items="${info }">
 							
 							<div class="form_wrapper">
-								<div style="
-    margin-bottom: 2rem;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-">
-									<img src="<%=file_repo %>${info.g_profile }" alt="" style="height: 150px; margin: 0 auto;"/>
+								<div class="form_row">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width:150px; height:150px;"/>
 								</div>   
 								
 								<div class="form_row">
 									<label for="id">아이디</label>      
-									<input type="text" name="id" value="${info.g_id }" readonly>
+									<input type="text" name="id" value="${info.g_id }" disabled>
 								</div>   
 							   
 								<div class="form_row">
 									<label for="pw">비밀번호</label>
-								<div class="form_row_sub">
-									<input type="password" name="pw" value="asdfasdf" readonly>
+									<input type="password" name="pw" disabled><br>
 									<input type="button" value="비밀번호 변경" onclick="change_pw()">
 								</div>
-								</div>
-
+							
 								<div class="form_row">
 									<label for="name">이름</label>
 									<input type="text" name="name" id="name" value="${info.g_name }">
@@ -75,17 +71,15 @@
 							
 								<div class="form_row">
 									<label for="gender">성별</label>
-									<div style="margin-top: 0.3rem;">
 									<input type="radio" id="man" name="gender" value="M"<c:if test="${info.g_gender eq 'M' }">checked</c:if>>
 									<label for="man">남자</label>
 									<input type="radio" id="woman" name="gender" value="W"<c:if test="${info.g_gender eq 'W' }">checked</c:if>>
-									<label for="woman">여자</label>
-									</div>
+									<label for="woman">여자</label> <br><br>
 								</div>
 							         
 								<div class="form_row">
 									<label for="birth">생년월일</label>
-									<input type="text" name="birth" value="${info.g_birth }" readonly>
+									<input type="text" name="birth" value="${info.g_birth }" disabled>
 								</div>
 								<div class="form_row">
 									<label for="phone"> 휴대폰 </label>
@@ -124,143 +118,147 @@
 								</div>
 								
 								<div class="form_row">
-								<label for="location">서비스</label>
-								<div>
-									<div class="form_row">
-										<label class="rank-label">1순위</label>
-										<c:set var="ser1" value="${info.g_service1}"/>
-										<select name="g_service1"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${ser1 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }" <c:if test="${service.service_code eq ser1}">selected</c:if>>${service.service_name }</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label>
-										<c:set var="ser2" value="${info.g_service2}"/>
-										<select name="g_service2"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${ser2 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }" <c:if test="${service.service_code eq ser2}">selected</c:if>>${service.service_name }</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label>
-										<c:set var="ser3" value="${info.g_service3}"/>
-										<select name="g_service3"  id="sel">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${ser3 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="service" items="${service }">
-												<option value="${service.service_code }" <c:if test="${service.service_code eq ser3}">selected</c:if>>${service.service_name }</option>
-											</c:forEach>
-										</select>
+									<label for="location">서비스</label>
+									<div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="ser1" value="${info.g_service1}"/>
+											<select name="g_service1"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser1 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="service" items="${service }">
+													<option value="${service.service_code }" <c:if test="${service.service_code eq ser1}">selected</c:if>>${service.service_name }</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="ser2" value="${info.g_service2}"/>
+											<select name="g_service2"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser2 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="service" items="${service }">
+													<option value="${service.service_code }" <c:if test="${service.service_code eq ser2}">selected</c:if>>${service.service_name }</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="ser3" value="${info.g_service3}"/>
+											<select name="g_service3"  id="sel">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${ser3 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="service" items="${service }">
+													<option value="${service.service_code }" <c:if test="${service.service_code eq ser3}">selected</c:if>>${service.service_name }</option>
+												</c:forEach>
+											</select>
+										</div>
 									</div>
 								</div>
-							</div>
 							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
-									<label for="qual" class="qualification">자격증 </label>
-								<div>
-                  <c:forEach var="qual" items="${qualifications}">
-                    <div class="form_row_sub">
-                      <input type="text" placeholder="자격증" value="${qual }" name="qual" class="qtext">
-                      <span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span>
-                    </div>
-                  </c:forEach>
+									<div class="col">
+										<label for="qual" class="qualification">자격증 </label>
+									</div>
+									<div>
+									<c:forEach var="qual" items="${qualifications}">
+										<div>
+											<input type="text" value="${qual }" name="qual" class="qtext">
+											<span id="delete">삭제</span>
+										</div>
+									</c:forEach>
+									<input type="button" value="추가" id="add">
+									</div>
 								</div>
+								
 								<div class="form_row">
-								<label for="location">선호지역</label>
-								<div>
-									<div class="form_row">
-										<label class="rank-label">1순위</label>
-										<c:set var="loc1" value="${info.g_location1}"/>
-										<select name="g_location1"  id="loc">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${loc1 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc1}">selected</c:if>>${loc.sido }</option>
-											</c:forEach>
-										</select>
+									<label for="location">선호지역</label>
+									<div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="loc1" value="${info.g_location1}"/>
+											<select name="g_location1"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc1 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="loc" items="${location }">
+													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc1}">selected</c:if>>${loc.sido }</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="loc2" value="${info.g_location2}"/>
+											<select name="g_location2"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc2 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="loc" items="${location }">
+													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc2}">selected</c:if>>${loc.sido }</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="loc3" value="${info.g_location3}"/>
+											<select name="g_location3"  id="loc">
+												<option value = "1">==선택==</option>
+												<option value="0" <c:if test="${loc3 eq 0}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="loc" items="${location }">
+													<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc3}">selected</c:if>>${loc.sido }</option>
+												</c:forEach>
+											</select>
+										</div>
 									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label>
-										<c:set var="loc2" value="${info.g_location2}"/>
-										<select name="g_location2"  id="loc">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${loc2 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc2}">selected</c:if>>${loc.sido }</option>
-											</c:forEach>
-										</select>
+								</div> 
+								
+								<div class="form_row">
+									<label for="location">선호시급</label>
+									<div>
+										<div class="form_row">
+											<label class="rank-label">1순위</label>
+											<c:set var="hw1" value="${info.g_hourwage1}"/>
+											<select name="g_hourwage1"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw1 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw1 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">2순위</label>
+											<c:set var="hw2" value="${info.g_hourwage2}"/>
+											<select name="g_hourwage2"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw2 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw2 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
+										<div class="form_row">
+											<label class="rank-label">3순위</label>
+											<c:set var="hw3" value="${info.g_hourwage3}"/>
+											<select name="g_hourwage3"  id="hw">
+												<option value = "0">==선택==</option>
+												<option value="1" <c:if test="${hw3 eq 1}">selected</c:if>>지정하지 않음</option>
+												<c:forEach var="start" begin="10000" end="35000" step="5000">
+													<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
+													<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }원 미만</option>
+												</c:forEach>
+												<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
+											</select>
+										</div>
 									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label>
-										<c:set var="loc3" value="${info.g_location3}"/>
-										<select name="g_location3"  id="loc">
-											<option value = "1">==선택==</option>
-											<option value="0" <c:if test="${loc3 eq 0}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="loc" items="${location }">
-												<option value="${loc.sido_code }" <c:if test="${loc.sido_code eq loc3}">selected</c:if>>${loc.sido }</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
-							</div> 
-							
-							<div class="form_row">
-								<label for="location">선호시급</label>
-								<div>
-									<div class="form_row">
-										<label class="rank-label">1순위</label>
-										<c:set var="hw1" value="${info.g_hourwage1}"/>
-										<select name="g_hourwage1"  id="hw">
-											<option value = "0">==선택==</option>
-											<option value="1" <c:if test="${hw1 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }원 미만</option>
-											</c:forEach>
-											<option value="2" <c:if test="${hw1 eq 2}">selected</c:if>>그 이상</option>
-										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label>
-										<c:set var="hw2" value="${info.g_hourwage2}"/>
-										<select name="g_hourwage2"  id="hw">
-											<option value = "0">==선택==</option>
-											<option value="1" <c:if test="${hw2 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }원 미만</option>
-											</c:forEach>
-											<option value="2" <c:if test="${hw2 eq 2}">selected</c:if>>그 이상</option>
-										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label>
-										<c:set var="hw3" value="${info.g_hourwage3}"/>
-										<select name="g_hourwage3"  id="hw">
-											<option value = "0">==선택==</option>
-											<option value="1" <c:if test="${hw3 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }원 미만</option>
-											</c:forEach>
-											<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
-										</select>
-									</div>
-								</div>
-							</div> 
-						</div>
+								</div> 
 								
 								<div class="form_row">
 									<label for="signup_date">가입날짜</label>
-									<input type="text" value="${info.g_signup_date }" readonly>
+									<input type="text" value="${info.g_signup_date }" disabled>
 								</div>   
 							</div>
 						
@@ -272,7 +270,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div>	
 	</section>
 
 	<%@ include file="../footer.jsp"%>
@@ -298,28 +296,22 @@
 	}
    
    $(document).on('click', '#add' , function() {
-	      $("#add").parent().parent().append("<div class='form_row_sub'><input type='text' placeholder='자격증' name='qual' class='qtext'><span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span></div>");
+      $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
 
-	      var qualCnt = 0;
-	      $("#qualDiv > .qtext").each(function(){
-	         qualCnt++;
-	        });
-	   
-	      $(".qualification").attr("rowspan", qualCnt);
-	   });
+      var qualCnt = 0;
+      $("#qualDiv > .qtext").each(function(){
+         qualCnt++;
+        });
+   
+      $(".qualification").attr("rowspan", qualCnt);
+   });
 
-	   $(document).on('click', '#delete' , function() {
-		   $(this).parent().remove();
-		   $(this).prev().remove();
-		   $(this).next().remove();
-		   $(this).remove();
-	   });
-	   
-	   $(document).ready(function() {
-			$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
-			$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
-		});
-
+   $(document).on('click', '#delete' , function() {
+	   $(this).parent().remove();
+	   $(this).prev().remove();
+	   $(this).next().remove();
+	   $(this).remove();
+   });
    
    $(document).on('click', '#btn_updt' , function() {
 	   if($("#email").val().length == 0){
@@ -349,7 +341,7 @@
    });
    
    function change_pw() {
-      window.open("<%=context%>/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
+      window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
 
 </script>

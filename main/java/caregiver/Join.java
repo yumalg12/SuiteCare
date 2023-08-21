@@ -120,11 +120,9 @@ public class Join extends HttpServlet {
 		String[] qual = multi.getParameterValues("qual");
 		String qualification = "";
 		for(int i=0; i<qual.length; i++) {
-			if (qual[i] != "") {
-				qualification += qual[i];
-				if(!(i == qual.length-1)) {
-					qualification += "&";
-				}
+			qualification += qual[i];
+			if(!(i == qual.length-1)) {
+				qualification += "&";
 			}
 		}
 		
