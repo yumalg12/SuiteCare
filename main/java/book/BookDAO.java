@@ -125,7 +125,7 @@ public class BookDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE  `suitecare`.`book` SET b_status='거절' where res_code=?";
+			String sql = "UPDATE  `book` SET b_status='거절' where res_code=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, res_code);
@@ -133,7 +133,7 @@ public class BookDAO {
 			int updeny = pstmt.executeUpdate();
 			
 			if(updeny>0) {
-				String usql = "UPDATE  `suitecare`.`book` SET b_status='승인' where b_id=?";
+				String usql = "UPDATE  `book` SET b_status='승인' where b_id=?";
 				stmnt = conn.prepareStatement(usql);
 				
 				stmnt.setString(1, b_id);
@@ -156,7 +156,7 @@ public class BookDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE  `suitecare`.`book` SET b_status='거절' where b_id=?";
+			String sql = "UPDATE `book` SET b_status='거절' where b_id=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, b_id);
@@ -178,7 +178,7 @@ public class BookDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql =  "UPDATE  `suitecare`.`reservation` SET caregiver_id=? where res_code=?";
+			String sql =  "UPDATE `reservation` SET caregiver_id=? where res_code=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, g_id);
