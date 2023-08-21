@@ -50,9 +50,9 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 	%>
 	<tr>
 		<td>선호지역</td>
-		<td>1순위 : <%=dao.convertSidoCode(vo.getPre_location_1()) %><br>
-			2순위 : <%=dao.convertSidoCode(vo.getPre_location_2()) %><br>
-			3순위 : <%=dao.convertSidoCode(vo.getPre_location_3()) %>
+		<td>1순위 : <%=vo.getPre_location_1() %><br>
+			2순위 : <%=vo.getPre_location_2() %><br>
+			3순위 : <%=vo.getPre_location_3() %>
 		</td>
 	</tr>
 	<tr>
