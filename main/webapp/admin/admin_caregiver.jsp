@@ -99,13 +99,14 @@ margin-left: 7.2rem;
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-							String user_id = request.getParameter("user_id");
+							//String user_id = request.getParameter("user_id");
 
 							CaregiverDAO dao = new CaregiverDAO();
 
-							List<CaregiverVO> list = dao.giver_info(user_id);
+							List<CaregiverVO> list = dao.giver_info();
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
+								
                                 String g_profile = listt.getG_profile();
 								String g_id = listt.getG_id();
 								String g_name = listt.getG_name();
