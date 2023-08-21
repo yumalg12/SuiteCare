@@ -45,7 +45,12 @@
 						<c:forEach var="info" items="${info }">
 							
 							<div class="form_wrapper">
-								<div class="form_row">
+								<div style="
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+">
 									<img src="<%=file_repo %>${info.g_profile }" alt="" style="height: 150px; margin: 0 auto;"/>
 								</div>   
 								
@@ -56,8 +61,10 @@
 							   
 								<div class="form_row">
 									<label for="pw">비밀번호</label>
-									<input type="password" name="pw" readonly><br>
+									<div class="form_row_sub">
+									<input type="password" name="pw" value="asdfasdf" readonly>
 									<input type="button" value="비밀번호 변경" onclick="change_pw()">
+								</div>
 								</div>
 							
 								<div class="form_row">
