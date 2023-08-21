@@ -2801,7 +2801,7 @@ top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
 #header>.logo {
 	display: inline-block;
 	height: inherit;
-	left: 1.25em;
+	left: 2em;
 	line-height: inherit;
 	margin: 0;
 	padding: 0;
@@ -2810,9 +2810,10 @@ top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
 }
 
 #header>.logo a {
-	font-size: 1.25em;
-	color: #FFF;
-	text-decoration: none;
+    font-size: 1.25em;
+    color: #FFF;
+    text-decoration: none;
+    letter-spacing: -1px;
 }
 
 #header>.logo a:hover {
@@ -2867,7 +2868,7 @@ top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
 }
 
 #header>a:last-child {
-	padding-right: 1.25em;
+	padding-right: 2em;
 }
 
 @media screen and (max-width: 736px) {
