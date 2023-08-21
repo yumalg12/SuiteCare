@@ -250,7 +250,7 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE  `suitecare`.`reservation` SET location='home' where res_code=?";
+			String sql = "UPDATE `reservation` SET location='home' where res_code=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, res_code);
