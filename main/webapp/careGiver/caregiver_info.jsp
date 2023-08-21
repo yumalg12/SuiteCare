@@ -10,12 +10,9 @@
 <head>
 	<title>SC 스위트케어 | 일반 본문</title>
 		<%@ include file="/header-import.jsp"%>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="../assets/css/main.css" />
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
+
 </head>
 
 <body>
@@ -49,21 +46,28 @@
 						<c:forEach var="info" items="${info }">
 							
 							<div class="form_wrapper">
-								<div class="form_row">
-									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width:150px; height:150px;"/>
+								<div style="
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" style="height: 150px; margin: 0 auto;"/>
 								</div>   
 								
 								<div class="form_row">
 									<label for="id">아이디</label>      
-									<input type="text" name="id" value="${info.g_id }" disabled>
+									<input type="text" name="id" value="${info.g_id }" readonly>
 								</div>   
 							   
 								<div class="form_row">
 									<label for="pw">비밀번호</label>
-									<input type="password" name="pw" disabled><br>
+								<div class="form_row_sub">
+									<input type="password" name="pw" value="asdfasdf" readonly>
 									<input type="button" value="비밀번호 변경" onclick="change_pw()">
 								</div>
-							
+								</div>
+
 								<div class="form_row">
 									<label for="name">이름</label>
 									<input type="text" name="name" id="name" value="${info.g_name }">
@@ -71,15 +75,17 @@
 							
 								<div class="form_row">
 									<label for="gender">성별</label>
+									<div style="margin-top: 0.3rem;">
 									<input type="radio" id="man" name="gender" value="M"<c:if test="${info.g_gender eq 'M' }">checked</c:if>>
 									<label for="man">남자</label>
 									<input type="radio" id="woman" name="gender" value="W"<c:if test="${info.g_gender eq 'W' }">checked</c:if>>
-									<label for="woman">여자</label> <br><br>
+									<label for="woman">여자</label>
+									</div>
 								</div>
 							         
 								<div class="form_row">
 									<label for="birth">생년월일</label>
-									<input type="text" name="birth" value="${info.g_birth }" disabled>
+									<input type="text" name="birth" value="${info.g_birth }" readonly>
 								</div>
 								<div class="form_row">
 									<label for="phone"> 휴대폰 </label>
@@ -158,20 +164,15 @@
 							        
 								<c:set var="qualifications" value="${fn:split(info.g_qualification,'&')}" />
 								<div class="form_row" id="qualDiv">
-									<div class="col">
-										<label for="qual" class="qualification">자격증 </label>
-									</div>
-									<div>
-									<c:forEach var="qual" items="${qualifications}">
-										<div>
-											<input type="text" value="${qual }" name="qual" class="qtext">
-											<span id="delete">삭제</span>
-										</div>
-									</c:forEach>
-									<input type="button" value="추가" id="add">
-									</div>
+									<label for="qual" class="qualification">자격증 </label>
+								<div>
+                  <c:forEach var="qual" items="${qualifications}">
+                    <div class="form_row_sub">
+                      <input type="text" placeholder="자격증" value="${qual }" name="qual" class="qtext">
+                      <span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span>
+                    </div>
+                  </c:forEach>
 								</div>
-								
 								<div class="form_row">
 								<label for="location">선호지역</label>
 								<div>
@@ -259,7 +260,7 @@
 								
 								<div class="form_row">
 									<label for="signup_date">가입날짜</label>
-									<input type="text" value="${info.g_signup_date }" disabled>
+									<input type="text" value="${info.g_signup_date }" readonly>
 								</div>   
 							</div>
 						
@@ -297,22 +298,28 @@
 	}
    
    $(document).on('click', '#add' , function() {
-      $("#add").before("<div><input type='text' name='qual' class='qtext'><span id='delete'>삭제</span></div>");
+	      $("#add").parent().parent().append("<div class='form_row_sub'><input type='text' placeholder='자격증' name='qual' class='qtext'><span id='delete' style='margin-top: 0.7rem; cursor: pointer;'>삭제</span></div>");
 
-      var qualCnt = 0;
-      $("#qualDiv > .qtext").each(function(){
-         qualCnt++;
-        });
-   
-      $(".qualification").attr("rowspan", qualCnt);
-   });
+	      var qualCnt = 0;
+	      $("#qualDiv > .qtext").each(function(){
+	         qualCnt++;
+	        });
+	   
+	      $(".qualification").attr("rowspan", qualCnt);
+	   });
 
-   $(document).on('click', '#delete' , function() {
-	   $(this).parent().remove();
-	   $(this).prev().remove();
-	   $(this).next().remove();
-	   $(this).remove();
-   });
+	   $(document).on('click', '#delete' , function() {
+		   $(this).parent().remove();
+		   $(this).prev().remove();
+		   $(this).next().remove();
+		   $(this).remove();
+	   });
+	   
+	   $(document).ready(function() {
+			$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
+			$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
+		});
+
    
    $(document).on('click', '#btn_updt' , function() {
 	   if($("#email").val().length == 0){
@@ -342,7 +349,7 @@
    });
    
    function change_pw() {
-      window.open("http://localhost:8060/suiteCare/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
+      window.open("<%=context%>/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
 
 </script>
