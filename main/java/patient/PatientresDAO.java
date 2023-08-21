@@ -41,7 +41,7 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, CARETAKER as c "
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c "
 					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code and "
 					+ "res.res_code=resinfo.res_code";
 			pstmt = conn.prepareStatement(sql);

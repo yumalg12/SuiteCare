@@ -41,7 +41,7 @@ public class ReservationDAO {
 		int ok = 0;
 		try {
 		connect();
-		String sql = "SELECT t_code FROM CARETAKER WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
+		String sql = "SELECT t_code FROM caretaker WHERE m_id = ?"; //피간병인 아이디에 등록된 피간병인 정보 갯수 확인
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, m_id);
 		
@@ -88,7 +88,7 @@ public class ReservationDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT t_name FROM CARETAKER WHERE m_id = ?";
+			String sql = "SELECT t_name FROM caretaker WHERE m_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			
@@ -116,7 +116,7 @@ public class ReservationDAO {
 		try {
 			connect();
 				
-			String sql = "SELECT * FROM CARETAKER WHERE m_id = ? and t_name = ?";
+			String sql = "SELECT * FROM caretaker WHERE m_id = ? and t_name = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			pstmt.setString(2, t_name);
@@ -162,7 +162,7 @@ public class ReservationDAO {
 			
 			
 			String sql = 
-			"INSERT INTO RESERVATION(m_id, caretaker_code, consciousness, care_meal_yn, care_toilet, state_paralysis, state_mobility, bedsore_yn, suction_yn, outpatient_yn, care_night_yn, notice)"
+			"INSERT INTO reservation(m_id, caretaker_code, consciousness, care_meal_yn, care_toilet, state_paralysis, state_mobility, bedsore_yn, suction_yn, outpatient_yn, care_night_yn, notice)"
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -182,7 +182,7 @@ public class ReservationDAO {
 			
 			pstmt.executeUpdate();
 			
-			String selectSql = "SELECT res_code FROM RESERVATION WHERE caretaker_code=? ORDER BY res_code DESC LIMIT 1";
+			String selectSql = "SELECT res_code FROM reservation WHERE caretaker_code=? ORDER BY res_code DESC LIMIT 1";
 			//피간병인 코드별 예약번호를 내림차순으로 정렬하여 가장 최근에 만들어진 예약코드 select
 			
 			stmnt = conn.prepareStatement(selectSql);
@@ -272,7 +272,7 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET addr=?, detail_addr=? where res_code=?";
+			String sql = "UPDATE reservation SET addr=?, detail_addr=? where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 		
@@ -379,7 +379,7 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE RESERVATION SET location=?, addr=?, detail_addr=? where res_code=?";
+			String sql = "UPDATE reservation SET location=?, addr=?, detail_addr=? where res_code=?";
 			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			pstmt = conn.prepareStatement(sql);
 			
