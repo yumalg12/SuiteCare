@@ -153,55 +153,37 @@
 									<div class="form_row">
 										<label class="rank-label">1순위</label> <select
 											name="pre_location_1" id="pre_location_1">
-											<option value="">==선택==</option>
-											<%
-											List<PrelocationVO> floc = dao.preloclist();
-											for (int i = 0; i < floc.size(); i++) {
-												PrelocationVO floclist = (PrelocationVO) floc.get(i);
-												sido_code = floclist.getSido_code();
-												sido = floclist.getSido();
-											%>
-											<option value=<%=sido_code%>><%=sido%></option>
-											<%
-											}
-											%>
+											<option value = "">==선택==</option>
 											<option value="0">지정하지 않음</option>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 									<div class="form_row">
 										<label class="rank-label">2순위</label> <select
 											name="pre_location_2" id="pre_location_2">
-											<option value="">==선택==</option>
-											<%
-											List<PrelocationVO> sloc = dao.preloclist();
-											for (int i = 0; i < sloc.size(); i++) {
-												PrelocationVO sloclist = (PrelocationVO) sloc.get(i);
-												sido_code = sloclist.getSido_code();
-												sido = sloclist.getSido();
-											%>
-											<option value=<%=sido_code%>><%=sido%></option>
-											<%
-											}
-											%>
+											<option value = "">==선택==</option>
 											<option value="0">지정하지 않음</option>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 									<div class="form_row">
 										<label class="rank-label">3순위</label> <select
 											name="pre_location_3" id="pre_location_3">
-											<option value="">==선택==</option>
-											<%
-											List<PrelocationVO> tloc = dao.preloclist();
-											for (int i = 0; i < tloc.size(); i++) {
-												PrelocationVO tloclist = (PrelocationVO) tloc.get(i);
-												sido_code = tloclist.getSido_code();
-												sido = tloclist.getSido();
-											%>
-											<option value=<%=sido_code%>><%=sido%></option>
-											<%
-											}
-											%>
+											<option value = "">==선택==</option>
 											<option value="0">지정하지 않음</option>
+											<option value="서울특별시">서울특별시</option>
+											<option value="부산광역시">부산광역시</option>
+											<option value="인천광역시">인천광역시</option>
+											<option value="경기도">경기도</option>
+											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
 									</div>
 								</div>
