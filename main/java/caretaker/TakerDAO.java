@@ -153,7 +153,7 @@ public class TakerDAO {
          
          conn = dataFactory.getConnection();
          
-         String sql = "UPDATE .caretaker SET t_name=?, t_gender=?, t_age=?, t_height=?, t_weight=?, diagnosis=? where m_id=? and t_code=?";
+         String sql = "UPDATE caretaker SET t_name=?, t_gender=?, t_age=?, t_height=?, t_weight=?, diagnosis=? where m_id=? and t_code=?";
          pstmt = conn.prepareStatement(sql);
 
          pstmt.setString(1, vo.getT_name());
@@ -164,7 +164,7 @@ public class TakerDAO {
          pstmt.setString(6, vo.getDiagnosis());
          pstmt.setString(7, vo.getM_id());
          pstmt.setString(8, vo.getT_code());
-         System.out.printf("UPDATE .caretaker "
+         System.out.printf("UPDATE caretaker "
         		 + "SET t_name='%s', t_gender='%s', t_age='%s', t_height='%s', t_weight='%s', diagnosis='%s' "
         		 + "where m_id='%s' and t_code='%s'\n", vo.getT_name(), vo.getT_gender(),vo.getT_age(),vo.getT_height(),vo.getT_weight(), vo.getDiagnosis(),vo.getM_id(),vo.getT_code());
          

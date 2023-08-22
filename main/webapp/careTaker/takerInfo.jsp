@@ -131,7 +131,7 @@ function goindexForm() {
 				<input type="text" id="diagnosis" name="diagnosis" placeholder="진단명을 입력하세요.">
 			</div>
 		<div class="form_button_three">
-	 		<input class="button" type="button" class="button alt" value=취소 onClick="goindexForm()">
+	 		<input class="button alt" type="button" class="button alt" value=취소 onClick="goindexForm()">
 			<div>
 			<input class="button" type="reset" value=초기화>
 			<input class="button special" type="submit" value=등록 >

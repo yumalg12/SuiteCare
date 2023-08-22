@@ -47,6 +47,8 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 	<table>
 	<%
 	for(TpreferenceVO vo : tpreList) {
+		String gender = vo.getPre_gender();	
+	
 	%>
 	<tr>
 		<td>선호지역</td>
@@ -64,7 +66,7 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 	</tr>
 	<tr>
 		<td>선호성별</td>
-		<td><%=vo.getPre_gender() %></td>
+		<td><%if( gender.equals("W")) {%> 여 <% } else { %> 남 <% } %> </td>
 	</tr>
 	<tr>
 		<td>선호자격증</td>

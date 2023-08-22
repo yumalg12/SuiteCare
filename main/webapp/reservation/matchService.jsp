@@ -38,15 +38,7 @@
 		if (inputqual === "") {
 			pre_qual.value = "지정하지 않음";
 		}
-		if (inputrepre1 === "") {
-			pre_repre_1.value = "지정하지 않음";
-		}
-		if (inputrepre2 === "") {
-			pre_repre_2.value = "지정하지 않음";
-		}
-		if (inputrepre3 === "") {
-			pre_repre_3.value = "지정하지 않음";
-		}
+		
 		
 		
 		
@@ -59,7 +51,10 @@
 		} else if (!pre_gender) {
 			alert("선호성별을 선택해주세요");
 			return false;
-		} else if (!pre_hourwage_1 || !pre_hourwage_2 || !pre_hourwage_3) {
+		} else if (!inputrepre1 || !inputrepre2 || !inputrepre3) {
+				alert("선호서비스를 모두 선택해주세요");
+				return false;
+		}else if (!pre_hourwage_1 || !pre_hourwage_2 || !pre_hourwage_3) {
 			alert("선호 시급 범위를 모두 선택해주세요");
 			return false;
 		} else if(
@@ -154,7 +149,7 @@
 										<label class="rank-label">1순위</label> <select
 											name="pre_location_1" id="pre_location_1">
 											<option value = "">==선택==</option>
-											<option value="0">지정하지 않음</option>
+											<option value="지정하지 않음">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
@@ -166,7 +161,7 @@
 										<label class="rank-label">2순위</label> <select
 											name="pre_location_2" id="pre_location_2">
 											<option value = "">==선택==</option>
-											<option value="0">지정하지 않음</option>
+											<option value="지정하지 않음">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
@@ -178,7 +173,7 @@
 										<label class="rank-label">3순위</label> <select
 											name="pre_location_3" id="pre_location_3">
 											<option value = "">==선택==</option>
-											<option value="0">지정하지 않음</option>
+											<option value="지정하지 않음">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
@@ -261,28 +256,56 @@
 								<input type="text" name="pre_qual" id="pre_qual"
 									placeholder="자격증(ex.요양보호사, 간호사 등)">
 							</div>
+							
 							<div class="form_row">
-								<div>
-									<label>선호서비스 </label><span>※지정하지 않을 경우 빈칸</span>
-								</div>
+									<label>선호서비스 </label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label><input type="text"
-											name="pre_repre_1" id="pre_repre_1"
-											placeholder="서비스(ex.치매, 파킨슨 등)">
+										<label class="rank-label">1순위</label> <select
+											name="pre_repre_1" id="pre_repre_1">
+											<option value = "">==선택==</option>
+											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
+										</select>
 									</div>
 									<div class="form_row">
-										<label class="rank-label">2순위</label><input type="text"
-											name="pre_repre_2" id="pre_repre_2"
-											placeholder="서비스(ex.치매, 파킨슨 등)">
+										<label class="rank-label">2순위</label> <select
+											name="pre_repre_2" id="pre_repre_2">
+											<option value = "">==선택==</option>
+											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
+										</select>
 									</div>
 									<div class="form_row">
-										<label class="rank-label">3순위</label><input type="text"
-											name="pre_repre_3" id="pre_repre_3"
-											placeholder="서비스(ex.치매, 파킨슨 등)">
+										<label class="rank-label">3순위</label> <select
+											name="pre_repre_3" id="pre_repre_3">
+											<option value = "">==선택==</option>
+											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="요리">요리</option>
+											<option value="목욕">목욕</option>
+											<option value="재활운동보조">재활운동보조</option>
+											<option value="외출동행">외출동행</option>
+											<option value="청소">청소</option>
+											<option value="빨래">빨래</option>
+											<option value="운전">운전</option>
+										</select>
 									</div>
 								</div>
 							</div>
+							
+							
 							<div class="form_row">
 								<label>시급</label>
 								<div>
@@ -292,16 +315,12 @@
 											<option value="">==선택==</option>
 											<option value="지정하지 않음">지정하지 않음</option>
 											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
+											<option value="<%=start%>"><%=start%>원</option>
 											<%
 											}
 											%>
-											<option value="그이상">그 이상</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -310,16 +329,12 @@
 											<option value="">==선택==</option>
 											<option value="지정하지 않음">지정하지 않음</option>
 											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
+											<option value="<%=start%>"><%=start%>원</option>
 											<%
 											}
 											%>
-											<option value="그이상">그 이상</option>
 										</select>
 									</div>
 									<div class="form_row">
@@ -328,16 +343,12 @@
 											<option value="">==선택==</option>
 											<option value="지정하지 않음">지정하지 않음</option>
 											<%
-											for (int start = 10000; start <= 35000; start += 5000) {
-												String value = start + "~" + (start + 5000);
-												String displayValue = String.format("%,d", start) + "원 ~ " + String.format("%,d", (start + 5000));
+											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
-											<option value="<%=value%>"><%=displayValue%>원 미만
-											</option>
+											<option value="<%=start%>"><%=start%>원</option>
 											<%
 											}
 											%>
-											<option value="그이상">그 이상</option>
 										</select>
 									</div>
 								</div>

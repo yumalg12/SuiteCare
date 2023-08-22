@@ -35,7 +35,7 @@ if(checkb==0) {
 	<script>
 		alert("매칭신청이 완료되었습니다..")
 		window.close();
-		opener.location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
+		opener.location.href='<%=context%>/careGiver/gMain.jsp';
 	</script>
 	<%
 	session.removeAttribute("applycode");
