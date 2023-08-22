@@ -1711,7 +1711,7 @@ label {
 }
 
 input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"],
-	input[type="date"], select, textarea {
+	input[type="date"], input[type="file"], select, textarea {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	-ms-appearance: none;
@@ -1765,7 +1765,7 @@ input[type="text"]:invalid, input[type="number"]:invalid, input[type="tel"]:inva
 }
 
 input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"],
-	input[type="date"], select {
+	input[type="date"], input[type="file"], select {
 	height: 2.75rem;
 }
 
@@ -1864,7 +1864,7 @@ label {
 	color: #555;
 }
 
-input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"], input[type="date"], textarea {
+input[type="text"], input[type="number"], input[type="tel"], input[type="password"], input[type="email"], input[type="date"], input[type="file"], textarea {
 	background: #ffffffaa;
 	border-color: rgba(144, 144, 144, 0.25);
 }
