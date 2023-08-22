@@ -11,16 +11,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SC 스위트케어 | 마이페이지</title>
-	<%@ include file="/header-import.jsp"%>
+<title>SC 스위트케어 | 마이페이지</title>
+<%@ include file="/header-import.jsp"%>
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-	<link rel="stylesheet" href="../assets/css/fullcalendar.css">
-	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+<link rel="stylesheet" href="../assets/css/fullcalendar.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
-	<script>
+<script>
 		function insertTinfo() {
 			window.location.href = "../careTaker/takerInfo.jsp";
 		}
@@ -58,12 +61,17 @@
 						<h2>기본 정보</h2>
 					</header>
 					<form name="patientinfo">
-						<div class="table_wrapper">
 						<table>
 							<thead>
 								<tr>
-									<td>No.</td> <td>이름</td> <td>성별</td> <td>나이</td>
-									<td>키</td> <td>몸무게</td> <td>진단명</td> <td>수정</td>
+									<td>No.</td>
+									<td>이름</td>
+									<td>성별</td>
+									<td>나이</td>
+									<td>키</td>
+									<td>몸무게</td>
+									<td>진단명</td>
+									<td>수정</td>
 								</tr>
 							</thead>
 							<%
@@ -71,7 +79,7 @@
 
 							session.removeAttribute("caretaker_code");
 							session.removeAttribute("res_code");
-							
+
 							String m_id = (String) session.getAttribute("m_id");
 
 							TakerDAO dao = new TakerDAO();
@@ -101,7 +109,6 @@
 							}
 							%>
 						</table>
-						</div>
 					</form>
 					<div style="text-align: center;" class="form_button">
 						<input type="button" class="button special"
@@ -118,10 +125,11 @@
 				<div class="content">
 					<header class="align-center">
 						<p>간병인 서비스</p>
-						<h2>예약 정보</h2>
+						<h2>매칭 완료 정보</h2>
 					</header>
 					<div>
-						<input type="button" class="button alt" id="calToggle" onclick="rescalendar();" value="달력으로 보기">
+						<input type="button" class="button alt" id="calToggle"
+							onclick="rescalendar();" value="달력으로 보기">
 					</div>
 					<div id='calendar'></div>
 					<div id='restable'>
@@ -130,19 +138,23 @@
 						List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 						%>
 						<form name="resinfo">
-							<div class="table_wrapper">
 							<table>
 								<thead>
 									<tr>
-										<td>예약코드</td> <td>이름</td> <td>상세정보</td> <td>간병장소</td>
-										<td>주소</td> <td>간병일시/시간</td> <td>매칭서비스정보</td>
-										<td>간병인</td> <td>비고</td>
+										<td>예약코드</td>
+										<td>이름</td>
+										<td>상세정보</td>
+										<td>간병장소</td>
+										<td>주소</td>
+										<td>간병일시/시간</td>
+										<td>매칭서비스정보</td>
+										<td>간병인</td>
+										<td>비고</td>
 									</tr>
 								</thead>
 								<%
-								//아래로는 아직 확인못함
 								PatientresDAO dao2 = new PatientresDAO();
-								List<PatientresVO> reslist = dao2.listres(m_id);
+								List<PatientresVO> reslist = dao2.comlistres(m_id);
 								for (int i = 0; i < reslist.size(); i++) {
 									PatientresVO listvo = (PatientresVO) reslist.get(i);
 
@@ -159,46 +171,90 @@
 									String detail_addr = listvo.getDetail_addr();
 
 									String workTimes = start_time + "~" + end_time;
-
 								%>
 
 								<tr>
-									<td><%=res_code%></td> <td><%=t_name%></td> 
-									<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
-									
-									<td><% if(location==null) { %>
-									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
-									else if(location!=null){if(location.equals("home")) {%>자택<%} 
-									else { %><%=location%><%}} %></td>
-									
-									<td><% if(addr==null) { %>
-									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
-									else if(addr!=null){%><%=addr%> 
-									<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
-									
-									<td><% if(start_date==null ) { %>
-									<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
-									else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
-									
-									<td><%
-									List<TpreferenceVO> preList = dao2.listtpre(res_code);
-									for(TpreferenceVO prevo : preList) {
-										String pre_age_1 = prevo.getPre_age_1();
-										
-										if(pre_age_1 == null) { %>
-										<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
-										else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
-										<%}} %></td>
-										
-									<td><% if(caregiver==null) { %>
-										<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a> <%}	
-									else if(caregiver!=null){
-									String g_name = listvo.getG_name();
-									%>
-									<a href="../book/ginfoMlist.jsp?g_id=<%=caregiver%>"><%=g_name%></a>
-									<%} %></td>
-									
-									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
+									<td><%=res_code%></td>
+									<td><%=t_name%></td>
+									<td><button onclick="openPopup('<%=res_code%>')">더보기</button></td>
+
+									<td>
+										<%
+										if (location == null) {
+										%> <a
+										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (location != null) {
+										if (location.equals("home")) {
+										%>자택<%
+										} else {
+										%><%=location%> <%
+ 										}
+ 										}
+ 										%>
+									</td>
+
+									<td>
+										<%
+										if (addr == null) {
+										%> <a
+										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (addr != null) {
+										%><%=addr%> <%
+										 if (detail_addr != null) {
+										 %><br><%=detail_addr%> <%
+ 										}
+ 										}
+ 										%>
+									</td>
+
+									<td>
+										<%
+										if (start_date == null) {
+										%> <a
+										href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (start_date != null) {
+										%>일시 : <%=start_date%> ~ <br> <%=end_date%><br>시간 :
+										<%=workTimes%> <%
+ 										}
+ 										%>
+									</td>
+
+									<td>
+										<%
+										List<TpreferenceVO> preList = dao2.listtpre(res_code);
+										for (TpreferenceVO prevo : preList) {
+											String pre_age_1 = prevo.getPre_age_1();
+
+											if (pre_age_1 == null) {
+										%> <a
+										href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (pre_age_1 != null) {
+										%><button onclick="openmatPopup('<%=res_code%>')">더보기</button>
+										<%
+										}
+										}
+										%>
+									</td>
+
+									<td>
+										<%
+										if (caregiver == null) {
+										%> <a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인
+									</a> <%
+										} else if (caregiver != null) {
+										String g_name = listvo.getG_name();
+										%> <a href="../book/ginfoMlist.jsp?g_id=<%=caregiver%>"><%=g_name%></a>
+										<%
+										}
+										%>
+									</td>
+
+									<td><a
+										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 										onclick="return delok();">취소</a></td>
 								</tr>
 
@@ -206,16 +262,168 @@
 								}
 								%>
 							</table>
-							</div>
 						</form>
 					</div>
 					<div style="text-align: center;" class="form_button">
-						<input type="button" class="button special" onclick="rescaregiver();" value="간병인 신청하기">
+						<input type="button" class="button special"
+							onclick="rescaregiver();" value="간병인 신청하기">
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<!-- three -->
+	<section id="three" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>간병인 서비스</p>
+						<h2>예약 신청 정보</h2>
+					</header>
+					<div id='restable'>
+						<%
+						calendar.CalendarDAO cdao2 = new calendar.CalendarDAO();
+						List<calendar.CalendarVO> clist2 = cdao2.listSchedule(m_id);
+						%>
+						<form name="resinfo">
+							<table>
+								<thead>
+									<tr>
+										<td>예약코드</td>
+										<td>이름</td>
+										<td>상세정보</td>
+										<td>간병장소</td>
+										<td>주소</td>
+										<td>간병일시/시간</td>
+										<td>매칭서비스정보</td>
+										<td>간병인</td>
+										<td>비고</td>
+									</tr>
+								</thead>
+								<%
+								PatientresDAO dao3 = new PatientresDAO();
+								List<PatientresVO> reslist3 = dao3.listres(m_id);
+								for (int i = 0; i < reslist3.size(); i++) {
+									PatientresVO listvo = (PatientresVO) reslist3.get(i);
+
+									String t_name = listvo.getCaretaker();
+									Date start_date = listvo.getStartdate();
+									Date end_date = listvo.getEnddate();
+									Time start_time = listvo.getStarttime();
+									Time end_time = listvo.getEndtime();
+									String caregiver = listvo.getCaregiver();
+									String res_code = listvo.getRes_code();
+									String caretaker_code = listvo.getCaretaker_code();
+									String location = listvo.getLocation();
+									String addr = listvo.getAddr();
+									String detail_addr = listvo.getDetail_addr();
+
+									String workTimes = start_time + "~" + end_time;
+								%>
+
+								<tr>
+									<td><%=res_code%></td>
+									<td><%=t_name%></td>
+									<td><button onclick="openPopup('<%=res_code%>')">더보기</button></td>
+
+									<td>
+										<%
+										if (location == null) {
+										%> <a
+										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (location != null) {
+										if (location.equals("home")) {
+										%>자택<%
+										} else {
+										%><%=location%> <%
+										}
+										}
+										%>
+									</td>
+
+									<td>
+										<%
+										if (addr == null) {
+										%> <a
+										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (addr != null) {
+										%><%=addr%> <%
+										 if (detail_addr != null) {
+										 %><br><%=detail_addr%> <%
+										 }
+										 }
+										 %>
+									</td>
+
+									<td>
+										<%
+										if (start_date == null) {
+										%> <a
+										href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (start_date != null) {
+										%>일시 : <%=start_date%> ~ <br> <%=end_date%><br>시간 :
+										<%=workTimes%> <%
+										 }
+										 %>
+									</td>
+
+									<td>
+										<%
+										List<TpreferenceVO> preList = dao2.listtpre(res_code);
+										for (TpreferenceVO prevo : preList) {
+											String pre_age_1 = prevo.getPre_age_1();
+
+											if (pre_age_1 == null) {
+										%> <a
+										href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
+										<%
+										} else if (pre_age_1 != null) {
+										%><button onclick="openmatPopup('<%=res_code%>')">더보기</button>
+										<%
+										}
+										}
+										%>
+									</td>
+
+									<td>
+										<%
+										if (caregiver == null) {
+										%> <a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인
+									</a> <%
+										 } else if (caregiver != null) {
+										 String g_name = listvo.getG_name();
+										 %> <a href="../book/ginfoMlist.jsp?g_id=<%=caregiver%>"><%=g_name%></a>
+										<%
+										}
+										%>
+									</td>
+
+									<td><a
+										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
+										onclick="return delok();">취소</a></td>
+								</tr>
+
+								<%
+								}
+								%>
+							</table>
+						</form>
+					</div>
+					<div style="text-align: center;" class="form_button">
+						<input type="button" class="button special"
+							onclick="rescaregiver();" value="간병인 신청하기">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
 	<!-- four -->
 	<section id="four" class="wrapper style2">
 		<div class="inner">

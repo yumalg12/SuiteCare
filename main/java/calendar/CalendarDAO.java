@@ -35,7 +35,8 @@ public class CalendarDAO {
 			try {
 				conn = dataFactory.getConnection();
 					
-				String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as ri WHERE c.m_id = ? and c.t_code=r.caretaker_code and r.res_code = ri.res_code";
+				String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as ri WHERE c.m_id = ? and c.t_code=r.caretaker_code and r.res_code = ri.res_code and caregiver_id is not null";
+				pstmt = conn.prepareStatement(sql);
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, m_id);
 				
