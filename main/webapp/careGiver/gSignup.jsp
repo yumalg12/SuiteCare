@@ -24,7 +24,7 @@
 		// 중복 확인 검사
 		if (!$("#id").prop("disabled")) {
 			alert("아이디 중복확인이 필요합니다.");
-			$("#duplicateID").focus();
+			$("#id").focus();
 			return false;
 		}
 	
@@ -52,7 +52,7 @@
 		}
 	
 		// 성별 검사
-		if ($("#gender").val() == "") {
+		if (document.joinForm.g_gender.value == "") {
 			alert("성별을 선택하세요.");
 			return false;
 		}
@@ -62,12 +62,42 @@
  			$("#ser_etc").val(etc);
 		}
 		
+		// 생년월일 검사
+		if(document.joinForm.g_birth.value == "") {
+			alert("생년월일을 입력하세요.");
+			return false;
+		}
+		
 		//이메일 검사
 		let emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/;
 
 		if (!emailPattern.test($("#email").val())) {
 			alert("올바른 이메일을 입력하세요.");
 			$("#email").focus();
+			return false;
+		}
+		
+		//주소 검사
+		if (document.joinForm.g_address.value == ""){
+			alert("주소를 입력하세요.");
+			$("#address").focus();
+			return false;
+		}
+		
+		//선택지 검사
+		const g_serviceArr = [document.joinForm.g_service1.value, document.joinForm.g_service2.value, document.joinForm.g_service3.value];
+		if (g_serviceArr.includes("1")){
+			alert("서비스 1~3순위를 모두 선택하세요.");
+			return false;
+		}
+		const g_locationArr = [document.joinForm.g_location1.value, document.joinForm.g_location2.value, document.joinForm.g_location3.value];
+		if (g_locationArr.includes("1")){
+			alert("선호지역 1~3순위를 모두 선택하세요.");
+			return false;
+		}
+		const g_hourwageArr = [document.joinForm.g_hourwage1.value, document.joinForm.g_hourwage2.value, document.joinForm.g_hourwage3.value];
+		if (g_hourwageArr.includes("1")){
+			alert("선호시급 1~3순위를 모두 선택하세요.");
 			return false;
 		}
 
@@ -158,6 +188,17 @@
 	  console.log(document.joinForm.g_address.value);
 	}
 	
+	function setMaxDate() {
+		let dateobj = new Date();
+		let month = dateobj.getMonth() < 10? "0"+dateobj.getMonth():dateobj.getMonth();
+		let date = dateobj.getDate() < 10? "0"+dateobj.getDate():dateobj.getDate();
+		let fourteen = (dateobj.getFullYear() - 14)+"-"+month+"-"+date;
+		let ninety = (dateobj.getFullYear() - 90)+"-"+month+"-"+date;
+		
+		document.joinForm.g_birth.max = fourteen;
+		document.joinForm.g_birth.min = ninety;
+	}
+	
 	</script>
 	
 </head>
@@ -233,17 +274,17 @@
 						     
 							<div class="form_row">
 								<label for="birth">생년월일</label>
-								<input type="date" name="g_birth" placeholder="생년월일">
+								<input type="date" name="g_birth" placeholder="생년월일" onclick="setMaxDate()" min="1900-01-01" required>
 							</div>
 							<div class="form_row">
 								<label for="phone"> 휴대폰 </label>
-								<input type="tel" id="phone" name="g_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (000-0000-0000 형식)" required>
+								<input type="tel" id="phone" name="g_phone" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							
 							<div class="form_row">
 								<label for="sms_yn">SMS 수신 여부</label>
 								<div onclick="javascript:setSMSYN()">
-                                   	<input type="checkbox" name="g_sms_yn" id="sms_switch" value = "Y">
+                                   	<input type="checkbox" name="g_sms_yn" id="sms_switch" value = "Y" checked>
                                    	<label for="sms_switch" id= "sms_switch_text" style="margin:0.3rem 0 0 0;"> SMS 소식을 수신합니다.</label>
 								</div>
 							</div>
@@ -255,7 +296,7 @@
 							<div class="form_row">
 							<label for="email_yn">이메일 수신 여부</label>
 								<div onclick="javascript:setEmailYN()">
-								<input type="checkbox" name="g_email_yn" id="email_switch" value="Y">
+								<input type="checkbox" name="g_email_yn" id="email_switch" value="Y" checked>
 								<label for="email_switch" id="email_switch_text" style="margin:0.3rem 0 0 0;"> 메일로 소식을 수신합니다.</label>
 								</div>
 							</div>
@@ -271,7 +312,7 @@
 							</div>
 							
 							<div class="form_row">
-								<label for="location">서비스</label>
+								<label for="location">제공 가능한 서비스</label>
 								<div>
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
@@ -317,7 +358,7 @@
 							</div>
 						    
 							<div class="form_row" id="qualDiv">
-									<label for="qual" class="qualification">자격증 </label>
+									<label for="qual" class="qualification">보유 자격증 </label>
 								<div>
 									<div class="form_row_sub">
 										<input type="text" placeholder="자격증" name="qual" class="qtext">
@@ -372,8 +413,8 @@
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
 										<select name="g_hourwage1"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "0">==선택==</option>
-											<option value="1">지정하지 않음</option>
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
 												<option value="${start }">${display }</option>
@@ -383,8 +424,8 @@
 
 									<label class="rank-label">2순위</label>
 										<select name="g_hourwage2"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "0">==선택==</option>
-											<option value="1">지정하지 않음</option>
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
 												<option value="${start }">${display }</option>
@@ -394,8 +435,8 @@
 
 									<label class="rank-label">3순위</label>
 										<select name="g_hourwage3"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "0">==선택==</option>
-											<option value="1">지정하지 않음</option>
+											<option value = "1">==선택==</option>
+											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
 												<option value="${start }">${display }</option>
@@ -409,7 +450,7 @@
 					
 						<div class="form_button">
 							<input type="hidden" name="command" value="signup">
-							<button type="submit" class="button special" id="join" onclick="signUpValidation();">회원가입</button>
+							<span type="submit" class="button special" id="join" onclick="signUpValidation();">회원가입</span>
 						</div>
 					</form>
 				</div>
