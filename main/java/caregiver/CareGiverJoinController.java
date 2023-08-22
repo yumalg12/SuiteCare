@@ -18,14 +18,14 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class Join
  */
-@WebServlet("/join")
-public class Join extends HttpServlet {
+@WebServlet("/careGiver/join")
+public class CareGiverJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Join() {
+    public CareGiverJoinController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,7 +39,7 @@ public class Join extends HttpServlet {
 		String type = request.getParameter("type");
 		CaregiverDAO dao = new CaregiverDAO();
 		if(type == null) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gSignup.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("gSignup.jsp");
 			dispatch.forward(request, response);
 		} else if (type.equals("isDuplicateID")) {
 			String id = request.getParameter("id");

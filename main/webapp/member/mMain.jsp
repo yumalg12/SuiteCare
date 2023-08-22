@@ -58,6 +58,7 @@
 						<h2>기본 정보</h2>
 					</header>
 					<form name="patientinfo">
+						<div class="table_wrapper">
 						<table>
 							<thead>
 								<tr>
@@ -100,6 +101,7 @@
 							}
 							%>
 						</table>
+						</div>
 					</form>
 					<div style="text-align: center;" class="form_button">
 						<input type="button" class="button special"
@@ -128,6 +130,7 @@
 						List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 						%>
 						<form name="resinfo">
+							<div class="table_wrapper">
 							<table>
 								<thead>
 									<tr>
@@ -203,6 +206,7 @@
 								}
 								%>
 							</table>
+							</div>
 						</form>
 					</div>
 					<div style="text-align: center;" class="form_button">

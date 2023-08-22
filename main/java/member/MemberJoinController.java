@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/member/join")
-public class SignUpController extends HttpServlet {
+public class MemberJoinController extends HttpServlet {
 	MemberDAO dao;
 	
 	@Override

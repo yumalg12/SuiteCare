@@ -110,6 +110,33 @@
 		calc(100% - 0.8rem), calc(100% - 0.8rem) 100%, 0 100%);
 }
 
-input[type="text"]:read-only, input[type="text"]:disabled, input[type="password"]:read-only, input[type="password"]:disabled {
-    filter: opacity(0.6);
+input[type="text"]:read-only, input[type="text"]:disabled, input[type="password"]:read-only,
+	input[type="password"]:disabled {
+	filter: opacity(0.6);
+}
+
+input[type="file"] {
+	width: auto;
+	padding: 0;
+	cursor: pointer;
+}
+
+input[type=file]::file-selector-button {
+	height: 100%;
+	padding: 0 1rem;
+	margin-right: 1rem;
+	border: none;
+	cursor: pointer;
+	background-color: #DFD7BFaa;
+}
+
+@media screen and (max-width:768px) {
+	.table_wrapper {
+		overflow-x: auto;
+	}
+	table {
+		width: auto;
+		table-layout: fixed;
+		word-break: keep-all;
+	}
 }
