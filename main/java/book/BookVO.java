@@ -5,6 +5,8 @@ public class BookVO {
 	private String res_code;
 	private String g_id;
 	private String b_status;
+	private String hourwage;
+	
 	
 	private String g_name;
 	private String g_gender;
@@ -85,7 +87,17 @@ public class BookVO {
 	public void setB_status(String b_status) {
 		this.b_status = b_status;
 	}
+	
+	public String getHourwage() {
+		return hourwage;
+	}
 
+	public void setHourwage(String hourwage) {
+		this.hourwage = hourwage;
+	}
+
+	
+	
 	/**
 	 * @return the g_name
 	 */

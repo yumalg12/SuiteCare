@@ -66,14 +66,15 @@ public class BookDAO {
 			
 			
 			String sql = 
-			"INSERT INTO book(res_code, g_id, b_status)"
-					+ "VALUES(?,?,?)";
+			"INSERT INTO book(res_code, g_id, b_status, hourwage)"
+					+ "VALUES(?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getRes_code());
 			pstmt.setString(2, vo.getG_id());
 			pstmt.setString(3, vo.getB_status());
+			pstmt.setString(4, vo.getHourwage());
 			
 			pstmt.executeUpdate();
 			

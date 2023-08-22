@@ -13,6 +13,7 @@
 <% String g_id = (String)session.getAttribute("g_id");
 String res_code = (String)session.getAttribute("applycode");
 String b_status = "신청완료";
+String hourwage = request.getParameter("hourwage");
 
 //System.out.println(res_code + " & " + g_id);
 
@@ -27,12 +28,14 @@ if(checkb==0) {
 	vo.setRes_code(res_code);
 	vo.setG_id(g_id);
 	vo.setB_status(b_status);
+	vo.setHourwage(hourwage);
 	
 	dao.insertbook(vo);
 	%>
 	<script>
-	alert("매칭신청이 완료되었습니다.")
-	location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
+		alert("매칭신청이 완료되었습니다..")
+		window.close();
+		opener.location.href='<%=context%>/careGiver/gMain.jsp';
 	</script>
 	<%
 	session.removeAttribute("applycode");
@@ -41,8 +44,9 @@ if(checkb==0) {
 	
 	%>
 	<script>
-	alert("매칭승인 대기중입니다.")
-	location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
+		alert("매칭승인 대기중입니다.")
+		window.close();
+		opener.location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
 	</script>
 	<%
 	session.removeAttribute("applycode");
