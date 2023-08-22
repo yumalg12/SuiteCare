@@ -283,10 +283,6 @@
 						<h2>예약 신청 정보</h2>
 					</header>
 					<div id='restable'>
-						<%
-						calendar.CalendarDAO cdao2 = new calendar.CalendarDAO();
-						List<calendar.CalendarVO> clist2 = cdao2.listSchedule(m_id);
-						%>
 						<form name="resinfo">
 							<table>
 								<thead>
