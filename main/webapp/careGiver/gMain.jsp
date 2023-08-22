@@ -90,6 +90,7 @@ margin-left: 7.2rem;
 								<h2>매칭 정보</h2>
 							</header>
 			<form name="matchinginfo">
+			<div class="table_wrapper">
 			<table border=1>
 			<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
 			<%
@@ -120,6 +121,7 @@ margin-left: 7.2rem;
 			}
 			%>
 			</table> 
+			</div>
 			</form>
 						</div>
 					</div>
@@ -139,6 +141,7 @@ margin-left: 7.2rem;
 								<h2>피간병인 신청 리스트</h2>
 							</header>
 			<form name="applyinfo">
+			<div class="table_wrapper">
 			<table>
 			<thead>
 			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
@@ -211,6 +214,7 @@ margin-left: 7.2rem;
 			}}
 			%>
 			</table>
+			</div>
 			</form>
 
 						</div>
@@ -229,6 +233,7 @@ margin-left: 7.2rem;
 								<h2>피간병인 신청 리스트</h2>
 							</header>
 			<form name="matchinfo">
+			<div class="table_wrapper">
 			<table>
 			<thead>
 			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
@@ -282,6 +287,7 @@ margin-left: 7.2rem;
 			}}}}
 			%>
 			</table>
+			</div>
 			</form>
 
 						</div>
