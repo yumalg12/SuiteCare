@@ -1,11 +1,15 @@
+<%@ page import="calendar.*"%>
 <%@ page import = "patient.*" %>
 <%@ page import = "book.*" %>
 <%@ page import = "caretaker.*" %>
 <%@ page import = "reservation.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.sql.Time" %>
-<%@ page import = "java.sql.Date" %>
 <%@ page import = "java.util.*" %>
+<%@ page import = "java.util.Date" %>
+<%@ page import = "java.util.Calendar" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -63,9 +67,12 @@ margin-left: 7.2rem;
 
 </head>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+	<link rel="stylesheet" href="../assets/css/fullcalendar.css">
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+
 	
 <body>
 <%@ include file="/header.jsp" %>
@@ -89,12 +96,21 @@ margin-left: 7.2rem;
 								<p>나와 피간병인의</p>
 								<h2>매칭 정보</h2>
 							</header>
+							<div>
+						<input type="button" class="button alt" id="calToggle" onclick="grescalendar();" value="달력으로 보기">
+					</div>
+					<div id='calendar'></div>
+					<div id='restable'>
+					<%	String g_id = (String)session.getAttribute("g_id");
+						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
+						List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
+						%>
 			<form name="matchinginfo">
 			<table border=1>
 			<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
 			<%
 			request.setCharacterEncoding("utf-8");
-			String g_id = (String)session.getAttribute("g_id");
+			
 			
 			ReservationDAO dao = new ReservationDAO();
 			List<ReservationVO> list = dao.resList(g_id);
@@ -104,6 +120,7 @@ margin-left: 7.2rem;
 				String res_code = listvo.getRes_code();
 	            String location = listvo.getLocation();
 	            if(location.equals("home")) {location="자택";}
+	            
 	            String start_date = listvo.getStart_date();
 				String end_date = listvo.getEnd_date();
 				String start_time = listvo.getStart_time();
@@ -112,10 +129,21 @@ margin-left: 7.2rem;
 				String workDate = start_date.substring(5) + " ~ " + end_date.substring(5);
 				String workTimes = start_time.substring(0,5) + " ~ " + end_time.substring(0,5);
 				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+				Date endDate = dateFormat.parse(end_date);
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(endDate);
+				cal.add(Calendar.DAY_OF_MONTH, 8);
+				Date lastDate = cal.getTime();
+				String paymentdate = dateFormat.format(lastDate);
+
+				
 				String t_name = listvo.getT_name();
 
         		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
-				out.println("<td>" + location + "</td><td>" + "결제금액" + "</td><td>" + "지급예정일" + "</td>");
+				out.println("<td>" + location + "</td><td>" + "결제금액" + "</td><td>" + paymentdate + "</td>");
 				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
 			}
 			%>
@@ -292,4 +320,77 @@ margin-left: 7.2rem;
 <%@include file="/footer.jsp"%>					
 
 </body>
+<script>
+		function grescalendar() {
+			//토글버튼 변경하고 목록 테이블 없애기
+			document.getElementById('calToggle').setAttribute("onClick", "restable()");
+			document.getElementById('calToggle').value = "목록으로 보기";
+			document.getElementById('calToggle').style.position = "absolute";
+			document.getElementById('calToggle').style.top = "15.9rem";
+			document.getElementById('restable').style.display = "none";
+			document.getElementById('calendar').style.display = "";
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				contentHeight: 650,
+				initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+				locale : 'ko',
+				headerToolbar : { // 헤더에 표시할 툴 바
+					start : "",
+					center : "prev title next",
+                    end : 'dayGridMonth,dayGridWeek,dayGridDay'
+				},
+				titleFormat : function(date) {
+					return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+				},
+				//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+				selectable : true, // 달력 일자 드래그 설정가능
+				droppable : true,
+				editable : true,
+				nowIndicator: true, // 현재 시간 마크
+				events : [
+					 <%for (CalendarVO gvo : glist) {%>
+		             {
+		                 title: '<%=gvo.getT_name()%>',
+		                 start: '<%=gvo.getStart_date()%>',
+		                 end: '<%=gvo.getEnd_date()%>',
+		                 t_name: '<%=gvo.getT_name()%>',
+		                 start_time: '<%=gvo.getStart_time()%>',
+		                 end_time: '<%=gvo.getEnd_time()%>',
+		                 res_code: '<%=gvo.getRes_code()%>',
+		                 color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
+		                
+		             },
+		         <%}%>
+						] ,
+				 eventClick: function(info) {
+			            // 이벤트를 클릭하면 이벤트 세부 정보를 추출합니다.
+			            var eventDetails = info.event.extendedProps;
+			            var name = eventDetails.t_name;
+			            var startTime = eventDetails.start_time;
+			            var endTime = eventDetails.end_time;
+			            var reservationCode = eventDetails.res_code;
+
+			            // 이벤트 세부 정보를 담은 알림창을 생성합니다.
+			            var message = "이름: " + name + "\n";
+			            message += "시간: " + startTime + " ~ " + endTime + "\n";
+			            message += "예약 코드: " + reservationCode;
+
+			            alert(message);
+			        }
+			});
+			calendar.render();
+		};
+
+		function restable() {
+			//토글버튼 변경하고 달력 없애고 목록 표시하기
+			document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
+			document.getElementById('calToggle').value = "달력으로 보기";
+			document.getElementById('calToggle').style.position = "";
+			document.getElementById('calToggle').style.top = "";
+			document.getElementById('calendar').style.display = "none";
+			document.getElementById('restable').style.display = "";
+		};
+
+		
+	</script>
 </html>
