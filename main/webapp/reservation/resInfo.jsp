@@ -195,7 +195,7 @@
 					
 							<div class="form_button">
 								<input class="button alt" type="button" value=뒤로가기 onclick="history.back()"> 
-								<input class="button special" type="submit" value=간병지원하기>
+								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
 							</div>
 						</div>
 				</div>
@@ -215,3 +215,9 @@
 </body>
 
 </html>
+
+<script>
+	function insert_hourwage() {
+		window.open("http://localhost:8060/suiteCare/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=500");
+	}
+</script>
