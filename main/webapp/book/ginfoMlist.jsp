@@ -12,12 +12,17 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 매칭간병인 정보</title>
 	<%@ include file="/header-import.jsp"%>
-</head>
+
 <script>
 function backmMain() {
 	window.location.href = "../member/mMain.jsp";
 }
 </script>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
+</head>
+
 <body>
 <% 
 String m_id = (String)session.getAttribute("m_id");
@@ -106,7 +111,7 @@ for (int i = 0; i < glist.size(); i++) {
 	
 	<% }%>
 	
-	<input type="button" class="button special" onclick="backmMain();" value="뒤로가기">
+	<input type="button" class="button special" onclick="window.close();" value="닫기">
 
 </body>
 </html>
