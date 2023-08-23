@@ -9,6 +9,8 @@
 <%@ page import = "java.util.Date" %>
 <%@ page import = "java.util.Calendar" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.concurrent.TimeUnit" %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -102,6 +104,7 @@ margin-left: 7.2rem;
 					<div id='calendar'></div>
 					<div id='restable'>
 					<%	String g_id = (String)session.getAttribute("g_id");
+						BookDAO bdao = new BookDAO();
 						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 						List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
@@ -131,7 +134,8 @@ margin-left: 7.2rem;
 				String workTimes = start_time.substring(0,5) + " ~ " + end_time.substring(0,5);
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+				
+				Date startDate = dateFormat.parse(start_date);
 				Date endDate = dateFormat.parse(end_date);
 
 				Calendar cal = Calendar.getInstance();
@@ -142,9 +146,24 @@ margin-left: 7.2rem;
 
 				
 				String t_name = listvo.getT_name();
+				
+				String ghourwage = bdao.ghourwage(res_code, g_id);
+				int hourwage = Integer.parseInt(ghourwage);
+				
+				SimpleDateFormat dFormat = new SimpleDateFormat("HH:mm");
+				Date starttime = dFormat.parse(start_time);
+	            Date endtime = dFormat.parse(end_time);
+	            
+	            long workdate = endDate.getTime() - startDate.getTime();
+	            long dworkdate = TimeUnit.MILLISECONDS.toDays(workdate); // 밀리초 단위 근무일자를 일자단위로 변환
+	            long worktime = endtime.getTime() - starttime.getTime();
+	            long hworktime = TimeUnit.MILLISECONDS.toHours(worktime); // 밀리초 단위 근무시간을 시간단위로 변환
+				
+	            int wdate = (int) (dworkdate+1);
+	            int totalSalary = (int) (wdate * hworktime * hourwage);
 
         		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
-				out.println("<td>" + location + "</td><td>" + "결제금액" + "</td><td>" + paymentdate + "</td>");
+				out.println("<td>" + location + "</td><td>" + totalSalary + "원</td><td>" + paymentdate + "</td>");
 				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
 			}
 			%>
@@ -221,7 +240,7 @@ margin-left: 7.2rem;
 			 <td> <%=fSalary%>원 </td>
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
-			BookDAO bdao = new BookDAO();
+			
 			List<BookVO> blist = bdao.listbst(g_id, res_code);
 			
 			if(blist.isEmpty()) {

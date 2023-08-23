@@ -289,5 +289,26 @@ public class BookDAO {
 		return list;
 	}
 	
+	public String ghourwage(String res_code, String g_id) {
+			String ghourwage = null;
+		try {
+			connect();
+
+			String sql = "SELECT * FROM book WHERE res_code=? and g_id =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ghourwage = rs.getString("hourwage");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ghourwage;
+	}
 	
 }

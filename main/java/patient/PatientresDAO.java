@@ -129,7 +129,6 @@ public class PatientresDAO {
 				String location = rs.getString("location");
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
-				caregiver = rs.getString("caregiver_id");
 
 					PatientresVO vo = new PatientresVO();
 					vo.setCaretaker(caretaker);
