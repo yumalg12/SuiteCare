@@ -75,7 +75,7 @@ margin-left: 7.2rem;
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
-	
+
 <body>
 <%@ include file="/header.jsp" %>
 
@@ -192,7 +192,7 @@ margin-left: 7.2rem;
 			<table>
 			<thead>
 			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
-			<td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
@@ -219,25 +219,19 @@ margin-left: 7.2rem;
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
 	            
+	    	 	 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
-				long worktime = end_time.getTime() - start_time.getTime();
-				int workHours = (int) (worktime / (1000 * 60 * 60));
-
-				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
-	
-				int salary = totalWorkDays * workHours * 10000;
-	
-	 			String fSalary = String.format("%,d", salary);
-	 			
+				String workTimes = sTime + "~" + eTime;
+				
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 			%>
 
 			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
 			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
-			 <td> <%=fSalary%>원 </td>
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
 			
@@ -283,7 +277,8 @@ margin-left: 7.2rem;
 			<div class="table_wrapper">
 			<table>
 			<thead>
-			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
+			<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
 
 			</thead>
 			<% 
@@ -303,8 +298,6 @@ margin-left: 7.2rem;
 				String caretaker_code = listmat.getCaretaker_code();
 				String location = listmat.getLocation();
 
-	            
-  
         		String addr = listmat.getAddr();
 	      		String detail_addr = listmat.getDetail_addr();
 	      		
@@ -315,21 +308,30 @@ margin-left: 7.2rem;
 						for(int j=0; j<bklist.size(); j++) {
 							BookVO bklistvo = (BookVO) bklist.get(j);
 							String b_status = bklistvo.getB_status();
+							
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
 	            
+	    	  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
+				String workTimes = sTime + "~" + eTime;
+				String ghourwage = bdao.ghourwage(res_code, g_id);
 	 			
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 		            
 			%>
 
-			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 
+			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
-			<td> <%=b_status %> </td></tr>
+			<td> <%=ghourwage %> </td>
+			<td> <%=b_status %> </td>
+			<td><%if(b_status.equals("신청완료")) { %>
+			<a href="../book/deleteapply.jsp?res_code=<%= res_code %>" onclick="return deleteok();">신청취소</a><% } %></td></tr>
 			<%
 			}}}}
 			%>
@@ -416,6 +418,12 @@ margin-left: 7.2rem;
 			document.getElementById('restable').style.display = "";
 		};
 
-		
+	
+		function deleteok() {
+			if (!confirm("매칭신청을 취소하시겠습니까?")) {
+				return false;
+			}
+		}
+	
 	</script>
 </html>

@@ -310,5 +310,17 @@ public class BookDAO {
 		}
 		return ghourwage;
 	}
-	
+	public void delMatch(String g_id, String res_code) {
+		try {
+			connect();
+			String sql = "DELETE FROM book WHERE g_id=? and res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, res_code);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
