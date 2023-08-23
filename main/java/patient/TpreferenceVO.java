@@ -15,6 +15,11 @@ public class TpreferenceVO {
 	private String pre_hourwage_1;
 	private String pre_hourwage_2;
 	private String pre_hourwage_3;
+	private String rank1;
+	private String rank2;
+	private String rank3;
+	private String rank4;
+	private String rank5;
 	
 	public TpreferenceVO() {
 		System.out.println("tpVO");
@@ -215,6 +220,76 @@ public class TpreferenceVO {
 	public void setPre_hourwage_3(String pre_hourwage_3) {
 		this.pre_hourwage_3 = pre_hourwage_3;
 	}
-	
+
+	/**
+	 * @return the rank1
+	 */
+	public String getRank1() {
+		return rank1;
+	}
+
+	/**
+	 * @param rank1 the rank1 to set
+	 */
+	public void setRank1(String rank1) {
+		this.rank1 = rank1;
+	}
+
+	/**
+	 * @return the rank2
+	 */
+	public String getRank2() {
+		return rank2;
+	}
+
+	/**
+	 * @param rank2 the rank2 to set
+	 */
+	public void setRank2(String rank2) {
+		this.rank2 = rank2;
+	}
+
+	/**
+	 * @return the rank3
+	 */
+	public String getRank3() {
+		return rank3;
+	}
+
+	/**
+	 * @param rank3 the rank3 to set
+	 */
+	public void setRank3(String rank3) {
+		this.rank3 = rank3;
+	}
+
+	/**
+	 * @return the rank4
+	 */
+	public String getRank4() {
+		return rank4;
+	}
+
+	/**
+	 * @param rank4 the rank4 to set
+	 */
+	public void setRank4(String rank4) {
+		this.rank4 = rank4;
+	}
+
+	/**
+	 * @return the rank5
+	 */
+	public String getRank5() {
+		return rank5;
+	}
+
+	/**
+	 * @param rank5 the rank5 to set
+	 */
+	public void setRank5(String rank5) {
+		this.rank5 = rank5;
+	}
+
 	
 }

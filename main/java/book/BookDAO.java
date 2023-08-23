@@ -101,6 +101,7 @@ public class BookDAO {
 				String g_id = rs.getString("g_id");
 				String b_status = rs.getString("b_status");
 				String g_name = rs.getString("g_name");
+				String hourwage = rs.getString("hourwage");
 				
 				BookVO vo = new BookVO();
 				
@@ -109,6 +110,7 @@ public class BookDAO {
 				vo.setG_id(g_id);
 				vo.setB_status(b_status);
 				vo.setG_name(g_name);
+				vo.setHourwage(hourwage);
 				
 				list.add(vo);
 			}
