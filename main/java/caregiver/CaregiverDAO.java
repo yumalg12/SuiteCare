@@ -313,7 +313,7 @@ public class CaregiverDAO {
 			String g_hourwage1 = vo.getG_hourwage1();
 			String g_hourwage2 = vo.getG_hourwage2();
 			String g_hourwage3 = vo.getG_hourwage3();
-
+			
 			String sql = "insert into caregiver ";
 			sql += " (g_id, g_pw, g_name, g_gender, g_birth, g_phone, g_email, g_address, g_sms_yn, g_email_yn, g_profile, g_service1, g_service2, g_service3, g_qualification, g_location1, g_location2, g_location3, g_hourwage1, g_hourwage2, g_hourwage3)";
 

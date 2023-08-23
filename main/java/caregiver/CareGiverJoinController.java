@@ -64,21 +64,13 @@ public class CareGiverJoinController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String upPath = "assets/profile";
-		String rootPath = getServletContext().getRealPath("/");
+		String rootPath = getServletContext().getRealPath("");
 		String path = rootPath + upPath;
 			
 		String encoding = "utf-8";
 		int maxSize = 1024*1024;
-		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());
+		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding);
 		File file = multi.getFile("g_profile");
-		
-		String g_profile = "";
-		if(file != null) {
-			g_profile = file.getName();
-			System.out.println("profile : " + g_profile);
-		} else {
-			g_profile = "man.png";
-		}
 		
 		System.out.println("request : " + request);
 		System.out.println("path : " + path);
@@ -106,7 +98,6 @@ public class CareGiverJoinController extends HttpServlet {
 		String g_hourwage2 = multi.getParameter("g_hourwage2");
 		String g_hourwage3 = multi.getParameter("g_hourwage3");
 		
-		
 		String[] qual = multi.getParameterValues("qual");
 		String qualification = "";
 		
@@ -121,6 +112,22 @@ public class CareGiverJoinController extends HttpServlet {
 		
         String g_sms_yn=multi.getParameter("g_sms_yn") != null ? multi.getParameter("g_sms_yn") : "N";
 		String g_email_yn=multi.getParameter("g_email_yn") != null ? multi.getParameter("g_email_yn") : "N";
+		
+		String g_profile = "";
+		if(file != null) {
+			g_profile = file.getName();
+			String fileName = file.getName();
+			File oldFile = new File(path + "/" + fileName);
+			int index = fileName.lastIndexOf(".");
+			String saveName= g_id + fileName.substring(index);
+			File newFile = new File(path + "/" + saveName);
+		    oldFile.renameTo(newFile); // 파일명 변경
+			g_profile = saveName;
+		} else if(file == null && g_gender.equals("M")){
+			g_profile = "man.png";
+		} else {
+			g_profile = "woman.png";
+		}
 		
 		CaregiverVO vo = new CaregiverVO();
 		CaregiverDAO dao = new CaregiverDAO();
