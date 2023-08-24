@@ -17,95 +17,97 @@
 
 	<script>
 		function signUpValidation() {
-		const id = $("#id").val().trim();
-		const name = $("#name").val().trim();
-		const pw = $("#pw").val();
+			const id = $("#id").val().trim();
+			const name = $("#name").val().trim();
+			const pw = $("#pw").val();
+		
+			// 중복 확인 검사
+			if (!$("#id").prop("disabled")) {
+				alert("아이디 중복확인이 필요합니다.");
+				$("#id").focus();
+				return false;
+			}
+		
+			// 이름 검사
+			if (name.length < 2) {
+				alert("올바른 이름을 입력하십시오.");
+				$("#name").focus();
+				return false;
+			}
+		
+			// 비밀번호 유효성 검사
+			if (pw.length < 4) {
+				alert("비밀번호는 4자리 이상이어야 합니다.");
+				$(".pw_check_notice").show();
+				$("#pw").focus();
+				return false;
+			}
+		
+			// 비밀번호 확인 검사
+			if (!PWValidation()) {
+				alert("비밀번호 확인이 일치하지 않습니다.");
+				$(".pw_check_notice").show();
+				$("#pw").focus();
+				return false;
+			}
+		
+			// 성별 검사
+			if (document.joinForm.g_gender.value == "") {
+				alert("성별을 선택하세요.");
+				return false;
+			}
+			
+			if($("#service_etc").prop("checked")) {
+	 			var etc = "(기타)" + $("#ser_etc").val();
+	 			$("#ser_etc").val(etc);
+			}
+			
+			// 생년월일 검사
+			if(document.joinForm.g_birth.value == "") {
+				alert("생년월일을 입력하세요.");
+				return false;
+			}
+			
+			//이메일 검사
+			let emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/;
 	
-		// 중복 확인 검사
-		if (!$("#id").prop("disabled")) {
-			alert("아이디 중복확인이 필요합니다.");
-			$("#id").focus();
-			return false;
-		}
+			if (!emailPattern.test($("#email").val())) {
+				alert("올바른 이메일을 입력하세요.");
+				$("#email").focus();
+				return false;
+			}
+			
+			//주소 검사
+			if (document.joinForm.g_address.value == ""){
+				alert("주소를 입력하세요.");
+				$("#address").focus();
+				return false;
+			}
+			
+			//선택지 검사
+			const g_serviceArr = [document.joinForm.g_service1.value, document.joinForm.g_service2.value, document.joinForm.g_service3.value];
+			if (g_serviceArr.includes("1")){
+				alert("서비스 1~3순위를 모두 선택하세요.");
+				return false;
+			}
+			const g_locationArr = [document.joinForm.g_location1.value, document.joinForm.g_location2.value, document.joinForm.g_location3.value];
+			if (g_locationArr.includes("1")){
+				alert("선호지역 1~3순위를 모두 선택하세요.");
+				return false;
+			}
+			const g_hourwageArr = [document.joinForm.g_hourwage1.value, document.joinForm.g_hourwage2.value, document.joinForm.g_hourwage3.value];
+			if (g_hourwageArr.includes("1")){
+				alert("선호시급 1~3순위를 모두 선택하세요.");
+				return false;
+			}
 	
-		// 이름 검사
-		if (name.length < 2) {
-			alert("올바른 이름을 입력하십시오.");
-			$("#name").focus();
-			return false;
-		}
-	
-		// 비밀번호 유효성 검사
-		if (pw.length < 4) {
-			alert("비밀번호는 4자리 이상이어야 합니다.");
-			$(".pw_check_notice").show();
-			$("#pw").focus();
-			return false;
-		}
-	
-		// 비밀번호 확인 검사
-		if (!PWValidation()) {
-			alert("비밀번호 확인이 일치하지 않습니다.");
-			$(".pw_check_notice").show();
-			$("#pw").focus();
-			return false;
-		}
-	
-		// 성별 검사
-		if (document.joinForm.g_gender.value == "") {
-			alert("성별을 선택하세요.");
-			return false;
-		}
-		
-		if($("#service_etc").prop("checked")) {
- 			var etc = "(기타)" + $("#ser_etc").val();
- 			$("#ser_etc").val(etc);
-		}
-		
-		// 생년월일 검사
-		if(document.joinForm.g_birth.value == "") {
-			alert("생년월일을 입력하세요.");
-			return false;
-		}
-		
-		//이메일 검사
-		let emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/;
-
-		if (!emailPattern.test($("#email").val())) {
-			alert("올바른 이메일을 입력하세요.");
-			$("#email").focus();
-			return false;
-		}
-		
-		//주소 검사
-		if (document.joinForm.g_address.value == ""){
-			alert("주소를 입력하세요.");
-			$("#address").focus();
-			return false;
-		}
-		
-		//선택지 검사
-		const g_serviceArr = [document.joinForm.g_service1.value, document.joinForm.g_service2.value, document.joinForm.g_service3.value];
-		if (g_serviceArr.includes("1")){
-			alert("서비스 1~3순위를 모두 선택하세요.");
-			return false;
-		}
-		const g_locationArr = [document.joinForm.g_location1.value, document.joinForm.g_location2.value, document.joinForm.g_location3.value];
-		if (g_locationArr.includes("1")){
-			alert("선호지역 1~3순위를 모두 선택하세요.");
-			return false;
-		}
-		const g_hourwageArr = [document.joinForm.g_hourwage1.value, document.joinForm.g_hourwage2.value, document.joinForm.g_hourwage3.value];
-		if (g_hourwageArr.includes("1")){
-			alert("선호시급 1~3순위를 모두 선택하세요.");
-			return false;
-		}
-
-		// 휴대폰 번호 형식 정리
-		$("#phone").val($("#phone").val().split("-").join(""));
-		
-		//모든 검증 통과
-		document.getElementById("joinForm").submit();
+			// 휴대폰 번호 형식 정리
+			$("#phone").val($("#phone").val().split("-").join(""));
+			
+			$('select > option:disabled').attr("disabled",false);
+			
+			//모든 검증 통과
+			document.getElementById("joinForm").submit();
 		}
 	
 	function PWValidation(){
@@ -232,13 +234,13 @@
 						<div class="form_wrapper">
 								<div onclick="javascript:setImg()" style="margin: 3rem 0;display: grid;justify-items: center;">
 									<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem;">
-										<img id="defult_img_png" src="<%=context%>/assets/profile/man.png" style="width: 100%;">
+										<img id="defult_img_png" src="" style="width: 100%;">
 									</div>
 							<div>
-								<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();" checked>
+								<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();">
 								<label for="default_img" id="default_img_text" style="margin:0.3rem 0 0 0;">기본 프로필사진 사용</label>
 							</div>
-							<input type="file" name="g_profile" id="g_profile" style="display: none; margin-top: 0.5rem;">
+							<input type="file" name="g_profile" id="g_profile" style="margin-top: 0.5rem;">
 							</div>
 
 							<div class="form_row">
@@ -481,16 +483,6 @@
 	 $(this).remove();
    });
    
-	$(function(){
-		$("#service_etc").change(function(){
-			if($("#service_etc").prop("checked")){
-				$("#ser_etc").attr("disabled", false);
-			}else{
-				$("#ser_etc").attr("disabled", true);
-			}
-		});
-	});
-	
 	function showImgSelector() {
 	    let g_profile = document.getElementById("g_profile");
 	    let default_img_png = document.getElementById("defult_img_png");
@@ -501,6 +493,7 @@
 	    } else {
 	        g_profile.style.display = "none";
 	        default_img_png.style.display = "";
+	        default_img_png.src = "<%=context%>/assets/profile/man.png";
 	    }
 	}
 
@@ -531,8 +524,5 @@
 		    }
 		  });
 		}
-
-
-
 
 </script>

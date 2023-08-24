@@ -48,7 +48,7 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 	<%
 	for(TpreferenceVO vo : tpreList) {
 		String gender = vo.getPre_gender();	
-	
+		
 	%>
 	<tr>
 		<td>선호지역</td>
@@ -86,10 +86,25 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 			3순위 : <%=vo.getPre_hourwage_3() %>
 		</td>
 	</tr>
-	
 	<%
 	}
+	
+	List<TpreferenceVO> rankList = dao.ranklist(res_code);
 	%>
+	<tr>
+		<td>선호항목순위</td>
+		
+		<% for (TpreferenceVO tvo : rankList) {
+		 	%>
+		 	<td> 1순위 : <%=tvo.getRank1() %><br>
+		 		 2순위 : <%=tvo.getRank2() %><br>
+		 		 3순위 : <%=tvo.getRank3() %><br>
+		 		 4순위 : <%=tvo.getRank4() %><br>
+		 		 5순위 : <%=tvo.getRank5() %><br>
+		 	</td>
+                <%  } %>
+		
+	</tr>
 	</table>	
 </div></div></div>
 </body>

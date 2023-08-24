@@ -41,9 +41,7 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c "
-					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code and "
-					+ "res.res_code=resinfo.res_code";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and caregiver_id is null";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 
@@ -103,6 +101,74 @@ public class PatientresDAO {
 		}
 		return list;
 	}
+	
+	public List<PatientresVO> comlistres(String m_id) {
+		List<PatientresVO> comlist = new ArrayList<PatientresVO>();
+
+		try {
+			connect();
+
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and caregiver_id is not null";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String caretaker = rs.getString("t_name");
+				Date start_date = rs.getDate("start_date");
+				Date end_date = rs.getDate("end_date");
+				Time start_time = rs.getTime("start_time");
+				Time end_time = rs.getTime("end_time");
+				String res_code = rs.getString("res_code");
+				String location = rs.getString("location");
+				String addr = rs.getString("addr");
+				String detail_addr = rs.getString("detail_addr");
+				String caregiver = rs.getString("caregiver_id");
+				String t_code = rs.getString("caretaker_code");
+
+					PatientresVO vo = new PatientresVO();
+					vo.setCaretaker(caretaker);
+					vo.setStartdate(start_date);
+					vo.setEnddate(end_date);
+					vo.setStarttime(start_time);
+					vo.setEndtime(end_time);
+					vo.setCaregiver(caregiver);
+					vo.setLocation(location);
+					vo.setAddr(addr);
+					vo.setDetail_addr(detail_addr);
+					vo.setRes_code(res_code);
+					vo.setCaretaker_code(t_code);
+					
+					if (caregiver != null) {
+					String cgsql = "SELECT * FROM caregiver where g_id = ?";
+					stmnt = conn.prepareStatement(cgsql);
+					stmnt.setString(1, caregiver);
+						
+					ResultSet rs2 = stmnt.executeQuery();
+					
+					if(rs2.next()) {
+					String gname = rs2.getString("g_name");
+					String g_id = rs2.getString("g_id");
+
+					vo.setCaregiver(g_id);
+					vo.setG_name(gname);
+					
+					} } else {
+					vo.setCaregiver(caregiver); 
+					}
+					comlist.add(vo);
+				}
+
+
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comlist;
+	}
+
 
 	public List<PatientresVO> applylist() {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();
@@ -129,7 +195,6 @@ public class PatientresDAO {
 				String location = rs.getString("location");
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
-				caregiver = rs.getString("caregiver_id");
 
 					PatientresVO vo = new PatientresVO();
 					vo.setCaretaker(caretaker);
@@ -313,6 +378,7 @@ public class PatientresDAO {
 				String pre_hourwage_1 = rs.getString("pre_hourwage_1");
 				String pre_hourwage_2 = rs.getString("pre_hourwage_2");
 				String pre_hourwage_3 = rs.getString("pre_hourwage_3");
+				
 
 				TpreferenceVO vo = new TpreferenceVO();
 				
@@ -330,6 +396,7 @@ public class PatientresDAO {
 				vo.setPre_hourwage_1(pre_hourwage_1);
 				vo.setPre_hourwage_2(pre_hourwage_2);
 				vo.setPre_hourwage_3(pre_hourwage_3);
+				
 
 				list.add(vo);
 			}
@@ -342,5 +409,47 @@ public class PatientresDAO {
 		return list;
 	}
 	
+	public List<TpreferenceVO> ranklist(String res_code) {
+		List<TpreferenceVO> rlist = new ArrayList<TpreferenceVO>();
+
+		try {
+			connect();
+
+			String sql = "SELECT * FROM reservation_info WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				
+				String rank1 = rs.getString("rank1");
+				String rank2 = rs.getString("rank2");
+				String rank3 = rs.getString("rank3");
+				String rank4 = rs.getString("rank4");
+				String rank5 = rs.getString("rank5");
+
+				TpreferenceVO vo = new TpreferenceVO();
+				
+				
+				vo.setRank1(rank1);
+				vo.setRank2(rank2);
+				vo.setRank3(rank3);
+				vo.setRank4(rank4);
+				vo.setRank5(rank5);
+
+				rlist.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rlist;
+	}
+	
+	
+	
+
 	
 }
