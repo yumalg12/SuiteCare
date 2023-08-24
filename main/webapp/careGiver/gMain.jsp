@@ -21,61 +21,14 @@
 <title>SC 스위트케어 | 마이페이지</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
-<style>
-.fc-col-header {
-    margin: 0;
-    padding: 0;
-}
-.fc-daygrid-day-number, .fc-col-header-cell-cushion {
-text-decoration:none;
- cursor: default;
-}
-.fc-daygrid-day:hover{
-font-weight: bold;
-background-color: #DFD7BF50;
-}
-.fc-scroller{
-overflow:hidden !important;
-}
-.fc .fc-button-primary{
-background-color: transparent;
-border: none;
-outline: none;
-}
-.fc .fc-button-primary:hover{
-background-color: #cccccc50;
-}
-.fc .fc-daygrid-day.fc-day-today{
-background-color: #A4907Caa;
-font-weight: bold;
-}
-.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
-background-color: #DFD7BFaa;
-font-weight: bold;
-}
-.fc .fc-toolbar.fc-header-toolbar{
-margin-left: 7.2rem;
-}
-.fc .fc-toolbar-title {
-    font-size: 1.75em;
-    margin: 0;
-    display: inline;
-    position: relative;
-    top: 0.4rem;
-}
-</style>
-
-</head>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 	<link rel="stylesheet" href="../assets/css/fullcalendar.css">
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
-
+</head>
+	
 <body>
 <%@ include file="/header.jsp" %>
 
@@ -91,7 +44,6 @@ margin-left: 7.2rem;
 
 		<!-- Two -->
 			<section id="two" class="wrapper style2">
-				<div class="inner">
 					<div class="box">
 						<div class="content">
 							<header class="align-center">
@@ -99,7 +51,7 @@ margin-left: 7.2rem;
 								<h2>매칭 정보</h2>
 							</header>
 							<div>
-						<input type="button" class="button alt" id="calToggle" onclick="grescalendar();" value="달력으로 보기">
+						<input type="button" class="button alt" id="calToggle" onclick="rescalendar();" value="달력으로 보기">
 					</div>
 					<div id='calendar'></div>
 					<div id='restable'>
@@ -111,7 +63,10 @@ margin-left: 7.2rem;
 			<form name="matchinginfo">
 			<div class="table_wrapper">
 			<table border=1>
+			<thead>
 			<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
+			</thead>
+			<tbody>
 			<%
 			request.setCharacterEncoding("utf-8");
 			
@@ -167,6 +122,7 @@ margin-left: 7.2rem;
 				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
 			}
 			%>
+			</tbody>
 			</table> 
 			</div>
 			</form>
@@ -348,7 +304,7 @@ margin-left: 7.2rem;
 
 </body>
 <script>
-		function grescalendar() {
+		function rescalendar() {
 			//토글버튼 변경하고 목록 테이블 없애기
 			document.getElementById('calToggle').setAttribute("onClick", "restable()");
 			document.getElementById('calToggle').value = "목록으로 보기";

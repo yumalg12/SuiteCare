@@ -352,7 +352,7 @@
 									else if(caregiver!=null){
 									String g_name = listvo.getG_name();
 									%>
-									<a href="#" onclick="openginfoPopup('<%=caregiver %>')"><%=g_name%></a>
+									<a onclick="javascript:openGinfoMlist('<%=caregiver%>')""><%=g_name%></a>
 									<%} %></td>
 									
 									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
@@ -470,9 +470,8 @@
 			window.open(popupUrl, "Popup", "width=800, height=800");
 		}
 		
-		function openginfoPopup(caregiver) {
-			var popupUrl = "../book/ginfoMlist.jsp?g_id=" + caregiver;
-			window.open(popupUrl, "Popup", "width=800, height=800");
+		function openGinfoMlist(gIdVal) {
+			window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=800");
 		}
 	</script>
 </body>

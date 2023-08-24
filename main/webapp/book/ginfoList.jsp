@@ -110,18 +110,8 @@ for (int i = 0; i < glist.size(); i++) {
 	</form>
 	
 	<% }%>
-	<input type="button" class="button special" onclick="gapprove();" value="승인하기">
-	<input type="button" class="button special" onclick="backtList();" value="뒤로가기">
+	<input type="button" class="button special" onclick="window.close();" value="닫기">
 
 </body>
 
-<script>
-function backtList() {
-	window.location.href = "./tapplyList.jsp?res_code=<%=res_code%>";
-}
-
-function gapprove() {
-	window.location.href = "./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>";
-}
-</script>
 </html>

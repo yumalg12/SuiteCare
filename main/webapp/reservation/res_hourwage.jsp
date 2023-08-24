@@ -7,20 +7,11 @@
 <title>SC 스위트케어 | 시급 입력하기</title>
 <%@ include file="/header-import.jsp"%>
 
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
 </head>
 
 <body>
-	<%@ include file="/header.jsp"%>
-
-	<!-- One -->
-	<section id="One" class="wrapper style3">
-		<div class="inner">
-			<header class="align-center">
-				<p>adsfasdfsdf</p>
-				<h2>Suite Care</h2>
-			</header>
-		</div>
-	</section>
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
@@ -35,7 +26,9 @@
 						<form action="../book/applybook.jsp" method="post" name="hourwageForm">
 							<div class="form_row">
 								<label for="hourwage">희망시급</label>
-								<input type="text" id="hourwage" name="hourwage" required autofocus>
+								<div style="display: flex; align-items: center; gap: 5px;">
+								<input type="text" id="hourwage" name="hourwage" required autofocus>원
+								</div>
 							</div>
 							<div class="form_button">
 								<button class="button special" type="submit">희망시급 저장</button>
@@ -48,8 +41,6 @@
 			</div>
 		</div>
 	</section>
-
-<%@ include file="/footer.jsp" %>
 
 </body>
 </html>
