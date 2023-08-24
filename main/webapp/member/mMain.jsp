@@ -72,8 +72,6 @@
 							session.removeAttribute("caretaker_code");
 							session.removeAttribute("res_code");
 							
-							String m_id = (String) session.getAttribute("m_id");
-
 							TakerDAO dao = new TakerDAO();
 
 							List<TakerVO> list = dao.takerList(m_id);

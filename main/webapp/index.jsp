@@ -44,8 +44,7 @@
 			</div>
 		</article>
 	</section>
-<% String m_id = (String)session.getAttribute("m_id");
-String g_id = (String)session.getAttribute("g_id");	%>
+
 	<!-- One -->
 	<section id="one" class="wrapper style2">
 		<div class="inner">

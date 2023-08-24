@@ -103,7 +103,6 @@
 	</section>
 	<%
 	request.setCharacterEncoding("utf-8");
-	String m_id = (String) session.getAttribute("m_id");
 	String res_code = (String) session.getAttribute("res_code");
 	String r_code = request.getParameter("res_code");
 	session.setAttribute("r_code", r_code);

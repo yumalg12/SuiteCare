@@ -20,7 +20,6 @@
 <script>
 <%
 request.setCharacterEncoding("utf-8");
-String m_id = (String)session.getAttribute("m_id");
 String t_name = (String)request.getParameter("tname");
 session.setAttribute("t_name", t_name);
 

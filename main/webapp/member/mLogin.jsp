@@ -8,8 +8,6 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
-<%String m_id = (String) session.getAttribute("m_id");
-String g_id = (String) session.getAttribute("g_id");%>
 
 console.log("<%=m_id%>");
 if ("<%=m_id%>" != "null") {

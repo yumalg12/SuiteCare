@@ -53,7 +53,7 @@
 					</div>
 					<div id='calendar'></div>
 					<div id='restable'>
-					<%	String g_id = (String)session.getAttribute("g_id");
+					<%	
 						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 						List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>

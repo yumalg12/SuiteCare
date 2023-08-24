@@ -25,8 +25,7 @@ function backmMain() {
 
 <body>
 <% 
-String m_id = (String)session.getAttribute("m_id");
-String g_id = request.getParameter("g_id");
+g_id = request.getParameter("g_id");
 
 String file_repo = "../assets/profile/";
 

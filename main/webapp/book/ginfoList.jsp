@@ -16,7 +16,6 @@
 
 <body>
 <% 
-String m_id = (String)session.getAttribute("m_id");
 String g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");

@@ -32,7 +32,6 @@ function upcheck() {
 
 <%
 request.setCharacterEncoding("utf-8");
-String m_id = (String)session.getAttribute("m_id");
 String t_name = request.getParameter("t_name");
 
 TakerDAO dao = new TakerDAO(); 

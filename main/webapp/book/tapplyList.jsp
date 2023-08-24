@@ -16,7 +16,7 @@ function backmain() {
 }
 </script>
 <body>
-<% String m_id = (String)session.getAttribute("m_id");
+<%
 String res_code = request.getParameter("res_code");
 //System.out.println(res_code);
 %>

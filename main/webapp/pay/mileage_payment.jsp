@@ -6,8 +6,7 @@
 <title>SC 스위트케어 | 결제</title>
 <%@include file="../header-import.jsp"%>
 <%
-String m_id = (String) session.getAttribute("m_id");
-String g_id = request.getParameter("g_id");
+g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");
 %>

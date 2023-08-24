@@ -11,7 +11,6 @@
 <body>
 <% 
 request.setCharacterEncoding("utf-8");
-String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
 String r_code = (String)session.getAttribute("r_code");

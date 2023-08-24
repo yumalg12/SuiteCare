@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.List" %>
 
 <%
 String context = request.getContextPath();
+System.out.println("context: "+context);
 request.setCharacterEncoding("utf-8");
 %>
 <!--          meta 선언          -->
@@ -20,3 +23,20 @@ request.setCharacterEncoding("utf-8");
 <link rel="stylesheet" href="<%=context %>/assets/css/main.css" />
 <link rel="stylesheet" href="<%=context %>/assets/css/sc.css" />
 
+<!--          로그인 체크          -->
+<% String m_id = (String)session.getAttribute("m_id");
+String g_id = (String)session.getAttribute("g_id");
+
+String[] uriArr = request.getServletPath().split("/");
+String uri = uriArr[uriArr.length-1];
+System.out.println("uri: "+uri);
+
+String[] pageArray = {"index.jsp", "mSignup.jsp", "mLogin.jsp", "gSignup.jsp", "caregiverLogin.jsp"};
+List<String> pageList = Arrays.asList(pageArray);
+
+if(!pageList.contains(uri)) {
+	if(m_id == null && g_id == null){
+		System.out.println("로그인 세션 없음");
+		out.print("<script>alert('로그인이 필요합니다.'); location.href='"+context+"/index.jsp';</script>");
+	}
+}%>
