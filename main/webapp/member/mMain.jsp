@@ -247,9 +247,7 @@
 										
 									</td>
 
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
+									<td></td>
 								</tr>
 
 								<%
