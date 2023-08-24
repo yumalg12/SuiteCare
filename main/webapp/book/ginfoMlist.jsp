@@ -15,7 +15,7 @@
 
 <script>
 function backmMain() {
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
 

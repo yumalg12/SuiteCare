@@ -73,7 +73,7 @@
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
-		window.location.href = "../member/mMain.jsp";
+		window.location.href = "<%=context%>/member/main";
 	}
 </script>
 

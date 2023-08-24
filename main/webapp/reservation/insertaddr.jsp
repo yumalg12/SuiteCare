@@ -42,7 +42,7 @@ try {
 %>
 <script>
     alert("자택주소 업데이트 완료");
-    window.location.href='../member/mMain.jsp';
+    window.location.href='<%=context%>/member/main';
 </script>
 <%
             }

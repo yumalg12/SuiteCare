@@ -12,7 +12,7 @@
 </head>
 <script>
 function backmain() {
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
 <body>

@@ -53,7 +53,7 @@ function check() {
 
 function reshostop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
 

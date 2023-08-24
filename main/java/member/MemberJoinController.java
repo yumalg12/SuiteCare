@@ -17,7 +17,7 @@ public class MemberJoinController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		RequestDispatcher dispatch = request.getRequestDispatcher("/member/mSignup.jsp");
 		dispatch.forward(request, response);
 	}
@@ -27,7 +27,7 @@ public class MemberJoinController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		dao = new MemberDAO();
 		
 		String type = request.getParameter("type");
