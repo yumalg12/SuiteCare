@@ -33,6 +33,11 @@ String pre_location_1 = request.getParameter("pre_location_1");
  String pre_hourwage_1 = request.getParameter("pre_hourwage_1");
  String pre_hourwage_2 = request.getParameter("pre_hourwage_2");
  String pre_hourwage_3 = request.getParameter("pre_hourwage_3");
+ String rank1 = request.getParameter("rank1");
+ String rank2 = request.getParameter("rank2");
+ String rank3 = request.getParameter("rank3");
+ String rank4 = request.getParameter("rank4");
+ String rank5 = request.getParameter("rank5");
  
  ReservationInfoVO vo = new ReservationInfoVO();
  
@@ -50,7 +55,12 @@ String pre_location_1 = request.getParameter("pre_location_1");
  vo.setPre_hourwage_1(pre_hourwage_1);
  vo.setPre_hourwage_2(pre_hourwage_2);
  vo.setPre_hourwage_3(pre_hourwage_3);
- 
+ vo.setRank1(rank1);
+ vo.setRank2(rank2);
+ vo.setRank3(rank3);
+ vo.setRank4(rank4);
+ vo.setRank5(rank5);
+
  if(res_code!=null) {
  vo.setRes_code(res_code);
 

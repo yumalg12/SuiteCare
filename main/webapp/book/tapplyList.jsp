@@ -45,7 +45,7 @@ String res_code = request.getParameter("res_code");
 							<table>
 								<thead>
 									<tr>
-										<td>예약코드</td> <td>매칭번호</td> <td>간병인 이름</td> <td>매칭 현황</td> <td>비고</td>
+										<td>예약코드</td> <td>매칭번호</td> <td>간병인 이름</td> <td>요청 시급</td> <td>매칭 현황</td> <td>비고</td>
 									</tr>
 								</thead>
 								<% BookDAO dao = new BookDAO();
@@ -59,11 +59,14 @@ String res_code = request.getParameter("res_code");
 										String g_id = applyvo.getG_id();
 										String g_name = applyvo.getG_name();
 										String b_status = applyvo.getB_status();
+										String hourwage = applyvo.getHourwage();
 										%>
 									<tr>
-									<td><%=rescode%></td> <td><%=b_id%></td> 
+									<td><%=rescode%></td>
+                  <td><%=b_id%></td> 
 									<td><%=g_name%><br>
 										<a onclick="javascript:openGinfoList('<%=g_id%>','<%=res_code%>','<%=b_id%>')">더보기</a></td> 
+									<td><%=hourwage%><br>
 									<td><%=b_status%></td> 
 									<td>
 									<a href="./tdeny.jsp?b_id=<%=b_id%>&res_code=<%=res_code%>" class="button alt">거절</a>
@@ -85,4 +88,10 @@ function openMileagePayment(gIdVal,resCodeVal, bIdVal) {
 }
 </script>
 </body>
+<script>
+function openGinfoList(g_id, res_code, b_id) {
+	var popupUrl = "ginfoList.jsp?g_id=" + g_id + "&res_code=" + res_code + "&b_id=" + b_id;
+	window.open(popupUrl, "Popup", "width=800, height=800");
+}
+</script>
 </html>

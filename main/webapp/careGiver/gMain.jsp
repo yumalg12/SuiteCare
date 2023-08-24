@@ -9,6 +9,8 @@
 <%@ page import = "java.util.Date" %>
 <%@ page import = "java.util.Calendar" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.concurrent.TimeUnit" %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -54,6 +56,7 @@
 					<div id='calendar'></div>
 					<div id='restable'>
 					<%	
+						BookDAO bdao = new BookDAO();
 						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 						List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
@@ -86,20 +89,36 @@
 				String workTimes = start_time.substring(0,5) + " ~ " + end_time.substring(0,5);
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+				
+				Date startDate = dateFormat.parse(start_date);
 				Date endDate = dateFormat.parse(end_date);
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(endDate);
-				cal.add(Calendar.DAY_OF_MONTH, 8);
+				cal.add(Calendar.DAY_OF_MONTH, 7);
 				Date lastDate = cal.getTime();
 				String paymentdate = dateFormat.format(lastDate);
 
 				
 				String t_name = listvo.getT_name();
+				
+				String ghourwage = bdao.ghourwage(res_code, g_id);
+				int hourwage = Integer.parseInt(ghourwage);
+				
+				SimpleDateFormat dFormat = new SimpleDateFormat("HH:mm");
+				Date starttime = dFormat.parse(start_time);
+	            Date endtime = dFormat.parse(end_time);
+	            
+	            long workdate = endDate.getTime() - startDate.getTime();
+	            long dworkdate = TimeUnit.MILLISECONDS.toDays(workdate); // 밀리초 단위 근무일자를 일자단위로 변환
+	            long worktime = endtime.getTime() - starttime.getTime();
+	            long hworktime = TimeUnit.MILLISECONDS.toHours(worktime); // 밀리초 단위 근무시간을 시간단위로 변환
+				
+	            int wdate = (int) (dworkdate+1);
+	            int totalSalary = (int) (wdate * hworktime * hourwage);
 
         		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
-				out.println("<td>" + location + "</td><td>" + "결제금액" + "</td><td>" + paymentdate + "</td>");
+				out.println("<td>" + location + "</td><td>" + totalSalary + "원</td><td>" + paymentdate + "</td>");
 				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
 			}
 			%>
@@ -129,7 +148,7 @@
 			<table>
 			<thead>
 			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
-			<td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
@@ -156,28 +175,22 @@
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
 	            
+	    	 	 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
-				long worktime = end_time.getTime() - start_time.getTime();
-				int workHours = (int) (worktime / (1000 * 60 * 60));
-
-				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
-	
-				int salary = totalWorkDays * workHours * 10000;
-	
-	 			String fSalary = String.format("%,d", salary);
-	 			
+				String workTimes = sTime + "~" + eTime;
+				
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 			%>
 
 			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
 			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
-			 <td> <%=fSalary%>원 </td>
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
-			BookDAO bdao = new BookDAO();
+			
 			List<BookVO> blist = bdao.listbst(g_id, res_code);
 			
 			if(blist.isEmpty()) {
@@ -220,7 +233,8 @@
 			<div class="table_wrapper">
 			<table>
 			<thead>
-			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
+			<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
 
 			</thead>
 			<% 
@@ -240,8 +254,6 @@
 				String caretaker_code = listmat.getCaretaker_code();
 				String location = listmat.getLocation();
 
-	            
-  
         		String addr = listmat.getAddr();
 	      		String detail_addr = listmat.getDetail_addr();
 	      		
@@ -252,21 +264,30 @@
 						for(int j=0; j<bklist.size(); j++) {
 							BookVO bklistvo = (BookVO) bklist.get(j);
 							String b_status = bklistvo.getB_status();
+							
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
 	            
+	    	  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
+				String workTimes = sTime + "~" + eTime;
+				String ghourwage = bdao.ghourwage(res_code, g_id);
 	 			
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 		            
 			%>
 
-			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 
+			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
-			<td> <%=b_status %> </td></tr>
+			<td> <%=ghourwage %> </td>
+			<td> <%=b_status %> </td>
+			<td><%if(b_status.equals("신청완료")) { %>
+			<a href="../book/deleteapply.jsp?res_code=<%= res_code %>" onclick="return deleteok();">신청취소</a><% } %></td></tr>
 			<%
 			}}}}
 			%>
@@ -353,6 +374,12 @@
 			document.getElementById('restable').style.display = "";
 		};
 
-		
+	
+		function deleteok() {
+			if (!confirm("매칭신청을 취소하시겠습니까?")) {
+				return false;
+			}
+		}
+	
 	</script>
 </html>

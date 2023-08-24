@@ -34,13 +34,16 @@
 		var inputrepre1 = pre_repre_1.value
 		var inputrepre2 = pre_repre_2.value
 		var inputrepre3 = pre_repre_3.value
-
+		
+		var rank1 = document.getElementById('rank1').value;
+	    var rank2 = document.getElementById('rank2').value;
+	    var rank3 = document.getElementById('rank3').value;
+	    var rank4 = document.getElementById('rank4').value;
+	    var rank5 = document.getElementById('rank5').value;
+		
 		if (inputqual === "") {
 			pre_qual.value = "지정하지 않음";
 		}
-		
-		
-		
 		
 		if (!pre_location_1 || !pre_location_2 || !pre_location_3) {
 			alert("선호 지역을 모두 선택해주세요");
@@ -65,7 +68,21 @@
 				if(pre_hourwage_1==pre_hourwage_2 || pre_hourwage_1==pre_hourwage_3 || pre_hourwage_2==pre_hourwage_3 ) {
 			alert("선호 시급 범위가 중복되었습니다.");
 			return false;
-		}}	
+		}} else if(!rank1 || !rank2 || !rank3 || !rank4 || !rank5) {
+			alert("선호항목 순위를 선택해주세요.");
+			return false;
+		} 
+			var pvalues = [rank1, rank2, rank3, rank4, rank5];
+		    var sortPvalues = pvalues.slice().sort();
+		    
+		    
+		    for (var i = 0; i < sortPvalues.length - 1; i++) {
+		        if (sortPvalues[i] === sortPvalues[i + 1]) {
+		            alert("선호항목 순위가 중복되었습니다.");
+		            return false;
+		        }
+		    }
+		    
 			f.action = "matchScheck.jsp";
 			f.submit();
 			return true;
@@ -348,6 +365,66 @@
 											<%
 											}
 											%>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form_row">
+									<label>선호항목순위 </label>
+								<div>
+									<div class="form_row">
+										<label class="rank-label">1순위</label> <select
+											name="rank1" id="rank1">
+											<option value = "">==선택==</option>
+											<option value="선호지역">선호지역</option>
+											<option value="선호나이대">선호나이대</option>
+											<option value="선호성별">선호성별</option>
+											<option value="선호서비스">선호서비스</option>
+											<option value="시급">시급</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">2순위</label> <select
+											name="rank2" id="rank2">
+											<option value = "">==선택==</option>
+											<option value="선호지역">선호지역</option>
+											<option value="선호나이대">선호나이대</option>
+											<option value="선호성별">선호성별</option>
+											<option value="선호서비스">선호서비스</option>
+											<option value="시급">시급</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">3순위</label> <select
+											name="rank3" id="rank3">
+											<option value = "">==선택==</option>
+											<option value="선호지역">선호지역</option>
+											<option value="선호나이대">선호나이대</option>
+											<option value="선호성별">선호성별</option>
+											<option value="선호서비스">선호서비스</option>
+											<option value="시급">시급</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">4순위</label> <select
+											name="rank4" id="rank4">
+											<option value = "">==선택==</option>
+											<option value="선호지역">선호지역</option>
+											<option value="선호나이대">선호나이대</option>
+											<option value="선호성별">선호성별</option>
+											<option value="선호서비스">선호서비스</option>
+											<option value="시급">시급</option>
+										</select>
+									</div>
+									<div class="form_row">
+										<label class="rank-label">5순위</label> <select
+											name="rank5" id="rank5">
+											<option value = "">==선택==</option>
+											<option value="선호지역">선호지역</option>
+											<option value="선호나이대">선호나이대</option>
+											<option value="선호성별">선호성별</option>
+											<option value="선호서비스">선호서비스</option>
+											<option value="시급">시급</option>
 										</select>
 									</div>
 								</div>

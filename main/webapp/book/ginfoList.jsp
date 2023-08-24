@@ -53,8 +53,10 @@ for (int i = 0; i < glist.size(); i++) {
 	//String[] addrparts = g_addr.split(" ");
 	//String g_addrloc = addrparts[0]+" " + addrparts[1];
 
-	 int idx = g_address.indexOf(" ");
-     String address = g_address.substring(0, idx); 
+	  int idx = g_address.indexOf(" ");
+	 String gaddress = g_address.substring(idx + 1);
+	 int fidx = gaddress.indexOf(" ");
+	 String address = gaddress.substring(0, fidx);
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
    Date birthDate = dateFormat.parse(g_birth);
