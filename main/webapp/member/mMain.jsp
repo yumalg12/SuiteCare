@@ -320,87 +320,42 @@
 								%>
 
 								<tr>
-									<td><%=res_code%></td>
-									<td><%=t_name%></td>
-									<td><button onclick="openPopup('<%=res_code%>')">더보기</button></td>
-
-									<td>
-										<%
-										if (location == null) {
-										%> <a
-										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-										<%
-										} else if (location != null) {
-										if (location.equals("home")) {
-										%>자택<%
-										} else {
-										%><%=location%> <%
-										}
-										}
-										%>
-									</td>
-
-									<td>
-										<%
-										if (addr == null) {
-										%> <a
-										href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-										<%
-										} else if (addr != null) {
-										%><%=addr%> <%
-										 if (detail_addr != null) {
-										 %><br><%=detail_addr%> <%
-										 }
-										 }
-										 %>
-									</td>
-
-									<td>
-										<%
-										if (start_date == null) {
-										%> <a
-										href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a>
-										<%
-										} else if (start_date != null) {
-										%>일시 : <%=start_date%> ~ <br> <%=end_date%><br>시간 :
-										<%=workTimes%> <%
-										 }
-										 %>
-									</td>
-
-									<td>
-										<%
-										List<TpreferenceVO> preList = dao2.listtpre(res_code);
-										for (TpreferenceVO prevo : preList) {
-											String pre_age_1 = prevo.getPre_age_1();
-
-											if (pre_age_1 == null) {
-										%> <a
-										href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
-										<%
-										} else if (pre_age_1 != null) {
-										%><button onclick="openmatPopup('<%=res_code%>')">더보기</button>
-										<%
-										}
-										}
-										%>
-									</td>
-
-									<td>
-										<%
-										if (caregiver == null) {
-										%> <a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인
-									</a> <%
-										 } else if (caregiver != null) {
-										 String g_name = listvo.getG_name();
-										 %> <a href="../book/ginfoMlist.jsp?g_id=<%=caregiver%>"><%=g_name%></a>
-										<%
-										}
-										%>
-									</td>
-
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
+									<td><%=res_code%></td> <td><%=t_name%></td> 
+									<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
+									
+									<td><% if(location==null) { %>
+									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(location!=null){if(location.equals("home")) {%>자택<%} 
+									else { %><%=location%><%}} %></td>
+									
+									<td><% if(addr==null) { %>
+									<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(addr!=null){%><%=addr%> 
+									<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
+									
+									<td><% if(start_date==null ) { %>
+									<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+									
+									<td><%
+									List<TpreferenceVO> preList = dao2.listtpre(res_code);
+									for(TpreferenceVO prevo : preList) {
+										String pre_age_1 = prevo.getPre_age_1();
+										
+										if(pre_age_1 == null) { %>
+										<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+										else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
+										<%}} %></td>
+										
+									<td><% if(caregiver==null) { %>
+										<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a> <%}	
+									else if(caregiver!=null){
+									String g_name = listvo.getG_name();
+									%>
+									<a href="#" onclick="openginfoPopup('<%=caregiver %>')"><%=g_name%></a>
+									<%} %></td>
+									
+									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 										onclick="return delok();">취소</a></td>
 								</tr>
 
@@ -512,6 +467,11 @@
 
 		function openmatPopup(resCode) {
 			var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
+			window.open(popupUrl, "Popup", "width=800, height=800");
+		}
+		
+		function openginfoPopup(caregiver) {
+			var popupUrl = "../book/ginfoMlist.jsp?g_id=" + caregiver;
 			window.open(popupUrl, "Popup", "width=800, height=800");
 		}
 	</script>

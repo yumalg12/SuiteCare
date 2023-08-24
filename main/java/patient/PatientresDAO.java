@@ -195,7 +195,6 @@ public class PatientresDAO {
 				String location = rs.getString("location");
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
-				caregiver = rs.getString("caregiver_id");
 
 					PatientresVO vo = new PatientresVO();
 					vo.setCaretaker(caretaker);
@@ -379,6 +378,7 @@ public class PatientresDAO {
 				String pre_hourwage_1 = rs.getString("pre_hourwage_1");
 				String pre_hourwage_2 = rs.getString("pre_hourwage_2");
 				String pre_hourwage_3 = rs.getString("pre_hourwage_3");
+				
 
 				TpreferenceVO vo = new TpreferenceVO();
 				
@@ -396,6 +396,7 @@ public class PatientresDAO {
 				vo.setPre_hourwage_1(pre_hourwage_1);
 				vo.setPre_hourwage_2(pre_hourwage_2);
 				vo.setPre_hourwage_3(pre_hourwage_3);
+				
 
 				list.add(vo);
 			}
@@ -408,5 +409,47 @@ public class PatientresDAO {
 		return list;
 	}
 	
+	public List<TpreferenceVO> ranklist(String res_code) {
+		List<TpreferenceVO> rlist = new ArrayList<TpreferenceVO>();
+
+		try {
+			connect();
+
+			String sql = "SELECT * FROM reservation_info WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				
+				String rank1 = rs.getString("rank1");
+				String rank2 = rs.getString("rank2");
+				String rank3 = rs.getString("rank3");
+				String rank4 = rs.getString("rank4");
+				String rank5 = rs.getString("rank5");
+
+				TpreferenceVO vo = new TpreferenceVO();
+				
+				
+				vo.setRank1(rank1);
+				vo.setRank2(rank2);
+				vo.setRank3(rank3);
+				vo.setRank4(rank4);
+				vo.setRank5(rank5);
+
+				rlist.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rlist;
+	}
+	
+	
+	
+
 	
 }
