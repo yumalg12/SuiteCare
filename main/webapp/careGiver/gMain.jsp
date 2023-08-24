@@ -72,9 +72,9 @@
 			
 			
 			ReservationDAO dao = new ReservationDAO();
-			List<ReservationVO> list = dao.resList(g_id);
-			for(int i=0; i<list.size(); i++) {
-				ReservationVO listvo = (ReservationVO) list.get(i);
+			List<ReservationVO> listres = dao.resList(g_id);
+			for(int i=0; i<listres.size(); i++) {
+				ReservationVO listvo = (ReservationVO) listres.get(i);
 
 				String res_code = listvo.getRes_code();
 	            String location = listvo.getLocation();
@@ -191,21 +191,15 @@
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
 			
-			List<BookVO> blist = bdao.listbst(g_id, res_code);
+			String b_status = bdao.bst(res_code, g_id);
 			
-			if(blist.isEmpty()) {
-				%> 미신청 <% } else {
-			for(int j=0; j<blist.size(); j++) {
-				BookVO blistvo = (BookVO) blist.get(j);
-				String b_status = blistvo.getB_status();
-				
 				if(b_status!=null) {
 				%>
 				<%=b_status %>
 				<%
 				} else { %>
 				 미신청
-				<% }}}
+				<% }
 				%> </td></tr>
 			<%
 			}}
@@ -257,15 +251,9 @@
         		String addr = listmat.getAddr();
 	      		String detail_addr = listmat.getDetail_addr();
 	      		
-	      		 BookDAO bkdao = new BookDAO();
-					List<BookVO> bklist = bkdao.listbst(g_id, res_code);
+	      		
+				String b_status = bdao.bst(res_code, g_id);
 					
-					if(!bklist.isEmpty()) {
-						for(int j=0; j<bklist.size(); j++) {
-							BookVO bklistvo = (BookVO) bklist.get(j);
-							String b_status = bklistvo.getB_status();
-							
-			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
 	            
 	    	  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -289,7 +277,7 @@
 			<td><%if(b_status.equals("신청완료")) { %>
 			<a href="../book/deleteapply.jsp?res_code=<%= res_code %>" onclick="return deleteok();">신청취소</a><% } %></td></tr>
 			<%
-			}}}}
+			}}
 			%>
 			</table>
 			</div>

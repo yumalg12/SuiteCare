@@ -17,14 +17,48 @@ String res_code = request.getParameter("res_code");
 String caretaker_code = request.getParameter("caretaker_code");
 ReservationDAO dao = new ReservationDAO();
 
-dao.delres(res_code, caretaker_code);
+int delresinfo = dao.delresinfo(res_code, caretaker_code);
+
+if(delresinfo>0) {
+	int delresbook = dao.delresbook(res_code); 
+	
+	if(delresbook>=0) {
+		int delres = dao.delres(res_code, caretaker_code);
+		
+		if(delres>0) {
+			%>
+			<script>
+			alert('예약취소가 완료되었습니다.');
+			window.location.href='../member/mMain.jsp';
+			</script>
+			
+			<%
+		} else {
+			%>
+			<script>
+			alert('예약취소 오류');
+			window.location.href='../member/mMain.jsp';
+			</script>
+			<%
+		} } else {
+			%>
+			<script>
+			alert('예약취소 오류');
+			window.location.href='../member/mMain.jsp';
+			</script>
+			<%
+	} } else {
+		%>
+		<script>
+		alert('예약취소 오류');
+		window.location.href='../member/mMain.jsp';
+		</script>
+		<%
+}
 
 %>
 
 
 </body>
-<script>
-alert('예약취소가 완료되었습니다.');
-window.location.href='../member/mMain.jsp';
-</script>
+
 </html>
