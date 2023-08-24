@@ -252,10 +252,8 @@
 										}
 										%>
 									</td>
+									<td><button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button></td>
 
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
 								</tr>
 
 								<%
@@ -513,6 +511,11 @@
 		function openmatPopup(resCode) {
 			var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
 			window.open(popupUrl, "Popup", "width=800, height=800");
+		}
+		
+		function openrePopup(resCode, gId) {
+		    var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
+		    window.open(popupUrl, "Popup", "width=800, height=800");
 		}
 	</script>
 </body>
