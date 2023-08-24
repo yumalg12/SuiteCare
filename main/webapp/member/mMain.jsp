@@ -6,6 +6,7 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
+<%@ page import="book.BookDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +23,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-
 <script>
 		function insertTinfo() {
 			window.location.href = "../careTaker/takerInfo.jsp";
@@ -253,9 +253,26 @@
 										%>
 									</td>
 
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
+									<td>
+										<%
+											BookDAO bookDao = new BookDAO();
+											String b_status = bookDao.status(res_code, caregiver);
+											
+											java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
+											int result = today.compareTo(end_date);
+											if(result > 0){ // 오늘 날짜가 서비스이용 마지막 날짜보다 이후이면 양수
+												if(b_status.equals("서비스이용 완료")) {
+										%>
+													<p>서비스 이용 완료</p>
+										<%
+												} else {
+										%>
+													<p onclick="serviceComplete('<%=res_code%>', '<%=caregiver%>');" style="text-decoration:underline;">이용 확정하기</p>
+										<%		
+												}
+											}
+										%>
+									</td>
 								</tr>
 
 								<%
@@ -399,9 +416,9 @@
 										%>
 									</td>
 
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
+									<td>
+										<a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>" onclick="return delok();">취소</a>
+									</td>
 								</tr>
 
 								<%
@@ -513,6 +530,37 @@
 		function openmatPopup(resCode) {
 			var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
 			window.open(popupUrl, "Popup", "width=800, height=800");
+		}
+		
+		function serviceComplete(code, caregiver) {
+			if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
+				$.ajax({
+					type: "post",
+					async: false,
+					url: "<%=context%>/book/complete",
+					dataType: "json",
+					data: {code: code, caregiver : caregiver},
+					success: function(data, textStatus) {
+						console.log(data.complete);
+						if (data.complete == 0) {
+							alert("변경X");
+						} else if (data.complete == 1) {
+							alert("확정완료!!");
+							document.location.reload();
+						} else {
+							console.log("count: -1 (error)");
+							alert("오류가 발생했습니다.");
+						}
+					},
+					error: function(data, textStatus) {
+						console.log("data: "+ data +" / textStatus: "+textStatus);
+						alert("오류가 발생했습니다.");
+					}
+				});
+			} else {
+				return;
+			}
+			 
 		}
 	</script>
 </body>

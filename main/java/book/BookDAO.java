@@ -287,5 +287,51 @@ public class BookDAO {
 		return list;
 	}
 	
+	public int serviceComplete(String res_code, String g_id) {
+		int result =0;
+		try {
+			connect();
+			String sql = "UPDATE book SET b_status='서비스이용 완료' WHERE res_code=? AND g_id=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { 
+			if(pstmt!=null ) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
+	public String status(String res_code, String g_id) {
+		String b_status = "";
+		try {
+			connect();
+				
+			String sql = "SELECT b_status FROM book WHERE res_code=? AND g_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				b_status = rs.getString("b_status");
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return b_status;
+	}
 }
