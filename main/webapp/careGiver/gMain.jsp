@@ -140,7 +140,7 @@ margin-left: 7.2rem;
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(endDate);
-				cal.add(Calendar.DAY_OF_MONTH, 8);
+				cal.add(Calendar.DAY_OF_MONTH, 7);
 				Date lastDate = cal.getTime();
 				String paymentdate = dateFormat.format(lastDate);
 
