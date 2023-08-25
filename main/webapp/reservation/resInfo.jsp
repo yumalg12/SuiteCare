@@ -38,7 +38,6 @@
 					</header>
 					<%
 					request.setCharacterEncoding("utf-8");
-					String g_id = (String)session.getAttribute("g_id");
 					String res_code = request.getParameter("res_code");
 					session.setAttribute("applycode", res_code);
 					String caretaker_code = request.getParameter("caretaker_code");
@@ -198,16 +197,16 @@
 								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
 							</div>
 						</div>
-				</div>
 
 				</form>
 				<!-- form 끝 -->
 				<%
 				}
 				%>
+				</div>
 			</div>
 		</div>
-		</div>
+		
 	</section>
 
 	<%@ include file="../footer.jsp"%>
@@ -218,6 +217,6 @@
 
 <script>
 	function insert_hourwage() {
-		window.open("http://localhost:8060/suiteCare/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=500");
+		window.open("<%=context%>/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=425");
 	}
 </script>

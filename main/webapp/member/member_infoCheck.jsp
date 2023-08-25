@@ -46,7 +46,7 @@ dao.update(vo);
 
 <script>
 alert("정보 수정이 완료되었습니다.");
-window.location.href='../member/mMain.jsp';
+window.location.href='<%=context%>/member/main';
 </script>
 
 </body>

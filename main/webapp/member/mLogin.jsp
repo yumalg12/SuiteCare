@@ -8,12 +8,10 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
-<%String m_id = (String) session.getAttribute("m_id");
-String g_id = (String) session.getAttribute("g_id");%>
 
 console.log("<%=m_id%>");
 if ("<%=m_id%>" != "null") {
-	window.location.href="mMain.jsp";
+	window.location.href="<%=context%>/member/main";
 }
 
 function loginForm() {
@@ -25,7 +23,7 @@ function loginForm() {
 		alert("아이디와 비밀번호를 모두 입력해주세요.")
 	}
 	else {
-		loginForm.action="./mCheck.jsp";
+		loginForm.action="login";
 		loginForm.submit();
 	}
 }

@@ -101,6 +101,7 @@ public class BookDAO {
 				String g_id = rs.getString("g_id");
 				String b_status = rs.getString("b_status");
 				String g_name = rs.getString("g_name");
+				String hourwage = rs.getString("hourwage");
 				
 				BookVO vo = new BookVO();
 				
@@ -109,6 +110,7 @@ public class BookDAO {
 				vo.setG_id(g_id);
 				vo.setB_status(b_status);
 				vo.setG_name(g_name);
+				vo.setHourwage(hourwage);
 				
 				list.add(vo);
 			}
@@ -333,5 +335,40 @@ public class BookDAO {
 			e.printStackTrace();
 		}
 		return b_status;
+  }
+  
+	public String ghourwage(String res_code, String g_id) {
+			String ghourwage = null;
+		try {
+			connect();
+
+			String sql = "SELECT * FROM book WHERE res_code=? and g_id =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ghourwage = rs.getString("hourwage");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ghourwage;
+	}
+	public void delMatch(String g_id, String res_code) {
+		try {
+			connect();
+			String sql = "DELETE FROM book WHERE g_id=? and res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, res_code);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

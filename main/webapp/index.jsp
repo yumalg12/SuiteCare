@@ -44,8 +44,7 @@
 			</div>
 		</article>
 	</section>
-<% String m_id = (String)session.getAttribute("m_id");
-String g_id = (String)session.getAttribute("g_id");	%>
+
 	<!-- One -->
 	<section id="one" class="wrapper style2">
 		<div class="inner">
@@ -54,9 +53,9 @@ String g_id = (String)session.getAttribute("g_id");	%>
 				<div>
 					<div class="box"
 					<% if(m_id == null) { %>
-						onclick="location.href='./member/mLogin.jsp'"
+						onclick="location.href='./member/login'"
 						<% } else { %>
-						onclick="location.href='./member/mMain.jsp'"
+						onclick="location.href='./member/main'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">

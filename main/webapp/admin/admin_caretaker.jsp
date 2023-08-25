@@ -109,7 +109,6 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								MemberVO listt = (MemberVO) list.get(i);
 
-								String m_id = listt.getM_id();
 								String m_name = listt.getM_name();
 								String m_gender = listt.getM_gender();
 								String m_phone = listt.getM_phone();
