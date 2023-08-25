@@ -254,7 +254,7 @@
 											if(result > 0){ // 오늘 날짜가 서비스이용 마지막 날짜보다 이후이면 양수
 												if(b_status.equals("서비스이용 완료")) {
 										%>
-													<p>서비스 이용 완료</p>
+													<button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button>
 										<%
 												} else {
 										%>
@@ -264,7 +264,6 @@
 											}
 										%>
 									</td>
-									<td><button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button></td>
 								</tr>
 
 								<%
@@ -368,7 +367,6 @@
 								}
 								%>
 							</table>
-							</div>
 						</form>
 					</div>
 					<div style="text-align: center;" class="form_button">
@@ -476,7 +474,8 @@
 		function openrePopup(resCode, gId) {
 		    var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
 		    window.open(popupUrl, "Popup", "width=800, height=800");
-
+		}
+		
 		function serviceComplete(code, caregiver) {
 			if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
 				$.ajax({
@@ -505,7 +504,8 @@
 			} else {
 				return;
 			}
-			 
+		}
+		
 		function openGinfoMlist(gIdVal) {
 			window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=800");
 		}
