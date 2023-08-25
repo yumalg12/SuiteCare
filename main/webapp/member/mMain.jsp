@@ -264,6 +264,7 @@
 											}
 										%>
 									</td>
+									<td><button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button></td>
 								</tr>
 
 								<%
@@ -472,6 +473,10 @@
 			window.open(popupUrl, "Popup", "width=800, height=800");
 		}
 		
+		function openrePopup(resCode, gId) {
+		    var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
+		    window.open(popupUrl, "Popup", "width=800, height=800");
+
 		function serviceComplete(code, caregiver) {
 			if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
 				$.ajax({
