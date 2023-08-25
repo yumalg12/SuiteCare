@@ -30,7 +30,6 @@ function inserttinfo() {
 	request.setCharacterEncoding("utf-8");
 	%>
 	<%
-	String m_id = (String) session.getAttribute("m_id");
 	ReservationDAO dao = new ReservationDAO();
 
 	int ok = dao.tinfocheck(m_id);

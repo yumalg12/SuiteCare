@@ -16,7 +16,6 @@
 
 <body>
 <% 
-String m_id = (String)session.getAttribute("m_id");
 String g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");
@@ -54,8 +53,10 @@ for (int i = 0; i < glist.size(); i++) {
 	//String[] addrparts = g_addr.split(" ");
 	//String g_addrloc = addrparts[0]+" " + addrparts[1];
 
-	 int idx = g_address.indexOf(" ");
-     String address = g_address.substring(0, idx); 
+	  int idx = g_address.indexOf(" ");
+	 String gaddress = g_address.substring(idx + 1);
+	 int fidx = gaddress.indexOf(" ");
+	 String address = gaddress.substring(0, fidx);
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
    Date birthDate = dateFormat.parse(g_birth);
@@ -108,18 +109,8 @@ for (int i = 0; i < glist.size(); i++) {
 	</form>
 	
 	<% }%>
-	<input type="button" class="button special" onclick="gapprove();" value="승인하기">
-	<input type="button" class="button special" onclick="backtList();" value="뒤로가기">
+	<input type="button" class="button special" onclick="window.close();" value="닫기">
 
 </body>
 
-<script>
-function backtList() {
-	window.location.href = "./tapplyList.jsp?res_code=<%=res_code%>";
-}
-
-function gapprove() {
-	window.location.href = "./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>";
-}
-</script>
 </html>

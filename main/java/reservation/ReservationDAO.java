@@ -409,8 +409,8 @@ public class ReservationDAO {
 	    	 connect();
 	         
 	         String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as rinfo "
-	         		+ "WHERE c.t_code=r.caretaker_code and r.res_code=rinfo.res_code and r.caregiver_id=?";
-	         System.out.println(sql);
+	         		+ "WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code";
+	         //System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 	         pstmt.setString(1, id);
 	         
@@ -466,9 +466,9 @@ public class ReservationDAO {
 	            String rescode = rs.getString("res_code");
 	            String merchant_uid = rs.getString("merchant_uid");
 	            String res_date = rs.getString("res_date");
-	            String location = rs.getString("location");
 	            String addr = rs.getString("addr");
 	            String detail_addr = rs.getString("detail_addr");
+	            String location = rs.getString("location");
 	            String consciousness = rs.getString("consciousness");
 	            String care_meal_yn = rs.getString("care_meal_yn");
 	            String care_toilet = rs.getString("care_toilet");
@@ -531,7 +531,7 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?  where res_code=?";
+			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?, rank1=?, rank2=?, rank3=?, rank4=?, rank5=? where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -549,7 +549,12 @@ public class ReservationDAO {
 			pstmt.setString(12, vo.getPre_hourwage_1());
 			pstmt.setString(13, vo.getPre_hourwage_2());
 			pstmt.setString(14, vo.getPre_hourwage_3());
-			pstmt.setString(15, vo.getRes_code());
+			pstmt.setString(15, vo.getRank1());
+			pstmt.setString(16, vo.getRank2());
+			pstmt.setString(17, vo.getRank3());
+			pstmt.setString(18, vo.getRank4());
+			pstmt.setString(19, vo.getRank5());
+			pstmt.setString(20, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
@@ -564,27 +569,50 @@ public class ReservationDAO {
 		} return result;
 	}
 	
-	public void delres(String res_code, String caretaker_code) {
+	public int delresinfo(String res_code, String caretaker_code) {
+		int delresinfo = 0;
 		try {
 			connect();
 			String sql1 = "DELETE FROM reservation_info WHERE res_code=? and caretaker_code=?";
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setString(1, res_code);
 			pstmt.setString(2, caretaker_code);
-			pstmt.executeUpdate();
+			delresinfo = pstmt.executeUpdate();
 			pstmt.close();
-			
-			String sql2 = "DELETE FROM reservation WHERE res_code=? and caretaker_code=?";
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, res_code);
-			pstmt.setString(2, caretaker_code);
-			pstmt.executeUpdate();
-			pstmt.close();
-			
 			conn.close();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		} return delresinfo;
 	}
 	
+	public int delres(String res_code, String caretaker_code) {
+		int delres = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM reservation WHERE res_code=? and caretaker_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, caretaker_code);
+			delres = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return delres;
+	}
+	
+	public int delresbook(String res_code) {
+		int delresbook = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM book WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			delresbook = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return delresbook;
+	}
 }

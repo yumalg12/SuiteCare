@@ -41,7 +41,7 @@ dao.insert(vo);
 %>
 <script>
 alert("피간병인 정보 등록이 완료되었습니다.");
-window.location.href='../member/mMain.jsp';
+window.location.href='<%=context%>/member/main';
 </script>
 <% 
 

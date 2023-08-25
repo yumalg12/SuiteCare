@@ -12,16 +12,20 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 매칭간병인 정보</title>
 	<%@ include file="/header-import.jsp"%>
-</head>
+
 <script>
 function backmMain() {
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
+</head>
+
 <body>
 <% 
-String m_id = (String)session.getAttribute("m_id");
-String g_id = request.getParameter("g_id");
+g_id = request.getParameter("g_id");
 
 String file_repo = "../assets/profile/";
 
@@ -56,7 +60,9 @@ for (int i = 0; i < glist.size(); i++) {
 	//String g_addrloc = addrparts[0]+" " + addrparts[1];
 
 	 int idx = g_address.indexOf(" ");
-	 String address = g_address.substring(0, idx); 
+	 String gaddress = g_address.substring(idx + 1);
+	 int fidx = gaddress.indexOf(" ");
+	 String address = gaddress.substring(0, fidx);
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
    Date birthDate = dateFormat.parse(g_birth);
@@ -106,7 +112,7 @@ for (int i = 0; i < glist.size(); i++) {
 	
 	<% }%>
 	
-	<input type="button" class="button special" onclick="backmMain();" value="뒤로가기">
+	<input type="button" class="button special" onclick="window.close();" value="닫기">
 
 </body>
 </html>

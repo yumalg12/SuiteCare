@@ -9,6 +9,8 @@
 <%@ page import = "java.util.Date" %>
 <%@ page import = "java.util.Calendar" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.concurrent.TimeUnit" %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,60 +21,13 @@
 <title>SC 스위트케어 | 마이페이지</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
-<style>
-.fc-col-header {
-    margin: 0;
-    padding: 0;
-}
-.fc-daygrid-day-number, .fc-col-header-cell-cushion {
-text-decoration:none;
- cursor: default;
-}
-.fc-daygrid-day:hover{
-font-weight: bold;
-background-color: #DFD7BF50;
-}
-.fc-scroller{
-overflow:hidden !important;
-}
-.fc .fc-button-primary{
-background-color: transparent;
-border: none;
-outline: none;
-}
-.fc .fc-button-primary:hover{
-background-color: #cccccc50;
-}
-.fc .fc-daygrid-day.fc-day-today{
-background-color: #A4907Caa;
-font-weight: bold;
-}
-.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
-background-color: #DFD7BFaa;
-font-weight: bold;
-}
-.fc .fc-toolbar.fc-header-toolbar{
-margin-left: 7.2rem;
-}
-.fc .fc-toolbar-title {
-    font-size: 1.75em;
-    margin: 0;
-    display: inline;
-    position: relative;
-    top: 0.4rem;
-}
-</style>
-
-</head>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 	<link rel="stylesheet" href="../assets/css/fullcalendar.css">
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
+</head>
 	
 <body>
 <%@ include file="/header.jsp" %>
@@ -89,7 +44,6 @@ margin-left: 7.2rem;
 
 		<!-- Two -->
 			<section id="two" class="wrapper style2">
-				<div class="inner">
 					<div class="box">
 						<div class="content">
 							<header class="align-center">
@@ -97,26 +51,30 @@ margin-left: 7.2rem;
 								<h2>매칭 정보</h2>
 							</header>
 							<div>
-						<input type="button" class="button alt" id="calToggle" onclick="grescalendar();" value="달력으로 보기">
+						<input type="button" class="button alt" id="calToggle" onclick="rescalendar();" value="달력으로 보기">
 					</div>
 					<div id='calendar'></div>
 					<div id='restable'>
-					<%	String g_id = (String)session.getAttribute("g_id");
+					<%	
+						BookDAO bdao = new BookDAO();
 						calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 						List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
 			<form name="matchinginfo">
 			<div class="table_wrapper">
 			<table border=1>
+			<thead>
 			<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
+			</thead>
+			<tbody>
 			<%
 			request.setCharacterEncoding("utf-8");
 			
 			
 			ReservationDAO dao = new ReservationDAO();
-			List<ReservationVO> list = dao.resList(g_id);
-			for(int i=0; i<list.size(); i++) {
-				ReservationVO listvo = (ReservationVO) list.get(i);
+			List<ReservationVO> listres = dao.resList(g_id);
+			for(int i=0; i<listres.size(); i++) {
+				ReservationVO listvo = (ReservationVO) listres.get(i);
 
 				String res_code = listvo.getRes_code();
 	            String location = listvo.getLocation();
@@ -131,7 +89,8 @@ margin-left: 7.2rem;
 				String workTimes = start_time.substring(0,5) + " ~ " + end_time.substring(0,5);
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+				
+				Date startDate = dateFormat.parse(start_date);
 				Date endDate = dateFormat.parse(end_date);
 
 				Calendar cal = Calendar.getInstance();
@@ -142,12 +101,28 @@ margin-left: 7.2rem;
 
 				
 				String t_name = listvo.getT_name();
+				
+				String ghourwage = bdao.ghourwage(res_code, g_id);
+				int hourwage = Integer.parseInt(ghourwage);
+				
+				SimpleDateFormat dFormat = new SimpleDateFormat("HH:mm");
+				Date starttime = dFormat.parse(start_time);
+	            Date endtime = dFormat.parse(end_time);
+	            
+	            long workdate = endDate.getTime() - startDate.getTime();
+	            long dworkdate = TimeUnit.MILLISECONDS.toDays(workdate); // 밀리초 단위 근무일자를 일자단위로 변환
+	            long worktime = endtime.getTime() - starttime.getTime();
+	            long hworktime = TimeUnit.MILLISECONDS.toHours(worktime); // 밀리초 단위 근무시간을 시간단위로 변환
+				
+	            int wdate = (int) (dworkdate+1);
+	            int totalSalary = (int) (wdate * hworktime * hourwage);
 
         		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
-				out.println("<td>" + location + "</td><td>" + "결제금액" + "</td><td>" + paymentdate + "</td>");
+				out.println("<td>" + location + "</td><td>" + totalSalary + "원</td><td>" + paymentdate + "</td>");
 				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
 			}
 			%>
+			</tbody>
 			</table> 
 			</div>
 			</form>
@@ -173,7 +148,7 @@ margin-left: 7.2rem;
 			<table>
 			<thead>
 			<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
-			<td>근무시간</td><td>결제 예정 금액</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
@@ -200,43 +175,31 @@ margin-left: 7.2rem;
 			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
 	            
+	    	 	 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
-				long worktime = end_time.getTime() - start_time.getTime();
-				int workHours = (int) (worktime / (1000 * 60 * 60));
-
-				int totalWorkDays =  (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1; 
-	
-				int salary = totalWorkDays * workHours * 10000;
-	
-	 			String fSalary = String.format("%,d", salary);
-	 			
+				String workTimes = sTime + "~" + eTime;
+				
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 			%>
 
 			 <tr><td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
 			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
-			 <td> <%=fSalary%>원 </td>
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
-			BookDAO bdao = new BookDAO();
-			List<BookVO> blist = bdao.listbst(g_id, res_code);
 			
-			if(blist.isEmpty()) {
-				%> 미신청 <% } else {
-			for(int j=0; j<blist.size(); j++) {
-				BookVO blistvo = (BookVO) blist.get(j);
-				String b_status = blistvo.getB_status();
-				
+			String b_status = bdao.bst(res_code, g_id);
+			
 				if(b_status!=null) {
 				%>
 				<%=b_status %>
 				<%
 				} else { %>
 				 미신청
-				<% }}}
+				<% }
 				%> </td></tr>
 			<%
 			}}
@@ -264,7 +227,8 @@ margin-left: 7.2rem;
 			<div class="table_wrapper">
 			<table>
 			<thead>
-			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
+			<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
+			<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
 
 			</thead>
 			<% 
@@ -284,35 +248,36 @@ margin-left: 7.2rem;
 				String caretaker_code = listmat.getCaretaker_code();
 				String location = listmat.getLocation();
 
-	            
-  
         		String addr = listmat.getAddr();
 	      		String detail_addr = listmat.getDetail_addr();
 	      		
-	      		 BookDAO bkdao = new BookDAO();
-					List<BookVO> bklist = bkdao.listbst(g_id, res_code);
+	      		
+				String b_status = bdao.bst(res_code, g_id);
 					
-					if(!bklist.isEmpty()) {
-						for(int j=0; j<bklist.size(); j++) {
-							BookVO bklistvo = (BookVO) bklist.get(j);
-							String b_status = bklistvo.getB_status();
-			
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
 	            
+	    	  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			     String sTime = sdf.format(start_time);
+			     String eTime = sdf.format(end_time);
+			     
 				String workDate = start_date + "~" + end_date;
-				String workTimes = start_time + "~" + end_time;
-
+				String workTimes = sTime + "~" + eTime;
+				String ghourwage = bdao.ghourwage(res_code, g_id);
 	 			
 	 			 int idx = addr.indexOf(" ");
 		            String address = addr.substring(0, idx); 
 		            
 			%>
 
-			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
+			 <tr><td> <%=res_code %> </td><td> <%=name %> </td>	 
+			 <td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
-			<td> <%=b_status %> </td></tr>
+			<td> <%=ghourwage %> </td>
+			<td> <%=b_status %> </td>
+			<td><%if(b_status.equals("신청완료")) { %>
+			<a href="../book/deleteapply.jsp?res_code=<%= res_code %>" onclick="return deleteok();">신청취소</a><% } %></td></tr>
 			<%
-			}}}}
+			}}
 			%>
 			</table>
 			</div>
@@ -327,7 +292,7 @@ margin-left: 7.2rem;
 
 </body>
 <script>
-		function grescalendar() {
+		function rescalendar() {
 			//토글버튼 변경하고 목록 테이블 없애기
 			document.getElementById('calToggle').setAttribute("onClick", "restable()");
 			document.getElementById('calToggle').value = "목록으로 보기";
@@ -397,6 +362,12 @@ margin-left: 7.2rem;
 			document.getElementById('restable').style.display = "";
 		};
 
-		
+	
+		function deleteok() {
+			if (!confirm("매칭신청을 취소하시겠습니까?")) {
+				return false;
+			}
+		}
+	
 	</script>
 </html>

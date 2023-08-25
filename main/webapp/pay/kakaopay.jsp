@@ -11,20 +11,12 @@
 <title>SC 스위트케어 | 결제</title>
 <%@include file="../header-import.jsp"%>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
 </head>
 
 <body>
-	<%@include file="../header.jsp"%>
-
-<!-- One -->
-<section id="One" class="wrapper style3">
-	<div class="inner">
-		<header class="align-center">
-			<p>adsfasdfsdf</p>
-			<h2>Suite Care</h2>
-		</header>
-	</div>
-</section>
 
 <!-- Two -->
 <section id="two" class="wrapper style2">
@@ -39,15 +31,10 @@
 				<div class="form_wrapper">
 					<div class="form_row">
 						<label>결제 금액</label> <select name="kp_item">
-							<option value="5000">5,000원</option>
-							<option value="10000">10,000원</option>
-							<option value="15000">15,000원</option>
-							<option value="20000">20,000원</option>
-							<option value="25000">25,000원</option>
-							<option value="30000">30,000원</option>
-							<option value="35000">35,000원</option>
-							<option value="40000">40,000원</option>
-							<option value="50000">50,000원</option>
+							<c:forEach var="start" begin="10000" end="100000" step="10000">
+								<c:set var="display" value="${start }원 "/>
+								<option value="${start }">${display }</option>
+							</c:forEach>
 						</select>
 					</div>
 
@@ -61,7 +48,7 @@
 						<input id="merchant_uidRsp" type="hidden" name="merchant_uidRsp" value="">
 						<input id="pay_method" type="hidden" name="pay_method" value="">
 						<c:forEach var="pay" items="${list }">
-							<input type="hidden" id="phone" value="${pay.m_phone }">
+							<input type="text" id="phone" value="${pay.m_phone }">
 						</c:forEach>
 					</form>
 
@@ -116,9 +103,6 @@ $('#charge_kakao').click(function() {
 	});
 });
 </script>
-
-
-<%@include file="../footer.jsp"%>
 
 </body>
 </html>

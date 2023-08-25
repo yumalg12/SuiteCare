@@ -10,8 +10,6 @@
 	<body>
 <%@ include file="/header.jsp" %>
 
-<%String m_id = (String)session.getAttribute("m_id"); %>	
-
 	<!-- One -->
 			<section id="One" class="wrapper style3">
 				<div class="inner">
@@ -88,7 +86,7 @@
 
 <script>
 function goindexForm() {
-	location.href="../member/mMain.jsp";
+	location.href="<%=context%>/member/main";
 }
 </script>
 

@@ -75,8 +75,7 @@ public class PayController extends HttpServlet {
 				dispatch.forward(request, response);
 			} else {
 				String msg = "로그인 정보가 없습니다";
-				out.write("<script>alert('" + msg + "');</script>");
-				response.sendRedirect(request.getContextPath()+"/index.jsp");
+				out.write("<script>alert('" + msg + "'); window.close();</script>");
 			}
 		} else if (path.equals("/card.do")) {
 
@@ -90,9 +89,7 @@ public class PayController extends HttpServlet {
 				dispatch.forward(request, response);
 			} else {
 				String msg = "로그인 정보가 없습니다";
-				out.write("<script>alert('" + msg + "');</script>");
-				response.sendRedirect(request.getContextPath()+"/index.jsp");
-
+				out.write("<script>alert('" + msg + "'); window.close();</script>");
 			}
 
 		}

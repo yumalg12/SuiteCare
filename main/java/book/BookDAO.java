@@ -101,6 +101,7 @@ public class BookDAO {
 				String g_id = rs.getString("g_id");
 				String b_status = rs.getString("b_status");
 				String g_name = rs.getString("g_name");
+				String hourwage = rs.getString("hourwage");
 				
 				BookVO vo = new BookVO();
 				
@@ -109,6 +110,7 @@ public class BookDAO {
 				vo.setG_id(g_id);
 				vo.setB_status(b_status);
 				vo.setG_name(g_name);
+				vo.setHourwage(hourwage);
 				
 				list.add(vo);
 			}
@@ -198,36 +200,28 @@ public class BookDAO {
 		} return result;
 	}
 	
-	public List<BookVO> listbst(String g_id, String res_code) {
-		List<BookVO> list= new ArrayList<BookVO>();
-		
-		try {
-			connect();
-				
-			String sql = "SELECT b_status FROM book WHERE g_id=? and res_code=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, g_id);
-			pstmt.setString(2, res_code);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				String b_status = rs.getString("b_status");
-				
-				BookVO vo = new BookVO(); 
+	public String bst(String res_code, String g_id) {
+		String bst = null;
+	try {
+		connect();
 
-				vo.setB_status(b_status);
-				
-				list.add(vo);
-			}
-			
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch(Exception e) {
-			e.printStackTrace();
+		String sql = "SELECT * FROM book WHERE res_code=? and g_id =?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, res_code);
+		pstmt.setString(2, g_id);
+		rs = pstmt.executeQuery();
+		if(rs.next()) {
+			bst = rs.getString("b_status");
 		}
-		return list;
+		rs.close();
+		pstmt.close();
+		conn.close();
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	return bst;
+}
+	
 	
 	public List<BookVO> gList(String g_id) {
 		List<BookVO> list= new ArrayList<BookVO>();
@@ -287,5 +281,86 @@ public class BookDAO {
 		return list;
 	}
 	
+	public int serviceComplete(String res_code, String g_id) {
+		int result =0;
+		try {
+			connect();
+			String sql = "UPDATE book SET b_status='서비스이용 완료' WHERE res_code=? AND g_id=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { 
+			if(pstmt!=null ) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
+	public String status(String res_code, String g_id) {
+		String b_status = "";
+		try {
+			connect();
+				
+			String sql = "SELECT b_status FROM book WHERE res_code=? AND g_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				b_status = rs.getString("b_status");
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return b_status;
+  }
+  
+	public String ghourwage(String res_code, String g_id) {
+			String ghourwage = null;
+		try {
+			connect();
+
+			String sql = "SELECT * FROM book WHERE res_code=? and g_id =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ghourwage = rs.getString("hourwage");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ghourwage;
+	}
+	public void delMatch(String g_id, String res_code) {
+		try {
+			connect();
+			String sql = "DELETE FROM book WHERE g_id=? and res_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, res_code);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
