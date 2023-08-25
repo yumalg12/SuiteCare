@@ -27,11 +27,13 @@
 
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 피간병인 상세정보</title>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
 </head>
 <body>
 <%
 request.setCharacterEncoding("utf-8");
-String m_id = (String) session.getAttribute("m_id");
 String res_code = request.getParameter("popres_code");
 
 PatientresDAO dao = new PatientresDAO();

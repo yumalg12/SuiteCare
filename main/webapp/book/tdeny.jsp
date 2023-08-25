@@ -11,7 +11,7 @@
 <%@ include file="/header-import.jsp"%>
 </head>
 <body>
-<% String m_id = (String)session.getAttribute("m_id");
+<%
 String b_id = request.getParameter("b_id");
 String res_code = request.getParameter("res_code");
 

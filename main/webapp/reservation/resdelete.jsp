@@ -29,7 +29,7 @@ if(delresinfo>0) {
 			%>
 			<script>
 			alert('예약취소가 완료되었습니다.');
-			window.location.href='../member/mMain.jsp';
+			window.location.href='<%=context%>/member/main';
 			</script>
 			
 			<%
@@ -37,21 +37,21 @@ if(delresinfo>0) {
 			%>
 			<script>
 			alert('예약취소 오류');
-			window.location.href='../member/mMain.jsp';
+			window.location.href='<%=context%>/member/main';
 			</script>
 			<%
 		} } else {
 			%>
 			<script>
 			alert('예약취소 오류');
-			window.location.href='../member/mMain.jsp';
+			window.location.href='<%=context%>/member/main';
 			</script>
 			<%
 	} } else {
 		%>
 		<script>
 		alert('예약취소 오류');
-		window.location.href='../member/mMain.jsp';
+		window.location.href='<%=context%>/member/main';
 		</script>
 		<%
 }
@@ -60,5 +60,4 @@ if(delresinfo>0) {
 
 
 </body>
-
 </html>

@@ -90,7 +90,7 @@
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
-		window.location.href = "../member/mMain.jsp";
+		window.location.href = "<%=context%>/member/main";
 	}
 </script>
 
@@ -120,7 +120,6 @@
 	</section>
 	<%
 	request.setCharacterEncoding("utf-8");
-	String m_id = (String) session.getAttribute("m_id");
 	String res_code = (String) session.getAttribute("res_code");
 	String r_code = request.getParameter("res_code");
 	session.setAttribute("r_code", r_code);

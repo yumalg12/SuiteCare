@@ -14,14 +14,11 @@
 <title>SC 스위트케어 | 마이페이지</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 <link rel="stylesheet" href="../assets/css/fullcalendar.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
 <script>
 		function insertTinfo() {
@@ -61,6 +58,7 @@
 						<h2>기본 정보</h2>
 					</header>
 					<form name="patientinfo">
+						<div class="table_wrapper">
 						<table>
 							<thead>
 								<tr>
@@ -79,9 +77,7 @@
 
 							session.removeAttribute("caretaker_code");
 							session.removeAttribute("res_code");
-
-							String m_id = (String) session.getAttribute("m_id");
-
+							
 							TakerDAO dao = new TakerDAO();
 
 							List<TakerVO> list = dao.takerList(m_id);
@@ -109,6 +105,7 @@
 							}
 							%>
 						</table>
+						</div>
 					</form>
 					<div style="text-align: center;" class="form_button">
 						<input type="button" class="button special"
@@ -128,8 +125,7 @@
 						<h2>매칭 완료 정보</h2>
 					</header>
 					<div>
-						<input type="button" class="button alt" id="calToggle"
-							onclick="rescalendar();" value="달력으로 보기">
+						<input type="button" class="button alt" id="calToggle" onclick="rescalendar();" value="달력으로 보기">
 					</div>
 					<div id='calendar'></div>
 					<div id='restable'>
@@ -351,18 +347,16 @@
 								}
 								%>
 							</table>
+							</div>
 						</form>
 					</div>
 					<div style="text-align: center;" class="form_button">
-						<input type="button" class="button special"
-							onclick="rescaregiver();" value="간병인 신청하기">
+						<input type="button" class="button special" onclick="rescaregiver();" value="간병인 신청하기">
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 	<!-- four -->
 	<section id="four" class="wrapper style2">
 		<div class="inner">
