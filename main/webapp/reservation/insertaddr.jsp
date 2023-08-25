@@ -11,7 +11,6 @@
 <body>
 <% 
 request.setCharacterEncoding("utf-8");
-String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
 String r_code = (String)session.getAttribute("r_code");
@@ -42,7 +41,7 @@ try {
 %>
 <script>
     alert("자택주소 업데이트 완료");
-    window.location.href='../member/mMain.jsp';
+    window.location.href='<%=context%>/member/main';
 </script>
 <%
             }

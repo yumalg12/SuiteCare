@@ -12,11 +12,11 @@
 </head>
 <script>
 function backmain() {
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
 <body>
-<% String m_id = (String)session.getAttribute("m_id");
+<%
 String res_code = request.getParameter("res_code");
 //System.out.println(res_code);
 %>

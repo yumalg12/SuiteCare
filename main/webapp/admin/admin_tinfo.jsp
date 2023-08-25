@@ -101,7 +101,6 @@ margin-left: 7.2rem;
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-							String m_id = request.getParameter("m_id");
 
 							TakerDAO dao = new TakerDAO();
 

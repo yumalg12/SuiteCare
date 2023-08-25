@@ -90,7 +90,6 @@ margin-left: 7.2rem;
 			
 			<%
 			request.setCharacterEncoding("utf-8");
-			String g_id = (String)session.getAttribute("g_id");
 			String res_code = request.getParameter("res_code");
 			
 			ReservationDAO dao = new ReservationDAO();

@@ -15,7 +15,7 @@
 
 <script>
 function backmMain() {
-	window.location.href = "../member/mMain.jsp";
+	window.location.href = "<%=context%>/member/main";
 }
 </script>
 
@@ -25,8 +25,7 @@ function backmMain() {
 
 <body>
 <% 
-String m_id = (String)session.getAttribute("m_id");
-String g_id = request.getParameter("g_id");
+g_id = request.getParameter("g_id");
 
 String file_repo = "../assets/profile/";
 

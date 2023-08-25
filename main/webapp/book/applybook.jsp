@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% String g_id = (String)session.getAttribute("g_id");
+<%
 String res_code = (String)session.getAttribute("applycode");
 String b_status = "신청완료";
 String hourwage = request.getParameter("hourwage");

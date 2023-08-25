@@ -38,7 +38,6 @@
 					</header>
 					<%
 					request.setCharacterEncoding("utf-8");
-					String g_id = (String)session.getAttribute("g_id");
 					String res_code = request.getParameter("res_code");
 					session.setAttribute("applycode", res_code);
 					String caretaker_code = request.getParameter("caretaker_code");

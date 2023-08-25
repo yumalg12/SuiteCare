@@ -54,7 +54,7 @@
 	for(int i=0; i<list.size(); i++) {
 		MemberVO listvo = (MemberVO) list.get(i);
 	
-		String m_id = listvo.getM_id();
+		m_id = listvo.getM_id();
 		String m_pw = listvo.getM_pw();
 		String m_name = listvo.getM_name();
 		String m_gender = listvo.getM_gender();

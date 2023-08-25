@@ -25,6 +25,6 @@ dao.delres(res_code, caretaker_code);
 </body>
 <script>
 alert('예약취소가 완료되었습니다.');
-window.location.href='../member/mMain.jsp';
+window.location.href='<%=context%>/member/main';
 </script>
 </html>
