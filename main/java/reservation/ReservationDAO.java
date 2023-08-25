@@ -409,8 +409,8 @@ public class ReservationDAO {
 	    	 connect();
 	         
 	         String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as rinfo "
-	         		+ "WHERE c.t_code=r.caretaker_code and r.res_code=rinfo.res_code and r.caregiver_id=?";
-	         System.out.println(sql);
+	         		+ "WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code";
+	         //System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 	         pstmt.setString(1, id);
 	         
@@ -569,27 +569,50 @@ public class ReservationDAO {
 		} return result;
 	}
 	
-	public void delres(String res_code, String caretaker_code) {
+	public int delresinfo(String res_code, String caretaker_code) {
+		int delresinfo = 0;
 		try {
 			connect();
 			String sql1 = "DELETE FROM reservation_info WHERE res_code=? and caretaker_code=?";
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setString(1, res_code);
 			pstmt.setString(2, caretaker_code);
-			pstmt.executeUpdate();
+			delresinfo = pstmt.executeUpdate();
 			pstmt.close();
-			
-			String sql2 = "DELETE FROM reservation WHERE res_code=? and caretaker_code=?";
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, res_code);
-			pstmt.setString(2, caretaker_code);
-			pstmt.executeUpdate();
-			pstmt.close();
-			
 			conn.close();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		} return delresinfo;
 	}
 	
+	public int delres(String res_code, String caretaker_code) {
+		int delres = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM reservation WHERE res_code=? and caretaker_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, caretaker_code);
+			delres = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return delres;
+	}
+	
+	public int delresbook(String res_code) {
+		int delresbook = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM book WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			delresbook = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return delresbook;
+	}
 }

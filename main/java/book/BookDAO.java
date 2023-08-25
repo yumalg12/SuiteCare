@@ -200,36 +200,28 @@ public class BookDAO {
 		} return result;
 	}
 	
-	public List<BookVO> listbst(String g_id, String res_code) {
-		List<BookVO> list= new ArrayList<BookVO>();
-		
-		try {
-			connect();
-				
-			String sql = "SELECT b_status FROM book WHERE g_id=? and res_code=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, g_id);
-			pstmt.setString(2, res_code);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				String b_status = rs.getString("b_status");
-				
-				BookVO vo = new BookVO(); 
+	public String bst(String res_code, String g_id) {
+		String bst = null;
+	try {
+		connect();
 
-				vo.setB_status(b_status);
-				
-				list.add(vo);
-			}
-			
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch(Exception e) {
-			e.printStackTrace();
+		String sql = "SELECT * FROM book WHERE res_code=? and g_id =?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, res_code);
+		pstmt.setString(2, g_id);
+		rs = pstmt.executeQuery();
+		if(rs.next()) {
+			bst = rs.getString("b_status");
 		}
-		return list;
+		rs.close();
+		pstmt.close();
+		conn.close();
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	return bst;
+}
+	
 	
 	public List<BookVO> gList(String g_id) {
 		List<BookVO> list= new ArrayList<BookVO>();

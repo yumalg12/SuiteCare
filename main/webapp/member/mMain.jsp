@@ -238,20 +238,12 @@
 
 									<td>
 										<%
-										if (caregiver == null) {
-										%> <a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인
-									</a> <%
-										} else if (caregiver != null) {
 										String g_name = listvo.getG_name();
-										%> <a href="../book/ginfoMlist.jsp?g_id=<%=caregiver%>"><%=g_name%></a>
-										<%
-										}
-										%>
+										%> <a onclick="javascript:openGinfoMlist('<%=caregiver%>')""><%=g_name%></a>
+										
 									</td>
 
-									<td><a
-										href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
-										onclick="return delok();">취소</a></td>
+									<td></td>
 								</tr>
 
 								<%
@@ -343,13 +335,9 @@
 										else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
 										<%}} %></td>
 										
-									<td><% if(caregiver==null) { %>
-										<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a> <%}	
-									else if(caregiver!=null){
-									String g_name = listvo.getG_name();
-									%>
-									<a onclick="javascript:openGinfoMlist('<%=caregiver%>')""><%=g_name%></a>
-									<%} %></td>
+									<td>
+										<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
+									</td>
 									
 									<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 										onclick="return delok();">취소</a></td>
