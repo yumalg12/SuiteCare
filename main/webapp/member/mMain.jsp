@@ -147,6 +147,7 @@
 										<td>매칭서비스정보</td>
 										<td>간병인</td>
 										<td>비고</td>
+										<td>후기</td>
 									</tr>
 								</thead>
 								<%
@@ -393,122 +394,124 @@
 	</section>
 	<%@ include file="/footer.jsp"%>
 	<script>
-		function rescalendar() {
-			//토글버튼 변경하고 목록 테이블 없애기
-			document.getElementById('calToggle').setAttribute("onClick", "restable()");
-			document.getElementById('calToggle').value = "목록으로 보기";
-			document.getElementById('calToggle').style.position = "absolute";
-			document.getElementById('calToggle').style.top = "15.9rem";
-			document.getElementById('restable').style.display = "none";
-			document.getElementById('calendar').style.display = "";
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				contentHeight: 650,
-				initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-				locale : 'ko',
-				headerToolbar : { // 헤더에 표시할 툴 바
-					start : "",
-					center : "prev title next",
-                    end : 'dayGridMonth,dayGridWeek,dayGridDay'
-				},
-				titleFormat : function(date) {
-					return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
-				},
-				//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
-				selectable : true, // 달력 일자 드래그 설정가능
-				droppable : true,
-				editable : true,
-				nowIndicator: true, // 현재 시간 마크
-				events : [
-					 <%for (CalendarVO cvo : clist) {%>
-		             {
-		                 title: '<%=cvo.getT_name()%>',
-		                 start: '<%=cvo.getStart_date()%>',
-		                 end: '<%=cvo.getEnd_date()%>',
-		                 t_name: '<%=cvo.getT_name()%>',
-		                 start_time: '<%=cvo.getStart_time()%>',
-		                 end_time: '<%=cvo.getEnd_time()%>',
-		                 res_code: '<%=cvo.getRes_code()%>',
-		                 color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
-		                
-		             },
-		         <%}%>
-						] ,
-				 eventClick: function(info) {
-			            // 이벤트를 클릭하면 이벤트 세부 정보를 추출합니다.
-			            var eventDetails = info.event.extendedProps;
-			            var name = eventDetails.t_name;
-			            var startTime = eventDetails.start_time;
-			            var endTime = eventDetails.end_time;
-			            var reservationCode = eventDetails.res_code;
+	   function rescalendar() {
+	       // 토글 버튼 변경하고 목록 테이블 없애기
+	       document.getElementById('calToggle').setAttribute("onClick", "restable()");
+	       document.getElementById('calToggle').value = "목록으로 보기";
+	       document.getElementById('calToggle').style.position = "absolute";
+	       document.getElementById('calToggle').style.top = "15.9rem";
+	       document.getElementById('restable').style.display = "none";
+	       document.getElementById('calendar').style.display = "";
+	       
+	       var calendarEl = document.getElementById('calendar');
+	       var calendar = new FullCalendar.Calendar(calendarEl, {
+	           contentHeight: 650,
+	           initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+	           locale: 'ko',
+	           headerToolbar: { // 헤더에 표시할 툴 바
+	               start: "",
+	               center: "prev title next",
+	               end: 'dayGridMonth,dayGridWeek,dayGridDay'
+	           },
+	           titleFormat: function(date) {
+	               return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+	           },
+	           selectable: true, // 달력 일자 드래그 설정가능
+	           droppable: true,
+	           editable: true,
+	           nowIndicator:true, // 현재 시간 마크
+	         events : [
+	             <%for (CalendarVO cvo : clist) {%>
+	                {
+	                    title:'<%=cvo.getT_name()%>',
+	                    start:'<%=cvo.getStart_date()%>',
+	                    end:'<%=cvo.getEnd_date()%>',
+	                    t_name:'<%=cvo.getT_name()%>',
+	                    start_time:'<%=cvo.getStart_time()%>',
+	                    end_time:'<%=cvo.getEnd_time()%>',
+	                    res_code:'<%=cvo.getRes_code()%>',
+	                    color:'#' + Math.round(Math.random() * 0xffffff).toString(16)
+	                   
+	                },
+	            <%}%>
+	         ],
+	         eventClick:function(info){
+	            var eventDetails=info.event.extendedProps;
+	            var name=eventDetails.t_name;
+	            var startTime=eventDetails.start_time;
+	            var endTime=eventDetails.end_time;
+	            var reservationCode=eventDetails.res_code;
 
-			            // 이벤트 세부 정보를 담은 알림창을 생성합니다.
-			            var message = "이름: " + name + "\n";
-			            message += "시간: " + startTime + " ~ " + endTime + "\n";
-			            message += "예약 코드: " + reservationCode;
+	            var message="이름:"+name+"\n";
+	            message+="시간:"+startTime+" ~ "+endTime+"\n";
+	            message+="예약 코드:"+reservationCode;
 
-			            alert(message);
-			        }
-			});
-			calendar.render();
-		};
+	            alert(message);
+	         }
+	           
+	   });
 
-		function restable() {
-			//토글버튼 변경하고 달력 없애고 목록 표시하기
-			document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
-			document.getElementById('calToggle').value = "달력으로 보기";
-			document.getElementById('calToggle').style.position = "";
-			document.getElementById('calToggle').style.top = "";
-			document.getElementById('calendar').style.display = "none";
-			document.getElementById('restable').style.display = "";
-		};
+	   calendar.render();
+	   };
 
-		function openPopup(resCode) {
-			var popupUrl = "mMain_detailInfo.jsp?popres_code=" + resCode;
-			window.open(popupUrl, "Popup", "width=800, height=800");
-		}
+	   function restable() {
+	   //토글버튼 변경하고 달력 없애고 목록 표시하기
+	   document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
+	   document.getElementById('calToggle').value = "달력으로 보기";
+	   document.getElementById('calToggle').style.position = "";
+	   document.getElementById('calToggle').style.top = "";
+	   document.getElementById('calendar').style.display = "none";
+	   document.getElementById('restable').style.display ="";
+	   };
 
-		function openmatPopup(resCode) {
-			var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
-			window.open(popupUrl, "Popup", "width=800, height=800");
-		}
-		
-		function openrePopup(resCode, gId) {
-		    var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
-		    window.open(popupUrl, "Popup", "width=800, height=800");
+	   function openPopup(resCode) {
+	   var popupUrl="mMain_detailInfo.jsp?popres_code="+resCode;
+	   window.open(popupUrl,"Popup","width=800,height=800");
+	   }
 
-		function serviceComplete(code, caregiver) {
-			if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
-				$.ajax({
-					type: "post",
-					async: false,
-					url: "<%=context%>/book/complete",
-					dataType: "json",
-					data: {code: code, caregiver : caregiver},
-					success: function(data, textStatus) {
-						console.log(data.complete);
-						if (data.complete == 0) {
-							alert("변경X");
-						} else if (data.complete == 1) {
-							alert("확정완료!!");
-							document.location.reload();
-						} else {
-							console.log("count: -1 (error)");
-							alert("오류가 발생했습니다.");
-						}
-					},
-					error: function(data, textStatus) {
-						console.log("data: "+ data +" / textStatus: "+textStatus);
-						alert("오류가 발생했습니다.");
-					}
-				});
-			} else {
-				return;
-			}
-			 
-		function openGinfoMlist(gIdVal) {
-			window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=800");
-		}
+	   function openmatPopup(resCode) {
+	   var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
+	   window.open(popupUrl, "Popup", "width=800,height=800");
+	   }
+
+	   function openrePopup(resCode, gId) {
+	   var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
+	   window.open(popupUrl, "Popup", "width=800,height=800");
+	   }
+
+	   function serviceComplete(code, caregiver) {
+	   if (confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
+	   $.ajax({
+	   type: "post",
+	   async: false,
+	   url: "<%=context%>/book/complete",
+	   dataType: "json",
+	   data: { code: code, caregiver: caregiver },
+	   success: function (data, textStatus) {
+	   console.log(data.complete);
+	   if (data.complete == 0) {
+	   alert("변경X");
+	   } else if (data.complete == 1) {
+	   alert("확정완료!!");
+	   document.location.reload();
+	   } else {
+	   console.log("count: -1 (error)");
+	   alert("오류가 발생했습니다.");
+	   }
+	   },
+	   error: function (data, textStatus) {
+	   console.log("data: " + data + " / textStatus: " + textStatus);
+	   alert("오류가 발생했습니다.");
+	   },
+	   });
+	   } else {
+	   return;
+	   }
+	   }
+
+	   function openGinfoMlist(gIdVal) {
+	   window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "_blank", "width=800,height=800");
+	   }
 	</script>
 </body>
 </html>

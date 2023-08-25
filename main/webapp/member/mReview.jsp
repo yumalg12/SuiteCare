@@ -89,9 +89,8 @@ th, td {
 <body>
 	<%
 request.setCharacterEncoding("utf-8");
-String m_id = (String) session.getAttribute("m_id");
 String res_code = request.getParameter("popres_code");
-String g_id = request.getParameter("popg_id");
+String gid = request.getParameter("popg_id");
 
 mReviewDAO dao = new mReviewDAO();
 
@@ -191,7 +190,7 @@ System.out.println(g_id);
 						<input type="text" id="comment" name="comment" maxlength="100">
 					</div>
 					<input type="hidden" name="res_code" value="<%=res_code%>" />
-					<input type="hidden" name="g_id" value="<%=g_id%>" />
+					<input type="hidden" name="g_id" value="<%=gid%>" />
 					<div class="form_button_three">
 						<button onclick="window.close()" class="button alt">취소</button>
 						<div>

@@ -299,7 +299,7 @@ public class ReservationDAO {
 		try {
 			connect();
 			
-			String sql = "select * from reservation_info where start_date <= ? AND end_date >= ? and start_time<? and end_time>? and caretaker_code=?";
+			String sql = "select * from reservation_info where start_date <= ? AND end_date >= ? and start_time<=? and end_time=>? and caretaker_code=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getEnd_date());
 			pstmt.setString(2, vo.getStart_date());
@@ -321,6 +321,7 @@ public class ReservationDAO {
 		}
 		return check_ok;
 	}
+	
 	public void insertrescode(ReservationInfoVO vo) {
 		try {
 			connect();
