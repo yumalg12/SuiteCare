@@ -6,6 +6,8 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
+<%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.concurrent.TimeUnit" %>
 <%@ page import="book.BookDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -167,8 +169,13 @@
 									String location = listvo.getLocation();
 									String addr = listvo.getAddr();
 									String detail_addr = listvo.getDetail_addr();
-
-									String workTimes = start_time + "~" + end_time;
+									
+									SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+									String fStartTime = timeFormat.format(start_time);
+									String fEndTime = timeFormat.format(end_time);
+									
+						           
+									String workTimes = fStartTime + "~" + fEndTime;
 								%>
 
 								<tr>
@@ -326,7 +333,12 @@
 									String addr = listvo.getAddr();
 									String detail_addr = listvo.getDetail_addr();
 
-									String workTimes = start_time + "~" + end_time;
+									SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+									String fStartTime = timeFormat.format(start_time);
+									String fEndTime = timeFormat.format(end_time);
+									
+						           
+									String workTimes = fStartTime + "~" + fEndTime;
 								%>
 
 								<tr>
@@ -344,7 +356,7 @@
 									<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
 									
 									<td><% if(start_date==null ) { %>
-									<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+									<a href="../reservation/res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
 									else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
 									
 									<td><%

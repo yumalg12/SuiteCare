@@ -16,6 +16,7 @@ String m_id = (String)session.getAttribute("m_id");
 String caretaker_code = (String)session.getAttribute("caretaker_code");
 String res_code = (String)session.getAttribute("res_code");
 String r_code = (String)session.getAttribute("r_code");
+String t_code = (String)session.getAttribute("t_code");
 
 ReservationDAO dao = new ReservationDAO();
 String start_date = request.getParameter("startdate");
@@ -32,6 +33,7 @@ vo.setEnd_time(end_time);
 
 if(res_code!=null) {
 vo.setRes_code(res_code);
+vo.setCaretaker_code(caretaker_code);
 
 int check_ok = dao.checkres(vo);
 
@@ -39,7 +41,7 @@ if(check_ok==0) {
 	%>	
 	<script>
 	alert("기존 예약과 중복되었습니다. \n 확인해주세요.");
-	window.location.href='./res_date.jsp';
+	window.location.href='./res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>';
 	</script>
 	<% 
 } else {
@@ -58,12 +60,15 @@ if(result>0) {
 	%>
 	<script>
 	alert("예약 실패");
-	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp';
+	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>';
 	</script>
 	<%
-} } } else if(res_code==null) {
+} } } 
+
+else if(res_code==null) {
 	
-	vo.setRes_code(r_code);
+vo.setRes_code(r_code);
+vo.setCaretaker_code(t_code);
 
 int check_ok = dao.checkres(vo);
 
@@ -71,7 +76,7 @@ if(check_ok==0) {
 	%>	
 	<script>
 	alert("기존 예약과 중복되었습니다. \n 확인해주세요.");
-	window.location.href='./res_date.jsp';
+	window.location.href='./res_date.jsp?res_code=<%=r_code%>&caretaker_code=<%=t_code%>';
 	</script>
 	<% 
 } else {
@@ -79,6 +84,7 @@ int result = dao.updateresinfo(vo);
 
 if(result>0) {
 	session.removeAttribute("r_code");
+	session.removeAttribute("t_code");
 	%>
 	<script>
 	alert("일시 지정 완료");
@@ -89,7 +95,7 @@ if(result>0) {
 	%>
 	<script>
 	alert("일시 지정 실패");
-	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp';
+	location.href='<%=request.getContextPath()%>/reservation/res_date.jsp?res_code=<%=r_code%>&caretaker_code=<%=t_code%>';
 	</script>
 	<%
 } } } 
