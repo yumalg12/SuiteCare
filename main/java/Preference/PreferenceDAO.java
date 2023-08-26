@@ -46,7 +46,6 @@ public class PreferenceDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				boolean allMatch = true;
 			    int count = 0;
 			  
 				String g_id = rs.getString("g_id");
