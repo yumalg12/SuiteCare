@@ -21,8 +21,6 @@
 request.setCharacterEncoding("utf-8");
 String res_code = request.getParameter("res_code");
 
-//String res_code = "RES00023";
-System.out.println("예약코드 : " + res_code);
 String file_repo = "../assets/profile/";
 PreferenceDAO pdao = new PreferenceDAO();
 
