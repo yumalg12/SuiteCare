@@ -75,6 +75,8 @@ function resdstop() {
 	String res_code = (String) session.getAttribute("res_code");
 	String r_code = request.getParameter("res_code");
 	session.setAttribute("r_code", r_code);
+	String t_code = request.getParameter("caretaker_code");
+	session.setAttribute("t_code", t_code);
 	%>
 
 	<!-- One -->

@@ -56,7 +56,7 @@ String res_code = request.getParameter("res_code");
 										
 										String rescode = applyvo.getRes_code();
 										String b_id = applyvo.getB_id();
-										String g_id = applyvo.getG_id();
+										g_id = applyvo.getG_id();
 										String g_name = applyvo.getG_name();
 										String b_status = applyvo.getB_status();
 										String hourwage = applyvo.getHourwage();

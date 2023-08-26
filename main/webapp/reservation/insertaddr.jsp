@@ -41,7 +41,7 @@ try {
 %>
 <script>
     alert("자택주소 업데이트 완료");
-    window.location.href='<%=context%>/member/main';
+    window.location.href='<%=request.getContextPath()%>/member/main';
 </script>
 <%
             }

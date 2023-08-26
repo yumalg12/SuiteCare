@@ -89,9 +89,8 @@ th, td {
 <body>
 	<%
 request.setCharacterEncoding("utf-8");
-String m_id = (String) session.getAttribute("m_id");
 String res_code = request.getParameter("popres_code");
-String g_id = request.getParameter("popg_id");
+g_id = request.getParameter("popg_id");
 
 mReviewDAO dao = new mReviewDAO();
 

@@ -72,7 +72,7 @@ if(result == 1) {
 	%>
 	<script>
 		alert("매칭서비스 정보 등록이 완료되었습니다.");
-		window.location.href='<%=context%>/member/main';
+		window.location.href='<%=request.getContextPath()%>/member/main';
 	</script>
 	<% 	
 } else {
@@ -94,7 +94,7 @@ if(result == 1) {
 		%>
 		<script>
 			alert("매칭서비스 정보 등록이 완료되었습니다.");
-			window.location.href='<%=context%>/member/main';
+			window.location.href='<%=request.getContextPath()%>/member/main';
 		</script>
 		<% 	
 	} else {
