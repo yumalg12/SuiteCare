@@ -15,7 +15,7 @@
 <nav id="menu">
 	<ul class="links">
 		<li><a href="<%=context%>/">Home</a></li>
-		<li><a href="<%=context%>/member/mLogin">피간병인 메인</a></li>
+		<li><a href="<%=context%>/member/login">피간병인 메인</a></li>
 		<%if(m_id!=null) { %><li><a href="<%=context%>/member/member_info.jsp">피간병인 마이페이지</a></li><% } %>
 		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 메인</a></li>
 		<%if(g_id!=null) { %><li><a href="<%=context%>/caregiver">간병인 마이페이지</a></li><% } %>
