@@ -56,7 +56,7 @@ String res_code = request.getParameter("res_code");
 										
 										String rescode = applyvo.getRes_code();
 										String b_id = applyvo.getB_id();
-										String giverid = applyvo.getG_id();
+										g_id = applyvo.getG_id();
 										String g_name = applyvo.getG_name();
 										String b_status = applyvo.getB_status();
 										String hourwage = applyvo.getHourwage();
@@ -65,13 +65,13 @@ String res_code = request.getParameter("res_code");
 									<td><%=rescode%></td>
                   <td><%=b_id%></td> 
 									<td><%=g_name%><br>
-										<a onclick="javascript:openGinfoList('<%=giverid%>','<%=res_code%>','<%=b_id%>')">더보기</a></td> 
+										<a onclick="javascript:openGinfoList('<%=g_id%>','<%=res_code%>','<%=b_id%>')">더보기</a></td> 
 									<td><%=hourwage%><br>
 									<td><%=b_status%></td> 
 									<td>
 									<a href="./tdeny.jsp?b_id=<%=b_id%>&res_code=<%=res_code%>" class="button alt">거절</a>
-									<a onclick="javascript:openMileagePayment('<%=giverid%>','<%=res_code%>','<%=b_id%>')" class="button special">승인</a>
-									<!-- <a href="./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=giverid%>">승인</a><br> -->
+									<a onclick="javascript:openMileagePayment('<%=g_id%>','<%=res_code%>','<%=b_id%>')" class="button special">승인</a>
+									<!-- <a href="./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a><br> -->
 									</td></tr>	
 								<%
 									}

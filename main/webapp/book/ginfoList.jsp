@@ -16,7 +16,7 @@
 
 <body>
 <% 
-String giverid = request.getParameter("g_id");
+g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");
 
@@ -24,7 +24,7 @@ String file_repo = "../assets/profile/";
 
 BookDAO dao = new BookDAO();
 
-List<BookVO> glist = dao.gList(giverid);
+List<BookVO> glist = dao.gList(g_id);
 for (int i = 0; i < glist.size(); i++) {
 	BookVO gvo = (BookVO) glist.get(i);
 	
