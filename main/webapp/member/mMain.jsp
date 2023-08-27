@@ -264,7 +264,7 @@
 											if(result > 0){ // 오늘 날짜가 서비스이용 마지막 날짜보다 이후이면 양수
 												if(b_status.equals("서비스이용 완료")) {
 										%>
-													<p>서비스 이용 완료</p>
+													<button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button>
 										<%
 												} else {
 										%>
@@ -274,7 +274,6 @@
 											}
 										%>
 									</td>
-									<td><button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button></td>
 								</tr>
 
 								<%
@@ -383,7 +382,6 @@
 								}
 								%>
 							</table>
-							</div>
 						</form>
 					</div>
 					<div style="text-align: center;" class="form_button">
@@ -490,6 +488,7 @@
 		</div>
 	</section>
 	<%@ include file="/footer.jsp"%>
+                      
 	<script>
 	   function rescalendar() {
 	       // 토글 버튼 변경하고 목록 테이블 없애기
@@ -538,77 +537,61 @@
 	            var startTime=eventDetails.start_time;
 	            var endTime=eventDetails.end_time;
 	            var reservationCode=eventDetails.res_code;
-
-	            var message="이름:"+name+"\n";
-	            message+="시간:"+startTime+" ~ "+endTime+"\n";
-	            message+="예약 코드:"+reservationCode;
+              
+              var message="이름:"+name+"\n";
+              message+="시간:"+startTime+" ~ "+endTime+"\n";
+              message+="예약 코드:"+reservationCode;
 
 	            alert(message);
 	         }
 	           
-	   });
-
-	   calendar.render();
-	   };
-
-	   function restable() {
-	   //토글버튼 변경하고 달력 없애고 목록 표시하기
-	   document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
-	   document.getElementById('calToggle').value = "달력으로 보기";
-	   document.getElementById('calToggle').style.position = "";
-	   document.getElementById('calToggle').style.top = "";
-	   document.getElementById('calendar').style.display = "none";
-	   document.getElementById('restable').style.display ="";
-	   };
-
-	   function openPopup(resCode) {
-	   var popupUrl="mMain_detailInfo.jsp?popres_code="+resCode;
-	   window.open(popupUrl,"Popup","width=800,height=800");
-	   }
-
-	   function openmatPopup(resCode) {
-	   var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
-	   window.open(popupUrl, "Popup", "width=800,height=800");
-	   }
-
-	   function openrePopup(resCode, gId) {
-	   var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
-	   window.open(popupUrl, "Popup", "width=800,height=800");
-	   }
-
-	   function serviceComplete(code, caregiver) {
-	   if (confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
-	   $.ajax({
-	   type: "post",
-	   async: false,
-	   url: "<%=context%>/book/complete",
-	   dataType: "json",
-	   data: { code: code, caregiver: caregiver },
-	   success: function (data, textStatus) {
-	   console.log(data.complete);
-	   if (data.complete == 0) {
-	   alert("변경X");
-	   } else if (data.complete == 1) {
-	   alert("확정완료!!");
-	   document.location.reload();
-	   } else {
-	   console.log("count: -1 (error)");
-	   alert("오류가 발생했습니다.");
-	   }
-	   },
-	   error: function (data, textStatus) {
-	   console.log("data: " + data + " / textStatus: " + textStatus);
-	   alert("오류가 발생했습니다.");
-	   },
-	   });
-	   } else {
-	   return;
-	   }
-	   }
-
-	   function openGinfoMlist(gIdVal) {
-	   window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "_blank", "width=800,height=800");
-	   }
+       });
+       calendar.render();
+    };
+                      
+		function openmatPopup(resCode) {
+			var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
+			window.open(popupUrl, "Popup", "width=800, height=800");
+		}
+		
+		function openrePopup(resCode, gId) {
+		    var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
+		    window.open(popupUrl, "Popup", "width=800, height=800");
+		}
+		
+		function serviceComplete(code, caregiver) {
+			if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정시 결제가 완료 되며 취소하실 수 없습니다.")) {
+				$.ajax({
+					type: "post",
+					async: false,
+					url: "<%=context%>/book/complete",
+					dataType: "json",
+					data: {code: code, caregiver : caregiver},
+					success: function(data, textStatus) {
+						console.log(data.complete);
+						if (data.complete == 0) {
+							alert("변경X");
+						} else if (data.complete == 1) {
+							alert("확정완료!!");
+							document.location.reload();
+						} else {
+							console.log("count: -1 (error)");
+							alert("오류가 발생했습니다.");
+						}
+					},
+					error: function(data, textStatus) {
+						console.log("data: "+ data +" / textStatus: "+textStatus);
+						alert("오류가 발생했습니다.");
+					}
+				});
+			} else {
+				return;
+			}
+		}
+		
+		function openGinfoMlist(gIdVal) {
+			window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=800");
+		}
 	</script>
 </body>
 </html>
