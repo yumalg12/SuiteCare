@@ -7,7 +7,7 @@
 
 <%
 String context = request.getContextPath();
-System.out.println("context: "+context);
+//System.out.println("context: "+context);
 request.setCharacterEncoding("utf-8");
 %>
 <!--          meta 선언          -->
@@ -29,7 +29,7 @@ String g_id = (String)session.getAttribute("g_id");
 
 String[] uriArr = request.getServletPath().split("/");
 String uri = uriArr[uriArr.length-1];
-System.out.println("uri: "+uri);
+//System.out.println("uri: "+uri);
 
 String[] pageArray = {"index.jsp", "mSignup.jsp", "mLogin.jsp", "gSignup.jsp", "caregiverLogin.jsp"};
 List<String> pageList = Arrays.asList(pageArray);

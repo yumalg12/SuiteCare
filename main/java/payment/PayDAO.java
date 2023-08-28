@@ -58,7 +58,7 @@ public List<PayVO> payInfo(PayVO payvo) {
 		try {
 			conn = dataFactory.getConnection();
 			String m_id = payvo.getM_id();
-			String query = "select * from MEMBER WHERE m_id = '"+m_id+"'";
+			String query = "select * from member WHERE m_id = '"+m_id+"'";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();

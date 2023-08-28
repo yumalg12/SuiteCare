@@ -11,20 +11,12 @@
 <title>SC 스위트케어 | 결제</title>
 <%@include file="../header-import.jsp"%>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
 </head>
 
 <body>
-	<%@include file="../header.jsp"%>
-
-<!-- One -->
-<section id="One" class="wrapper style3">
-	<div class="inner">
-		<header class="align-center">
-			<p>adsfasdfsdf</p>
-			<h2>Suite Care</h2>
-		</header>
-	</div>
-</section>
 
 <!-- Two -->
 <section id="two" class="wrapper style2">
@@ -114,8 +106,6 @@ $('#charge_card').click(function() {
 	});
 });
 </script>
-
-<%@include file="../footer.jsp"%>
 
 </body>
 </html>
