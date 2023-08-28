@@ -44,6 +44,7 @@
 
 		<!-- Two -->
 			<section id="two" class="wrapper style2">
+				<div class="inner">
 					<div class="box">
 						<div class="content">
 							<header class="align-center">
@@ -128,7 +129,7 @@
 			</form>
 						</div>
 					</div>
-				</div>
+				</div></div>
 			</section>
 						
 							
