@@ -18,10 +18,12 @@ request.setCharacterEncoding("utf-8");
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/d75ead5752.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 
 <!--          link 선언          -->
 <link rel="stylesheet" href="<%=context %>/assets/css/main.css" />
 <link rel="stylesheet" href="<%=context %>/assets/css/sc.css" />
+<link rel="stylesheet" href="<%=context %>/assets/css/bootstrap.tab.css" />
 
 <!--          로그인 체크          -->
 <% String m_id = (String)session.getAttribute("m_id");
