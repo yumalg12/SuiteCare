@@ -13,7 +13,9 @@
 	<meta charset="utf-8" />
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
+	<script src="<%=context%>/assets/js/disableSelectedValue.js"></script>
 	<script src="/suiteCare/test/gSignup.js"></script>
+	<%session.invalidate(); %>
 
 	<script>
 		function signUpValidation() {
@@ -318,8 +320,8 @@
 								<div>
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
-										<select name="g_service1"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_service1"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
@@ -331,8 +333,8 @@
 										</select>
 
 									<label class="rank-label">2순위</label>
-										<select name="g_service2"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_service2"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
@@ -344,8 +346,8 @@
 										</select>
 
 									<label class="rank-label">3순위</label>
-										<select name="g_service3"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_service3"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
@@ -374,8 +376,8 @@
 								<div>
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
-										<select name="g_location1"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_location1"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
@@ -385,8 +387,8 @@
 										</select>
 
 									<label class="rank-label">2순위</label>
-										<select name="g_location2"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_location2"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
@@ -396,8 +398,8 @@
 										</select>
 
 									<label class="rank-label">3순위</label>
-										<select name="g_location3"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_location3"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
@@ -414,8 +416,8 @@
 								<div>
 									<div class="form_row">
 									<label class="rank-label">1순위</label>
-										<select name="g_hourwage1"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_hourwage1"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
@@ -425,8 +427,8 @@
 										</select>
 
 									<label class="rank-label">2순위</label>
-										<select name="g_hourwage2"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_hourwage2"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
@@ -436,8 +438,8 @@
 										</select>
 
 									<label class="rank-label">3순위</label>
-										<select name="g_hourwage3"  id="sel" onchange="javascript:disableSelectedValue(this);">
-											<option value = "1">==선택==</option>
+										<select name="g_hourwage3"  id="sel">
+											<option value="">==선택==</option>
 											<option value="0">지정하지 않음</option>
 											<c:forEach var="start" begin="10000" end="15000" step="1000">
 												<c:set var="display" value="${start }원 "/>
@@ -507,22 +509,4 @@
 	        defaultImg.src = "<%=context%>/assets/profile/woman.png";
 	    }
 	}
-
-	function disableSelectedValue(element) {
-		  const selectBoxes = element.parentElement.querySelectorAll('select');
-		  const selectedVals = [selectBoxes[0].value, selectBoxes[1].value, selectBoxes[2].value];
-
-		  selectBoxes.forEach((e) => {
-		    if (e !== element) {
-		      Array.from(e.options).forEach((option) => {
-		        if (selectedVals.includes(option.value) && option.value !== '1' && option.value !== '0') {
-		          option.disabled = true;
-		        } else {
-		          option.disabled = false;
-		        }
-		      });
-		    }
-		  });
-		}
-
 </script>
