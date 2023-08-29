@@ -67,10 +67,10 @@ public class MemberJoinController extends HttpServlet {
 		out.println("<script>");
 		if (dao.addMember(vo)) {
 	        out.println("alert('회원가입이 완료되었습니다.');");
-	        out.println("location.href='"+context+"/member/mLogin.jsp';");
+	        out.println("location.href='"+context+"/member/login';");
 		} else {
 	        out.println("alert('오류가 발생했습니다.');");
-	        out.println("location.href='"+context+"/member/mSignup.jsp';");
+	        out.println("location.href='"+context+"/member/signup';");
 		}
 		out.println("</script>");
         

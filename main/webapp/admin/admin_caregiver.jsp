@@ -107,7 +107,7 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
-								String g_id = listt.getG_id();
+								g_id = listt.getG_id();
 								String g_name = listt.getG_name();
 								String g_gender = listt.getG_gender();
 								String g_birth = listt.getG_birth();

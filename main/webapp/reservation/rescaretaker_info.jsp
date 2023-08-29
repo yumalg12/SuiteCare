@@ -13,7 +13,16 @@
 <style>
 .info-row{
 	margin-bottom: 1rem;
-	border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    gap: 1rem;
+}
+
+.info-row div{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
 }
 </style>
 
@@ -412,13 +421,13 @@ function resetInputValues(){
 }
 %>
 
-					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	
-	<%@ include file="/footer.jsp"%>
+	</div>
+</section>
+
+<%@ include file="/footer.jsp"%>
 
 </body>
 <script>

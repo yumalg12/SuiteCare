@@ -91,7 +91,7 @@ function openMileagePayment(gIdVal,resCodeVal, bIdVal) {
 <script>
 function openGinfoList(g_id, res_code, b_id) {
 	var popupUrl = "ginfoList.jsp?g_id=" + g_id + "&res_code=" + res_code + "&b_id=" + b_id;
-	window.open(popupUrl, "Popup", "width=800, height=800");
+	window.open(popupUrl, "Popup", "width=800, height=950");
 }
 </script>
 </html>

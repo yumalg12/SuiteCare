@@ -133,13 +133,11 @@ input[type=file]::file-selector-button {
 	background-color: #DFD7BFaa;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:1024px) {
 	.table_wrapper {
 		overflow-x: auto;
 	}
 	table {
-		width: auto;
-		table-layout: fixed;
 		word-break: keep-all;
 	}
 }
