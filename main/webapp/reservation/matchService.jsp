@@ -207,7 +207,7 @@
 											id="pre_age_1">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
@@ -224,7 +224,7 @@
 											id="pre_age_2">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
@@ -241,7 +241,7 @@
 											id="pre_age_3">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
