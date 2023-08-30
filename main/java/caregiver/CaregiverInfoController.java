@@ -45,7 +45,7 @@ public class CaregiverInfoController extends HttpServlet {
 		String path = rootPath + upPath;
 			
 		String encoding = "utf-8";
-		int maxSize = 1024*1024;
+		int maxSize = 1024*1024*1024;
 		MultipartRequest multi = new MultipartRequest(request, path, maxSize, encoding);
 		File file = multi.getFile("g_profile");
 		
