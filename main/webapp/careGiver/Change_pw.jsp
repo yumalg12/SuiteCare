@@ -40,7 +40,7 @@
 	<header class="align-center">
 		<h2>비밀번호 변경</h2>
 	</header>
-	<form name="pwUpdate" action=${contextPath}/suiteCare/caregiver
+	<form name="pwUpdate" action=${contextPath}/suiteCare/caregiver/info
 		method=post onSubmit="return validateForm();"
 		style="text-align: center;">
 		<div class="form_row">

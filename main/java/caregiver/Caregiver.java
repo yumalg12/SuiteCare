@@ -15,11 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
 /**
  * Servlet implementation class Caregiver
  */
-@WebServlet("/caregiver")
+@WebServlet("/caregiver/info")
 public class Caregiver extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,7 +46,7 @@ public class Caregiver extends HttpServlet {
 		info = dao.giver_info(user_id);
 		
 		request.setAttribute("info", info);
-		RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/caregiver_info.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("../careGiver/caregiver_info.jsp");
 		dispatch.forward(request, response);
 	}
 
