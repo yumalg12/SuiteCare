@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="patient.*"%>
+<%@ page import = "java.util.*" %>
+<%@ page import="java.sql.Time"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 
 	<div id='restable'>
 		<form name="resinfo">
@@ -18,6 +23,7 @@
 					</tr>
 				</thead>
 				<%
+			m_id = (String)session.getAttribute("m_id");
 			PatientresDAO dao3 = new PatientresDAO();
 			List<PatientresVO> reslist3 = dao3.listres(m_id);
 			for (int i = 0; i < reslist3.size(); i++) {
