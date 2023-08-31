@@ -204,7 +204,7 @@
 										<label class="rank-label">1순위</label> <select name="pre_age_1" id="pre_age_1">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
@@ -219,7 +219,7 @@
 										<label class="rank-label">2순위</label> <select name="pre_age_2" id="pre_age_2">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
@@ -234,7 +234,7 @@
 										<label class="rank-label">3순위</label> <select name="pre_age_3" id="pre_age_3">
 											<option value="">==선택==</option>
 											<%
-											for (int start = 40; start <= 65; start += 5) {
+											for (int start = 30; start <= 65; start += 5) {
 												String value = start + "~" + (start + 4);
 											%>
 											<option value="<%=value%>"><%=start%>세 ~
