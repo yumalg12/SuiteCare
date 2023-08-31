@@ -234,15 +234,15 @@
 				 <!-- form 시작 -->
 					<form name="joinForm"  id="joinForm" method=post action=join enctype="multipart/form-data">
 						<div class="form_wrapper">
-								<div onclick="javascript:setImg()" style="margin: 3rem 0;display: grid;justify-items: center;">
+							<div onclick="javascript:setImg()" style="margin: 3rem 0;display: grid;justify-items: center;">
 									<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem;">
 										<img id="defult_img_png" src="" style="width: 100%;">
 									</div>
-							<div>
-								<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();">
-								<label for="default_img" id="default_img_text" style="margin:0.3rem 0 0 0;">기본 프로필사진 사용</label>
-							</div>
-							<input type="file" name="g_profile" id="g_profile" style="margin-top: 0.5rem;">
+								<div>
+									<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();">
+									<label for="default_img" id="default_img_text" style="margin:0.3rem 0 0 0;">기본 프로필사진 사용</label>
+								</div>
+								<input type="file" name="g_profile" id="g_profile" style="margin-top: 0.5rem;">
 							</div>
 
 							<div class="form_row">

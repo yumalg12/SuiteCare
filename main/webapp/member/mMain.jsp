@@ -27,7 +27,7 @@
 
 <script>
 function insertTinfo() {
-	window.location.href = "../careTaker/takerInfo.jsp";
+	window.location.href = "../member/takerInfo";
 }
 
 function rescaregiver() {
@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
      calendar.render();
   };
 
+
 function restable() {
 	//토글버튼 변경하고 달력 없애고 목록 표시하기
 	document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
@@ -351,6 +352,7 @@ function openmatPopup(resCode) {
 	var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
 	window.open(popupUrl, "Popup", "width=800, height=950");
 }
+
 
 function openrePopup(resCode, gId) {
     var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;
