@@ -33,10 +33,26 @@ public class ReservationVO {
 	private String t_gender;
 	private String diagnosis;
 	
+	private String hourwage;
+	private String b_status;
+	
 	public ReservationVO() {
 		System.out.println("ReservationVO 생성자 호출");
 	}
-
+	
+	public ReservationVO(String caretaker_code, String res_code, String t_name, String addr, String start_date, String end_date, String start_time, String end_time, String hourwage, String b_status) {
+		this.caretaker_code=caretaker_code;
+		this.res_code=res_code;
+		this.t_name=t_name;
+		this.addr=addr;
+		this.start_date=start_date;
+		this.end_date=end_date;
+		this.start_time=start_time;
+		this.end_time=end_time;
+		this.hourwage=hourwage;
+		this.b_status=b_status;
+	}
+	
 	
 	/**
 	 * @return the m_id
@@ -432,6 +448,18 @@ public class ReservationVO {
 
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
+	}
+	public String getHourwage() {
+		return hourwage;
+	}
+	public void setHourwage(String hourwage) {
+		this.hourwage = hourwage;
+	}
+	public String getB_status() {
+		return b_status;
+	}
+	public void setB_status(String b_status) {
+		this.b_status = b_status;
 	}
 	
 	

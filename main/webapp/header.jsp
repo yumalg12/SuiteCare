@@ -18,7 +18,7 @@
 		<li><a href="<%=context%>/member/login">피간병인 메인</a></li>
 		<%if(m_id!=null) { %><li><a href="<%=context%>/member/member_info.jsp">피간병인 마이페이지</a></li><% } %>
 		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 메인</a></li>
-		<%if(g_id!=null) { %><li><a href="<%=context%>/caregiver">간병인 마이페이지</a></li><% } %>
+		<%if(g_id!=null) { %><li><a href="<%=context%>/caregiver/info">간병인 마이페이지</a></li><% } %>
 		<%if(m_id!=null || g_id!=null) { %><li><a href="<%=context%>/logout.jsp">로그아웃</a></li> <% } %>
 		<li><a href="<%=context%>/generic.jsp">템플릿 기본틀</a></li>
 		<li><a href="<%=context%>/elements.jsp">스타일 가이드</a></li>
