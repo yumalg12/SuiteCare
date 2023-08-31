@@ -1876,7 +1876,7 @@ input[type="date"]:disabled, input[type="email"]:disabled, textarea:disabled {
 }
 
 select {
-  background: #ffffffaa url('/suiteCare/images/chevron-down.svg') no-repeat right 1rem center;
+  background: #ffffffaa url('/suiteCare/assets/images/chevron-down.svg') no-repeat right 1rem center;
 	border-color: rgba(144, 144, 144, 0.25);
 }
 
@@ -2498,7 +2498,7 @@ table.alt tbody tr td {
 .wrapper.style3 {
 	background-color: #423730;
 	color: #bfbfbf;
-	background-image: url(../../images/bg.jpg);
+	background-image: url(../../assets/images/bg.jpg);
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;
