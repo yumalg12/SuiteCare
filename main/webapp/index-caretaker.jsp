@@ -66,7 +66,7 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='./main#reslist'"
+						onclick="location.href='./main#resApplyInfo-tab'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
@@ -105,7 +105,7 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='./main#reslist'"
+						onclick="location.href='./main#matchFinishInfo-tab'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">

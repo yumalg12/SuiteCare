@@ -8,7 +8,7 @@
 					<tr>
 						<td>예약코드</td>
 						<td>이름</td>
-						<td>상세정보</td>
+						<td>피간병인<br>상세정보</td>
 						<td>간병장소</td>
 						<td>주소</td>
 						<td>간병일시/시간</td>
@@ -45,7 +45,7 @@
 
 			<tr>
 				<td><%=res_code%></td> <td><%=t_name%></td> 
-				<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
+				<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 				
 				<td><% if(location==null) { %>
 				<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	

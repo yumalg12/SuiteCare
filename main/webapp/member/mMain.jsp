@@ -39,6 +39,23 @@ function delok() {
 		return false;
 	}
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+	  let url = new URL(window.location.href);
+	  let hash = url.hash;
+	  
+	  if (hash) {
+	    let tab = document.querySelector('.nav-link' + hash);
+	    if (tab) {
+	      let tabPaneId = tab.getAttribute('data-bs-target');
+	      let tabPane = document.querySelector(tabPaneId);
+	      if (tabPane) {
+	        new bootstrap.Tab(tab).show();
+	      }
+	    }
+	  }
+	});
+
 </script>
 </head>
 
@@ -174,7 +191,7 @@ function delok() {
 								<tr>
 									<td>예약코드</td>
 									<td>이름</td>
-									<td>상세정보</td>
+									<td>피간병인<br>상세정보</td>
 									<td>간병장소</td>
 									<td>주소</td>
 									<td>간병일시/시간</td>
@@ -209,7 +226,7 @@ function delok() {
 
 						<tr>
 							<td><%=res_code%></td> <td><%=t_name%></td> 
-							<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
+							<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 							
 							<td><% if(location==null) { %>
 							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
@@ -324,6 +341,11 @@ function restable() {
 	document.getElementById('calendar').style.display = "none";
 	document.getElementById('restable').style.display = "";
 };
+	
+function openDetailPopup(resCode) {
+	var popupUrl = "mMain_detailInfo.jsp?popres_code=" + resCode;
+	window.open(popupUrl, "Popup", "width=800, height=950");
+}
 	
 function openmatPopup(resCode) {
 	var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
