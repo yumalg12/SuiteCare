@@ -15,6 +15,8 @@ public class PayDAO {
 	private DataSource dataFactory;
 	private PreparedStatement stmnt;
 	
+	PayVO vo = new PayVO();
+	
 	public PayDAO() {
 		try {
 			Context ctx = new InitialContext();
@@ -33,7 +35,7 @@ public class PayDAO {
 			int amount = payvo.getAmout();
 			String pay_method = payvo.getPay_method();
 			String m_id = payvo.getM_id();
-			int currentMile = payvo.getCurrentMile();
+			int currentMile = vo.getCurrentMile();
 			System.out.println("마일리지:" + currentMile);
 			int updateMile = currentMile + amount;
 			String m_phone = payvo.getM_phone();
@@ -79,8 +81,12 @@ public List<PayVO> payInfo(PayVO payvo) {
 				String m_email = rs.getString("m_email");
 				int currentMile = rs.getInt("currentMile");
 				//System.out.print("currentmile ="+ currentMile);
-				PayVO vo = new PayVO(m_name,m_phone,m_email, currentMile);
-				list.add(vo);				
+				vo.setM_name(m_name);
+				vo.setM_phone(m_phone);
+				vo.setM_email(m_email);
+				vo.setCurrentMile(currentMile);
+				list.add(vo);
+				
 				System.out.println("vo저장된 마일리지 : " + vo.getCurrentMile());
 			}
 		}catch (SQLException e) {

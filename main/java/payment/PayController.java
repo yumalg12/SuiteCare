@@ -63,7 +63,7 @@ public class PayController extends HttpServlet {
 
 			out.write(amount + "," + pay_method + "," + merchant_uid);
 
-			PayVO payvo = new PayVO(amount, merchant_uid, pay_method, m_id, currentMile, m_phone);
+			PayVO payvo = new PayVO(amount, merchant_uid, pay_method, m_id);
 			payDAO.addPay(payvo);
 
 		} else if (path.equals("/kakao.do")) {

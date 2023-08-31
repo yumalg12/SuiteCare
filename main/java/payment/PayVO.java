@@ -32,16 +32,13 @@ public class PayVO {
 		this.m_name = m_name;
 	}
 
-	public PayVO(int amount, String merchant_uid, String pay_method, String m_id, int currentMile, String m_phone) {
+	public PayVO(int amount, String merchant_uid, String pay_method, String m_id) {
 
 		this.amount = amount;
 		this.merchant_uid = merchant_uid;
 		this.pay_method = pay_method;
 		this.m_id = m_id;
-		this.currentMile = currentMile;
-		this.m_phone = m_phone;
-		
-		
+			
 	}
 	
 	public PayVO(String m_name, String m_phone, String m_email, int currentMile) {
