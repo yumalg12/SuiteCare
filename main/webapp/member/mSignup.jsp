@@ -9,6 +9,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 <script src="/suiteCare/test/mSignup.js"></script>
+	<%session.invalidate(); %>
 
 <script>
 function signUpValidation() {

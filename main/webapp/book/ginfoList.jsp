@@ -12,6 +12,9 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병인 정보</title>
 	<%@ include file="/header-import.jsp"%>
+
+<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+
 </head>
 
 <body>
@@ -85,8 +88,9 @@ for (int i = 0; i < glist.size(); i++) {
 %>
 
 	<form name="ginfoForm">
-			<img src="<%=profile %>" alt="" style="width:150px; height:150px;"/>
-		<table>
+	<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem; margin: 3rem auto 2rem auto;">
+		<img src="<%=profile %>" style="width: 100%;">
+	</div>		<table>
 			<tr><td>이름</td><td><%=g_name%></td></tr>
 			<tr><td>성별</td><td><% if(g_gender.equals("W")) { %> 여 <% }else { %> 남 <% } %></td></tr>
 			<tr><td>나이</td><td><%=age%>세</td></tr>
@@ -109,7 +113,9 @@ for (int i = 0; i < glist.size(); i++) {
 	</form>
 	
 	<% }%>
+	<div class="form_button">
 	<input type="button" class="button special" onclick="window.close();" value="닫기">
+	</div>
 
 </body>
 

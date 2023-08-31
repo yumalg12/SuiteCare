@@ -41,7 +41,6 @@
 						<h2>결제 방식 선택</h2>
 					</header>
 					<div class="form_wrapper">
-<%=m_id %> 
 						<!-- One -->
 						<div style="display: grid; grid-template-columns: 1fr 1fr;">
 

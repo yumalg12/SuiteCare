@@ -10,6 +10,8 @@
 <title>SC 스위트케어 | 빠른 매칭 서비스</title>
 <%@ include file="/header-import.jsp"%>
 <script src="<%=context%>/assets/js/progress.js"></script>
+<script src="<%=context%>/assets/js/disableSelectedValue.js"></script>
+<script src="<%=context%>/test/matchService.js"></script>
 
 <script>
 	function matSubmit() {
@@ -158,38 +160,34 @@
 								<label> 예약 코드</label> <input type="text" readonly
 									value="<%if (res_code != null) {%><%=res_code%> <%} else if (res_code == null) {%> <%=r_code%> <%}%>">
 							</div>
+							<hr>
 							<div class="form_row">
 								<label>선호지역</label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label> <select
-											name="pre_location_1" id="pre_location_1">
+										<label class="rank-label">1순위</label> <select name="pre_location_1" id="pre_location_1">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
 											<option value="경기도">경기도</option>
 											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label> <select
-											name="pre_location_2" id="pre_location_2">
+
+										<label class="rank-label">2순위</label> <select name="pre_location_2" id="pre_location_2">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
 											<option value="경기도">경기도</option>
 											<option value="제주특별자치도">제주특별자치도</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label> <select
-											name="pre_location_3" id="pre_location_3">
+
+										<label class="rank-label">3순위</label> <select name="pre_location_3" id="pre_location_3">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="서울특별시">서울특별시</option>
 											<option value="부산광역시">부산광역시</option>
 											<option value="인천광역시">인천광역시</option>
@@ -203,8 +201,7 @@
 								<label>선호나이대</label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label> <select name="pre_age_1"
-											id="pre_age_1">
+										<label class="rank-label">1순위</label> <select name="pre_age_1" id="pre_age_1">
 											<option value="">==선택==</option>
 											<%
 											for (int start = 30; start <= 65; start += 5) {
@@ -216,12 +213,10 @@
 											<%
 											}
 											%>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label> <select name="pre_age_2"
-											id="pre_age_2">
+
+										<label class="rank-label">2순위</label> <select name="pre_age_2" id="pre_age_2">
 											<option value="">==선택==</option>
 											<%
 											for (int start = 30; start <= 65; start += 5) {
@@ -233,12 +228,10 @@
 											<%
 											}
 											%>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label> <select name="pre_age_3"
-											id="pre_age_3">
+
+										<label class="rank-label">3순위</label> <select name="pre_age_3" id="pre_age_3">
 											<option value="">==선택==</option>
 											<%
 											for (int start = 30; start <= 65; start += 5) {
@@ -250,7 +243,7 @@
 											<%
 											}
 											%>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 										</select>
 									</div>
 								</div>
@@ -259,28 +252,24 @@
 								<label>선호성별</label>
 								<div>
 									<input type="radio" id="man" name="pre_gender" value="M">
-									<label for="man">남자</label> <input type="radio" id="woman"
-										name="pre_gender" value="W"> <label for="woman">여자</label>
-									<input type="radio" id="anything" name="pre_gender"
-										value="상관없음"> <label for="anything">상관없음</label>
+									<label for="man">남자</label> <input type="radio" id="woman" name="pre_gender" value="W"> <label for="woman">여자</label>
+									<input type="radio" id="anything" name="pre_gender" value="상관없음"> <label for="anything">상관없음</label>
 								</div>
 							</div>
 							<div class="form_row">
 								<div>
 									<label>선호자격증</label><span>※지정하지 않을 경우 빈칸</span>
 								</div>
-								<input type="text" name="pre_qual" id="pre_qual"
-									placeholder="자격증(ex.요양보호사, 간호사 등)">
+								<input type="text" name="pre_qual" id="pre_qual" placeholder="자격증(ex.요양보호사, 간호사 등)">
 							</div>
 							
 							<div class="form_row">
 									<label>선호서비스 </label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label> <select
-											name="pre_repre_1" id="pre_repre_1">
+										<label class="rank-label">1순위</label> <select name="pre_repre_1" id="pre_repre_1">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
 											<option value="재활운동보조">재활운동보조</option>
@@ -289,12 +278,10 @@
 											<option value="빨래">빨래</option>
 											<option value="운전">운전</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label> <select
-											name="pre_repre_2" id="pre_repre_2">
+
+										<label class="rank-label">2순위</label> <select name="pre_repre_2" id="pre_repre_2">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
 											<option value="재활운동보조">재활운동보조</option>
@@ -303,12 +290,10 @@
 											<option value="빨래">빨래</option>
 											<option value="운전">운전</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label> <select
-											name="pre_repre_3" id="pre_repre_3">
+
+										<label class="rank-label">3순위</label> <select name="pre_repre_3" id="pre_repre_3">
 											<option value = "">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<option value="요리">요리</option>
 											<option value="목욕">목욕</option>
 											<option value="재활운동보조">재활운동보조</option>
@@ -326,10 +311,9 @@
 								<label>시급</label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label> <select
-											name="pre_hourwage_1" id="pre_hourwage_1">
+										<label class="rank-label">1순위</label> <select name="pre_hourwage_1" id="pre_hourwage_1">
 											<option value="">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<%
 											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
@@ -338,12 +322,10 @@
 											}
 											%>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label> <select
-											name="pre_hourwage_2" id="pre_hourwage_2">
+
+										<label class="rank-label">2순위</label> <select name="pre_hourwage_2" id="pre_hourwage_2">
 											<option value="">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<%
 											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
@@ -352,12 +334,10 @@
 											}
 											%>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label> <select
-											name="pre_hourwage_3" id="pre_hourwage_3">
+
+										<label class="rank-label">3순위</label> <select name="pre_hourwage_3" id="pre_hourwage_3">
 											<option value="">==선택==</option>
-											<option value="지정하지 않음">지정하지 않음</option>
+											<option value="0">지정하지 않음</option>
 											<%
 											for (int start = 10000; start <= 15000; start += 1000) {
 											%>
@@ -369,12 +349,12 @@
 									</div>
 								</div>
 							</div>
+							<hr>
 							<div class="form_row">
 									<label>선호항목순위 </label>
 								<div>
 									<div class="form_row">
-										<label class="rank-label">1순위</label> <select
-											name="rank1" id="rank1">
+										<label class="rank-label">1순위</label> <select name="rank1" id="rank1">
 											<option value = "">==선택==</option>
 											<option value="선호지역">선호지역</option>
 											<option value="선호나이대">선호나이대</option>
@@ -382,10 +362,8 @@
 											<option value="선호서비스">선호서비스</option>
 											<option value="시급">시급</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">2순위</label> <select
-											name="rank2" id="rank2">
+
+										<label class="rank-label">2순위</label> <select name="rank2" id="rank2">
 											<option value = "">==선택==</option>
 											<option value="선호지역">선호지역</option>
 											<option value="선호나이대">선호나이대</option>
@@ -393,10 +371,8 @@
 											<option value="선호서비스">선호서비스</option>
 											<option value="시급">시급</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">3순위</label> <select
-											name="rank3" id="rank3">
+
+										<label class="rank-label">3순위</label> <select name="rank3" id="rank3">
 											<option value = "">==선택==</option>
 											<option value="선호지역">선호지역</option>
 											<option value="선호나이대">선호나이대</option>
@@ -404,10 +380,8 @@
 											<option value="선호서비스">선호서비스</option>
 											<option value="시급">시급</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">4순위</label> <select
-											name="rank4" id="rank4">
+
+										<label class="rank-label">4순위</label> <select name="rank4" id="rank4">
 											<option value = "">==선택==</option>
 											<option value="선호지역">선호지역</option>
 											<option value="선호나이대">선호나이대</option>
@@ -415,10 +389,8 @@
 											<option value="선호서비스">선호서비스</option>
 											<option value="시급">시급</option>
 										</select>
-									</div>
-									<div class="form_row">
-										<label class="rank-label">5순위</label> <select
-											name="rank5" id="rank5">
+
+										<label class="rank-label">5순위</label> <select name="rank5" id="rank5">
 											<option value = "">==선택==</option>
 											<option value="선호지역">선호지역</option>
 											<option value="선호나이대">선호나이대</option>

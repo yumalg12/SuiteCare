@@ -91,7 +91,9 @@ for (int i = 0; i < glist.size(); i++) {
 %>
 
 	<form name="ginfoForm">
-			<img src="<%=profile %>" alt="" style="width:150px; height:150px;"/>
+	<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem; margin: 3rem auto 2rem auto;">
+		<img src="<%=profile %>" style="width: 100%;">
+	</div>
 		<table>
 			<tr><td>이름</td><td><%=g_name%></td></tr>
 			<tr><td>성별</td><td><% if(g_gender.equals("W")) { %> 여 <% }else { %> 남 <% } %></td></tr>
@@ -107,12 +109,12 @@ for (int i = 0; i < glist.size(); i++) {
 		</td></tr>
 			<tr><td>보유자격증</td><td><%=g_qualification %></td></tr>
 		</table>
-	
 	</form>
 	
 	<% }%>
-	
+	<div class="form_button">
 	<input type="button" class="button special" onclick="window.close();" value="닫기">
+	</div>
 
 </body>
 </html>
