@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="calendar.*"%>
+<%@ page import ="java.util.*" %>
+<%@ page import="patient.*"%>
+<%@ page import="book.*"%>
+<%@ page import="java.sql.Time"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 
 <div>
 	<input type="button" class="button alt" id="calToggle"
@@ -8,6 +16,7 @@
 <div id='calendar'></div>
 <div id='restable'>
 	<%
+m_id = (String)session.getAttribute("m_id");
 calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 %>

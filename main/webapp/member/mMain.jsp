@@ -27,7 +27,7 @@
 
 <script>
 function insertTinfo() {
-	window.location.href = "../careTaker/takerInfo.jsp";
+	window.location.href = "../member/takerInfo";
 }
 
 function rescaregiver() {

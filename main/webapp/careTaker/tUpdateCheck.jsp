@@ -16,7 +16,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 TakerDAO dao = new TakerDAO();
-String m_id = (String)session.getAttribute("m_id");
+m_id = (String)session.getAttribute("m_id");
 String t_code = request.getParameter("t_code");
 String t_name = request.getParameter("t_name");
 String t_gender = request.getParameter("t_gender");
