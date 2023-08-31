@@ -109,6 +109,7 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								MemberVO listt = (MemberVO) list.get(i);
 
+								String mid = listt.getM_id();
 								String m_name = listt.getM_name();
 								String m_gender = listt.getM_gender();
 								String m_phone = listt.getM_phone();
@@ -122,7 +123,7 @@ margin-left: 7.2rem;
 							%>
 							<tr>
 								<td><%=i + 1%></td>
-								<td><%=m_id%></td>
+								<td><%=mid%></td>
 								<td><%=m_name%></td>
 								<td><%=m_gender%></td>
 								<td><%=phone%></td>
@@ -131,7 +132,7 @@ margin-left: 7.2rem;
 								<td><%=m_sms_yn%></td>
 								<td><%=m_email_yn%></td>
 								<td><%=m_signup_date%></td>
-								<td><a href='../admin/admin_tinfo.jsp?m_id=<%=m_id%>'>더보기</a></td>
+								<td><a href='../admin/admin_tinfo.jsp?mid=<%=mid%>'>더보기</a></td>
 							</tr>
 							<%
 							}
