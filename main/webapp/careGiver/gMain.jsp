@@ -71,9 +71,10 @@
 			<%
 			request.setCharacterEncoding("utf-8");
 			
-			
 			ReservationDAO dao = new ReservationDAO();
 			List<ReservationVO> listres = dao.resList(g_id);
+			
+			//for문 시작
 			for(int i=0; i<listres.size(); i++) {
 				ReservationVO listvo = (ReservationVO) listres.get(i);
 
@@ -120,8 +121,9 @@
 
         		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
 				out.println("<td>" + location + "</td><td>" + totalSalary + "원</td><td>" + paymentdate + "</td>");
-				out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
+				out.println("<td><a onclick=\"javascript:openMatchInfo('"+res_code+"')\">더보기</a></td></tr>");
 			}
+			//for문 끝
 			%>
 			</tbody>
 			</table> 
@@ -131,8 +133,6 @@
 					</div>
 				</div></div>
 			</section>
-						
-							
 							
 							
 		<!-- three -->
@@ -154,6 +154,8 @@
 			</thead>
 			<% PatientresDAO dao2 = new PatientresDAO();
 			List<PatientresVO> reslist = dao2.applylist();
+			
+			//for문 시작
 			for(int i=0; i<reslist.size(); i++) {
 				PatientresVO listvo = (PatientresVO) reslist.get(i);
 	
@@ -169,12 +171,12 @@
 				String caretaker_code = listvo.getCaretaker_code();
 				String location = listvo.getLocation();
 
-	            
-  
         		String addr = listvo.getAddr();
 	      		String detail_addr = listvo.getDetail_addr();
-			
+
+				
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
+				String b_status = bdao.bst(res_code, g_id);
 	            
 	    	 	 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			     String sTime = sdf.format(start_time);
@@ -192,8 +194,6 @@
 			<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
 			<td> <%
 			
-			String b_status = bdao.bst(res_code, g_id);
-			
 				if(b_status!=null) {
 				%>
 				<%=b_status %>
@@ -203,7 +203,7 @@
 				<% }
 				%> </td></tr>
 			<%
-			}}
+			}}//for문 끝
 			%>
 			</table>
 			</div>
@@ -213,7 +213,6 @@
 					</div>
 				</div>
 			</section>	
-			
 			
 			<!-- four -->
 			<section id="four" class="wrapper style2">
@@ -233,28 +232,27 @@
 
 			</thead>
 			<% 
-			List<PatientresVO> matlist = dao2.applylist();
-			for(int i=0; i<matlist.size(); i++) {
-				PatientresVO listmat = (PatientresVO) matlist.get(i);
+			//for문 시작
+			for(int i=0; i<reslist.size(); i++) {
+				PatientresVO listvo = (PatientresVO) reslist.get(i);
 	
-				String name = listmat.getCaretaker();
-				String gender = listmat.getT_gender();
-				String age = listmat.getT_age();
-				Date start_date = listmat.getStartdate();
-				Date end_date = listmat.getEnddate();
-				Time start_time = listmat.getStarttime();
-				Time end_time = listmat.getEndtime();
-				String caregiver = listmat.getCaregiver();
-				String res_code = listmat.getRes_code();
-				String caretaker_code = listmat.getCaretaker_code();
-				String location = listmat.getLocation();
+				String name = listvo.getCaretaker();
+				String gender = listvo.getT_gender();
+				String age = listvo.getT_age();
+				Date start_date = listvo.getStartdate();
+				Date end_date = listvo.getEnddate();
+				Time start_time = listvo.getStarttime();
+				Time end_time = listvo.getEndtime();
+				String caregiver = listvo.getCaregiver();
+				String res_code = listvo.getRes_code();
+				String caretaker_code = listvo.getCaretaker_code();
+				String location = listvo.getLocation();
 
-        		String addr = listmat.getAddr();
-	      		String detail_addr = listmat.getDetail_addr();
-	      		
+        		String addr = listvo.getAddr();
+	      		String detail_addr = listvo.getDetail_addr();
 	      		
 				String b_status = bdao.bst(res_code, g_id);
-					
+				
 	      if(location!=null && addr!=null && start_date!=null && start_time!=null && b_status!=null ) {
 	            
 	    	  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -278,7 +276,7 @@
 			<td><%if(b_status.equals("신청완료")) { %>
 			<a href="../book/deleteapply.jsp?res_code=<%= res_code %>" onclick="return deleteok();">신청취소</a><% } %></td></tr>
 			<%
-			}}
+			}}//for문 끝
 			%>
 			</table>
 			</div>
@@ -369,6 +367,12 @@
 				return false;
 			}
 		}
+		
+		function openMatchInfo(res_code){
+			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+
 	
 	</script>
 </html>
