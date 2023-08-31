@@ -49,7 +49,7 @@ public class MemberLoginConroller extends HttpServlet {
 			session.setAttribute("m_id", vo.getM_id());
 
 			out.println("alert('로그인에 성공하였습니다.');");
-	        out.println("location.href='main';");
+	        out.println("location.href='main?type=index';");
 	        System.out.println(m_id+" 로그인 성공");
 		} else if(ok==2) {
 			out.println("alert('비밀번호가 일치하지 않습니다.');");

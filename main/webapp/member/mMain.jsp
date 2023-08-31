@@ -54,7 +54,7 @@ function delok() {
 	</div>
 </section>
 <!-- Two -->
-<section id="two" class="wrapper style2">
+<section id="info" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">
@@ -120,14 +120,15 @@ function delok() {
 		</div>
 	</div>
 </section>
+
 <!-- three -->
-<section id="three" class="wrapper style2">
+<section id="reslist" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">
 			<header class="align-center">
 				<p>간병인 서비스</p>
-				<h2>간병 신청 정보</h2>
+				<h2>예약 신청 리스트</h2>
 			</header>
 			
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -156,8 +157,9 @@ function delok() {
 		</div>
 	</div>
 </section>
+
 <!-- four -->
-<section id="four" class="wrapper style2">
+<section id="match" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">

@@ -17,9 +17,20 @@
 	transition: 0.1s linear;
 }
 
-.conB_content>.icon {
-	font-size: 10rem;
-	margin-top: 3rem;
+.conB_content> img {
+	height: 10rem;
+}
+
+.wrapper.style2 .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.box .content {
+    padding: 0 !important;
 }
 </style>
 <%@ include file="/header-import.jsp"%>
@@ -55,18 +66,55 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./member/login'"
 						<% } else { %>
-						onclick="location.href='./member/main?type=index'"
+						onclick="location.href='./member/main'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-
-							<i class="fa-solid fa-magnifying-glass icon"
-								style="color: #423730;"></i>
+							<img src="./assets/images/main-booking.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>간병 서비스를 제공받을 분</p>
-								<h2>간병인 찾기</h2>
+								<p>피간병인</p>
+								<h2>예약 신청 리스트</h2>
+							</header>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="box" 
+					<% if(g_id == null) { %>onclick="location.href='careGiver/caregiverLogin.jsp'"
+
+						<% } else { %>onclick="location.href='careGiver/gMain.jsp'"
+							<% } %>
+						style="cursor: pointer;">
+						<div class="conB_content">
+							<img src="./assets/images/main-caretaker.png">
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<p>피간병인</p>
+								<h2>피간병인 등록하기</h2>
+							</header>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="box"
+					<% if(m_id == null) { %>
+						onclick="location.href='./member/login'"
+						<% } else { %>
+						onclick="location.href='./member/main'"
+						<% } %>
+						style="cursor: pointer;">
+						<div class="conB_content">
+							<img src="./assets/images/main-reslist.png">
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<p>피간병인</p>
+								<h2>예약 확정 리스트</h2>
 							</header>
 						</div>
 					</div>
@@ -77,16 +125,16 @@
 					<% if(g_id == null) { %>
 						onclick="location.href='careGiver/caregiverLogin.jsp'"
 						<% } else { %>
-						onclick="location.href='caregiver/main?type=index'"
+						onclick="location.href='careGiver/gMain.jsp'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>
+							<img src="./assets/images/main-clock.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>간병인 일감을 찾으시는 분</p>
-								<h2>간병인 등록하기</h2>
+								<p>피간병인</p>
+								<h2>빠른 매칭 서비스</h2>
 							</header>
 						</div>
 					</div>
