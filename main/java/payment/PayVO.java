@@ -8,7 +8,7 @@ public class PayVO {
 	
 	private String pay_method;
 	private int amount;
-	private double scPoint;
+	private int currentMile;
 	private String merchant_uid;
 	
 	
@@ -19,7 +19,7 @@ public class PayVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, double scPoint,
+	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, int currentMile,
 			String merchant_uid, String m_name) {
 		super();
 		this.m_id = m_id;
@@ -27,24 +27,28 @@ public class PayVO {
 		this.m_email = m_email;
 		this.pay_method = pay_method;
 		this.amount = amout;
-		this.scPoint = scPoint;
+		this.currentMile = currentMile;
 		this.merchant_uid = merchant_uid;
 		this.m_name = m_name;
 	}
 
-	public PayVO(int amount, String merchant_uid, String pay_method, String m_id) {
+	public PayVO(int amount, String merchant_uid, String pay_method, String m_id, int currentMile, String m_phone) {
 
 		this.amount = amount;
 		this.merchant_uid = merchant_uid;
 		this.pay_method = pay_method;
 		this.m_id = m_id;
+		this.currentMile = currentMile;
+		this.m_phone = m_phone;
+		
 		
 	}
 	
-	public PayVO(String m_name, String m_phone, String m_email) {
+	public PayVO(String m_name, String m_phone, String m_email, int currentMile) {
 		this.m_name = m_name;
 		this.m_phone = m_phone;
 		this.m_email = m_email;
+		this.currentMile = currentMile;
 		
 	}
 
@@ -88,16 +92,12 @@ public class PayVO {
 		this.amount = amout;
 	}
 
-	public double getScPoint() {
-		if(this.amount >= 50000) {
-			this.scPoint = 1.1 * this.amount;
-		}else {
-		this.scPoint = this.amount;}
-		return scPoint;
+	public int getCurrentMile() {	
+		return currentMile;
 	}
 
-	public void setScPoint(double scPoint) {
-		this.scPoint = scPoint;
+	public void setCurrentMile(int currentMile) {
+		this.currentMile = currentMile;
 	}
 
 	public String getMerchant_uid() {
