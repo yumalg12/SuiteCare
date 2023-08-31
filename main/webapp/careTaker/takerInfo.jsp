@@ -14,7 +14,7 @@
 			<section id="One" class="wrapper style3">
 				<div class="inner">
 					<header class="align-center">
-						<p>Eleifend vitae urna</p>
+						<p>Premium Caregiver Matching Platform</p>
 						<h2>SC SuitCare</h2>
 					</header>
 				</div>
