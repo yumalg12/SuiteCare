@@ -39,7 +39,7 @@ String b_id = request.getParameter("b_id");
 							<label>b_id</label> <input type="text" value="<%=b_id%>" readonly>
 						</div>
 						<div class="form_row">
-							<label>마일리지 잔액</label> <input type="text" value="<%//=currentMile%>" readonly>
+							<label>마일리지 잔액</label> <input type="text" value="<%=//currentMile%>" readonly>
 						</div>
 						<div class="form_row">
 							<label>결제금액</label> <input type="text" value="<%//=fSalary%>" readonly>
