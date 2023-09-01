@@ -19,7 +19,7 @@ function backmMain() {
 }
 </script>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
 
 </head>
 

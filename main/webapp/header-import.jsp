@@ -40,8 +40,8 @@ String[] pageArray = {"index", "Signup", "Login", "ad"};
 
 System.out.println(uri+"가 index / Signup / Login / ad 포함? "+ !(!uri.contains(pageArray[0]) && !uri.contains(pageArray[1]) && !uri.contains(pageArray[2]) && !uri.contains(pageArray[3])));
 if(!uri.contains(pageArray[0]) && !uri.contains(pageArray[1]) && !uri.contains(pageArray[2]) && !uri.contains(pageArray[3]) ) {
-   if(m_id == null && g_id == null){
-      System.out.println("로그인 세션 없음");
-      out.print("<script>alert('로그인이 필요합니다.'); location.href='"+context+"/index.jsp';</script>");
-   }
+	if(m_id == null && g_id == null){
+		System.out.println("로그인 세션 없음");
+		out.print("<script>alert('로그인이 필요합니다.'); location.href='"+context+"/index.jsp';</script>");
+	}
 }%>

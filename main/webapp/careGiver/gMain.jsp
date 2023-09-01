@@ -61,6 +61,7 @@
 							calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 							List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
+
 						<form name="matchinginfo">
 							<div class="table_wrapper">
 								<table border=1>
@@ -337,6 +338,12 @@
 				return false;
 			}
 		}
+		
+		function openMatchInfo(res_code){
+			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+
 	
 	</script>
 </html>

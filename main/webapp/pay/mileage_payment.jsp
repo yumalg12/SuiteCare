@@ -11,7 +11,7 @@ String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");
 %>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
 
 </head>
 <body>

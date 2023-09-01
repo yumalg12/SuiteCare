@@ -26,7 +26,7 @@ List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 			<tr>
 				<td>예약코드</td>
 				<td>이름</td>
-				<td>상세정보</td>
+				<td>피간병인<br>상세정보</td>
 				<td>간병장소</td>
 				<td>주소</td>
 				<td>간병일시/시간</td>
@@ -64,7 +64,7 @@ for (int i = 0; i < reslist.size(); i++) {
 <tr>
 	<td><%=res_code%></td>
 <td><%=t_name%></td>
-<td><button onclick="openPopup('<%=res_code%>')">더보기</button></td>
+<td><button onclick="openDetailPopup('<%=res_code%>')">더보기</button></td>
 
 <td>
 	<%

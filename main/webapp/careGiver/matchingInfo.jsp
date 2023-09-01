@@ -14,8 +14,6 @@
 <title>SC 스위트케어 | 매칭정보</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
 <style>
 .fc-col-header {
     margin: 0;
@@ -66,18 +64,6 @@ margin-left: 7.2rem;
 	</script>
 	
 	<body>
-<%@ include file="/header.jsp" %>
-
-	<!-- One -->
-			<section id="One" class="wrapper style3">
-				<div class="inner">
-					<header class="align-center">
-						<p>Premium Caregiver Matching Platform</p>
-						<h2>Generic Page Template</h2>
-					</header>
-				</div>
-			</section>
-
 		<!-- Two -->
 			<section id="two" class="wrapper style2">
 				<div class="inner">
@@ -152,12 +138,9 @@ margin-left: 7.2rem;
 			<%
 			}
 			%>
-			</table> 
 						</div>
 					</div>
 				</div>
-			</section>
-								
-<%@include file="/footer.jsp"%>								
+			</section>						
 </body>
 </html>

@@ -54,7 +54,7 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./member/login'"
 						<% } else { %>
-						onclick="location.href='./member/main'"
+						onclick="location.href='./member/main?type=index'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
@@ -73,10 +73,11 @@
 
 				<div>
 					<div class="box" 
-					<% if(g_id == null) { %>onclick="location.href='careGiver/caregiverLogin.jsp'"
-
-						<% } else { %>onclick="location.href='careGiver/gMain.jsp'"
-							<% } %>
+					<% if(g_id == null) { %>
+						onclick="location.href='careGiver/caregiverLogin.jsp'"
+						<% } else { %>
+						onclick="location.href='caregiver/main?type=index'"
+						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
 							<i class="fa-solid fa-pen-to-square icon" style="color: #423730;"></i>
