@@ -224,6 +224,29 @@ public class BookDAO {
 	return bst;
 }
 	
+	public List<String> code(String g_id) {
+		List<String> code = new ArrayList();
+		try {
+			connect();
+				
+			String sql = "SELECT res_code FROM book WHERE g_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String res_code = rs.getString("res_code");
+				code.add(res_code);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
 	
 	public List<BookVO> gList(String g_id) {
 		List<BookVO> list= new ArrayList<BookVO>();

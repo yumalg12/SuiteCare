@@ -70,8 +70,6 @@
 									</thead>
 									<tbody>
 									<%
-										request.setCharacterEncoding("utf-8");
-									
 										ReservationDAO dao = new ReservationDAO();
 										List<ReservationVO> listres = dao.resList(g_id);
 										for(int i=0; i<listres.size(); i++) {
@@ -152,7 +150,7 @@
 									<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
 									<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 								</thead>
-								<% PatientresDAO dao2 = new PatientresDAO();
+								<%-- <% PatientresDAO dao2 = new PatientresDAO();
 									List<PatientresVO> reslist = dao2.applylist();
 									for(int i=0; i<reslist.size(); i++) {
 										PatientresVO listvo = (PatientresVO) reslist.get(i);
@@ -182,34 +180,50 @@
 											
 											int idx = addr.indexOf(" ");
 											String address = addr.substring(0, idx); 
+								%> --%>
+								<%
+								List<PatientresVO> listresA = (ArrayList)request.getAttribute("listresA");
+								List<String> MyResCode = (ArrayList)request.getAttribute("MyResCode");
+								SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+									for(int i =0; i<listresA.size();i++) {
+											if(listresA.get(i).getAddr() != null && listresA.get(i).getStarttime() != null && listresA.get(i).getStartdate() != null) {
+												String[] address = listresA.get(i).getAddr().split(" ");
+												String sTime = sdf.format(listresA.get(i).getStarttime());
+												String eTime = sdf.format(listresA.get(i).getEndtime());
 								%>
-								
 											<tr>
-												<td> <%=res_code %> </td><td> <%=gender %> </td><td> <%=age %> </td>
-												<td><%=address %></td><td><%=workDate %> </td><td><%=workTimes %></td> 
-												<td><a href="../reservation/resInfo.jsp?res_code=<%= res_code %>&caretaker_code=<%=caretaker_code %>">더보기</a></td>
-												<td>
+												<td><%= listresA.get(i).getRes_code() %></td><td><%= listresA.get(i).getT_gender() %></td><td><%= listresA.get(i).getT_age() %></td>
+												<td><%= address[0] %></td><td><%= listresA.get(i).getStartdate() %> ~ <%= listresA.get(i).getEnddate() %></td><td><%=sTime %> ~ <%=eTime %></td> 
+												<td><a href='<%=context %>/reservation/resInfo.jsp?res_code=<%= listresA.get(i).getRes_code() %>&caretaker_code=<%= listresA.get(i).getCaretaker_code() %>'>더보기</a></td>
 								<%
-								
-													String b_status = bdao.bst(res_code, g_id);
-										
-													if(b_status!=null) {
+											if(!MyResCode.contains(listresA.get(i).getRes_code())) {
 								%>
-													<%=b_status %>
+												<td>미신청</td>
 								<%
-													} else {
+											} else {
 								%>
-														미신청
-								<% 				}
-								%> 			</td>
+												<td>신청</td>
+								<%
+											}
+								%>
 											</tr>
 								<%
-										}}
+											}
+									} 
 								%>
 							</table>
 						</div>
 					</form>
-	
+					<div class="row">
+						<ul class="pagination pagination-lg">
+							<%-- <c:set var="current" value="${page }"/> --%>
+							<c:forEach var="page" begin="1" end="${pages }" step="1">
+								<li class="page-item">
+									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="page(${page});">${page}</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -235,11 +249,12 @@
 								<c:forEach var="myApply" items="${myApply }">
 									<tr><td>${myApply.res_code }</td><td>${myApply.t_name }</td>	 
 									<td>
+									
 									<c:set var="location" value="${fn:split(myApply.addr,' ')}" />
 									${location[0]}
 									</td>
 									<td>${myApply.start_date } ~ ${myApply.end_date }</td><td>${myApply.start_time } ~ ${myApply.end_time }</td> 
-									<td><a href="../reservation/resInfo.jsp?res_code=${myApply.res_code }&caretaker_code=${myApply.caretaker_code }">더보기</a></td>
+									<td><a href="./reservation/resInfo.jsp?res_code=${myApply.res_code }&caretaker_code=${myApply.caretaker_code }">더보기</a></td>
 									<td>${myApply.hourwage }</td>
 									<td>${myApply.b_status }</td>
 									<td>
@@ -338,12 +353,23 @@
 				return false;
 			}
 		}
-		
+
+		function page(page) {
+			var path = "<%=context %>/caregiver?page=" + page;
+			location.href=path;
+		}
+
 		function openMatchInfo(res_code){
 			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
 		}
-		
 
-	
 	</script>
 </html>
+
+<style>
+	.pagination {
+		display: flex;
+		padding-left: 0;
+		list-style: none;
+	}
+</style>
