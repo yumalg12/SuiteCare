@@ -101,10 +101,11 @@ margin-left: 7.2rem;
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-
+							String mid = request.getParameter("mid");
+							
 							TakerDAO dao = new TakerDAO();
 
-							List<TakerVO> list = dao.takerList(m_id);
+							List<TakerVO> list = dao.takerList(mid);
 							for (int i = 0; i < list.size(); i++) {
 								TakerVO listt = (TakerVO) list.get(i);
 

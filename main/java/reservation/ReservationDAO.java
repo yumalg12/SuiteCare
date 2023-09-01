@@ -616,4 +616,68 @@ public class ReservationDAO {
 			e.printStackTrace();
 		} return delresbook;
 	}
+	
+	public List<ReservationVO> allRes() {
+	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	      
+	      try {
+	    	 connect();
+	         
+	         String sql = "SELECT * FROM reservation";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	        	String m_id = rs.getString("m_id");
+	            String caretaker_code = rs.getString("caretaker_code");
+	            String caregiver_id = rs.getString("caregiver_id");
+	            String rescode = rs.getString("res_code");
+	            String merchant_uid = rs.getString("merchant_uid");
+	            String res_date = rs.getString("res_date");
+	            String addr = rs.getString("addr");
+	            String detail_addr = rs.getString("detail_addr");
+	            String location = rs.getString("location");
+	            String consciousness = rs.getString("consciousness");
+	            String care_meal_yn = rs.getString("care_meal_yn");
+	            String care_toilet = rs.getString("care_toilet");
+	            String state_paralysis = rs.getString("state_paralysis");
+	            String state_mobility = rs.getString("state_mobility");
+	            String bedsore_yn = rs.getString("bedsore_yn");
+	            String suction_yn = rs.getString("suction_yn");
+	            String outpatient_yn = rs.getString("outpatient_yn");
+	            String care_night_yn = rs.getString("care_night_yn");
+	            String notice = rs.getString("notice");
+
+	            ReservationVO vo = new ReservationVO();
+	            vo.setM_id(m_id);
+	            vo.setCaretaker_code(caretaker_code);
+	            vo.setCaregiver_id(caregiver_id);
+	            vo.setRes_code(rescode);
+	            vo.setMerchant_uid(merchant_uid);
+	            vo.setRes_date(res_date);
+	            vo.setLocation(location);
+	            vo.setAddr(addr);
+	            vo.setDetail_addr(detail_addr);
+	            vo.setConsciousness(consciousness);
+	            vo.setCare_meal_yn(care_meal_yn);
+	            vo.setCare_toilet(care_toilet);
+	            vo.setState_paralysis(state_paralysis);
+	            vo.setState_mobility(state_mobility);
+	            vo.setBedsore_yn(bedsore_yn);
+	            vo.setSuction_yn(suction_yn);
+	            vo.setOutpatient_yn(outpatient_yn);
+	            vo.setCare_night_yn(care_night_yn);
+	            vo.setNotice(notice);
+
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
 }
