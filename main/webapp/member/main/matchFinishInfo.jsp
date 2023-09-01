@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="calendar.*"%>
+<%@ page import ="java.util.*" %>
+<%@ page import="patient.*"%>
+<%@ page import="book.*"%>
+<%@ page import="java.sql.Time"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 
 <div>
 	<input type="button" class="button alt" id="calToggle"
@@ -8,6 +16,7 @@
 <div id='calendar'></div>
 <div id='restable'>
 	<%
+m_id = (String)session.getAttribute("m_id");
 calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 %>
@@ -17,7 +26,7 @@ List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 			<tr>
 				<td>예약코드</td>
 				<td>이름</td>
-				<td>상세정보</td>
+				<td>피간병인<br>상세정보</td>
 				<td>간병장소</td>
 				<td>주소</td>
 				<td>간병일시/시간</td>
@@ -55,7 +64,7 @@ for (int i = 0; i < reslist.size(); i++) {
 <tr>
 	<td><%=res_code%></td>
 <td><%=t_name%></td>
-<td><button onclick="openPopup('<%=res_code%>')">더보기</button></td>
+<td><button onclick="openDetailPopup('<%=res_code%>')">더보기</button></td>
 
 <td>
 	<%

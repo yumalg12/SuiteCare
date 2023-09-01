@@ -7,7 +7,7 @@
 <title>SC 스위트케어 | 시급 입력하기</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
 
 </head>
 

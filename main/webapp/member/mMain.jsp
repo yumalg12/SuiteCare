@@ -27,7 +27,7 @@
 
 <script>
 function insertTinfo() {
-	window.location.href = "../careTaker/takerInfo.jsp";
+	window.location.href = "../member/takerInfo";
 }
 
 function rescaregiver() {
@@ -39,6 +39,23 @@ function delok() {
 		return false;
 	}
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+	  let url = new URL(window.location.href);
+	  let hash = url.hash;
+	  
+	  if (hash) {
+	    let tab = document.querySelector('.nav-link' + hash);
+	    if (tab) {
+	      let tabPaneId = tab.getAttribute('data-bs-target');
+	      let tabPane = document.querySelector(tabPaneId);
+	      if (tabPane) {
+	        new bootstrap.Tab(tab).show();
+	      }
+	    }
+	  }
+	});
+
 </script>
 </head>
 
@@ -48,13 +65,13 @@ function delok() {
 <section id="One" class="wrapper style3">
 	<div class="inner">
 		<header class="align-center">
-			<p>Eleifend vitae urna</p>
-			<h2>SC SuiteCare</h2>
+			<p>Premium Caregiver Matching Platform</p>
+			<h2>SuiteCare</h2>
 		</header>
 	</div>
 </section>
 <!-- Two -->
-<section id="two" class="wrapper style2">
+<section id="info" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">
@@ -120,14 +137,15 @@ function delok() {
 		</div>
 	</div>
 </section>
+
 <!-- three -->
-<section id="three" class="wrapper style2">
+<section id="reslist" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">
 			<header class="align-center">
 				<p>간병인 서비스</p>
-				<h2>간병 신청 정보</h2>
+				<h2>예약 신청 리스트</h2>
 			</header>
 			
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -156,8 +174,9 @@ function delok() {
 		</div>
 	</div>
 </section>
+
 <!-- four -->
-<section id="four" class="wrapper style2">
+<section id="match" class="wrapper style2">
 	<div class="inner">
 		<div class="box">
 			<div class="content">
@@ -172,7 +191,7 @@ function delok() {
 								<tr>
 									<td>예약코드</td>
 									<td>이름</td>
-									<td>상세정보</td>
+									<td>피간병인<br>상세정보</td>
 									<td>간병장소</td>
 									<td>주소</td>
 									<td>간병일시/시간</td>
@@ -207,7 +226,7 @@ function delok() {
 
 						<tr>
 							<td><%=res_code%></td> <td><%=t_name%></td> 
-							<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
+							<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 							
 							<td><% if(location==null) { %>
 							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
@@ -313,6 +332,7 @@ function delok() {
      calendar.render();
   };
 
+
 function restable() {
 	//토글버튼 변경하고 달력 없애고 목록 표시하기
 	document.getElementById('calToggle').setAttribute("onClick", "rescalendar()");
@@ -323,10 +343,16 @@ function restable() {
 	document.getElementById('restable').style.display = "";
 };
 	
+function openDetailPopup(resCode) {
+	var popupUrl = "mMain_detailInfo.jsp?popres_code=" + resCode;
+	window.open(popupUrl, "Popup", "width=800, height=950");
+}
+	
 function openmatPopup(resCode) {
 	var popupUrl = "mMain_preInfo.jsp?popres_code=" + resCode;
 	window.open(popupUrl, "Popup", "width=800, height=950");
 }
+
 
 function openrePopup(resCode, gId) {
     var popupUrl = "mReview.jsp?popres_code=" + resCode + "&popg_id=" + gId;

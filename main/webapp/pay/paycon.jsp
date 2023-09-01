@@ -25,7 +25,7 @@
 }
 </style>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
 
 </head>
 
@@ -48,7 +48,7 @@
 								onclick="location.href='<%=context%>/Payment/kakao.do'"
 								style="cursor: pointer;">
 								<div class="conB_content">
-									<img src="../images/카카오페이_CI_combination_with_BG.svg">
+									<img src="../assets/images/카카오페이_CI_combination_with_BG.svg">
 								</div>
 								<header class="align-center">
 									<h2>카카오페이</h2>

@@ -36,7 +36,7 @@
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Generic Page Template</h2>
 			</header>
 		</div>
@@ -61,6 +61,7 @@
 							calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 							List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
+
 						<form name="matchinginfo">
 							<div class="table_wrapper">
 								<table border=1>
@@ -352,11 +353,16 @@
 				return false;
 			}
 		}
-		
+
 		function page(page) {
 			var path = "<%=context %>/caregiver?page=" + page;
 			location.href=path;
 		}
+
+		function openMatchInfo(res_code){
+			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+		}
+
 	</script>
 </html>
 
