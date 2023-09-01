@@ -6,7 +6,8 @@
 <!-- Header -->
 <header id="header" class="alt">
 	<div class="logo">
-		<a href="<%=context%>/">SC 스위트케어</a>
+	    
+	    <a href="<%=context%>/"><img src="${pageContext.request.contextPath}/images/logo2.png" alt="로고">스위트케어</a>
 	</div>
 	<a href="#menu">Menu</a>
 </header>
@@ -15,11 +16,13 @@
 <nav id="menu">
 	<ul class="links">
 		<li><a href="<%=context%>/">Home</a></li>
-		<li><a href="<%=context%>/member/login">피간병인 메인</a></li>
-		<%if(m_id!=null) { %><li><a href="<%=context%>/member/member_info.jsp">피간병인 마이페이지</a></li><% } %>
-		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병인 메인</a></li>
-		<%if(g_id!=null) { %><li><a href="<%=context%>/caregiver">간병인 마이페이지</a></li><% } %>
+		<li><a href="<%=context%>/member/login">간병인 찾기</a></li>
+		<%if(m_id!=null) { %><li><a href="<%=context%>/member/member_info.jsp">마이페이지</a></li><% } %>
+		<li><a href="<%=context%>/careGiver/caregiverLogin.jsp">간병 일감 찾기</a></li>
+		<%if(g_id!=null) { %><li><a href="<%=context%>/caregiver/info">간병인 마이페이지</a></li><% } %>
 		<%if(m_id!=null || g_id!=null) { %><li><a href="<%=context%>/logout.jsp">로그아웃</a></li> <% } %>
+		<li><a href="<%=context%>/admin/adLogin.jsp">관리자 로그인</a></li>
+		<%if(adcode!=null) { %><li><a href="<%=context%>/admin/adMain.jsp">관리자 페이지</a></li><% } %>
 		<li><a href="<%=context%>/generic.jsp">템플릿 기본틀</a></li>
 		<li><a href="<%=context%>/elements.jsp">스타일 가이드</a></li>
 	</ul>

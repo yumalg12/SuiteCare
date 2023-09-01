@@ -24,7 +24,7 @@
   <section id="One" class="wrapper style3">
      <div class="inner">
         <header class="align-center">
-           <p>Eleifend vitae urna</p>
+           <p>Premium Caregiver Matching Platform</p>
            <h2>Suite Care</h2>
         </header>
      </div>
@@ -42,12 +42,20 @@
 				<br><br>
 				
 			   <!-- form 시작 -->
-				<form name="infoForm"  id="infoForm" method=post action=caregiver>
+				<form name="infoForm" id="infoForm" method=post action=caregiverInfo enctype="multipart/form-data">
 					<c:forEach var="info" items="${info }">
 						
 						<div class="form_wrapper">
-							<div style="margin-bottom: 2rem; justify-content: center; align-items: center; display: flex;">
-								<img src="<%=file_repo %>${info.g_profile }" alt="" style="height: 150px; margin: 0 auto;"/>
+							<div onclick="javascript:setImg()" style="margin: 3rem 0;display: grid;justify-items: center;">
+								<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem;">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" style="height: 150px; margin: 0 auto;" id="defult_img_png"/>
+								</div>
+								<div>
+									<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();">
+									<label for="default_img" id="default_img_text" style="margin:0.3rem 0 0 0;">기본 프로필사진 사용</label>
+								</div>
+								<input type="file" name="g_profile" id="g_profile" style="margin-top: 0.5rem;">
+								<input type="text" name="origin_profile" value="${info.g_profile }" style="display:none;">
 							</div>   
 							
 							<div class="form_row">
@@ -70,11 +78,11 @@
 						
 							<div class="form_row">
 								<label for="gender">성별</label>
-								<div>
-								<input type="radio" id="man" name="gender" value="M"<c:if test="${info.g_gender eq 'M' }">checked</c:if>>
-								<label for="man">남자</label>
-								<input type="radio" id="woman" name="gender" value="W"<c:if test="${info.g_gender eq 'W' }">checked</c:if>>
-								<label for="woman">여자</label>
+								<div onclick="javascript:setDefaultProfilePic();">
+									<input type="radio" id="man" name="gender" value="M"<c:if test="${info.g_gender eq 'M' }">checked</c:if>>
+									<label for="man">남자</label>
+									<input type="radio" id="woman" name="gender" value="W"<c:if test="${info.g_gender eq 'W' }">checked</c:if>>
+									<label for="woman">여자</label>
 								</div>
 							</div>
 						         
@@ -112,7 +120,7 @@
 							    <label>주소</label>
 								<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
 								<span></span>
-							    <textarea class="form-control" id="address" name="g_address">${address[0]} ${address[1]} ${address[2]} ${address[3]}</textarea>
+							    <textarea class="form-control" id="address" name="g_address">${info.g_address}</textarea>
 							</div>
 							
 							<div class="form_row">
@@ -278,8 +286,7 @@
 						</div>
 					
 						<div style="text-align: center;" class="form_btn">
-							<input type="hidden" name="command" value="update">
-							<input class="button special"  type="button" value="수정" id="btn_updt">
+							<input class="button special"  type="submit" value="수정" id="btn_updt" onclick="Validation();">
 						</div>
 					</c:forEach>
 				</form>
@@ -327,40 +334,97 @@
 	   $(this).remove();
    });
    
-   $(document).ready(function() {
-	$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
-	$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
-});
-   
-   $(document).on('click', '#btn_updt' , function() {
-	   if($("#email").val().length == 0){
-	   		alert("이메일을 입력하세요.");
-	   	} else if($("#email").val().length != 0) {
-	   		var regExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-	   		if (!regExp.test($("#email").val())) {
-	   			alert("올바를 이메일 양식을 입력하세요");
-	   		} else {
-			   	if($("#name").val().length == 0) {
-			   		alert("이름을 입력하세요.");
-			   	} else if($("#phone").val().length != 11){
-			   		alert("올바른 휴대폰 번호를 입력하세요.");
-			   	} else if($("#address").val().length == 0){
-			   		alert("주소를 입력하세요.");
-			   	} else if($("#sel").val() == 0){
-			   		alert("서비스를 선택해주세요.");
-			   	} else if($("#loc").val() == 0){
-			   		alert("선호지역을 선택해주세요.");
-			   	} else if($("#hw").val() == 0){
-			   		alert("선호시급을 선택해주세요.");
-			   	} else {
-					document.getElementById("infoForm").submit();
-			   	}
-	   		}
-	   	}
-   });
+	$(document).ready(function() {
+		$("#qualDiv > div > .form_row_sub:first").find(":last-child").remove();
+		$("#qualDiv > div > .form_row_sub:first").append("<input type='button' value='추가' id='add'>");
+	});
+	  
+   function Validation() {
+	   const name = $("#name").val().trim();
+	// 이름 검사
+		if (name.length < 2) {
+			alert("올바른 이름을 입력하십시오.");
+			$("#name").focus();
+			return false;
+		}
+	
+		// 성별 검사
+		if (document.joinForm.g_gender.value == "") {
+			alert("성별을 선택하세요.");
+			return false;
+		}
+		
+		//이메일 검사
+		let emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/;
+
+		if (!emailPattern.test($("#email").val())) {
+			alert("올바른 이메일을 입력하세요.");
+			$("#email").focus();
+			return false;
+		}
+		
+		//주소 검사
+		if (document.joinForm.g_address.value == ""){
+			alert("주소를 입력하세요.");
+			$("#address").focus();
+			return false;
+		}
+		
+		//선택지 검사
+		const g_serviceArr = [document.joinForm.g_service1.value, document.joinForm.g_service2.value, document.joinForm.g_service3.value];
+		if (g_serviceArr.includes("1")){
+			alert("서비스 1~3순위를 모두 선택하세요.");
+			return false;
+		}
+		const g_locationArr = [document.joinForm.g_location1.value, document.joinForm.g_location2.value, document.joinForm.g_location3.value];
+		if (g_locationArr.includes("1")){
+			alert("선호지역 1~3순위를 모두 선택하세요.");
+			return false;
+		}
+		const g_hourwageArr = [document.joinForm.g_hourwage1.value, document.joinForm.g_hourwage2.value, document.joinForm.g_hourwage3.value];
+		if (g_hourwageArr.includes("1")){
+			alert("선호시급 1~3순위를 모두 선택하세요.");
+			return false;
+		}
+
+		// 휴대폰 번호 형식 정리
+		$("#phone").val($("#phone").val().split("-").join(""));
+		
+		$('select > option:disabled').attr("disabled",false);
+		document.getElementById("infoForm").submit();
+   }
    
    function change_pw() {
       window.open("<%=context%>/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
-
+   
+   function showImgSelector() {
+	    let g_profile = document.getElementById("g_profile");
+	    let default_img_png = document.getElementById("defult_img_png");
+	    
+	    if (g_profile.style.display === "none") {
+	        g_profile.style.display = "";
+	        default_img_png.style.display = "none";
+	    } else {
+	        g_profile.style.display = "none";
+	        default_img_png.style.display = "";
+	        if($("#gender").val == "M") {
+		        default_img_png.src = "<%=context%>/assets/profile/man.png";
+	        } else if($("#gender").val =="W") {
+		        default_img_png.src = "<%=context%>/assets/profile/woman.png";
+	        }
+	    }
+	}
+   
+   function setDefaultProfilePic() {
+	    let gender =document.infoForm.gender.value;
+	    let defaultImg = document.getElementById("defult_img_png");
+		if($("#default_img").is(':checked')) {
+		    if (gender === "M") {
+		        defaultImg.src = "<%=context%>/assets/profile/man.png";
+		    } else if (gender === "W") {
+		        defaultImg.src = "<%=context%>/assets/profile/woman.png";
+		    }
+		}
+	}
 </script>

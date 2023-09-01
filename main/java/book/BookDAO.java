@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import reservation.ReservationVO;
+
 
 
 public class BookDAO {
@@ -222,6 +224,29 @@ public class BookDAO {
 	return bst;
 }
 	
+	public List<String> code(String g_id) {
+		List<String> code = new ArrayList();
+		try {
+			connect();
+				
+			String sql = "SELECT res_code FROM book WHERE g_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String res_code = rs.getString("res_code");
+				code.add(res_code);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
 	
 	public List<BookVO> gList(String g_id) {
 		List<BookVO> list= new ArrayList<BookVO>();
@@ -362,5 +387,39 @@ public class BookDAO {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<ReservationVO> myApply(String g_id) {
+		List<ReservationVO> list = new ArrayList<ReservationVO>();
+
+		try {
+			connect();
+
+			String sql = "SELECT r.caretaker_code, b.res_code, c.t_name, r.addr, ri.start_date, ri.end_date, ri.start_time, ri.end_time, b.hourwage, b.b_status FROM book as b, reservation_info as ri, reservation as r, caretaker as c WHERE c.m_id=r.m_id AND c.t_code=ri.caretaker_code AND b.g_id=? AND b.res_code = r.res_code AND r.res_code = ri.res_code";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String caretaker_code = rs.getString("caretaker_code");
+				String res_code = rs.getString("res_code");
+				String caretakerName = rs.getString("t_name");
+				String address = rs.getString("addr");
+				String start_date = rs.getString("start_date");
+				String end_date = rs.getString("end_date");
+				String start_time = rs.getString("start_time");
+				String end_time = rs.getString("end_time");
+				String hourwage = rs.getString("hourwage");
+				String b_status = rs.getString("b_status");
+				
+				ReservationVO vo = new ReservationVO(caretaker_code, res_code, caretakerName, address, start_date, end_date, start_time, end_time, hourwage, b_status);
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

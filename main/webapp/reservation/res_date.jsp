@@ -83,8 +83,8 @@ function resdstop() {
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuiteCare</h2>
+				<p>Premium Caregiver Matching Platform</p>
+				<h2>SuiteCare</h2>
 			</header>
 		</div>
 	</section>

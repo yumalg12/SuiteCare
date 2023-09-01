@@ -34,7 +34,7 @@
 	%>
 	<script>
 		alert("로그인 성공")
-		location.href='<%=request.getContextPath()%>/careGiver/gMain.jsp';
+		location.href='<%=request.getContextPath()%>/caregiver';
 	</script>
 	<%
 	} else if(ok==2) {

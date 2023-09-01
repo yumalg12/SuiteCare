@@ -10,15 +10,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
 
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 빠른매칭서비스</title>
 <%@ include file="/header-import.jsp"%>
 </head>
 <body>
+<<<<<<< HEAD
 <%@ include file="../header.jsp" %>
+=======
+	<%@ include file="../header.jsp" %>
+>>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
 <%
 request.setCharacterEncoding("utf-8");
 String res_code = request.getParameter("res_code");
@@ -35,7 +42,11 @@ List<PreferenceVO> part = result.getSecond();
    <section id="One" class="wrapper style3">
       <div class="inner">
          <header class="align-center">
+<<<<<<< HEAD
             <p>Eleifend vitae urna</p>
+=======
+            <p>Premium Caregiver Matching Platform</p>
+>>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
             <h2>Suite Care</h2>
          </header>
       </div>
@@ -170,14 +181,17 @@ List<PreferenceVO> part = result.getSecond();
 		3순위 : <%=g_service3 %></td>
 	<td><%=qual %></td>
 	<td><%=g_hourwage %></td>
+<<<<<<< HEAD
 <td><a href="./tmatchingApprove.jsp?res_code=<%=res_code%>&g_id=<%=g_id%>&hourwage-<%=g_hourwage%>" class="button alt">매칭신청</a></td>
+=======
+	<td><a href="./tmatchingApprove.jsp?res_code=<%=res_code%>&g_id=<%=g_id%>&hourwage-<%=g_hourwage%>" class="button alt">매칭신청</a></td>
+>>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
 	</tr>
 	 <%
 	}
 		%>
 
 		</table>
-
-</table>
+</form>
 </body>
 </html>

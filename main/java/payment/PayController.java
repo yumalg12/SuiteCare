@@ -56,6 +56,9 @@ public class PayController extends HttpServlet {
 			int amount = Integer.parseInt(request.getParameter("amountRsp"));
 			String merchant_uid = request.getParameter("merchant_uidRsp");
 			String pay_method = request.getParameter("pay_method");
+			int currentMile = payvo.getCurrentMile();
+			System.out.println("컨트롤러 전송 마일리지:" + currentMile);
+			String m_phone = payvo.getM_phone();
 			// addpay = PayService.insorder();
 
 			out.write(amount + "," + pay_method + "," + merchant_uid);

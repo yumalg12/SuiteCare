@@ -9,7 +9,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>SC 스위트케어 | 간병 신청</title>
+<title>SC 스위트케어 | 예약정보</title>
 <%@ include file="/header-import.jsp"%>
 
 </head>
@@ -21,7 +21,7 @@
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Premium Caregiver Matching Platform</p>
+				<p>Eleifend vitae urna</p>
 				<h2>SC SuitCare</h2>
 			</header>
 		</div>
@@ -33,7 +33,7 @@
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>간병 서비스를 제공받을 분</p>
+						<p>예약 상세 정보</p>
 						<h2>Information</h2>
 					</header>
 					<%
@@ -71,23 +71,13 @@
 						String outpatient_yn=listvo.getOutpatient_yn();
 						String care_night_yn=listvo.getCare_night_yn();
 						String notice=listvo.getNotice();
-											
-						
+
 
 						String workDate = start_date + " - " + end_date;
 						String workTimes = start_time + " - " + end_time;
 
 						int idx = addr.indexOf(" ");
 						String address = addr.substring(0, idx);
-
-						long worktime = end_time.getTime() - start_time.getTime();
-						int workHours = (int) (worktime / (1000 * 60 * 60));
-
-						int totalWorkDays = (int) ((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-						int salary = totalWorkDays * workHours * 10000;
-
-						String fSalary = String.format("%,d", salary);
 					%>
 
 
@@ -192,10 +182,6 @@
 							</div>
 							</div>
 					
-							<div class="form_button">
-								<input class="button alt" type="button" value=뒤로가기 onclick="history.back()"> 
-								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
-							</div>
 						</div>
 
 				</form>
@@ -214,9 +200,3 @@
 </body>
 
 </html>
-
-<script>
-	function insert_hourwage() {
-		window.open("<%=context%>/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=425");
-	}
-</script>

@@ -1,4 +1,4 @@
-<%@ page import="member.*"%>
+<%@ page import="reservation.*"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SC 스위트케어 | 회원정보</title>
+<title>SC 스위트케어 | 예약정보</title>
 <%@ include file="/header-import.jsp"%>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
@@ -75,8 +75,8 @@ margin-left: 7.2rem;
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<p>Eleifend vitae urna</p>
+				<h2>SC SuiteCare</h2>
 			</header>
 		</div>
 	</section>
@@ -88,51 +88,42 @@ margin-left: 7.2rem;
 				<div class="content">
 					<header class="align-center">
 						<p>SC 스위트케어</p>
-						<h2>회원 정보 조회</h2>
+						<h2>예약 정보 조회</h2>
 					</header>
 
-					<form name="memberinfo">
+					<form name="resinfo">
 						<table>
 							<thead>
 								<tr>
-									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td>
-									<td>핸드폰번호</td> <td>이메일</td> <td>주소</td> <td>sms 수신동의</td> 
-									<td>email 수신동의</td> <td>가입일</td> <td>정보</td>
+									<td>No.</td> <td>피간병인 아이디</td> <td>피간병인 코드</td> <td>간병인 아이디</td>
+									<td>예약코드</td> <td>결제주문번호</td> <td>예약날짜</td> <td>상세정보</td> 
 								</tr>
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
 
-							MemberDAO dao = new MemberDAO();
+							ReservationDAO dao = new ReservationDAO();
 
-							List<MemberVO> list = dao.listMembers();
+							List<ReservationVO> list = dao.allRes();
 							for (int i = 0; i < list.size(); i++) {
-								MemberVO listt = (MemberVO) list.get(i);
-
-								String mid = listt.getM_id();
-								String m_name = listt.getM_name();
-								String m_gender = listt.getM_gender();
-								String m_phone = listt.getM_phone();
-								String m_email = listt.getM_email();
-								String m_address = listt.getM_address();	
-								String m_sms_yn = listt.getM_sms_yn();
-								String m_email_yn = listt.getM_email_yn();
-								Date m_signup_date = listt.getM_signup_date();
+								ReservationVO listt = (ReservationVO) list.get(i);
 								
-								String phone = m_phone.substring(0,3) + "-" + m_phone.substring(3,7) + "-" + m_phone.substring(7,11);
+								String mid = listt.getM_id();
+					            String caretaker_code = listt.getCaretaker_code();
+					            String caregiver_id = listt.getCaregiver_id();
+					            String res_code = listt.getRes_code();
+					            String merchant_uid = listt.getMerchant_uid();
+					            String res_date = listt.getRes_date();
 							%>
 							<tr>
 								<td><%=i + 1%></td>
 								<td><%=mid%></td>
-								<td><%=m_name%></td>
-								<td><%=m_gender%></td>
-								<td><%=phone%></td>
-								<td><%=m_email%></td>
-								<td><%=m_address%></td>
-								<td><%=m_sms_yn%></td>
-								<td><%=m_email_yn%></td>
-								<td><%=m_signup_date%></td>
-								<td><a href='../admin/admin_tinfo.jsp?mid=<%=mid%>'>더보기</a></td>
+								<td><%=caretaker_code%></td>
+								<td><%=caregiver_id%></td>
+								<td><%=res_code%></td>
+								<td><%=merchant_uid%></td>
+								<td><%=res_date%></td>
+								<td><a href="../admin/resInfo.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">더보기</a></td>
 							</tr>
 							<%
 							}
