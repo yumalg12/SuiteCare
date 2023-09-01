@@ -47,9 +47,8 @@
 			<div class="inner">
 				<header>
 					<p>
-						A free responsive web site template by <a
-							href="https://templated.co">TEMPLATED</a>
-					</p>
+						<a>Premium </a> Caregiver Matching Platform 
+						</p>
 					<h2>Suite Care</h2>
 				</header>
 			</div>
@@ -60,6 +59,25 @@
 	<section id="one" class="wrapper style2">
 		<div class="inner">
 			<div class="grid-style">
+
+				<div>
+					<div class="box" 
+					<% if(m_id == null) { %>onclick="location.href='./login'"
+
+						<% } else { %>onclick="location.href='<%=context%>/careTaker/takerInfo.jsp'"
+							<% } %>
+						style="cursor: pointer;">
+						<div class="conB_content">
+							<img src="<%=context%>/assets/images/main-caretaker.png">
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<p>피간병인</p>
+								<h2>피간병인 등록하기</h2>
+							</header>
+						</div>
+					</div>
+				</div>
 
 				<div>
 					<div class="box"
@@ -76,25 +94,6 @@
 							<header class="align-center">
 								<p>피간병인</p>
 								<h2>예약 신청 리스트</h2>
-							</header>
-						</div>
-					</div>
-				</div>
-
-				<div>
-					<div class="box" 
-					<% if(m_id == null) { %>onclick="location.href='./login'"
-
-						<% } else { %>onclick="location.href='<%=context%>/careTaker/takerInfo.jsp'"
-							<% } %>
-						style="cursor: pointer;">
-						<div class="conB_content">
-							<img src="<%=context%>/assets/images/main-caretaker.png">
-						</div>
-						<div class="content">
-							<header class="align-center">
-								<p>피간병인</p>
-								<h2>피간병인 등록하기</h2>
 							</header>
 						</div>
 					</div>
