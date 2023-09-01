@@ -8,11 +8,14 @@
 	<%@ include file="/header-import.jsp"%>
 
 <script>
+if ("<%=adcode%>" != "null") {
+	window.location.href="adMain.jsp";
+}
 
 function adlogin(){
 	var masterpw = "suitecare2023**";
-	var code = document.getElementById('code').value;
-	if(code!=masterpw){
+	var adcode = document.getElementById('code').value;
+	if(adcode!=masterpw){
 		alert("관리자 코드를 다시 확인해주세요!");
 	return false;
 	}

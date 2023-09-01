@@ -36,7 +36,7 @@
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Generic Page Template</h2>
 			</header>
 		</div>
@@ -61,6 +61,7 @@
 							calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 							List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
+
 						<form name="matchinginfo">
 							<div class="table_wrapper">
 								<table border=1>
@@ -163,8 +164,8 @@
 												<td>${listresA.res_code }</td><td>${listresA.t_gender }</td><td>${listresA.t_age }</td>
 												<td>${address[0]}</td><td>${listresA.startdate } ~ ${listresA.enddate }</td><td>${listresA.starttime } ~ ${listresA.endtime }</td>
 												<td><span onclick="takerInfo('${listresA.res_code }','${listresA.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
-	                                   			<td><c:if test="${!fn:contains(MyResCode, listresA.res_code)}">미신청</c:if></td>
-	                                   		</tr>
+	                      <td><c:if test="${!fn:contains(MyResCode, listresA.res_code)}">미신청</c:if></td>
+	                    </tr>
 										</c:forEach>
 									</c:when>
 								</c:choose>
@@ -310,7 +311,7 @@
 				return false;
 			}
 		}
-		
+
 		function page(page) {
 			var path = "<%=context %>/caregiver?page=" + page;
 			location.href=path;
@@ -320,6 +321,11 @@
 			window.open("<%=context %>/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
+
+		function openMatchInfo(res_code){
+			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+		}
+
 	</script>
 </html>
 
