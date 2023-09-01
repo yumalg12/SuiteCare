@@ -45,7 +45,7 @@ text-decoration: underline;
      if (confirmed) {
          window.location.href = "../logout.jsp"; // 로그아웃 처리 페이지로 이동
      } else {
-    	    window.location.href = "../careGiver/gMain.jsp"; 
+    	    window.location.href = "../caregiver/main"; 
      }
 	</script>
 <% } else {%>

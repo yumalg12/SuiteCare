@@ -27,6 +27,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
+<style>
+	.pagination {
+		display: flex;
+		padding-left: 0;
+		list-style: none;
+	}
+</style>
 </head>
 	
 <body>
@@ -43,7 +50,7 @@
 	</section>
 
 	<!-- Two -->
-	<section id="two" class="wrapper style2">
+	<section id="matchinfo" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -135,7 +142,7 @@
 							
 							
 	<!-- three -->
-	<section id="three" class="wrapper style2">
+	<section id="allapplylist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -231,7 +238,7 @@
 			
 			
 	<!-- four -->
-	<section id="four" class="wrapper style2">
+	<section id="myapplylist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -265,6 +272,28 @@
 									</tr>
 								</c:forEach>
 							</table>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>	
+			
+			
+			
+	<!-- five -->
+	<section id="finishlist" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>내가 수행한</p>
+						<h2>간병 완료 목록</h2>
+					</header>
+					<form name="finishform">
+						<div class="table_wrapper">
+							추가 필요
 						</div>
 					</form>
 
@@ -365,11 +394,3 @@
 
 	</script>
 </html>
-
-<style>
-	.pagination {
-		display: flex;
-		padding-left: 0;
-		list-style: none;
-	}
-</style>

@@ -42,7 +42,7 @@
 	<!-- Banner -->
 	<section class="banner full">
 		<article>
-		<%int num = (int) (Math.random() * 4 + 1); %>
+		<%int num = (int) (Math.random() * 3 + 1); %>
 		<img src="<%=context %>/assets/images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
@@ -64,11 +64,11 @@
 					<div class="box" 
 					<% if(m_id == null) { %>onclick="location.href='./login'"
 
-						<% } else { %>onclick="location.href='<%=context%>/careTaker/takerInfo.jsp'"
+						<% } else { %>onclick="location.href='<%=context%>/member/takerInfo'"
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/main-caretaker.png">
+							<img src="<%=context%>/assets/images/mmain-caretaker.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -84,16 +84,16 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='./main#resApplyInfo-tab'"
+						onclick="location.href='<%=context%>/reservation/rescaretaker.jsp'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/main-booking.png">
+							<img src="<%=context%>/assets/images/mmain-booking.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
 								<p>피간병인</p>
-								<h2>예약 신청 리스트</h2>
+								<h2>예약 신청하기</h2>
 							</header>
 						</div>
 					</div>
@@ -104,16 +104,16 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='./main#matchFinishInfo-tab'"
+						onclick="location.href='./main#reslist'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/main-reslist.png">
+							<img src="<%=context%>/assets/images/mmain-reslist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
 								<p>피간병인</p>
-								<h2>예약 확정 리스트</h2>
+								<h2>예약 목록</h2>
 							</header>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/main-clock.png">
+							<img src="<%=context%>/assets/images/mmain-quick.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
