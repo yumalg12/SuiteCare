@@ -31,6 +31,7 @@ request.setCharacterEncoding("utf-8");
 <!--          로그인 체크          -->
 <% String m_id = (String)session.getAttribute("m_id");
 String g_id = (String)session.getAttribute("g_id");
+String adcode = (String)session.getAttribute("adcode");
 
 String[] uriArr = request.getServletPath().split("/");
 String uri = uriArr[uriArr.length-1];

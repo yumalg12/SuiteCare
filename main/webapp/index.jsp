@@ -36,9 +36,8 @@
 			<div class="inner">
 				<header>
 					<p>
-						A free responsive web site template by <a
-							href="https://templated.co">TEMPLATED</a>
-					</p>
+						<a>Premium </a> Caregiver Matching Platform 
+						</p>
 					<h2>Suite Care</h2>
 				</header>
 			</div>
