@@ -2,7 +2,10 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  isELIgnored="false" %>
+	<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,30 +27,6 @@ function inserttinfo() {
 }
 </script>
 </head>
-
-<body>
-	<%
-	request.setCharacterEncoding("utf-8");
-	%>
-	<%
-	ReservationDAO dao = new ReservationDAO();
-
-	int ok = dao.tinfocheck(m_id);
-
-	CaretakerinfoVO vo = new CaretakerinfoVO();
-
-	if (ok == 0) {
-		System.out.println("정보없음");
-	%>
-	<script>
-	alert("등록된 회원정보가 없습니다.");
-	location.href='<%=request.getContextPath()%>/careTaker/takerInfo.jsp';
-	</script>
-
-	<%
-	} else if (ok == 1) {
-	System.out.println("정보있음");
-	%>
 
 <body>
 	<%@ include file="/header.jsp"%>
@@ -83,26 +62,17 @@ function inserttinfo() {
 						<h2>피간병인 정보 선택</h2>
 					</header>
 					<div class="form_wrapper">
-						<form action="./rescaretaker_info.jsp" name="cnameform"
+						<form action="/suiteCare/reservation/name" method = "post" name="cnameform"
 							onSubmit="return checkForm();">
 							<div class="form_row">
 								<label>피간병인 이름</label> 
 								<div>
 								<select name="tname" id="tname">
 									<option value="">간병받으실 분 선택</option>
-									<%
-									List<CaretakerinfoVO> list = dao.listtname(m_id);
-									for (int i = 0; i < list.size(); i++) {
-										CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);
-
-										String t_name = listvo.getT_name();
-									%>
-									<option value=<%=t_name%>><%=t_name%></option>
-
-									<%
-									}
-									}
-									%>
+									<c:forEach var="tnameList" items="${nameList}"> 
+								
+									<option value=${tnameList.t_name}>${tnameList.t_name}</option>
+									</c:forEach> 
 								</select>
 								<div style="text-align: center; margin: 1rem;">
 								<a onclick="inserttinfo();" style="cursor: pointer; ">다른 피간병인 정보 등록하기</a> 
@@ -112,6 +82,7 @@ function inserttinfo() {
 							<div class="form_button">
 								<input type="submit" class="button special" value="선택">
 							</div>
+							<input type="hidden" name="type" value="tinfo"/>
 						</form>
 					</div>
 				</div>

@@ -71,12 +71,12 @@ function resdstop() {
 
 	<%
 	request.setCharacterEncoding("utf-8");
-	String caretaker_code = (String) session.getAttribute("caretaker_code");
 	String res_code = (String) session.getAttribute("res_code");
+	String t_code = (String) session.getAttribute("t_code");
 	String r_code = request.getParameter("res_code");
 	session.setAttribute("r_code", r_code);
-	String t_code = request.getParameter("caretaker_code");
-	session.setAttribute("t_code", t_code);
+	String caretaker_code = request.getParameter("caretaker_code");
+	session.setAttribute("caretaker_code", caretaker_code);
 	%>
 
 	<!-- One -->
@@ -117,7 +117,7 @@ function resdstop() {
 							else if(res_code==null) {%> <%=r_code%> <% }%>" disabled>
 						</div>
 						<br>
-						<form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">
+						<form action="../reservation/date" name="resdateForm" method="post" onSubmit="return rescheckForm();">
 							<div class="form_row">
 								<label>간병 기간</label>
 								<div>
@@ -138,6 +138,7 @@ function resdstop() {
 								</div>
 							</div>
 							<div class="form_button">
+								<input type="hidden" name="type" value="resdate"/>
 								 <input type="button" class="button alt" onclick="resdstop();" value="예약 중지">
 								<input type="submit" class="button special" value="예약하기">
 							</div>

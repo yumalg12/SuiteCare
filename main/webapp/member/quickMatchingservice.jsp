@@ -10,13 +10,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/header-import.jsp"%>
+
 
 
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 빠른매칭서비스</title>
+<%@ include file="/header-import.jsp"%>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 String res_code = request.getParameter("res_code");
@@ -29,7 +31,26 @@ List<PreferenceVO> full = result.getFirst();
 List<PreferenceVO> part = result.getSecond();
 
 %>
+<!-- One -->
+   <section id="One" class="wrapper style3">
+      <div class="inner">
+         <header class="align-center">
+            <p>Eleifend vitae urna</p>
+            <h2>Suite Care</h2>
+         </header>
+      </div>
+   </section>
 
+<!-- Two -->
+   <section id="two" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p> SuiteCare </p>
+						<h2>빠른 매칭 리스트</h2>
+					</header>
+<form name="quickForm">
 <table>
 	<tr>
 	<td></td><td>이름</td><td>성별</td><td>나이</td><td>거주지역</td>
@@ -37,6 +58,7 @@ List<PreferenceVO> part = result.getSecond();
 	<td>시급</td><td>비고</td>
 	</tr>
 	<% for(PreferenceVO fList : full) {
+		g_id = fList.getG_id();
 		String g_profile = fList.getG_profile();
 		String g_name = fList.getG_name();
 		String g_gender = fList.getG_gender();
@@ -81,7 +103,7 @@ List<PreferenceVO> part = result.getSecond();
 	 %>
 	 <tr>
 	<td><img src="<%=profile %>" alt="" style="width:150px; height:150px;"/></td>
-	<td><%=g_name %></td>
+	<td><%=g_name %>★</td>
 	<td><% if(g_gender.equals("W")) { %> 여 <% }else { %> 남 <% } %></td>
 	<td><%=age %></td><td><%=address %></td>
 	<td><%=g_location %></td>
@@ -89,10 +111,12 @@ List<PreferenceVO> part = result.getSecond();
 		2순위 : <%=g_service2 %><br>
 		3순위 : <%=g_service3 %></td>
 	<td><%=qual %></td>
-	<td><%=g_hourwage %></td><td>★</td>
+	<td><%=g_hourwage %></td>
+	<td><a href="./tmatchingApprove.jsp?res_code=<%=res_code%>&g_id=<%=g_id%>&hourwage-<%=g_hourwage%>" class="button alt">매칭신청</a></td>
 	</tr>
 	 <%
 	} for(PreferenceVO pList : part) {
+		g_id = pList.getG_id();
 		String g_profile = pList.getG_profile();
 		String g_name = pList.getG_name();
 		String g_gender = pList.getG_gender();
@@ -145,7 +169,8 @@ List<PreferenceVO> part = result.getSecond();
 		2순위 : <%=g_service2 %><br>
 		3순위 : <%=g_service3 %></td>
 	<td><%=qual %></td>
-	<td><%=g_hourwage %></td><td></td>
+	<td><%=g_hourwage %></td>
+<td><a href="./tmatchingApprove.jsp?res_code=<%=res_code%>&g_id=<%=g_id%>&hourwage-<%=g_hourwage%>" class="button alt">매칭신청</a></td>
 	</tr>
 	 <%
 	}

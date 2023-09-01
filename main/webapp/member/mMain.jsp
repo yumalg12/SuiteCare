@@ -31,7 +31,8 @@ function insertTinfo() {
 }
 
 function rescaregiver() {
-	window.location.href = "../reservation/rescaretaker.jsp";
+	
+	window.location.href = "../reservation/name";
 }
 
 function delok() {
@@ -82,6 +83,7 @@ function delok() {
 
 					session.removeAttribute("caretaker_code");
 					session.removeAttribute("res_code");
+					session.removeAttribute("r_code");
 					
 					TakerDAO dao = new TakerDAO();
 
@@ -150,7 +152,9 @@ function delok() {
 			
 			<hr>
 			<div style="text-align: center;" class="form_button">
+				<form method="post">
 				<input type="button" class="button special" onclick="rescaregiver();" value="간병인 신청하기">
+				</form>
 				</div>
 			</div>
 		</div>
@@ -234,8 +238,15 @@ function delok() {
 								<%}} %></td>
 								
 							<td>
+							<%for(TpreferenceVO prevo : preList) {
+								String pre_age_1 = prevo.getPre_age_1();
+								
+								if(pre_age_1 == null) { %>
+								미작성
+								<%}	
+								else if(pre_age_1!=null){%>
 								<a href="./quickMatchingservice.jsp?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
-							</td>
+							<%}} %></td>
 							
 							<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 								onclick="return delok();">취소</a></td>

@@ -18,6 +18,7 @@
 					</tr>
 				</thead>
 				<%
+				
 			PatientresDAO dao3 = new PatientresDAO();
 			List<PatientresVO> reslist3 = dao3.listres(m_id);
 			for (int i = 0; i < reslist3.size(); i++) {
@@ -48,17 +49,17 @@
 				<td><button onclick="openPopup('<%=res_code %>')">더보기</button></td>
 				
 				<td><% if(location==null) { %>
-				<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+				<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
 				else if(location!=null){if(location.equals("home")) {%>자택<%} 
 				else { %><%=location%><%}} %></td>
 				
 				<td><% if(addr==null) { %>
-				<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+				<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
 				else if(addr!=null){%><%=addr%> 
 				<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
 				
 				<td><% if(start_date==null ) { %>
-				<a href="../reservation/res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
+				<a href="../reservation/date?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
 				else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
 				
 				<td><%
@@ -66,8 +67,11 @@
 				for(TpreferenceVO prevo : preList) {
 					String pre_age_1 = prevo.getPre_age_1();
 					
-					if(pre_age_1 == null) { %>
-					<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+					if(pre_age_1 == null) { 
+						
+						
+					%>
+					<a href="../reservation/match?res_code=<%=res_code%>">작성하기</a> <%}	
 					else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
 					<%}} %></td>
 					

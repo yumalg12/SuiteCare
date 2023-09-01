@@ -12,25 +12,8 @@
 <script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
 <script>
 
-function back() {
-	var f = document.hospForm;
-	f.action = "rescareloc.jsp";
-	f.submit();
-}
 
-function searchhosp() {
-	var popupUrl = "searchmap.jsp";
-    var popupOptions = 'width=800,height=600,scrollbars=yes,resizable=yes';
-
-    var mapPopup = window.open(popupUrl, 'mapPopup', popupOptions);
-   
-}
-function setHospitalInfo(hospname, hospaddr) {
-    document.getElementById('hospname').value = hospname;
-    document.getElementById('hospaddr').value = hospaddr;
-}
-
-function check() {
+function hospcheck() {
 	var f = document.hospForm;
 	var hospname = document.hospForm.hospname.value;
 	var hospaddr = document.hospForm.hospaddr.value;
@@ -46,10 +29,24 @@ function check() {
 		alert("나머지 주소를 입력해 주세요.");
 		return false;
 	} else {
-	f.action = "inserthospaddr.jsp";
-	f.submit(); 
-	return true;}
+	return true;
+	}
+	
 }
+
+
+function searchhosp() {
+	var popupUrl = "../hospital/search";
+    var popupOptions = 'width=800,height=600,scrollbars=yes,resizable=yes';
+
+    var mapPopup = window.open(popupUrl, 'mapPopup', popupOptions);
+   
+}
+function setHospitalInfo(hospname, hospaddr) {
+    document.getElementById('hospname').value = hospname;
+    document.getElementById('hospaddr').value = hospaddr;
+}
+
 
 function reshostop() {
 	alert("예약이 중지되었습니다.");
@@ -100,7 +97,9 @@ String r_code = (String)session.getAttribute("r_code");
 					</header>
 
 					<div class="form_wrapper">
-<form name="hospForm">
+<form action="/suiteCare/reservation/hospital" method = "post" name="hospForm"
+							onSubmit="return hospcheck();">
+							<input type="hidden" name="type" value="reshosp_addr"/>
 			<div class="form_row">
 				<label>병원명</label>
 				<div class="form_row_sub">
@@ -114,13 +113,16 @@ String r_code = (String)session.getAttribute("r_code");
 				<label class="addr-label">도로명 주소</label><input type="text" id="hospaddr" name="hospaddr" placeholder="도로명 주소" title="도로명 주소" >
 				<label class="addr-label">상세호수</label><input type="text" id="hospdetail_addr" name="hospdetail_addr" placeholder="상세호수" title="나머지 주소" >
 			</div>
+			 <input type="hidden" name="type" id="type" value=""/>
 			<div class="form_button_three">
 		  <input type="button" class="button alt" onclick="reshostop();" value="예약 중지">
 		 <div>
-		 <input type="button" class="button" onclick="back();" value="뒤로가기">
-		 <input type="button" class="button special" onclick="check();" value="확인">
+
+		 <span class="button alt" onclick="location.href='<%=context%>/reservation/location'">뒤로가기</span>
+		 <input type="submit" class="button special" value="확인">
 		 </div>
 			</div>
+			
 </form>
 					</div>
 
