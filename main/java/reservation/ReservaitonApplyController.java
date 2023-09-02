@@ -17,13 +17,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/reservation/apply")
 public class ReservaitonApplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-ReservationDAO rdao;
-	
-	
-	public void init() throws ServletException {
-		rdao = new ReservationDAO();
-	}
-       
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
@@ -34,23 +27,9 @@ ReservationDAO rdao;
 	}
 
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = null;
-		HttpSession session = request.getSession();
-		String m_id = (String) session.getAttribute("m_id");
-		String t_code =(String) session.getAttribute("t_code");
-		String res_code =(String) session.getAttribute("res_code");
-		String caretaker_code = (String) session.getAttribute("caretaker_code");
-		String r_code = (String) session.getAttribute("r_code");
-		
-		String context = ((HttpServletRequest)request).getContextPath();
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		
+
 		String type = request.getParameter("type");
 		
-		//System.out.println("타입 : " + type);
-		
-		PrintWriter out = response.getWriter();
 		
 			if(type==null) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("/reservation/res_hourwage.jsp");
