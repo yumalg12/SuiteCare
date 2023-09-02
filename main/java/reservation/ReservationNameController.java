@@ -61,7 +61,7 @@ ReservationDAO rdao;
 		
 			out.println("<script>");
 			 out.println("alert('등록된 회원정보가 없습니다.');");
-		    out.println("location.href='"+context+"/member/main';");
+		    out.println("location.href='"+context+"/member/takerInfo';");
 		    out.println("</script>");
 		} else if (ok == 1) {
 		System.out.println("정보있음");
