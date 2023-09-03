@@ -42,14 +42,13 @@
 	<!-- Banner -->
 	<section class="banner full">
 		<article>
-		<%int num = (int) (Math.random() * 4 + 1); %>
+		<%int num = (int) (Math.random() * 3 + 1); %>
 		<img src="images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
 					<p>
-						A free responsive web site template by <a
-							href="https://templated.co">TEMPLATED</a>
-					</p>
+						<a>Premium </a> Caregiver Matching Platform 
+						</p>
 					<h2>Suite Care</h2>
 				</header>
 			</div>
@@ -63,19 +62,19 @@
 
 				<div>
 					<div class="box"
-					<% if(m_id == null) { %>
-						onclick="location.href='./member/login'"
+					<% if(g_id == null) { %>
+						onclick="location.href='/careGiver/caregiverLogin.jsp'"
 						<% } else { %>
-						onclick="location.href='./member/main'"
+						onclick="location.href='main#matchinfo'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="./assets/images/main-booking.png">
+							<img src="<%=context%>/assets/images/gmain-matchinfo.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
-								<h2>예약 신청 리스트</h2>
+								<p>간병인</p>
+								<h2>매칭 정보</h2>
 							</header>
 						</div>
 					</div>
@@ -85,16 +84,16 @@
 					<div class="box" 
 					<% if(g_id == null) { %>onclick="location.href='careGiver/caregiverLogin.jsp'"
 
-						<% } else { %>onclick="location.href='careGiver/gMain.jsp'"
+						<% } else { %>onclick="location.href='main#myapplylist'"
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="./assets/images/main-caretaker.png">
+							<img src="<%=context%>/assets/images/gmain-myapplylist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
-								<h2>피간병인 등록하기</h2>
+								<p>간병인</p>
+								<h2>내가 지원한 공고</h2>
 							</header>
 						</div>
 					</div>
@@ -102,19 +101,19 @@
 
 				<div>
 					<div class="box"
-					<% if(m_id == null) { %>
-						onclick="location.href='./member/login'"
+					<% if(g_id == null) { %>
+						onclick="location.href='/careGiver/caregiverLogin.jsp'"
 						<% } else { %>
-						onclick="location.href='./member/main'"
+						onclick="location.href='main#allapplylist'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="./assets/images/main-reslist.png">
+							<img src="<%=context%>/assets/images/gmain-allapplylist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
-								<h2>예약 확정 리스트</h2>
+								<p>간병인</p>
+								<h2>간병 공고 목록</h2>
 							</header>
 						</div>
 					</div>
@@ -123,18 +122,18 @@
 				<div>
 					<div class="box" 
 					<% if(g_id == null) { %>
-						onclick="location.href='careGiver/caregiverLogin.jsp'"
+						onclick="location.href='/careGiver/caregiverLogin.jsp'"
 						<% } else { %>
-						onclick="location.href='careGiver/gMain.jsp'"
+						onclick="location.href='main#finishlist'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="./assets/images/main-clock.png">
+							<img src="<%=context%>/assets/images/gmain-finishlist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
-								<h2>빠른 매칭 서비스</h2>
+								<p>간병인</p>
+								<h2>간병 완료 목록</h2>
 							</header>
 						</div>
 					</div>

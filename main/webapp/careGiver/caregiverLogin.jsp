@@ -10,7 +10,7 @@
 <script>
 console.log("<%=g_id%>");
 if ("<%=g_id%>" != "null") {
-	window.location.href="gMain.jsp";
+	window.location.href="/caregiver/main";
 }
 
 function loginForm() {

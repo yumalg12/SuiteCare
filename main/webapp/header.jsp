@@ -7,7 +7,7 @@
 <header id="header" class="alt">
 	<div class="logo">
 	    
-	    <a href="<%=context%>/"><img src="${pageContext.request.contextPath}/images/logo2.png" alt="로고">스위트케어</a>
+	    <a href="<%=context%>/"><img src="<%=context%>/assets/images/logo2.png" alt="로고">스위트케어</a>
 	</div>
 	<a href="#menu">Menu</a>
 </header>
