@@ -364,7 +364,7 @@ function serviceComplete(code, caregiver) {
 		$.ajax({
 			type: "post",
 			async: false,
-			url: "<%=context%>/book/complete",
+			url: "${context}/book/complete",
 			dataType: "json",
 			data: {code: code, caregiver : caregiver},
 			success: function(data, textStatus) {
@@ -390,7 +390,7 @@ function serviceComplete(code, caregiver) {
 }
 
 function openGinfoMlist(gIdVal) {
-	window.open("<%=context%>/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=850");
+	window.open("${context}/book/ginfoMlist.jsp?g_id="+gIdVal, "name(about:blank)", "width=800, height=850");
 }
 </script>
 </body>

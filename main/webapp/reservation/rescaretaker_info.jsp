@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
-<script src="<%=context%>/test/rescaretaker_info.js"></script>                                                                                              
+<script src="${context}/assets/js/progress.js"></script>                                                                                              
+<script src="${context}/test/rescaretaker_info.js"></script>                                                                                              
 <style>
 .info-row{
 	margin-bottom: 1rem;

@@ -25,7 +25,7 @@ if (result == 1) {
 	%>
 	<script>
 	    alert("매칭이 승인되었습니다.");
-	    window.location.href='<%=context%>/member/main';
+	    window.location.href='${context}/member/main';
 	</script>
 	<%
 	            }} else {

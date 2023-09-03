@@ -13,7 +13,7 @@
 	<meta charset="utf-8" />
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-	<script src="<%=context%>/assets/js/disableSelectedValue.js"></script>
+	<script src="${context}/assets/js/disableSelectedValue.js"></script>
 	<script src="/suiteCare/test/gSignup.js"></script>
 	<%session.invalidate(); %>
 
@@ -147,7 +147,7 @@
 			 $.ajax({
 			    type: "get",
 			    async: false,
-			    url: "<%=context%>/careGiver/join",
+			    url: "${context}/careGiver/join",
 			    dataType: "json",
 			    data: {id: _id, type: "isDuplicateID"},
 			    success: function(data, textStatus) {
@@ -495,7 +495,7 @@
 	    } else {
 	        g_profile.style.display = "none";
 	        default_img_png.style.display = "";
-	        default_img_png.src = "<%=context%>/assets/profile/man.png";
+	        default_img_png.src = "${context}/assets/profile/man.png";
 	    }
 	}
 
@@ -504,9 +504,9 @@
 	    let defaultImg = document.getElementById("defult_img_png");
 
 	    if (gender === "M") {
-	        defaultImg.src = "<%=context%>/assets/profile/man.png";
+	        defaultImg.src = "${context}/assets/profile/man.png";
 	    } else if (gender === "W") {
-	        defaultImg.src = "<%=context%>/assets/profile/woman.png";
+	        defaultImg.src = "${context}/assets/profile/woman.png";
 	    }
 	}
 </script>

@@ -146,7 +146,7 @@ margin-left: 7.2rem;
 
 <script>
 function openAdTinfo(m_id){
-	window.open("<%=context%>/admin/admin_tinfo.jsp?m_id="+m_id, "name(about:blank)", "width=800, height=600");
+	window.open("${context}/admin/admin_tinfo.jsp?m_id="+m_id, "name(about:blank)", "width=800, height=600");
 }
 </script>
 

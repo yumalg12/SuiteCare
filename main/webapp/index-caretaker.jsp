@@ -43,7 +43,7 @@
 	<section class="banner full">
 		<article>
 		<%int num = (int) (Math.random() * 3 + 1); %>
-		<img src="<%=context %>/assets/images/slide0<%=num %>.jpg" alt="" />
+		<img src="${context}/assets/images/slide0<%=num %>.jpg" alt="" />
 			<div class="inner">
 				<header>
 					<p>
@@ -64,11 +64,11 @@
 					<div class="box" 
 					<% if(m_id == null) { %>onclick="location.href='./login'"
 
-						<% } else { %>onclick="location.href='<%=context%>/member/takerInfo'"
+						<% } else { %>onclick="location.href='${context}/member/takerInfo'"
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/mmain-caretaker.png">
+							<img src="${context}/assets/images/mmain-caretaker.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -84,11 +84,11 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='<%=context%>/reservation/rescaretaker.jsp'"
+						onclick="location.href='${context}/reservation/rescaretaker.jsp'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/mmain-booking.png">
+							<img src="${context}/assets/images/mmain-booking.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -108,7 +108,7 @@
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/mmain-reslist.png">
+							<img src="${context}/assets/images/mmain-reslist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -127,7 +127,7 @@
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/mmain-quick.png">
+							<img src="${context}/assets/images/mmain-quick.png">
 						</div>
 						<div class="content">
 							<header class="align-center">

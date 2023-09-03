@@ -12,7 +12,7 @@
 </head>
 <script>
 function backmain() {
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 <body>
@@ -81,10 +81,10 @@ String res_code = request.getParameter("res_code");
 								
 <script>
 function openGinfoList(gIdVal,resCodeVal, bIdVal) {
-	window.open("<%=context%>/book/ginfoList.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
+	window.open("${context}/book/ginfoList.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
 }
 function openMileagePayment(gIdVal,resCodeVal, bIdVal) {
-	window.open("<%=context%>/pay/mileage_payment.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
+	window.open("${context}/pay/mileage_payment.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
 }
 </script>
 </body>

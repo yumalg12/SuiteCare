@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
+<script src="${context}/assets/js/progress.js"></script>                                                                                              
 <script>
 
 function back() {
@@ -53,7 +53,7 @@ function check() {
 
 function reshostop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 

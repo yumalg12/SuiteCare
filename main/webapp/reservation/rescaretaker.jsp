@@ -8,7 +8,7 @@
 <head>
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
+<script src="${context}/assets/js/progress.js"></script>                                                                                              
 <script>
 function checkForm() {
 	var selectname=document.getElementById("tname").value;

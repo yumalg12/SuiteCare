@@ -12,7 +12,7 @@
 <%@include file="../header-import.jsp"%>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 
@@ -42,9 +42,8 @@
 						<button type="button" class="button special" id="charge_kakao">충전하기</button>
 					</div>
 
-					<form id="kakaopay" name="kakaopay" action="<%=context%>/Payment/addpay.do" method="get">
+					<form id="kakaopay" name="kakaopay" action="${context}/Payment/addpay.do" method="get">
 						<input id="amountRsp" type="hidden" name="amountRsp" value="">
-						<input id="merchant_uidRsp" type="hidden" name="merchant_uidRsp" value="">
 						<input id="pay_method" type="hidden" name="pay_method" value="">
 						<c:forEach var="pay" items="${list }">
 							<input type="hidden" id="phone" value="${pay.m_phone }">

@@ -22,7 +22,7 @@
 <%@ include file="/header-import.jsp"%>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-	<link rel="stylesheet" href="<%=context %>/assets/css/fullcalendar.css">
+	<link rel="stylesheet" href="${context}/assets/css/fullcalendar.css">
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 											<tr>
 												<td><%= listresA.get(i).getRes_code() %></td><td><%= listresA.get(i).getT_gender() %></td><td><%= listresA.get(i).getT_age() %></td>
 												<td><%= address[0] %></td><td><%= listresA.get(i).getStartdate() %> ~ <%= listresA.get(i).getEnddate() %></td><td><%=sTime %> ~ <%=eTime %></td> 
-												<td><a href='<%=context %>/reservation/resInfo.jsp?res_code=<%= listresA.get(i).getRes_code() %>&caretaker_code=<%= listresA.get(i).getCaretaker_code() %>'>더보기</a></td>
+												<td><a href='${context}/reservation/resInfo.jsp?res_code=<%= listresA.get(i).getRes_code() %>&caretaker_code=<%= listresA.get(i).getCaretaker_code() %>'>더보기</a></td>
 								<%
 											if(!MyResCode.contains(listresA.get(i).getRes_code())) {
 								%>
@@ -412,12 +412,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		function page(page, position) {
-			var path = "<%=context %>/caregiver/main?page=" + page + "#" + position;
+			var path = "${context}/caregiver/main?page=" + page + "#" + position;
 			location.href=path;
 		}
 
 		function openMatchInfo(res_code){
-			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
 		}
 
 	</script>

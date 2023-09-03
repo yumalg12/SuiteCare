@@ -217,6 +217,6 @@
 
 <script>
 	function insert_hourwage() {
-		window.open("<%=context%>/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=425");
+		window.open("${context}/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=425");
 	}
 </script>

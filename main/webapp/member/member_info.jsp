@@ -96,7 +96,7 @@
 	   }
 	
 	   function change_pw() {
-		      window.open("<%=context%>/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
+		      window.open("${context}/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
 		   }
 	   
 	   

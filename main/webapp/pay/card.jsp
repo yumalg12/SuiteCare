@@ -12,7 +12,7 @@
 <%@include file="../header-import.jsp"%>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 

@@ -9,9 +9,9 @@
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <title>SC 스위트케어 | 빠른 매칭 서비스</title>
 <%@ include file="/header-import.jsp"%>
-<script src="<%=context%>/assets/js/progress.js"></script>
-<script src="<%=context%>/assets/js/disableSelectedValue.js"></script>
-<script src="<%=context%>/test/matchService.js"></script>
+<script src="${context}/assets/js/progress.js"></script>
+<script src="${context}/assets/js/disableSelectedValue.js"></script>
+<script src="${context}/test/matchService.js"></script>
 
 <script>
 	function matSubmit() {
@@ -92,7 +92,7 @@
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
-		window.location.href = "<%=context%>/member/main";
+		window.location.href = "${context}/member/main";
 	}
 </script>
 
