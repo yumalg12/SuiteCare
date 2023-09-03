@@ -272,17 +272,16 @@ public class ReservationDAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE reservation SET addr=?, detail_addr=? where res_code=?";
+			String sql = "UPDATE reservation SET addr=? where res_code=?";
 
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, vo.getAddr());
-			pstmt.setString(2, vo.getDetail_addr());
-			pstmt.setString(3, vo.getRes_code());
+			pstmt.setString(2, vo.getRes_code());
 			
 			result=pstmt.executeUpdate();
 			
-			System.out.println(result);
+			System.out.println("result : " + result);
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
