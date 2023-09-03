@@ -176,7 +176,8 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code AND res.caregiver_id is null";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c"
+					+ " WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code AND res.caregiver_id is null AND location is not null AND addr is not null AND start_date is not null AND start_date > now()";
 			sql += " LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
 			System.out.println(sql);
@@ -228,8 +229,9 @@ public class PatientresDAO {
 		int cnt = 0;
 		try {
 			connect();
-
-			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code";
+			
+			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c"
+					+ " WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code AND res.caregiver_id is null AND location is not null AND addr is not null AND start_date is not null AND start_date > now()";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();

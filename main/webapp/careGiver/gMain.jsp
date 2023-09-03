@@ -150,67 +150,25 @@
 									<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
 									<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 								</thead>
-								<%-- <% PatientresDAO dao2 = new PatientresDAO();
-									List<PatientresVO> reslist = dao2.applylist();
-									for(int i=0; i<reslist.size(); i++) {
-										PatientresVO listvo = (PatientresVO) reslist.get(i);
-										
-										String name = listvo.getCaretaker();
-										String gender = listvo.getT_gender();
-										String age = listvo.getT_age();
-										Date start_date = listvo.getStartdate();
-										Date end_date = listvo.getEnddate();
-										Time start_time = listvo.getStarttime();
-										Time end_time = listvo.getEndtime();
-										String caregiver = listvo.getCaregiver();
-										String res_code = listvo.getRes_code();
-										String caretaker_code = listvo.getCaretaker_code();
-										String location = listvo.getLocation();
-										String addr = listvo.getAddr();
-										String detail_addr = listvo.getDetail_addr();
-										
-										if(location!=null && addr!=null && start_date!=null && start_time!=null && caregiver==null) {
-										      
-											SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-											String sTime = sdf.format(start_time);
-											String eTime = sdf.format(end_time);
-											    
-											String workDate = start_date + "~" + end_date;
-											String workTimes = sTime + "~" + eTime;
-											
-											int idx = addr.indexOf(" ");
-											String address = addr.substring(0, idx); 
-								%> --%>
-								<%
-								List<PatientresVO> listresA = (ArrayList)request.getAttribute("listresA");
-								List<String> MyResCode = (ArrayList)request.getAttribute("MyResCode");
-								SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-									for(int i =0; i<listresA.size();i++) {
-											if(listresA.get(i).getAddr() != null && listresA.get(i).getStarttime() != null && listresA.get(i).getStartdate() != null) {
-												String[] address = listresA.get(i).getAddr().split(" ");
-												String sTime = sdf.format(listresA.get(i).getStarttime());
-												String eTime = sdf.format(listresA.get(i).getEndtime());
-								%>
+								<c:choose>
+									<c:when test="${empty listresA }">
+										<tr>
+                                    		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
+                                   		</tr>
+									</c:when>
+									<c:when test="${!empty listresA }">
+										<c:set var="MyResCode" value="${MyResCode }"/>
+										<c:forEach var="listresA" items="${listresA }">
+											<c:set var="address" value="${fn:split(listresA.addr,' ')}" />
 											<tr>
-												<td><%= listresA.get(i).getRes_code() %></td><td><%= listresA.get(i).getT_gender() %></td><td><%= listresA.get(i).getT_age() %></td>
-												<td><%= address[0] %></td><td><%= listresA.get(i).getStartdate() %> ~ <%= listresA.get(i).getEnddate() %></td><td><%=sTime %> ~ <%=eTime %></td> 
-												<td><a href='<%=context %>/reservation/resInfo.jsp?res_code=<%= listresA.get(i).getRes_code() %>&caretaker_code=<%= listresA.get(i).getCaretaker_code() %>'>더보기</a></td>
-								<%
-											if(!MyResCode.contains(listresA.get(i).getRes_code())) {
-								%>
-												<td>미신청</td>
-								<%
-											} else {
-								%>
-												<td>신청</td>
-								<%
-											}
-								%>
-											</tr>
-								<%
-											}
-									} 
-								%>
+												<td>${listresA.res_code }</td><td>${listresA.t_gender }</td><td>${listresA.t_age }</td>
+												<td>${address[0]}</td><td>${listresA.startdate } ~ ${listresA.enddate }</td><td>${listresA.starttime } ~ ${listresA.endtime }</td>
+												<td><span onclick="takerInfo('${listresA.res_code }','${listresA.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
+	                      <td><c:if test="${!fn:contains(MyResCode, listresA.res_code)}">미신청</c:if></td>
+	                    </tr>
+										</c:forEach>
+									</c:when>
+								</c:choose>
 							</table>
 						</div>
 					</form>
@@ -358,6 +316,11 @@
 			var path = "<%=context %>/caregiver?page=" + page;
 			location.href=path;
 		}
+		
+		function takerInfo(res_code, taker_code) {
+			window.open("<%=context %>/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
+		}
+		
 
 		function openMatchInfo(res_code){
 			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
