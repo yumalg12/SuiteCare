@@ -31,7 +31,6 @@ public class PayDAO {
 	public void addPay(PayVO payvo) {
 		try {
 			conn = dataFactory.getConnection();
-			String merchant_uid = payvo.getMerchant_uid();
 			int amount = payvo.getAmout();
 			String pay_method = payvo.getPay_method();
 			String m_id = payvo.getM_id();
@@ -40,15 +39,14 @@ public class PayDAO {
 			int updateMile = currentMile + amount;
 			String m_phone = payvo.getM_phone();
 			
-			String query = "INSERT INTO payment(merchant_uid, amount, pay_method, m_id, updateMile, m_phone)" + " VALUES(?, ? ,?, ?, ?,?)";
+			String query = "INSERT INTO payment(amount, pay_method, m_id, updateMile, m_phone)" + " VALUES(?, ? ,?, ?, ?)";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, merchant_uid);
-			pstmt.setInt(2, amount);
-			pstmt.setString(3, pay_method);
-			pstmt.setString(4, m_id);
-			pstmt.setInt(5, updateMile);
-			pstmt.setString(6, m_phone);
+			pstmt.setInt(1, amount);
+			pstmt.setString(2, pay_method);
+			pstmt.setString(3, m_id);
+			pstmt.setInt(4, updateMile);
+			pstmt.setString(5, m_phone);
 			
 			pstmt.executeUpdate();
 			

@@ -16,7 +16,6 @@ public class PayVO {
 
 	public PayVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, int currentMile,
@@ -32,10 +31,9 @@ public class PayVO {
 		this.m_name = m_name;
 	}
 
-	public PayVO(int amount, String merchant_uid, String pay_method, String m_id) {
+	public PayVO(int amount, String pay_method, String m_id) {
 
 		this.amount = amount;
-		this.merchant_uid = merchant_uid;
 		this.pay_method = pay_method;
 		this.m_id = m_id;
 			

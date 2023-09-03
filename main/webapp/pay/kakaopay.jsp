@@ -69,7 +69,6 @@ $('#charge_kakao').click(function() {
 	IMP.request_pay({
 		pg : "kakaopay",
 		pay_method : "kakao",
-		merchant_uid : "sc" + new Date(),
 		name : "SC 스위트케어",
 		amount : m,
 		currency : "KRW",
@@ -89,7 +88,6 @@ $('#charge_kakao').click(function() {
 					+ rsp.merchant_uid;
 
 			document.getElementById("amountRsp").value = rsp.paid_amount;
-			document.getElementById("merchant_uidRsp").value = rsp.merchant_uid;
 			document.getElementById("pay_method").value = rsp.pay_method;
 
 			document.getElementById("kakaopay").submit();
