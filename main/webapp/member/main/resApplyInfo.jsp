@@ -23,11 +23,8 @@
 					</tr>
 				</thead>
 				<%
-<<<<<<< HEAD
-				
-=======
+
 			m_id = (String)session.getAttribute("m_id");
->>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
 			PatientresDAO dao3 = new PatientresDAO();
 			List<PatientresVO> reslist3 = dao3.listres(m_id);
 			for (int i = 0; i < reslist3.size(); i++) {
