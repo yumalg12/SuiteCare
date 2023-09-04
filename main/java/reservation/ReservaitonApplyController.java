@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/reservation/apply")
 public class ReservaitonApplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -27,18 +27,10 @@ public class ReservaitonApplyController extends HttpServlet {
 	}
 
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String type = request.getParameter("type");
 		
-		
-			if(type==null) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("/reservation/res_hourwage.jsp");
-				dispatch.forward(request, response);
+		RequestDispatcher dispatch = request.getRequestDispatcher("/reservation/res_hourwage.jsp");
+		dispatch.forward(request, response);
 			
-			} else if(type.equals("apply")) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("/book/applybook.jsp");
-				dispatch.forward(request, response);
-			}
 			
 	}
 }

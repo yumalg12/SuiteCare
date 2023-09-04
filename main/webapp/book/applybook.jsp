@@ -8,6 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function close() {
+	 window.opener.location.reload();
+    window.close();
+}
+</script>
 </head>
 <body>
 <%
@@ -35,11 +41,11 @@ if(checkb==0) {
 	%>
 	<script>
 		alert("매칭신청이 완료되었습니다..")
-		window.close();
-		opener.location.href='<%=request.getContextPath()%>/caregiver/main';
+   		close();
 	</script>
 	<%
 	session.removeAttribute("applycode");
+	
 	} else if (checkb==1) {
 	System.out.println("g_id 정보있음");
 	
