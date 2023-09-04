@@ -298,7 +298,12 @@ document.addEventListener('DOMContentLoaded', () => {
 													</td>
 													<td><fmt:formatNumber value="${finalList.pay }" pattern="#,###" /></td>
 													<td>${finalList.pay_date }</td>
-													<td><span onclick="location.href='${context}/caregiver/review?res_code=${finalList.res_code }'" style="text-decoration:underline;cursor:pointer;">후기보기</span></td>
+													<td>
+														<c:set var="reviewCode" value="${reviewCode }"/>
+														<c:if test="${fn:contains(reviewCode, finalList.res_code) }">
+															<span onclick="review('${finalList.res_code }');" style="text-decoration:underline;cursor:pointer;">후기보기</span>
+														</c:if>
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -440,6 +445,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		function cancle(res_code) {
 			window.open("${context}/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+		function review(res_code) {
+			window.open("${context}/caregiver/review?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 	</script>

@@ -98,7 +98,7 @@ public class mReviewDAO {
 				int re_com = rs.getInt("re_com");
 				int re_price = rs.getInt("re_price");
 				String comment = rs.getString("comment");
-				
+				System.err.println(re_kind +"/"+re_time +"/"+re_pro +"/"+re_speed +"/"+re_com +"/"+re_price +"/"+comment);
 				mReviewVO vo = new mReviewVO(re_kind, re_time, re_pro, re_speed, re_com, re_price, comment);
 				list.add(vo);
 			}
@@ -109,5 +109,29 @@ public class mReviewDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public List<String> reviewCode(String g_id) {
+		List<String> reviewCode = new ArrayList<String>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT res_code FROM review WHERE g_id =?";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String res_code = rs.getString("res_code");
+				reviewCode.add(res_code);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return reviewCode;
 	}
 }

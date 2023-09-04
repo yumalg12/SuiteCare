@@ -25,6 +25,7 @@ public class CaregiverVO {
 	private String g_hourwage2;
 	private String g_hourwage3;
 	private Date g_signup_date;
+	private int g_current_mileage;
 	
 	public CaregiverVO() {
 		System.out.println("CaregiverVO 생성자 호출");
@@ -204,6 +205,14 @@ public class CaregiverVO {
 
 	public void setG_signup_date(Date g_signup_date) {
 		this.g_signup_date = g_signup_date;
+	}
+
+	public int getG_current_mileage() {
+		return g_current_mileage;
+	}
+
+	public void setG_current_mileage(int g_current_mileage) {
+		this.g_current_mileage = g_current_mileage;
 	}
 	
 }

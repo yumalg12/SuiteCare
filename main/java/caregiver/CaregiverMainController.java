@@ -17,6 +17,7 @@ import patient.PatientresDAO;
 import patient.PatientresVO;
 import reservation.ReservationDAO;
 import reservation.ReservationVO;
+import review.mReviewDAO;
 
 @WebServlet("/caregiver/main")
 public class CaregiverMainController extends HttpServlet {
@@ -120,6 +121,9 @@ public class CaregiverMainController extends HttpServlet {
 				finalPages = (finalListCnt/5)+1;
 			}
 			
+			mReviewDAO review = new mReviewDAO();
+			List<String>reviewCode = review.reviewCode(user_id);
+			
 			request.setAttribute("listres", listres);
 			request.setAttribute("listresPages", listresPages);
 			request.setAttribute("applyPages", applyPages);
@@ -129,6 +133,7 @@ public class CaregiverMainController extends HttpServlet {
 			request.setAttribute("finalPages", finalPages);
 			request.setAttribute("applyList", applyList);
 			request.setAttribute("MyResCode", code);
+			request.setAttribute("reviewCode", reviewCode);
 			RequestDispatcher dispatch = request.getRequestDispatcher("../careGiver/gMain.jsp");
 			dispatch.forward(request, response);
 		}
