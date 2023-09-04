@@ -23,7 +23,7 @@
 function upcheck() {
 	var f = document.tupdateForm;
 	f.method = "post";
-	f.action = "tUpdateCheck.jsp";
+	f.action = "../member/takerupdate";
 	f.submit();
 }
 </script>
@@ -72,6 +72,7 @@ for(int i=0; i<list.size(); i++) {
 					
 <!-- form 시작 -->
 	<form name="tupdateForm" action="javascript:upcheck();">
+	<input type="hidden" name="type" value="update"/>
 		<div class="form_wrapper">
 			<div class="form_row">
 				<label for="t_name">이름</label>

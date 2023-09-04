@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<td><%=t_height%>cm</td>
 						<td><%=t_weight%>kg</td>
 						<td><%=diagnosis%></td>
-						<td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name%>'>수정하기</a></td>
+						<td><a href='./takerupdate?t_name=<%=t_name%>'>수정하기</a></td>
 					</tr>
 					<%
 					}
@@ -225,6 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
 							String fEndTime = timeFormat.format(end_time);
 							
 				           
+							java.sql.Date sqlStartDate = new java.sql.Date(start_date.getTime());
+						    
+							java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+							
 							String workTimes = fStartTime + "~" + fEndTime;
 						%>
 
@@ -262,8 +266,8 @@ document.addEventListener('DOMContentLoaded', function() {
 								
 								if(pre_age_1 == null) { %>
 								미작성
-								<%}	
-								else if(pre_age_1!=null){%>
+								<%}	else if (sqlStartDate.before(currentDate)) { %>
+								매칭기간만료 <% } else if(pre_age_1!=null){%>
 								<a href="./quickMatchingservice.jsp?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
 							<%}} %></td>
 							

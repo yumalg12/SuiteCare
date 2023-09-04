@@ -55,7 +55,7 @@ ReservationDAO rdao;
 			RequestDispatcher dispatch = request.getRequestDispatcher("/reservation/matchService.jsp");
 			dispatch.forward(request, response);
 		} else if(type.equals("matchService")) {
-			String pre_location_1 = request.getParameter("pre_location_1");
+			 String pre_location_1 = request.getParameter("pre_location_1");
 			 String pre_location_2 = request.getParameter("pre_location_2");
 			 String pre_location_3 = request.getParameter("pre_location_3");
 			 String pre_age_1 = request.getParameter("pre_age_1");
@@ -76,6 +76,8 @@ ReservationDAO rdao;
 			 String rank5 = request.getParameter("rank5");
 			 
 			 System.out.println("장소1순위 : " + pre_location_1);
+			 System.out.println("pre_location_2 : " + pre_location_2);
+			 System.out.println("pre_location_3 : " + pre_location_3);
 			 
 			 ReservationInfoVO vo = new ReservationInfoVO();
 			 

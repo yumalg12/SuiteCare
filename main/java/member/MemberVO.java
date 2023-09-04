@@ -15,7 +15,7 @@ public class MemberVO {
 	private String m_email_yn;
 	private Date m_signup_date;
 	
-	private Integer m_current_mile;
+	private Integer m_current_mileage;
 
 	
 	public MemberVO() {
@@ -24,7 +24,7 @@ public class MemberVO {
 
 
 	public MemberVO(String m_id, String m_pw, String m_name, String m_gender, String m_phone, String m_email,
-			String m_address, String m_sms_yn, String m_email_yn, Integer m_current_mile) {
+			String m_address, String m_sms_yn, String m_email_yn, Integer m_current_mileage) {
 		this.m_id = m_id;
 		this.m_pw = m_pw;
 		this.m_name = m_name;
@@ -34,7 +34,7 @@ public class MemberVO {
 		this.m_address = m_address;
 		this.m_sms_yn = m_sms_yn;
 		this.m_email_yn = m_email_yn;
-		this.m_current_mile = m_current_mile;
+		this.m_current_mileage = m_current_mileage;
 	}
 
 
@@ -193,12 +193,12 @@ public class MemberVO {
 
 
 	public Integer getM_current_mile() {
-		return m_current_mile;
+		return m_current_mileage;
 	}
 
 
-	public void setM_current_mile(Integer m_current_mile) {
-		this.m_current_mile = m_current_mile;
+	public void setM_current_mile(Integer m_current_mileage) {
+		this.m_current_mileage = m_current_mileage;
 	}
 	
 	

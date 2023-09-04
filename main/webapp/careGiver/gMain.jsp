@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const page = urlParams.get('page');
-
+	//페이지마다 따로 받아서.....음......
+	
 	Array.from(document.getElementById("page-allapplylist").getElementsByTagName("li")).forEach(e => {
 		if (e.outerText === page) {
 			e.classList.add('button');
@@ -129,12 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 									</tbody>
 								</table> 
 							</div>
-							<div class="row">
+							<div>
 								<ul class="pagination pagination-lg">
 									<%-- <c:set var="current" value="${page }"/> --%>
 									<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
-										<li class="page-item">
-											<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="listresPage(${listresPage}, "matchinfo");">${listresPage}</a>
+										<li class="page-item" onclick="listresPage(${listresPage}, 'matchinfo');">
+											${listresPage}
 										</li>
 									</c:forEach>
 								</ul>
@@ -195,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
 						<ul class="pagination pagination-lg" id="page-allapplylist">
 							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
-								<li class="page-item">
-									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="applyPage(${applyPage}, "allapplylist");">${applyPage}</a>
+								<li class="page-item" onclick="applyPage(${applyPage}, 'allapplylist')";>
+									${applyPage}
 								</li>
 							</c:forEach>
 						</ul>
@@ -252,12 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
 							</table>
 						</div>
 					</form>
-					<div class="row">
+					<div>
 						<ul class="pagination pagination-lg">
 							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="myApplyPage" begin="1" end="${myApplyPages }" step="1">
-								<li class="page-item">
-									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="myApplyPage(${myApplyPage}, "myapplylist");">${myApplyPage}</a>
+								<li class="page-item" onclick="myApplyPage(${myApplyPage}, 'myapplylist');">
+									${myApplyPage}
 								</li>
 							</c:forEach>
 						</ul>
@@ -376,12 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 		function listresPage(page, position) {
-			var path = "${context}/caregiver?listresPage=" + page + "#" + position;
+			var path = "${context}/caregiver/main?listresPage=" + page + "#" + position;
 			location.href=path;
 		}
 		
 		function applyPage(page, position) {
-			var path = "${context}/caregiver?applyPage=" + page + "#" + position;
+			var path = "${context}/caregiver/main?applyPage=" + page + "#" + position;
 			location.href=path;
 		}
 		

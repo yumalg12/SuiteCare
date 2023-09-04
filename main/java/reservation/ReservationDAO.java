@@ -558,6 +558,9 @@ public class ReservationDAO {
 	
 	public int updatepre(ReservationInfoVO vo) {
 		int result = 0;
+		System.out.println("장소1순위 : " + vo.getPre_location_1());
+		 System.out.println("pre_location_2 : " + vo.getPre_location_2());
+		 System.out.println("pre_location_3 : " + vo.getPre_location_3());
 		try {
 			connect();
 			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?, rank1=?, rank2=?, rank3=?, rank4=?, rank5=? where res_code=?";

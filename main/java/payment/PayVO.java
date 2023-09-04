@@ -8,7 +8,7 @@ public class PayVO {
 	
 	private String pay_method;
 	private int amount;
-	private int currentMile;
+	private int m_current_mileage;
 	private String merchant_uid;
 	
 	
@@ -18,7 +18,7 @@ public class PayVO {
 		super();
 	}
 
-	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, int currentMile,
+	public PayVO(String m_id, String m_phone, String m_email, String pay_method, int amout, int m_current_mileage,
 			String merchant_uid, String m_name) {
 		super();
 		this.m_id = m_id;
@@ -26,7 +26,7 @@ public class PayVO {
 		this.m_email = m_email;
 		this.pay_method = pay_method;
 		this.amount = amout;
-		this.currentMile = currentMile;
+		this.m_current_mileage = m_current_mileage;
 		this.merchant_uid = merchant_uid;
 		this.m_name = m_name;
 	}
@@ -39,11 +39,11 @@ public class PayVO {
 			
 	}
 	
-	public PayVO(String m_name, String m_phone, String m_email, int currentMile) {
+	public PayVO(String m_name, String m_phone, String m_email, int m_current_mileage) {
 		this.m_name = m_name;
 		this.m_phone = m_phone;
 		this.m_email = m_email;
-		this.currentMile = currentMile;
+		this.m_current_mileage = m_current_mileage;
 		
 	}
 
@@ -87,12 +87,12 @@ public class PayVO {
 		this.amount = amout;
 	}
 
-	public int getCurrentMile() {	
-		return currentMile;
+	public int getM_current_mileage() {
+		return m_current_mileage;
 	}
 
-	public void setCurrentMile(int currentMile) {
-		this.currentMile = currentMile;
+	public void setM_current_mile(int m_current_mileage) {
+		this.m_current_mileage = m_current_mileage;
 	}
 
 	public String getMerchant_uid() {
