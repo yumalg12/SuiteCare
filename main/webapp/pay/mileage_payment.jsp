@@ -133,10 +133,10 @@ for (int i = 0; i < glist.size(); i++) {
 						for(int i=0; i<list.size(); i++) {
 							MemberVO listvo = (MemberVO) list.get(i);
 						
-							Integer m_current_mile = listvo.getM_current_mile();
+							Integer m_current_mileage = listvo.getM_current_mile();
 					
 							 %>
-							<input type="text" value="<%=m_current_mile %>" readonly>
+							<input type="text" value="<%=m_current_mileage %>" readonly>
 							<%} %>
 							<span class="notice">*잔액이 부족합니다. 마일리지를 충전하세요.</span>
 						</div>
@@ -146,7 +146,9 @@ for (int i = 0; i < glist.size(); i++) {
 						<button class="button" onclick="location.href='paycon.jsp'">마일리지 충전</button>
 						<button class="button special" onclick="javascript:startPayment();">결제</button>
 					</div>
-
+					<div class="form_button">
+						<a href="${context}/book/tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -155,9 +157,9 @@ for (int i = 0; i < glist.size(); i++) {
 
 <script>
 	function startPayment() {
-		let currentMile = document.getElementById("currentMile").value;
+		let m_current_mileage = document.getElementById("m_current_mileage").value;
 		let fSalary = document.getElementById("fSalary").value;
-		if (currentMile < fSalary) {
+		if (m_current_mileage < fSalary) {
 			if (confirm("마일리지 잔액이 부족합니다. 마일리지 충전을 진행하시겠습니까?")) {
 				location.href = "paycon.jsp";
 			}

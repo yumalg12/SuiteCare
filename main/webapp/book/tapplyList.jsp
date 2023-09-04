@@ -69,13 +69,14 @@ String res_code = request.getParameter("res_code");
 									<td><%=hourwage%><br>
 									<td><%=b_status%></td> 
 									<td>
-									<a href="./tdeny.jsp?b_id=<%=b_id%>&res_code=<%=res_code%>" class="button alt">거절</a>
-									<a onclick="javascript:openMileagePayment('<%=g_id%>','<%=res_code%>','<%=b_id%>')" class="button special">승인</a>
-									<!-- <a href="./tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a><br> -->
-									</td></tr>	
-								<%
+									<% if (!b_status.equals("승인") && !b_status.equals("거절")) { 
+									    out.print("<a href='./tdeny.jsp?b_id=" + b_id + "&res_code=" + res_code + "' class='button alt'>거절</a>");
+									    out.print("<a onclick=\"javascript:openMileagePayment('" + g_id + "','" + res_code + "','" + b_id +"')\" class='button special'>승인</a>");
+									} %>
+									</td></tr>
+									<%
 									}
-								%>
+									%>
 								</table></form></div></div></div></section>
 					<%@ include file="../footer.jsp" %>
 								
