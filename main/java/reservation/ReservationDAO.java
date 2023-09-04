@@ -4,15 +4,13 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import caretaker.TakerVO;
 
 public class ReservationDAO {
 	private PreparedStatement pstmt;
@@ -401,16 +399,44 @@ public class ReservationDAO {
 		} return result;
 	}
 	
+	public int resListCnt(String id) {
+		int cnt = 0;
+		try {
+			connect();
+			String sql = "SELECT count(*) as cnt"
+	         		+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
+	         		+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id";
 
-	public List<ReservationVO> resList(String id) {
+
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	        	 cnt = rs.getInt("cnt");
+	         }
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	public List<ReservationVO> resList(String id , int start) { // 나와 피간병인의 매칭 정보
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
 	      try {
 	    	 connect();
 	         
-	         String sql = "SELECT * FROM caretaker as c, reservation as r, reservation_info as rinfo "
-	         		+ "WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code";
-	         //System.out.println(sql);
+	         String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
+	         		+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
+	         		+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id"
+	         		+ " ORDER BY start_date LIMIT " + start + ",5";
+
+
+	         System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 	         pstmt.setString(1, id);
 	         
@@ -419,22 +445,25 @@ public class ReservationDAO {
 	            String res_code = rs.getString("res_code");
 	            String location = rs.getString("location");
 	            
-	        	String start_date = rs.getString("start_date");
-	        	String end_date = rs.getString("end_date");
-	        	String start_time = rs.getString("start_time");
-	        	String end_time = rs.getString("end_time");
+	        	Date start_date = rs.getDate("start_date");
+	        	Date end_date = rs.getDate("end_date");
+	        	Time start_time = rs.getTime("start_time");
+	        	Time end_time = rs.getTime("end_time");
 	            
 	        	String tname = rs.getString("t_name");
+	        	Date pay_date = rs.getDate("pay_date");
+	        	int pay = rs.getInt("pay");
 
 	            ReservationVO vo = new ReservationVO();
 	            vo.setRes_code(res_code);
 	            vo.setLocation(location);
-	            vo.setStart_date(start_date);
-	            vo.setEnd_date(end_date);
-	            vo.setStart_time(start_time);
-	            vo.setEnd_time(end_time);
+	            vo.setS_date(start_date);
+	            vo.setE_date(end_date);
+	            vo.setS_time(start_time);
+	            vo.setE_time(end_time);
 	            vo.setT_name(tname);
-	            
+	            vo.setPay_date(pay_date);
+	            vo.setPay(pay);
 	            list.add(vo);
 	         }
 	         rs.close();
