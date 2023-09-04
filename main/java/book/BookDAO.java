@@ -389,13 +389,36 @@ public class BookDAO {
 		}
 	}
 	
-	public List<ReservationVO> myApply(String g_id) {
+	public int myApplyCnt(String g_id) { // 내가 지원한 신청 리스트 페이징
+		int cnt=0;
+		try {
+			connect();
+		
+			String sql = "SELECT count(*) as cnt FROM book as b, reservation_info as ri, reservation as r, caretaker as c WHERE c.m_id=r.m_id AND c.t_code=ri.caretaker_code AND b.g_id=? AND b.res_code = r.res_code AND r.res_code = ri.res_code";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public List<ReservationVO> myApply(String g_id, int start) { // 내가 지원한 신청 리스트
 		List<ReservationVO> list = new ArrayList<ReservationVO>();
 
 		try {
 			connect();
 
-			String sql = "SELECT r.caretaker_code, b.res_code, c.t_name, r.addr, ri.start_date, ri.end_date, ri.start_time, ri.end_time, b.hourwage, b.b_status FROM book as b, reservation_info as ri, reservation as r, caretaker as c WHERE c.m_id=r.m_id AND c.t_code=ri.caretaker_code AND b.g_id=? AND b.res_code = r.res_code AND r.res_code = ri.res_code";
+			String sql = "SELECT r.caretaker_code, b.res_code, c.t_name, r.addr, ri.start_date, ri.end_date, ri.start_time, ri.end_time, b.hourwage, b.b_status FROM book as b, reservation_info as ri, reservation as r, caretaker as c"
+					+ " WHERE c.m_id=r.m_id AND c.t_code=ri.caretaker_code AND b.g_id=? AND b.res_code = r.res_code AND r.res_code = ri.res_code"
+					+ " ORDER BY start_date LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, g_id);
 			rs = pstmt.executeQuery();

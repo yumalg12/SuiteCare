@@ -57,74 +57,54 @@
 					<div id='calendar'></div>
 					<div id='restable'>
 						<%	
-							BookDAO bdao = new BookDAO();
 							calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 							List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
 
-						<form name="matchinginfo">
 							<div class="table_wrapper">
 								<table border=1>
 									<thead>
 										<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
 									</thead>
 									<tbody>
-									<%
-										ReservationDAO dao = new ReservationDAO();
-										List<ReservationVO> listres = dao.resList(g_id);
-										for(int i=0; i<listres.size(); i++) {
-											ReservationVO listvo = (ReservationVO) listres.get(i);
-									
-											String res_code = listvo.getRes_code();
-											String location = listvo.getLocation();
-											if(location.equals("home")) {location="자택";}
-											
-											String start_date = listvo.getStart_date();
-											String end_date = listvo.getEnd_date();
-											String start_time = listvo.getStart_time();
-											String end_time = listvo.getEnd_time();
-											
-											String workDate = start_date.substring(5) + " ~ " + end_date.substring(5);
-											String workTimes = start_time.substring(0,5) + " ~ " + end_time.substring(0,5);
-											
-											SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-											
-											Date startDate = dateFormat.parse(start_date);
-											Date endDate = dateFormat.parse(end_date);
-									
-											Calendar cal = Calendar.getInstance();
-											cal.setTime(endDate);
-											cal.add(Calendar.DAY_OF_MONTH, 7);
-											Date lastDate = cal.getTime();
-											String paymentdate = dateFormat.format(lastDate);
-									
-											
-											String t_name = listvo.getT_name();
-											
-											String ghourwage = bdao.ghourwage(res_code, g_id);
-											int hourwage = Integer.parseInt(ghourwage);
-											
-											SimpleDateFormat dFormat = new SimpleDateFormat("HH:mm");
-											Date starttime = dFormat.parse(start_time);
-											Date endtime = dFormat.parse(end_time);
-								           
-											long workdate = endDate.getTime() - startDate.getTime();
-											long dworkdate = TimeUnit.MILLISECONDS.toDays(workdate); // 밀리초 단위 근무일자를 일자단위로 변환
-											long worktime = endtime.getTime() - starttime.getTime();
-											long hworktime = TimeUnit.MILLISECONDS.toHours(worktime); // 밀리초 단위 근무시간을 시간단위로 변환
-											
-											int wdate = (int) (dworkdate+1);
-											int totalSalary = (int) (wdate * hworktime * hourwage);
-								
-								      		out.println("<tr><td>" + t_name + "</td><td>" + workDate + "</td><td>" + workTimes + "</td>");
-											out.println("<td>" + location + "</td><td>" + totalSalary + "원</td><td>" + paymentdate + "</td>");
-											out.println("<td><a href='../careGiver/matchingInfo.jsp?res_code=" + res_code +"'>더보기</a></td></tr>");
-										}
-									%>
+										<c:choose>
+											<c:when test="${empty listres }">
+												<tr>
+		                                    		<td colspan="8" style="text-align:center;">매칭된 피간병인이 없습니다</td>
+		                                   		</tr>
+											</c:when>
+											<c:when test="${!empty listres }">
+												<c:forEach var="listres" items="${listres }">
+													<tr>
+														<td>${listres.t_name }</td>
+														<td>${listres.s_date } ~ ${listres.e_date }</td>
+														<td>
+															<fmt:formatDate value="${listres.s_time }" pattern="HH:mm"/> ~ <fmt:formatDate value="${listres.e_time }" pattern="HH:mm"/>
+														</td>
+														<td>
+															<c:if test="${listres.location eq 'home'}">자택</c:if>
+															<c:if test="${listres.location ne 'home'}">${listres.location}</c:if>
+														</td>
+														<td><fmt:formatNumber value="${listres.pay }" pattern="#,###" /></td>
+														<td>${listres.pay_date }</td>
+														<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;">더보기</span></td>
+													</tr>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</tbody>
 								</table> 
 							</div>
-						</form>
+							<div class="row">
+								<ul class="pagination pagination-lg">
+									<%-- <c:set var="current" value="${page }"/> --%>
+									<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
+										<li class="page-item">
+											<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="listresPage(${listresPage});">${listresPage}</a>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -151,21 +131,26 @@
 									<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
 								</thead>
 								<c:choose>
-									<c:when test="${empty listresA }">
+									<c:when test="${empty applyList }">
 										<tr>
                                     		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
                                    		</tr>
 									</c:when>
-									<c:when test="${!empty listresA }">
+									<c:when test="${!empty applyList }">
 										<c:set var="MyResCode" value="${MyResCode }"/>
-										<c:forEach var="listresA" items="${listresA }">
-											<c:set var="address" value="${fn:split(listresA.addr,' ')}" />
+										<c:forEach var="applyList" items="${applyList }">
+											<c:set var="address" value="${fn:split(applyList.addr,' ')}" />
 											<tr>
-												<td>${listresA.res_code }</td><td>${listresA.t_gender }</td><td>${listresA.t_age }</td>
-												<td>${address[0]}</td><td>${listresA.startdate } ~ ${listresA.enddate }</td><td>${listresA.starttime } ~ ${listresA.endtime }</td>
-												<td><span onclick="takerInfo('${listresA.res_code }','${listresA.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
-	                      <td><c:if test="${!fn:contains(MyResCode, listresA.res_code)}">미신청</c:if></td>
-	                    </tr>
+												<td>${applyList.res_code }</td><td>${applyList.t_gender }</td><td>${applyList.t_age }</td>
+												<td>${address[0]}</td><td>${applyList.startdate } ~ ${applyList.enddate }</td>
+												<td>
+													<fmt:parseDate var="start_time" value="${applyList.starttime }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/>
+													~
+													<fmt:parseDate var="end_time" value="${applyList.endtime }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/>
+												</td>
+												<td><span onclick="takerInfo('${applyList.res_code }','${applyList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
+	                      						<td><c:if test="${!fn:contains(MyResCode, applyList.res_code)}">미신청</c:if></td>
+	                   						 </tr>
 										</c:forEach>
 									</c:when>
 								</c:choose>
@@ -175,9 +160,9 @@
 					<div class="row">
 						<ul class="pagination pagination-lg">
 							<%-- <c:set var="current" value="${page }"/> --%>
-							<c:forEach var="page" begin="1" end="${pages }" step="1">
+							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
 								<li class="page-item">
-									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="page(${page});">${page}</a>
+									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="applyPage(${applyPage});">${applyPage}</a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -204,6 +189,8 @@
 									<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
 									<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
 								</thead>
+								<c:set var="ymd" value="<%=new java.util.Date()%>" />
+								<fmt:formatDate var="today" value="${ymd}" pattern="yyyy-MM-dd" />
 								<c:forEach var="myApply" items="${myApply }">
 									<tr><td>${myApply.res_code }</td><td>${myApply.t_name }</td>	 
 									<td>
@@ -211,13 +198,15 @@
 									<c:set var="location" value="${fn:split(myApply.addr,' ')}" />
 									${location[0]}
 									</td>
-									<td>${myApply.start_date } ~ ${myApply.end_date }</td><td>${myApply.start_time } ~ ${myApply.end_time }</td> 
-									<td><a href="./reservation/resInfo.jsp?res_code=${myApply.res_code }&caretaker_code=${myApply.caretaker_code }">더보기</a></td>
+									<td>${myApply.start_date } ~ ${myApply.end_date }</td>
+									<td><fmt:parseDate var="start_time" value="${myApply.start_time }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/> ~ <fmt:parseDate var="end_time" value="${myApply.end_time }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/></td> 
+									<td><span onclick="resInfo('${myApply.res_code }', '${myApply.caretaker_code }');" style="text-decoration:underline">더보기</span></td>
 									<td>${myApply.hourwage }</td>
 									<td>${myApply.b_status }</td>
 									<td>
-										<c:if test="${myApply.b_status eq '신청완료' }">
-											<a href="../book/deleteapply.jsp?res_code=${myApply.res_code }" onclick="return deleteok();">신청취소</a>
+										<c:if test="${myApply.b_status eq '신청완료' and myApply.start_date < today }">신청기한만료</c:if>
+										<c:if test="${myApply.b_status eq '신청완료' and myApply.start_date > today }">
+											<span onclick="cancle('${myApply.res_code }')" style="text-decoration:underline;">신청취소</span>
 										</c:if>
 									</td>
 									</tr>
@@ -225,7 +214,16 @@
 							</table>
 						</div>
 					</form>
-
+					<div class="row">
+						<ul class="pagination pagination-lg">
+							<%-- <c:set var="current" value="${page }"/> --%>
+							<c:forEach var="myApplyPage" begin="1" end="${myApplyPages }" step="1">
+								<li class="page-item">
+									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="myApplyPage(${myApplyPage});">${myApplyPage}</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -312,8 +310,18 @@
 			}
 		}
 
-		function page(page) {
-			var path = "<%=context %>/caregiver?page=" + page;
+		function listresPage(page) {
+			var path = "<%=context %>/caregiver?listresPage=" + page;
+			location.href=path;
+		}
+		
+		function applyPage(page) {
+			var path = "<%=context %>/caregiver?applyPage=" + page;
+			location.href=path;
+		}
+		
+		function myApplyPage(page) {
+			var path = "<%=context %>/caregiver?myApplyPage=" + page;
 			location.href=path;
 		}
 		
@@ -325,7 +333,19 @@
 		function openMatchInfo(res_code){
 			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
 		}
-
+		
+		function matchInfo(res_code) {
+			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code=" +res_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+		function resInfo(res_code, caretaker_code) {
+			window.open("<%=context%>/reservation/resInfo.jsp?res_code="+res_code+"&caretaker_code="+caretaker_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+		function cancle(res_code) {
+			window.open("<%=context%>/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+		}
+		
 	</script>
 </html>
 
