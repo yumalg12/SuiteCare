@@ -315,11 +315,15 @@ document.addEventListener('DOMContentLoaded', function() {
           editable: true,
           nowIndicator:true, // 현재 시간 마크
         events : [
-            <%for (CalendarVO cvo : clist) {%>
+            <%for (CalendarVO cvo : clist) {
+            	Date enddate = cvo.getEnd_date();
+            	enddate.setDate(enddate.getDate() + 1);
+            %>
+            
                {
                    title:'<%=cvo.getT_name()%>',
                    start:'<%=cvo.getStart_date()%>',
-                   end:'<%=cvo.getEnd_date()%>',
+                   end:'<%=enddate%>',
                    t_name:'<%=cvo.getT_name()%>',
                    start_time:'<%=cvo.getStart_time()%>',
                    end_time:'<%=cvo.getEnd_time()%>',
