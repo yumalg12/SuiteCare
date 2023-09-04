@@ -1,5 +1,8 @@
 package reservation;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class ReservationVO {
 	private String m_id;
 	private String caretaker_code;
@@ -35,6 +38,12 @@ public class ReservationVO {
 	
 	private String hourwage;
 	private String b_status;
+	private Date pay_date;
+	private Date s_date;
+	private Date e_date;
+	private Time s_time;
+	private Time e_time;
+	private int pay;
 	
 	public ReservationVO() {
 		System.out.println("ReservationVO 생성자 호출");
@@ -460,6 +469,54 @@ public class ReservationVO {
 	}
 	public void setB_status(String b_status) {
 		this.b_status = b_status;
+	}
+
+	public Date getPay_date() {
+		return pay_date;
+	}
+
+	public void setPay_date(Date pay_date) {
+		this.pay_date = pay_date;
+	}
+
+	public Date getS_date() {
+		return s_date;
+	}
+
+	public void setS_date(Date s_date) {
+		this.s_date = s_date;
+	}
+
+	public Date getE_date() {
+		return e_date;
+	}
+
+	public void setE_date(Date e_date) {
+		this.e_date = e_date;
+	}
+
+	public Time getS_time() {
+		return s_time;
+	}
+
+	public void setS_time(Time s_time) {
+		this.s_time = s_time;
+	}
+
+	public Time getE_time() {
+		return e_time;
+	}
+
+	public void setE_time(Time e_time) {
+		this.e_time = e_time;
+	}
+
+	public int getPay() {
+		return pay;
+	}
+
+	public void setPay(int pay) {
+		this.pay = pay;
 	}
 	
 	
