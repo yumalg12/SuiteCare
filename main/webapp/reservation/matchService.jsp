@@ -83,10 +83,10 @@
 		        }
 		    }
 		    
-			f.action = "../reservation/match";
+		    $('select > option:disabled').attr("disabled",false);
+			f.action = "${context}/reservation/match";
 			f.submit();
 			return true;
-		
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
@@ -151,8 +151,8 @@
 					<div class="form_wrapper">
 						<form name="preferenceForm">
 							<div class="form_row">
-								<label> 예약 코드</label> <input type="text" readonly
-									value="<%if (res_code != null) {%><%=res_code%> <%} else if (res_code == null) {%> <%=r_code%> <%}%>">
+								<label> 예약 코드</label>
+								<input type="text" readonly value="<%if (res_code != null) {%><%=res_code%> <%} else if (res_code == null) {%> <%=r_code%> <%}%>">
 							</div>
 							<hr>
 							<div class="form_row">
@@ -399,8 +399,7 @@
 								<input type="button" class="button alt" onclick="resmstop();" value="매칭 중지">
 								<div>
 								<input type="reset" class="button" onclick="resmstop();" value="초기화">
-									<button type="button" class="button special"
-										onclick="matSubmit();">제출</button>
+									<button type="button" class="button special" onclick="matSubmit();">제출</button>
 								</div>
 							</div>
 							<input type="hidden" name="type" value="matchService"/>
