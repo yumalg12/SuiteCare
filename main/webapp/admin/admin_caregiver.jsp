@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>간병인 회원 정보</title>
+<title>SC 스위트케어 | 간병인 회원정보</title>
 <%@ include file="/header-import.jsp"%>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
@@ -86,20 +86,18 @@ margin-left: 7.2rem;
 				<div class="content">
 					<header class="align-center">
 						<p>SC 스위트케어</p>
-						<h2>간병인 회원 정보 조회</h2>
+						<h2>간병인 회원정보 조회</h2>
 					</header>
 					<form name="giverinfo">
 					<table>
 							<thead>
 								<tr>
 									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td> <td>생년월일</td>
-									<td>핸드폰번호</td> <td>이메일</td> <td>주소</td> <td>sms 수신동의</td> 
-									<td>email 수신동의</td> <td>대표 서비스</td> <td>자격증</td> <td>활동 지역</td> <td>가입일</td>
+									<td>핸드폰번호</td> <td>이메일</td> <td>상세정보</td>
 								</tr>
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-							//String user_id = request.getParameter("user_id");
 
 							CaregiverDAO dao = new CaregiverDAO();
 
@@ -107,26 +105,14 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
-								String g_id = listt.getG_id();
+								g_id = listt.getG_id();
 								String g_name = listt.getG_name();
 								String g_gender = listt.getG_gender();
 								String g_birth = listt.getG_birth();
 								String g_phone = listt.getG_phone();
-								String g_email = listt.getG_email();
-								String g_address = listt.getG_address();	
-								String g_sms_yn = listt.getG_sms_yn();
-								String g_email_yn = listt.getG_email_yn();
-								String g_qualification = listt.getG_qualification();								
+								String g_email = listt.getG_email();								
 								
-								String g_location1 = listt.getG_location1();
-								String g_location2 = listt.getG_location2();
-								String g_location3 = listt.getG_location3();
-								String g_hourwage1 = listt.getG_hourwage1();
-								String g_hourwage2 = listt.getG_hourwage2();
-								String g_hourwage3 = listt.getG_hourwage3();
-								Date signup_date = listt.getG_signup_date();
-								
-								String phone = g_phone.substring(0,3) + "-" + g_phone.substring(3,7) + "-" + g_phone.substring(7,11);
+								//String phone = g_phone.substring(0,3) + "-" + g_phone.substring(3,7) + "-" + g_phone.substring(7,11);
 							%>
 							<tr>
 								<td><%=i + 1%></td>
@@ -136,18 +122,7 @@ margin-left: 7.2rem;
 								<td><%=g_birth%></td>
 								<td><%=g_phone%></td>
 								<td><%=g_email%></td>
-								<td><%=g_address%></td>
-								<td><%=g_sms_yn%></td>
-								<td><%=g_email_yn%></td>
-								<td><%=g_qualification%></td>
-								<td><%=g_location1%></td>
-								<td><%=g_location2%></td>
-								<td><%=g_location3%></td>
-								
-								<td><%=g_hourwage1%></td>
-								<td><%=g_hourwage2%></td>
-								<td><%=g_hourwage3%></td>
-								<td><%=signup_date%></td>
+								<td><a onclick="javascript:openAdGinfo('<%=g_id %>')">더보기</a></td>
 							</tr>
 							<%
 							}
@@ -158,6 +133,12 @@ margin-left: 7.2rem;
 			</div>
 		</div>
 	</section>
+	
+	<script>
+	function openAdGinfo(g_id){
+		window.open("<%=context%>/admin/admin_ginfo.jsp?g_id=" + g_id, "name(about:blank)", "width=800, height=600");
+	}
+	</script>
 
 	<%@include file="/footer.jsp"%>
 
