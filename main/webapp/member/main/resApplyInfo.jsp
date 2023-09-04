@@ -46,6 +46,9 @@
 				String fStartTime = timeFormat.format(start_time);
 				String fEndTime = timeFormat.format(end_time);
 				
+				java.sql.Date sqlStartDate = new java.sql.Date(start_date.getTime());
+			    
+				java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 	           
 				String workTimes = fStartTime + "~" + fEndTime;
 			%>
@@ -82,7 +85,10 @@
 					<%}} %></td>
 					
 				<td>
+				<% if (sqlStartDate.before(currentDate)) { %>
+				승인기간만료 <% } else { %>
 					<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
+					<% } %>
 				</td>
 				
 				<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
