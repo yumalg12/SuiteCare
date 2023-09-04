@@ -25,7 +25,7 @@
 }
 </style>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 
@@ -41,15 +41,14 @@
 						<h2>결제 방식 선택</h2>
 					</header>
 					<div class="form_wrapper">
-<%=m_id %> 
 						<!-- One -->
 						<div style="display: grid; grid-template-columns: 1fr 1fr;">
 
 							<div class="box"
-								onclick="location.href='<%=context%>/Payment/kakao.do'"
+								onclick="location.href='${context}/Payment/kakao.do'"
 								style="cursor: pointer;">
 								<div class="conB_content">
-									<img src="../images/카카오페이_CI_combination_with_BG.svg">
+									<img src="../assets/images/카카오페이_CI_combination_with_BG.svg">
 								</div>
 								<header class="align-center">
 									<h2>카카오페이</h2>
@@ -57,7 +56,7 @@
 							</div>
 
 							<div class="box"
-								onclick="location.href='<%=context%>/Payment/card.do'"
+								onclick="location.href='${context}/Payment/card.do'"
 								style="cursor: pointer;">
 								<div class="conB_content">
 									<i class="fa-regular fa-credit-card icon"

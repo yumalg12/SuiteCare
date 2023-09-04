@@ -252,12 +252,13 @@ public class CaregiverDAO {
 		String g_hourwage1 = vo.getG_hourwage1();
 		String g_hourwage2 = vo.getG_hourwage2();
 		String g_hourwage3 = vo.getG_hourwage3();
+		String g_profile = vo.getG_profile();
 		
 		try {
 			con = dataFactory.getConnection();
 
 			String sql = "UPDATE caregiver";
-			sql += " SET g_name=?, g_gender=?, g_phone=?, g_sms_yn=?, g_email=?, g_email_yn=?, g_address=?, g_service1=?, g_service2=?, g_service3=?, g_qualification=?, g_location1=?, g_location2=?, g_location3=?, g_hourwage1=?, g_hourwage2=?, g_hourwage3=?";
+			sql += " SET g_name=?, g_gender=?, g_phone=?, g_sms_yn=?, g_email=?, g_email_yn=?, g_address=?, g_service1=?, g_service2=?, g_service3=?, g_qualification=?, g_location1=?, g_location2=?, g_location3=?, g_hourwage1=?, g_hourwage2=?, g_hourwage3=?, g_profile=?";
 			sql += " WHERE g_id = ?";
 			System.out.println("prepareStatement : " + sql);
 			
@@ -279,7 +280,8 @@ public class CaregiverDAO {
 			pstmt.setString(15, g_hourwage1);
 			pstmt.setString(16, g_hourwage2);
 			pstmt.setString(17, g_hourwage3);
-			pstmt.setString(18, id);
+			pstmt.setString(18, g_profile);
+			pstmt.setString(19, id);
 
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -471,4 +473,5 @@ public class CaregiverDAO {
 	      }
 	      return list;
 	   }
+
 }

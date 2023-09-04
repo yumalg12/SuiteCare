@@ -36,7 +36,7 @@ public class PatientresVO {
 	public PatientresVO() {
 		System.out.println("PatientresVO 생성자 호출");
 	}
-
+	
 	public String getCaretaker() {
 		return caretaker;
 	}

@@ -169,17 +169,18 @@ public class PatientresDAO {
 		return comlist;
 	}
 
-
-	public List<PatientresVO> applylist() {
+	public List<PatientresVO> applylist(int start) {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();
 		String caregiver = null;
 
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c"
+					+ " WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code AND res.caregiver_id is null AND location is not null AND addr is not null AND start_date is not null AND start_date > now()";
+			sql += " ORDER BY start_date LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
-
+			System.out.println(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				String caretaker = rs.getString("t_name");
@@ -196,23 +197,23 @@ public class PatientresDAO {
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
 
-					PatientresVO vo = new PatientresVO();
-					vo.setCaretaker(caretaker);
-					vo.setT_gender(t_gender);
-					vo.setT_age(t_age);
-					vo.setCaretaker(caretaker);
-					vo.setStartdate(start_date);
-					vo.setEnddate(end_date);
-					vo.setStarttime(start_time);
-					vo.setEndtime(end_time);
-					vo.setCaregiver(caregiver);
-					vo.setRes_code(res_code);
-					vo.setCaretaker_code(t_code);
-					vo.setLocation(location);
-					vo.setAddr(addr);
-					vo.setDetail_addr(detail_addr);
+				PatientresVO vo = new PatientresVO();
+				vo.setCaretaker(caretaker);
+				vo.setT_gender(t_gender);
+				vo.setT_age(t_age);
+				vo.setCaretaker(caretaker);
+				vo.setStartdate(start_date);
+				vo.setEnddate(end_date);
+				vo.setStarttime(start_time);
+				vo.setEndtime(end_time);
+				vo.setCaregiver(caregiver);
+				vo.setRes_code(res_code);
+				vo.setCaretaker_code(t_code);
+				vo.setLocation(location);
+				vo.setAddr(addr);
+				vo.setDetail_addr(detail_addr);
 
-					list.add(vo);
+				list.add(vo);
 			}
 
 			rs.close();
@@ -223,7 +224,29 @@ public class PatientresDAO {
 		}
 		return list;
 	}
+	
+	public int applyCount() {
+		int cnt = 0;
+		try {
+			connect();
+			
+			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c"
+					+ " WHERE res.caretaker_code = c.t_code and res.res_code=resinfo.res_code AND res.caregiver_id is null AND location is not null AND addr is not null AND start_date is not null AND start_date > now()";
+			pstmt = conn.prepareStatement(sql);
 
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
 	
 	public List<PatientresVO> resInfo(String res_code, String caretaker_code) {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();

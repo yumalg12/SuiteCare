@@ -2,14 +2,17 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
-<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
+<script src="${context}/assets/js/progress.js"></script>                                                                                              
 <style>
 .conB_content {
 	text-align: center;
@@ -28,30 +31,26 @@ form:hover {
 <script>
 function resstop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 </head>
 
 <body>
 	<%@ include file="/header.jsp"%>
+	<% String r_code = request.getParameter("res_code");
+	session.setAttribute("r_code", r_code); %>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuiteCare</h2>
+				<p>Premium Caregiver Matching Platform</p>
+				<h2>SuiteCare</h2>
 			</header>
 		</div>
 	</section>
-	<%
-	request.setCharacterEncoding("utf-8");
-	String caretaker_code = (String) session.getAttribute("caretaker_code");
-	String res_code = (String) session.getAttribute("res_code");
-	String r_code = request.getParameter("res_code");
-	session.setAttribute("r_code", r_code);
-	%>
+	
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
 	
@@ -76,7 +75,7 @@ function resstop() {
 					<!-- One -->
 					<div class="grid-style">
 
-						<form id="formA" action="insertloc.jsp" method="post">
+						<form id="formA" action="../reservation/location" method="post">
 							<input type="hidden" name="home" value="home">
 							<div class="box" onclick="insertValue('home')"
 								style="cursor: pointer;">
@@ -89,9 +88,10 @@ function resstop() {
 									</header>
 								</div>
 							</div>
+							 <input type="hidden" name="type" value="reshome"/>
 						</form>
 
-						<form id="formB" action="reshospital.jsp" method="post">
+						<form id="formB" action="../reservation/location" method="post">
 							<input type="hidden" name="hospital" value="hospital">
 							<div class="box" onclick="insertValue('hospital')"
 								style="cursor: pointer;">
@@ -104,6 +104,7 @@ function resstop() {
 									</header>
 								</div>
 							</div>
+							 <input type="hidden" name="type" value="reshospital"/>
 						</form>
 
 						

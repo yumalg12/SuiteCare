@@ -75,8 +75,8 @@ margin-left: 7.2rem;
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuiteCare</h2>
+				<p>Premium Caregiver Matching Platform</p>
+				<h2>SuiteCare</h2>
 			</header>
 		</div>
 	</section>
@@ -97,7 +97,7 @@ margin-left: 7.2rem;
 								<tr>
 									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td>
 									<td>핸드폰번호</td> <td>이메일</td> <td>주소</td> <td>sms 수신동의</td> 
-									<td>email 수신동의</td> <td>가입일</td> <td>정보</td>
+									<td>email 수신동의</td> <td>가입일</td> <td>등록한 피간병인</td>
 								</tr>
 							</thead>
 							<%
@@ -109,7 +109,7 @@ margin-left: 7.2rem;
 							for (int i = 0; i < list.size(); i++) {
 								MemberVO listt = (MemberVO) list.get(i);
 
-								String mid = listt.getM_id();
+								m_id = listt.getM_id();
 								String m_name = listt.getM_name();
 								String m_gender = listt.getM_gender();
 								String m_phone = listt.getM_phone();
@@ -123,7 +123,7 @@ margin-left: 7.2rem;
 							%>
 							<tr>
 								<td><%=i + 1%></td>
-								<td><%=mid%></td>
+								<td><%=m_id%></td>
 								<td><%=m_name%></td>
 								<td><%=m_gender%></td>
 								<td><%=phone%></td>
@@ -132,7 +132,7 @@ margin-left: 7.2rem;
 								<td><%=m_sms_yn%></td>
 								<td><%=m_email_yn%></td>
 								<td><%=m_signup_date%></td>
-								<td><a href='../admin/admin_tinfo.jsp?mid=<%=mid%>'>더보기</a></td>
+								<td><a onclick="javascript:openAdTinfo('<%=m_id%>')">더보기</a></td>
 							</tr>
 							<%
 							}
@@ -143,6 +143,12 @@ margin-left: 7.2rem;
 			</div>
 		</div>
 	</section>
+
+<script>
+function openAdTinfo(m_id){
+	window.open("${context}/admin/admin_tinfo.jsp?m_id="+m_id, "name(about:blank)", "width=800, height=600");
+}
+</script>
 
 	<%@include file="/footer.jsp"%>
 </body>

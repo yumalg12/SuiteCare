@@ -7,7 +7,7 @@
 <title>SC 스위트케어 | 시급 입력하기</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 
@@ -23,7 +23,8 @@
 					</header>
 
 					<div class="form_wrapper">
-						<form action="../book/applybook.jsp" method="post" name="hourwageForm">
+						<form action="../reservation/apply" method="post" name="hourwageForm">
+						<input type="hidden" name="type" value="apply"/>
 							<div class="form_row">
 								<label for="hourwage">희망시급</label>
 								<div style="display: flex; align-items: center; gap: 5px;">

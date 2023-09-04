@@ -41,26 +41,27 @@ public class MemberLoginConroller extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		
+		String context = ((HttpServletRequest)request).getContextPath();
+		
 		out.println("<script>");
 		if(ok==1) {
 			vo = dao.userLogin(m_id, m_pw);
 			session.setAttribute("m_id", vo.getM_id());
 
 			out.println("alert('로그인에 성공하였습니다.');");
-	        out.println("location.href='main';");
+	        out.println("location.href='main?type=index';");
 	        System.out.println(m_id+" 로그인 성공");
 		} else if(ok==2) {
 			out.println("alert('비밀번호가 일치하지 않습니다.');");
+			out.println("location.href='"+context+"/member/login';");
 			System.out.println(m_id+" 비밀번호 불일치");
 		}
 		else if(ok==3) {
 			out.println("alert('가입되지 않은 아이디입니다.');");
+	        out.println("location.href='"+context+"/member/login';");
 			System.out.println(m_id+" 아이디 없음");
 
 		}
 		out.println("</script>");
-
-		RequestDispatcher dispatch = request.getRequestDispatcher("/member/mLogin.jsp");
-		dispatch.forward(request, response);
 	}
 }

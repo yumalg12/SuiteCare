@@ -16,7 +16,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 TakerDAO dao = new TakerDAO();
-String m_id = (String)session.getAttribute("m_id");
+m_id = (String)session.getAttribute("m_id");
 String t_code = request.getParameter("t_code");
 String t_name = request.getParameter("t_name");
 String t_gender = request.getParameter("t_gender");
@@ -41,7 +41,7 @@ if(result == 1) {
 	%>
 	<script>
 		alert("회원정보 수정이 완료되었습니다.");
-		window.location.href='<%=context%>/member/mMain.jsp';
+		window.location.href='${context}/member/mMain.jsp';
 	</script>
 	<% 	
 } else {

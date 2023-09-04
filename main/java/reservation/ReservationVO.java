@@ -1,5 +1,8 @@
 package reservation;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class ReservationVO {
 	private String m_id;
 	private String caretaker_code;
@@ -33,10 +36,32 @@ public class ReservationVO {
 	private String t_gender;
 	private String diagnosis;
 	
+	private String hourwage;
+	private String b_status;
+	private Date pay_date;
+	private Date s_date;
+	private Date e_date;
+	private Time s_time;
+	private Time e_time;
+	private int pay;
+	
 	public ReservationVO() {
 		System.out.println("ReservationVO 생성자 호출");
 	}
-
+	
+	public ReservationVO(String caretaker_code, String res_code, String t_name, String addr, String start_date, String end_date, String start_time, String end_time, String hourwage, String b_status) {
+		this.caretaker_code=caretaker_code;
+		this.res_code=res_code;
+		this.t_name=t_name;
+		this.addr=addr;
+		this.start_date=start_date;
+		this.end_date=end_date;
+		this.start_time=start_time;
+		this.end_time=end_time;
+		this.hourwage=hourwage;
+		this.b_status=b_status;
+	}
+	
 	
 	/**
 	 * @return the m_id
@@ -432,6 +457,66 @@ public class ReservationVO {
 
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
+	}
+	public String getHourwage() {
+		return hourwage;
+	}
+	public void setHourwage(String hourwage) {
+		this.hourwage = hourwage;
+	}
+	public String getB_status() {
+		return b_status;
+	}
+	public void setB_status(String b_status) {
+		this.b_status = b_status;
+	}
+
+	public Date getPay_date() {
+		return pay_date;
+	}
+
+	public void setPay_date(Date pay_date) {
+		this.pay_date = pay_date;
+	}
+
+	public Date getS_date() {
+		return s_date;
+	}
+
+	public void setS_date(Date s_date) {
+		this.s_date = s_date;
+	}
+
+	public Date getE_date() {
+		return e_date;
+	}
+
+	public void setE_date(Date e_date) {
+		this.e_date = e_date;
+	}
+
+	public Time getS_time() {
+		return s_time;
+	}
+
+	public void setS_time(Time s_time) {
+		this.s_time = s_time;
+	}
+
+	public Time getE_time() {
+		return e_time;
+	}
+
+	public void setE_time(Time e_time) {
+		this.e_time = e_time;
+	}
+
+	public int getPay() {
+		return pay;
+	}
+
+	public void setPay(int pay) {
+		this.pay = pay;
 	}
 	
 	

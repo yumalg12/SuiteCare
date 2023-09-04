@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-<script src="<%=context%>/assets/js/progress.js"></script>
+<script src="${context}/assets/js/progress.js"></script>
 
 <style>
 .res_date {
@@ -61,7 +61,7 @@ width: auto !important;
 <script>
 function resdstop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 </head>
@@ -71,18 +71,20 @@ function resdstop() {
 
 	<%
 	request.setCharacterEncoding("utf-8");
-	String caretaker_code = (String) session.getAttribute("caretaker_code");
 	String res_code = (String) session.getAttribute("res_code");
+	String t_code = (String) session.getAttribute("t_code");
 	String r_code = request.getParameter("res_code");
 	session.setAttribute("r_code", r_code);
+	String caretaker_code = request.getParameter("caretaker_code");
+	session.setAttribute("caretaker_code", caretaker_code);
 	%>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuiteCare</h2>
+				<p>Premium Caregiver Matching Platform</p>
+				<h2>SuiteCare</h2>
 			</header>
 		</div>
 	</section>
@@ -115,7 +117,7 @@ function resdstop() {
 							else if(res_code==null) {%> <%=r_code%> <% }%>" disabled>
 						</div>
 						<br>
-						<form action="res_check.jsp" name="resdateForm" method="post" onSubmit="return rescheckForm();">
+						<form action="../reservation/date" name="resdateForm" method="post" onSubmit="return rescheckForm();">
 							<div class="form_row">
 								<label>간병 기간</label>
 								<div>
@@ -136,6 +138,7 @@ function resdstop() {
 								</div>
 							</div>
 							<div class="form_button">
+								<input type="hidden" name="type" value="resdate"/>
 								 <input type="button" class="button alt" onclick="resdstop();" value="예약 중지">
 								<input type="submit" class="button special" value="예약하기">
 							</div>

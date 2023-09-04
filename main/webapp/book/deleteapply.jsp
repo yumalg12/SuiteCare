@@ -21,6 +21,6 @@ dao.delMatch(g_id, res_code);
 </body>
 <script>
 	    alert("매칭신청이 취소되었습니다.");
-	    window.location.href="../careGiver/gMain.jsp";
+	    window.location.href="<%=request.getContextPath()%>/caregiver/main";
 	</script>
 </html>

@@ -14,7 +14,7 @@
 			<section id="One" class="wrapper style3">
 				<div class="inner">
 					<header class="align-center">
-						<p>Eleifend vitae urna</p>
+						<p>Premium Caregiver Matching Platform</p>
 						<h2>SC SuitCare</h2>
 					</header>
 				</div>
@@ -79,6 +79,10 @@
 			return false;
 		}
 		
+		document.Registform.method = "post";
+		document.Registform.action = "/suiteCare/member/taker";
+		document.Registform.submit();
+		
 		return true;
 		
 		}
@@ -86,13 +90,13 @@
 
 <script>
 function goindexForm() {
-	location.href="<%=context%>/member/main";
+	location.href="${context}/member/main";
 }
 </script>
 
 
 	<!-- form 시작 -->
-	<form name="Registform" method="post" onSubmit="return validateForm();" action="./takerInfoCheck.jsp">
+	<form name="Registform" action="javascript: validateForm();">
 		<div class="form_wrapper">
 			<div class="form_row">
 				<label for="t_name">이름</label>
@@ -135,7 +139,7 @@ function goindexForm() {
 			<input class="button special" type="submit" value=등록 >
 			</div>
 		</div>
-	 	<!-- <input class="button special" type="hidden" name="command" value="addMember"> -->	
+	 	<input type="hidden" name="command" value="insert"/>
 		</div>
 		
 	</form>

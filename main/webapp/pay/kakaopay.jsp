@@ -12,7 +12,7 @@
 <%@include file="../header-import.jsp"%>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-<link rel="stylesheet" href="<%=context %>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 
@@ -42,13 +42,11 @@
 						<button type="button" class="button special" id="charge_kakao">충전하기</button>
 					</div>
 
-					<form id="kakaopay" name="kakaopay"
-						action="<%=context%>/Payment/addpay.do" method="get">
+					<form id="kakaopay" name="kakaopay" action="${context}/Payment/addpay.do" method="get">
 						<input id="amountRsp" type="hidden" name="amountRsp" value="">
-						<input id="merchant_uidRsp" type="hidden" name="merchant_uidRsp" value="">
 						<input id="pay_method" type="hidden" name="pay_method" value="">
 						<c:forEach var="pay" items="${list }">
-							<input type="text" id="phone" value="${pay.m_phone }">
+							<input type="hidden" id="phone" value="${pay.m_phone }">
 						</c:forEach>
 					</form>
 
@@ -70,7 +68,6 @@ $('#charge_kakao').click(function() {
 	IMP.request_pay({
 		pg : "kakaopay",
 		pay_method : "kakao",
-		merchant_uid : "sc" + new Date(),
 		name : "SC 스위트케어",
 		amount : m,
 		currency : "KRW",
@@ -90,7 +87,6 @@ $('#charge_kakao').click(function() {
 					+ rsp.merchant_uid;
 
 			document.getElementById("amountRsp").value = rsp.paid_amount;
-			document.getElementById("merchant_uidRsp").value = rsp.merchant_uid;
 			document.getElementById("pay_method").value = rsp.pay_method;
 
 			document.getElementById("kakaopay").submit();

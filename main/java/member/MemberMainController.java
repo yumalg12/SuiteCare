@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberMainController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("/member/mMain.jsp");
-		dispatch.forward(request, response);
+		String type = (String) request.getParameter("type");
+		if (type != null && type.equals("index")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("/index-caretaker.jsp");
+			dispatch.forward(request, response);
+		} else {
+			RequestDispatcher dispatch = request.getRequestDispatcher("/member/mMain.jsp");
+			dispatch.forward(request, response);
+		}
 	}
 }

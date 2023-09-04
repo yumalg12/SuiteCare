@@ -12,8 +12,6 @@
 <title>SC 스위트케어 | 회원정보</title>
 <%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
 <style>
 .fc-col-header {
     margin: 0;
@@ -69,17 +67,6 @@ margin-left: 7.2rem;
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
 <body>
-	<%@ include file="/header.jsp"%>
-
-	<!-- One -->
-	<section id="One" class="wrapper style3">
-		<div class="inner">
-			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuiteCare</h2>
-			</header>
-		</div>
-	</section>
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
@@ -101,11 +88,11 @@ margin-left: 7.2rem;
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-							String mid = request.getParameter("mid");
+							m_id = request.getParameter("m_id");
 							
 							TakerDAO dao = new TakerDAO();
 
-							List<TakerVO> list = dao.takerList(mid);
+							List<TakerVO> list = dao.takerList(m_id);
 							for (int i = 0; i < list.size(); i++) {
 								TakerVO listt = (TakerVO) list.get(i);
 
@@ -135,7 +122,6 @@ margin-left: 7.2rem;
 		</div>
 	</section>
 
-	<%@include file="/footer.jsp"%>
 </body>
 
 </html>
