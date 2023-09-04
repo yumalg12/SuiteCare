@@ -41,7 +41,8 @@
 				String location = listvo.getLocation();
 				String addr = listvo.getAddr();
 				String detail_addr = listvo.getDetail_addr();
-
+				
+				if(start_time!=null) {
 				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 				String fStartTime = timeFormat.format(start_time);
 				String fEndTime = timeFormat.format(end_time);
@@ -67,9 +68,9 @@
 				else if(addr!=null){%><%=addr%> 
 				<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
 				
-				<td><% if(start_date==null ) { %>
-				<a href="../reservation/date?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
-				else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+				<td><% if (start_date != null) { %>
+				일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%> <%}	
+				else{%><a href="../reservation/date?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a><%} %></td>
 				
 				<td><%
 				List<TpreferenceVO> preList = dao2.listtpre(res_code);
@@ -96,7 +97,7 @@
 			</tr>
 
 			<%
-			}
+			}}
 			%>
 		</table>
 	</form>
