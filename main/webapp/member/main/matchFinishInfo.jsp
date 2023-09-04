@@ -37,6 +37,7 @@ List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 			</tr>
 		</thead>
 		<%
+		
 PatientresDAO dao2 = new PatientresDAO();
 List<PatientresVO> reslist = dao2.comlistres(m_id);
 for (int i = 0; i < reslist.size(); i++) {

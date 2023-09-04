@@ -15,44 +15,40 @@
 <script src="${context}/assets/js/progress.js"></script>                                                                                              
 <script>
 
-function back() {
+function homecheck() {
 	var f = document.homeForm;
-	f.action = "rescareloc.jsp";
-	f.submit();
+	 let roadAddress = document.getElementById("roadAddress").value;
+	 let namujiAddress = document.getElementById("namujiAddress").value;
+	 if (!roadAddress) {
+         alert("주소를 입력해 주세요.");
+         $("#roadAddress").focus();
+     } else if (!namujiAddress) {
+         alert("나머지 주소를 입력해 주세요.");
+         $("#namujiAddress").focus();
+     } else {
+ 	return true;}
+ }
 }
 
-function check() {
-	var f = document.homeForm;
-    let roadAddress = document.getElementById("roadAddress").value;
-    let namujiAddress = document.getElementById("namujiAddress").value;
-	
-    if (!roadAddress) {
-        alert("주소를 입력해 주세요.");
-        $("#jibunAddress").focus();
-    } else if (!namujiAddress) {
-        alert("나머지 주소를 입력해 주세요.");
-        $("#namujiAddress").focus();
-    } else {
-	f.action = "insertaddr.jsp";
-	f.submit(); 
-	return true;}
-}
+function onAddressSearchCompleted() {
+    var roadAddressInput = document.getElementById("roadAddress");
+    var jibunAddressInput = document.getElementById("jibunAddress");
 
-function setAddress() {
-	//주소를 hidden input으로 합치는 함수
-	//우편번호가 없는데, 회원가입 폼이랑 맞추는 게 어떨지 제안합니다
-    let roadAddress = document.getElementById("roadAddress").value;
-    let namujiAddress = document.getElementById("namujiAddress").value;
-    
-    document.homeForm.addr.value = roadAddress + " " + namujiAddress;
-    
-    console.log(document.homeForm.addr.value);
+    if (roadAddressInput.value === "") {
+        if (jibunAddressInput.value !== "") {
+            roadAddressInput.value = jibunAddressInput.value;
+        } else {
+            // 둘 다 값이 없을 경우 빈칸으로 처리
+            roadAddressInput.value = "";
+        }
+    }
 }
 
 function reshstop() {
 	alert("예약이 중지되었습니다.");
 	window.location.href = "${context}/member/main";
 }
+
 
 </script>
 
@@ -61,14 +57,7 @@ function reshstop() {
 <body>
 	<%@ include file="/header.jsp"%>
 
-<% 
-request.setCharacterEncoding("utf-8");
-String caretaker_code = (String)session.getAttribute("caretaker_code");
-String res_code = (String)session.getAttribute("res_code");
-String r_code = (String)session.getAttribute("r_code");
-System.out.println("res_code : "+res_code);
-System.out.println("r_code : "+r_code);
-%>
+
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
@@ -101,23 +90,23 @@ System.out.println("r_code : "+r_code);
 					</header>
 
 					<div class="form_wrapper">
-<form name="homeForm" method="post">
+<form action="/suiteCare/reservation/home" method = "post" name="homeForm"
+							onSubmit="return homecheck();">
+							<input type="hidden" name="type" value="reshome_addr"/>
 			<div class="form_row">
-			    <label>자택 주소</label>
+				<label>주소</label>
 				<span class="button default" onClick="javascript:execDaumPostcode()">주소검색</span>
-				<div style="display: none;">
-				<label class="addr-label">우편번호</label><input type="text" id="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5" onInput="javascript:setAddress()">
-				<label class="addr-label">지번 주소</label><input type="text" id="jibunAddress" placeholder="지번 주소" title="지번 주소" onInput="javascript:setAddress()">
-				</div>
-				<label class="addr-label">도로명 주소</label><input type="text" id="roadAddress" placeholder="도로명 주소" title="도로명 주소" onInput="javascript:setAddress()" required>
-				<label class="addr-label">나머지 주소</label><input type="text" id="namujiAddress" placeholder="나머지 주소" title="나머지 주소" onInput="javascript:setAddress()" required>
-			<input type="hidden" id="addr" name="addr" value=""> <!-- 주소 값으로는 이 input만 전송되게 됩니다 -->
+				<span></span>
+				<input type="hidden" id="zipcode" name="zipcode" pattern="[0-9]{5}" placeholder="우편번호 (숫자 5자리)" title="우편번호 (숫자 5자리)" maxlength="5">
+				<input type="hidden" id="jibunAddress" name="jibunAddress" placeholder="지번 주소" title="지번 주소" required>
+				<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명 주소" title="도로명 주소" required><br>
+				<input type=text id="namujiAddress" name="namujiAddress" placeholder="나머지 주소" title="나머지 주소" required>
 			</div>
 			<div class="form_button_three">
 		 <input type="button" class="button alt" onclick="reshstop();" value="예약 중지">
 		 <div>
-		 <input type="button" class="button" onclick="back();" value="뒤로가기">
-		 <input type="button" class="button special" onclick="check();" value="확인">
+		 <span class="button alt" onclick="location.href='<%=context%>/reservation/location'">뒤로가기</span>
+		 <input type="submit" class="button special" value="확인">
 		 </div>
 			</div>
 </form>
@@ -132,4 +121,47 @@ System.out.println("r_code : "+r_code);
 
 
 </body>
+<script>
+function execDaumPostcode() {
+	  new daum.Postcode({
+	    oncomplete: function(data) {
+	      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	      
+	      // 우편번호와 주소 정보를 초기화한다.
+	      document.getElementById('zipcode').value = "";
+	      document.getElementById('roadAddress').value = "";
+	      document.getElementById('jibunAddress').value = "";
+	      
+	      // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+	      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기한다.
+	      var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+	      var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+	      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	        extraRoadAddr += data.bname;
+	      }
+	      // 건물명이 있고, 공동주택일 경우 추가한다.
+	      if(data.buildingName !== '' && data.apartment === 'Y'){
+	        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	      }
+	      // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	      if(extraRoadAddr !== ''){
+	        extraRoadAddr = ' (' + extraRoadAddr + ')';
+	      }
+	      // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+	      if(fullRoadAddr !== ''){
+	        fullRoadAddr += extraRoadAddr;
+	      }
+
+	      // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	      document.getElementById('zipcode').value = data.zonecode; //5자리 새 우편번호 사용
+	      document.getElementById('roadAddress').value = fullRoadAddr;
+	      document.getElementById('jibunAddress').value = data.jibunAddress;
+	      
+	    }
+	  }).open();
+	}
+</script>
 </html>
