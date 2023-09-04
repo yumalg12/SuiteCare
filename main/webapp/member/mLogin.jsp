@@ -11,7 +11,7 @@
 
 console.log("<%=m_id%>");
 if ("<%=m_id%>" != "null") {
-	window.location.href="<%=context%>/member/main";
+	window.location.href="${context}/member/main";
 }
 
 function loginForm() {
@@ -83,7 +83,7 @@ text-decoration: underline;
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='<%=context%>/member/join'">회원가입</span>
+								<span class="button alt" onclick="location.href='${context}/member/join'">회원가입</span>
 							</div>
 					</form>
 							<div class="form_button" >

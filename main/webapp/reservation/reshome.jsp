@@ -12,7 +12,7 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-<script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
+<script src="${context}/assets/js/progress.js"></script>                                                                                              
 <script>
 
 function homecheck() {
@@ -46,7 +46,7 @@ function onAddressSearchCompleted() {
 
 function reshstop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 
 

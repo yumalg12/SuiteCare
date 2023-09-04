@@ -90,7 +90,7 @@
 
 <script>
 function goindexForm() {
-	location.href="<%=context%>/member/main";
+	location.href="${context}/member/main";
 }
 </script>
 

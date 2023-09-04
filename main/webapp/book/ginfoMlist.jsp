@@ -15,11 +15,11 @@
 
 <script>
 function backmMain() {
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 
-<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 

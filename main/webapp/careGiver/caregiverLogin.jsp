@@ -45,7 +45,7 @@ text-decoration: underline;
      if (confirmed) {
          window.location.href = "../logout.jsp"; // 로그아웃 처리 페이지로 이동
      }else {
-    	    window.location.href = "<%=context%>/member/main"; 
+    	    window.location.href = "${context}/member/main"; 
      }
 	</script>
 <% } else {%>
@@ -82,7 +82,7 @@ text-decoration: underline;
 							</div>
 							<div class="form_button" >
 								<button type="submit" class="button special">로그인</button>
-								<span class="button alt" onclick="location.href='<%=context%>/careGiver/join'">회원가입</span>
+								<span class="button alt" onclick="location.href='${context}/careGiver/join'">회원가입</span>
 							</div>
 					</form>
 					<div class="form_button" >

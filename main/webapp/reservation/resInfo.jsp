@@ -218,6 +218,6 @@
 
 <script>
 	function insert_hourwage() {
-		window.open("<%=context%>/reservation/apply", "name(about:blank)", "width=500, height=425");
+		window.open("${context}/reservation/apply", "name(about:blank)", "width=500, height=425");
 	}
 </script>
