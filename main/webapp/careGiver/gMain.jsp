@@ -11,7 +11,6 @@
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import = "java.util.concurrent.TimeUnit" %>
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 														</td>
 														<td><fmt:formatNumber value="${listres.pay }" pattern="#,###" /></td>
 														<td>${listres.pay_date }</td>
-														<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;">더보기</span></td>
+														<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;cursor:pointer;">더보기</span></td>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -235,13 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
 									</td>
 									<td>${myApply.start_date } ~ ${myApply.end_date }</td>
 									<td><fmt:parseDate var="start_time" value="${myApply.start_time }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/> ~ <fmt:parseDate var="end_time" value="${myApply.end_time }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/></td> 
-									<td><span onclick="resInfo('${myApply.res_code }', '${myApply.caretaker_code }');" style="text-decoration:underline">더보기</span></td>
+									<td>
+										<c:if test="${myApply.b_status eq '서비스이용 완료' || (myApply.b_status eq '신청완료' && myApply.start_date > today )}">
+											<span onclick="resInfo('${myApply.res_code }', '${myApply.caretaker_code }');" style="text-decoration:underline; cursor:pointer;">더보기</span>
+										</c:if>
+									</td>
 									<td>${myApply.hourwage }</td>
 									<td>${myApply.b_status }</td>
 									<td>
-										<c:if test="${myApply.b_status eq '신청완료' and myApply.start_date < today }">신청기한만료</c:if>
-										<c:if test="${myApply.b_status eq '신청완료' and myApply.start_date > today }">
-											<span onclick="cancle('${myApply.res_code }')" style="text-decoration:underline;">신청취소</span>
+										<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date < today }">승인기한만료</c:if>
+										<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date > today }">
+											<span onclick="cancle('${myApply.res_code }')" style="text-decoration:underline;cursor:pointer;">신청취소</span>
 										</c:if>
 									</td>
 									</tr>
@@ -367,28 +370,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-
 		function page(page, position) {
 			var path = "${context}/caregiver/main?page=" + page + "#" + position;
-
+			location.href=path;
+		}
+		
 		function listresPage(page, position) {
-			var path = "<%=context %>/caregiver?listresPage=" + page + "#" + position;
+			var path = "${context}/caregiver?listresPage=" + page + "#" + position;
 			location.href=path;
 		}
 		
 		function applyPage(page, position) {
-			var path = "<%=context %>/caregiver?applyPage=" + page + "#" + position;
-			location.href=path;
-		}
-		
-		function myApplyPage(page) {
-			var path = "<%=context %>/caregiver?myApplyPage=" + page + "#" + position;
-
+			var path = "${context}/caregiver?applyPage=" + page + "#" + position;
 			location.href=path;
 		}
 		
 		function takerInfo(res_code, taker_code) {
-			window.open("<%=context %>/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 
@@ -397,15 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 		function matchInfo(res_code) {
-			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code=" +res_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/careGiver/matchingInfo.jsp?res_code=" +res_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 		function resInfo(res_code, caretaker_code) {
-			window.open("<%=context%>/reservation/resInfo.jsp?res_code="+res_code+"&caretaker_code="+caretaker_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/reservation/resInfo.jsp?res_code="+res_code+"&caretaker_code="+caretaker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 		function cancle(res_code) {
-			window.open("<%=context%>/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 	</script>
