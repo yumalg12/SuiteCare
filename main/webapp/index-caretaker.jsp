@@ -84,7 +84,7 @@
 					<% if(m_id == null) { %>
 						onclick="location.href='./login'"
 						<% } else { %>
-						onclick="location.href='${context}/reservation/rescaretaker.jsp'"
+						onclick="location.href='${context}/reservation/name'"
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
