@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<td><%=t_height%>cm</td>
 						<td><%=t_weight%>kg</td>
 						<td><%=diagnosis%></td>
-						<td><a href='../careTaker/tUpdate.jsp?t_name=<%=t_name%>'>수정하기</a></td>
+						<td><a href='./takerupdate?t_name=<%=t_name%>'>수정하기</a></td>
 					</tr>
 					<%
 					}
