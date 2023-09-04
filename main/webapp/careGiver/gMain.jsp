@@ -96,50 +96,49 @@ document.addEventListener('DOMContentLoaded', () => {
 							List<calendar.CalendarVO> glist = cdao.listgSchedule(g_id);
 						%>
 
-							<div class="table_wrapper">
-								<table border=1>
-									<thead>
-										<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
-									</thead>
-									<tbody>
-										<c:choose>
-											<c:when test="${empty listres }">
+						<div class="table_wrapper">
+							<table border=1>
+								<thead>
+									<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>정보</td></tr>
+								</thead>
+								<tbody>
+									<c:choose>
+										<c:when test="${empty listres }">
+											<tr>
+	                                    		<td colspan="8" style="text-align:center;">매칭된 피간병인이 없습니다</td>
+	                                   		</tr>
+										</c:when>
+										<c:when test="${!empty listres }">
+											<c:forEach var="listres" items="${listres }">
 												<tr>
-		                                    		<td colspan="8" style="text-align:center;">매칭된 피간병인이 없습니다</td>
-		                                   		</tr>
-											</c:when>
-											<c:when test="${!empty listres }">
-												<c:forEach var="listres" items="${listres }">
-													<tr>
-														<td>${listres.t_name }</td>
-														<td>${listres.s_date } ~ ${listres.e_date }</td>
-														<td>
-															<fmt:formatDate value="${listres.s_time }" pattern="HH:mm"/> ~ <fmt:formatDate value="${listres.e_time }" pattern="HH:mm"/>
-														</td>
-														<td>
-															<c:if test="${listres.location eq 'home'}">자택</c:if>
-															<c:if test="${listres.location ne 'home'}">${listres.location}</c:if>
-														</td>
-														<td><fmt:formatNumber value="${listres.pay }" pattern="#,###" /></td>
-														<td>${listres.pay_date }</td>
-														<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;cursor:pointer;">더보기</span></td>
-													</tr>
-												</c:forEach>
-											</c:when>
-										</c:choose>
-									</tbody>
-								</table> 
-							</div>
-							<div>
-								<ul class="pagination pagination-lg">
-									<%-- <c:set var="current" value="${page }"/> --%>
-									<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
-										<li class="page-item" onclick="listresPage(${listresPage}, 'matchinfo');">
-											${listresPage}
-										</li>
-									</c:forEach>
-								</ul>
-							</div>
+													<td>${listres.t_name }</td>
+													<td>${listres.s_date } ~ ${listres.e_date }</td>
+													<td>
+														<fmt:formatDate value="${listres.s_time }" pattern="HH:mm"/> ~ <fmt:formatDate value="${listres.e_time }" pattern="HH:mm"/>
+													</td>
+													<td>
+														<c:if test="${listres.location eq 'home'}">자택</c:if>
+														<c:if test="${listres.location ne 'home'}">${listres.location}</c:if>
+													</td>
+													<td><fmt:formatNumber value="${listres.pay }" pattern="#,###" /></td>
+													<td>${listres.pay_date }</td>
+													<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;cursor:pointer;">더보기</span></td>
+												</tr>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</tbody>
+							</table> 
+						</div>
+						<div>
+							<ul class="pagination pagination-lg">
+								<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
+									<li class="page-item" onclick="listresPage(${listresPage}, 'matchinfo');">
+										${listresPage}
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -158,43 +157,40 @@ document.addEventListener('DOMContentLoaded', () => {
 						<p>나에게 들어온</p>
 						<h2>피간병인 신청 리스트</h2>
 					</header>
-					<form name="applyinfo">
-						<div class="table_wrapper">
-							<table>
-								<thead>
-									<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
-									<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
-								</thead>
-								<c:choose>
-									<c:when test="${empty applyList }">
+					<div class="table_wrapper">
+						<table>
+							<thead>
+								<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
+								<td>근무시간</td><td>상세정보</td><td>매칭신청현황</td></tr>
+							</thead>
+							<c:choose>
+								<c:when test="${empty applyList }">
+									<tr>
+                                   		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
+                                  		</tr>
+								</c:when>
+								<c:when test="${!empty applyList }">
+									<c:set var="MyResCode" value="${MyResCode }"/>
+									<c:forEach var="applyList" items="${applyList }">
+										<c:set var="address" value="${fn:split(applyList.addr,' ')}" />
 										<tr>
-                                    		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
-                                   		</tr>
-									</c:when>
-									<c:when test="${!empty applyList }">
-										<c:set var="MyResCode" value="${MyResCode }"/>
-										<c:forEach var="applyList" items="${applyList }">
-											<c:set var="address" value="${fn:split(applyList.addr,' ')}" />
-											<tr>
-												<td>${applyList.res_code }</td><td>${applyList.t_gender }</td><td>${applyList.t_age }</td>
-												<td>${address[0]}</td><td>${applyList.startdate } ~ ${applyList.enddate }</td>
-												<td>
-													<fmt:parseDate var="start_time" value="${applyList.starttime }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/>
-													~
-													<fmt:parseDate var="end_time" value="${applyList.endtime }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/>
-												</td>
-												<td><span onclick="takerInfo('${applyList.res_code }','${applyList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
-	                      						<td><c:if test="${!fn:contains(MyResCode, applyList.res_code)}">미신청</c:if></td>
-	                   						 </tr>
-										</c:forEach>
-									</c:when>
-								</c:choose>
-							</table>
-						</div>
-					</form>
+											<td>${applyList.res_code }</td><td>${applyList.t_gender }</td><td>${applyList.t_age }</td>
+											<td>${address[0]}</td><td>${applyList.startdate } ~ ${applyList.enddate }</td>
+											<td>
+												<fmt:parseDate var="start_time" value="${applyList.starttime }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/>
+												~
+												<fmt:parseDate var="end_time" value="${applyList.endtime }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/>
+											</td>
+											<td><span onclick="takerInfo('${applyList.res_code }','${applyList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
+                      						<td><c:if test="${!fn:contains(MyResCode, applyList.res_code)}">미신청</c:if></td>
+                   						 </tr>
+									</c:forEach>
+								</c:when>
+							</c:choose>
+						</table>
+					</div>
 					<div>
 						<ul class="pagination pagination-lg" id="page-allapplylist">
-							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
 								<li class="page-item" onclick="applyPage(${applyPage}, 'allapplylist')";>
 									${applyPage}
@@ -217,45 +213,42 @@ document.addEventListener('DOMContentLoaded', () => {
 						<p>내가 지원한</p>
 						<h2>피간병인 신청 리스트</h2>
 					</header>
-					<form name="matchinfo">
-						<div class="table_wrapper">
-							<table>
-								<thead>
-									<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
-									<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
-								</thead>
-								<c:set var="ymd" value="<%=new java.util.Date()%>" />
-								<fmt:formatDate var="today" value="${ymd}" pattern="yyyy-MM-dd" />
-								<c:forEach var="myApply" items="${myApply }">
-									<tr><td>${myApply.res_code }</td><td>${myApply.t_name }</td>	 
-									<td>
-									
-									<c:set var="location" value="${fn:split(myApply.addr,' ')}" />
-									${location[0]}
-									</td>
-									<td>${myApply.start_date } ~ ${myApply.end_date }</td>
-									<td><fmt:parseDate var="start_time" value="${myApply.start_time }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/> ~ <fmt:parseDate var="end_time" value="${myApply.end_time }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/></td> 
-									<td>
-										<c:if test="${myApply.b_status eq '서비스이용 완료' || (myApply.b_status eq '신청완료' && myApply.start_date > today )}">
-											<span onclick="resInfo('${myApply.res_code }', '${myApply.caretaker_code }');" style="text-decoration:underline; cursor:pointer;">더보기</span>
-										</c:if>
-									</td>
-									<td>${myApply.hourwage }</td>
-									<td>${myApply.b_status }</td>
-									<td>
-										<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date < today }">승인기한만료</c:if>
-										<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date > today }">
-											<span onclick="cancle('${myApply.res_code }')" style="text-decoration:underline;cursor:pointer;">신청취소</span>
-										</c:if>
-									</td>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
-					</form>
+					<div class="table_wrapper">
+						<table>
+							<thead>
+								<tr><td>예약코드</td><td>이름</td><td>지역</td><td>근무기간</td><td>근무시간</td>
+								<td>상세정보</td><td>시급</td><td>매칭신청현황</td><td>비고</td></tr>
+							</thead>
+							<c:set var="ymd" value="<%=new java.util.Date()%>" />
+							<fmt:formatDate var="today" value="${ymd}" pattern="yyyy-MM-dd" />
+							<c:forEach var="myApply" items="${myApply }">
+								<tr><td>${myApply.res_code }</td><td>${myApply.t_name }</td>	 
+								<td>
+								
+								<c:set var="location" value="${fn:split(myApply.addr,' ')}" />
+								${location[0]}
+								</td>
+								<td>${myApply.start_date } ~ ${myApply.end_date }</td>
+								<td><fmt:parseDate var="start_time" value="${myApply.start_time }" pattern="HH:mm"/><fmt:formatDate value="${start_time }" pattern="HH:mm"/> ~ <fmt:parseDate var="end_time" value="${myApply.end_time }" pattern="HH:mm"/><fmt:formatDate value="${end_time }" pattern="HH:mm"/></td> 
+								<td>
+									<c:if test="${myApply.b_status eq '서비스이용 완료' || (myApply.b_status eq '신청완료' && myApply.start_date > today )}">
+										<span onclick="resInfo('${myApply.res_code }', '${myApply.caretaker_code }');" style="text-decoration:underline; cursor:pointer;">더보기</span>
+									</c:if>
+								</td>
+								<td>${myApply.hourwage }</td>
+								<td>${myApply.b_status }</td>
+								<td>
+									<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date < today }">승인기한만료</c:if>
+									<c:if test="${myApply.b_status eq '신청완료' && myApply.start_date > today }">
+										<span onclick="cancle('${myApply.res_code }')" style="text-decoration:underline;cursor:pointer;">신청취소</span>
+									</c:if>
+								</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
 					<div>
 						<ul class="pagination pagination-lg">
-							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="myApplyPage" begin="1" end="${myApplyPages }" step="1">
 								<li class="page-item" onclick="myApplyPage(${myApplyPage}, 'myapplylist');">
 									${myApplyPage}
@@ -279,12 +272,49 @@ document.addEventListener('DOMContentLoaded', () => {
 						<p>내가 수행한</p>
 						<h2>간병 완료 목록</h2>
 					</header>
-					<form name="finishform">
 						<div class="table_wrapper">
-							추가 필요
+							<table border=1>
+								<thead>
+									<tr><td>이름</td><td>날짜</td><td>시간</td><td>지역</td><td>결제금액</td><td>지급 예정일</td><td>후기</td></tr>
+								</thead>
+								<tbody>
+									<c:choose>
+										<c:when test="${empty finalList }">
+											<tr>
+	                                    		<td colspan="8" style="text-align:center;">완료된 간병서비스가 없습니다</td>
+	                                   		</tr>
+										</c:when>
+										<c:when test="${!empty finalList }">
+											<c:forEach var="finalList" items="${finalList }">
+												<tr>
+													<td>${finalList.t_name }</td>
+													<td>${finalList.s_date } ~ ${finalList.e_date }</td>
+													<td>
+														<fmt:formatDate value="${finalList.s_time }" pattern="HH:mm"/> ~ <fmt:formatDate value="${finalList.e_time }" pattern="HH:mm"/>
+													</td>
+													<td>
+														<c:if test="${finalList.location eq 'home'}">자택</c:if>
+														<c:if test="${finalList.location ne 'home'}">${finalList.location}</c:if>
+													</td>
+													<td><fmt:formatNumber value="${finalList.pay }" pattern="#,###" /></td>
+													<td>${finalList.pay_date }</td>
+													<td><span onclick="location.href='${context}/caregiver/review?res_code=${finalList.res_code }'" style="text-decoration:underline;cursor:pointer;">후기보기</span></td>
+												</tr>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</tbody>
+							</table> 
 						</div>
-					</form>
-
+						<div>
+							<ul class="pagination pagination-lg">
+								<c:forEach var="listresPage" begin="1" end="${finalPages }" step="1">
+									<li class="page-item" onclick="finalPage(${finalPages}, 'finishlist');">
+										${finalPages}
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -383,6 +413,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		function applyPage(page, position) {
 			var path = "${context}/caregiver/main?applyPage=" + page + "#" + position;
+			location.href=path;
+		}
+		
+		function finalPage(page, position) {
+			var path = "${context}/caregiver/main?finalPage=" + page + "#" + position;
 			location.href=path;
 		}
 		

@@ -38,9 +38,11 @@ public class CaregiverMainController extends HttpServlet {
 			int applyPageCurrent = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;
 			int listresPageCurrent = request.getParameter("listresPage") != null ? Integer.parseInt(request.getParameter("listresPage")) : 1;
 			int myApplyPageCurrent = request.getParameter("myApplyPage") != null ? Integer.parseInt(request.getParameter("myApplyPage")) : 1;
+			int fianlPageCurrent = request.getParameter("finalPage") != null ? Integer.parseInt(request.getParameter("finalPage")) : 1;
 			System.out.println("applyPage >> " + request.getParameter("applyPage"));
 			System.out.println("listresPage >> " + request.getParameter("listresPage"));
 			System.out.println("myApplyPage >> " + request.getParameter("myApplyPage"));
+			System.out.println("finalPage >> " + request.getParameter("finalPage"));
 			
 			int applystart =0;
 			if(applyPageCurrent != 1) {
@@ -60,6 +62,12 @@ public class CaregiverMainController extends HttpServlet {
 				System.out.println("myApplyStart == "  + myApplyStart);
 			}
 			
+			int finalStart =0;
+			if(fianlPageCurrent != 1) {
+				finalStart = (fianlPageCurrent-1)*5;
+				System.out.println("finalStart == "  + finalStart);
+			}
+			
 			
 			ReservationDAO reservation = new ReservationDAO();
 			
@@ -74,6 +82,7 @@ public class CaregiverMainController extends HttpServlet {
 			
 			// 나와 피간병인의 매칭 정보
 			List<ReservationVO> listres = reservation.resList(user_id, listresStart);
+			List<ReservationVO> finalList = reservation.finalList(user_id, finalStart);
 			
 			// 내가 지원한 신청 리스트
 			List<ReservationVO> list = new ArrayList<ReservationVO>();
@@ -103,11 +112,21 @@ public class CaregiverMainController extends HttpServlet {
 				applyPages = (applyCount/5)+1;
 			}
 			
+			int finalListCnt = reservation.finalListCnt(user_id);
+			int finalPages = 0;
+			if(finalListCnt%5 == 0) {
+				finalPages = finalListCnt/5;
+			} else {
+				finalPages = (finalListCnt/5)+1;
+			}
+			
 			request.setAttribute("listres", listres);
 			request.setAttribute("listresPages", listresPages);
 			request.setAttribute("applyPages", applyPages);
 			request.setAttribute("myApplyPages", myApplyPages);
 			request.setAttribute("myApply", list);
+			request.setAttribute("finalList", finalList);
+			request.setAttribute("finalPages", finalPages);
 			request.setAttribute("applyList", applyList);
 			request.setAttribute("MyResCode", code);
 			RequestDispatcher dispatch = request.getRequestDispatcher("../careGiver/gMain.jsp");
