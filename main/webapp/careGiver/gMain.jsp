@@ -27,6 +27,41 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const page = urlParams.get('page');
+
+	Array.from(document.getElementById("page-allapplylist").getElementsByTagName("li")).forEach(e => {
+		if (e.outerText === page) {
+			e.classList.add('button');
+		}
+	});
+});
+</script>
+
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+</style>
 </head>
 	
 <body>
@@ -43,7 +78,7 @@
 	</section>
 
 	<!-- Two -->
-	<section id="two" class="wrapper style2">
+	<section id="matchinfo" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -115,7 +150,7 @@
 							
 							
 	<!-- three -->
-	<section id="three" class="wrapper style2">
+	<section id="allapplylist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -157,8 +192,8 @@
 							</table>
 						</div>
 					</form>
-					<div class="row">
-						<ul class="pagination pagination-lg">
+					<div>
+						<ul class="pagination pagination-lg" id="page-allapplylist">
 							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
 								<li class="page-item">
@@ -174,7 +209,7 @@
 			
 			
 	<!-- four -->
-	<section id="four" class="wrapper style2">
+	<section id="myapplylist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
 				<div class="content">
@@ -224,6 +259,28 @@
 							</c:forEach>
 						</ul>
 					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+			
+			
+			
+	<!-- five -->
+	<section id="finishlist" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>내가 수행한</p>
+						<h2>간병 완료 목록</h2>
+					</header>
+					<form name="finishform">
+						<div class="table_wrapper">
+							추가 필요
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
@@ -348,11 +405,3 @@
 		
 	</script>
 </html>
-
-<style>
-	.pagination {
-		display: flex;
-		padding-left: 0;
-		list-style: none;
-	}
-</style>

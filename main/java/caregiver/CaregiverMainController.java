@@ -18,25 +18,21 @@ import patient.PatientresVO;
 import reservation.ReservationDAO;
 import reservation.ReservationVO;
 
-/**
- * Servlet implementation class CaregiverMainController
- */
-@WebServlet("/caregiver")
+@WebServlet("/caregiver/main")
 public class CaregiverMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CaregiverMainController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String type = (String) request.getParameter("type");
+		if (type != null && type.equals("index")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("/index-caregiver.jsp");
+			dispatch.forward(request, response);
+			
+		} else {
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("g_id");
 		int applyPageCurrent = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;
@@ -117,5 +113,4 @@ public class CaregiverMainController extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("careGiver/gMain.jsp");
 		dispatch.forward(request, response);
 	}
-
 }

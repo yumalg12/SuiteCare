@@ -2,7 +2,10 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  isELIgnored="false" %>
+	<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +13,7 @@
 <title>SC 스위트케어 | 간병 예약</title>
 <%@ include file="/header-import.jsp"%>
 <script src="<%=context%>/assets/js/progress.js"></script>                                                                                              
+<script src="<%=context%>/test/rescaretaker_info.js"></script>                                                                                              
 <style>
 .info-row{
 	margin-bottom: 1rem;
@@ -26,28 +30,10 @@
 }
 </style>
 
+<c:forEach var="listtinfo" items="${listtinfo}">
+
 <script>
-<%
-request.setCharacterEncoding("utf-8");
-String t_name = (String)request.getParameter("tname");
-session.setAttribute("t_name", t_name);
-
-ReservationDAO dao = new ReservationDAO();
-
-List<CaretakerinfoVO> list = dao.listtinfo(m_id, t_name);
-
-for(int i=0; i<list.size(); i++) {
-	CaretakerinfoVO listvo = (CaretakerinfoVO) list.get(i);
 	
-	String t_code = listvo.getT_code();
-	int t_age = listvo.getT_age();
-	int t_height = listvo.getT_height();
-	int t_weight = listvo.getT_weight();
-	String t_gender = listvo.getT_gender();
-	String diagnosis = listvo.getDiagnosis();
-	
-	session.setAttribute("caretaker_code", t_code);%>
-
 function reservation() {
 	//console.log('확인');
 	let f = document.detailtinfoForm;
@@ -65,7 +51,8 @@ function reservation() {
 		alert("모든 항목을 입력해주세요");
 		return false;
 	} else {
-		f.action = "res_insert.jsp";
+		f.method = "post";
+		f.action = "../reservation/name";
 		f.submit();
 		return true;
 	}
@@ -73,7 +60,8 @@ function reservation() {
 
 function recheck() {
 	let f = document.tinfoform;
-	f.action = "rescaretaker.jsp";
+	f.method = "post";
+	f.action = "../reservation/name";
 	f.submit();
 }
 
@@ -100,26 +88,25 @@ function newinfo(){
 
 function loadinfo(){
 	newinfo();
-		
-<%	ReservationVO reservation = dao.getLatestReservation(m_id, t_code);
-
-	if (reservation != null) {
-		
-		String consciousness = reservation.getConsciousness();
-		String care_meal_yn = reservation.getCare_meal_yn();
-		String care_toilet = reservation.getCare_toilet();
-		String state_paralysis = reservation.getState_paralysis();
-		String state_mobility = reservation.getState_mobility();
-		String bedsore_yn = reservation.getBedsore_yn();
-		String suction_yn = reservation.getSuction_yn();
-		String outpatient_yn = reservation.getOutpatient_yn();
-		String care_night_yn = reservation.getCare_night_yn();
-		String notice = reservation.getNotice();
-
-	%>
+	<%    
+	String t_code = (String) session.getAttribute("t_code");
+	ReservationDAO rdao = new ReservationDAO();
+	ReservationVO reservation = rdao.getLatestReservation(m_id, t_code);
 	
+    if (reservation != null) {
+        String consciousness = reservation.getConsciousness();
+        String care_meal_yn = reservation.getCare_meal_yn();
+        String care_toilet = reservation.getCare_toilet();
+        String state_paralysis = reservation.getState_paralysis();
+        String state_mobility = reservation.getState_mobility();
+        String bedsore_yn = reservation.getBedsore_yn();
+        String suction_yn = reservation.getSuction_yn();
+        String outpatient_yn = reservation.getOutpatient_yn();
+        String care_night_yn = reservation.getCare_night_yn();
+        String notice = reservation.getNotice();
+	 %>
 	//Q1
-	switch ("<%=consciousness%>") {
+	       switch ("<%=consciousness%>") {
 	case "의식 있음":
 		document.getElementById("con_y").checked = true;
 		break;
@@ -132,7 +119,7 @@ function loadinfo(){
 	}
 	
 	//Q2
-	switch("<%=care_meal_yn %>") {
+	     switch("<%=care_meal_yn %>") {
 	case "스스로 식사 가능":
 		document.getElementById("meal_self").checked = true;
 		break;
@@ -148,7 +135,7 @@ function loadinfo(){
 	}
 	
 	//Q3
-	switch("<%=care_toilet %>") {
+	        switch("<%=care_toilet %>") {
 	case "스스로 화장실 이용":
 		document.getElementById("toilet_self").checked = true;
 		break;
@@ -167,7 +154,7 @@ function loadinfo(){
 	}
 	
 	//Q4
-	switch("<%=state_paralysis %>") {
+	       switch("<%=state_paralysis %>") {
 	case "전신마비":
 		document.getElementById("general").checked = true;
 		break;
@@ -180,7 +167,7 @@ function loadinfo(){
 	}
 	
 	//Q5
-	switch("<%=state_mobility %>") {
+	        switch("<%=state_mobility %>") {
 	case "스스로 걸을 수 있음":
 		document.getElementById("mobility_self").checked = true;
 		break;
@@ -196,7 +183,7 @@ function loadinfo(){
 	}
 	
 	//Q6
-	switch("<%=bedsore_yn %>") {
+	        switch("<%=bedsore_yn %>") {
 	case "있음":
 		document.getElementById("b_yes").checked = true;
 		break;
@@ -206,7 +193,7 @@ function loadinfo(){
 	}
 	
 	//Q7
-	switch("<%=suction_yn %>") {
+	      switch("<%=suction_yn %>") {
 	case "예":
 		document.getElementById("s_yes").checked = true;
 		break;
@@ -217,11 +204,12 @@ function loadinfo(){
 	
 	//Q8
 	if (document.detailtinfoForm.outpatient_option != undefined){
-		document.detailtinfoForm.outpatient_option.parentNode.innerHTML = `<input type="text" name="outpatient_yn" id="outpatient_yn" value="<%=outpatient_yn%>">`
+        document.detailtinfoForm.outpatient_option.parentNode.innerHTML = 
+        	`<input type="text" name="outpatient_yn" id="outpatient_yn" value="<%=outpatient_yn%>">`
 	}
 	
 	//Q9
-	switch("<%=care_night_yn %>") {
+	       switch("<%=care_night_yn %>") {
 	case "예":
 		document.getElementById("caren_yes").checked = true;
 		break;
@@ -229,13 +217,16 @@ function loadinfo(){
 		document.getElementById("caren_no").checked = true;
 		break;
 	}
-	
+	    
 	//Q10
-	document.detailtinfoForm.notice.innerHTML = "<%=notice %>";
-	<%
-	}
-	%>
-}
+	       document.detailtinfoForm.notice.innerHTML = "<%=notice %>";
+	       <%
+    }
+	       %>
+	   }
+
+
+
 
 function resetInputValues(){
 	document.detailtinfoForm.outpatient_yn.parentNode.innerHTML = `<select id="outpatient_option" name="outpatient_option" onchange="opChange()">
@@ -245,6 +236,8 @@ function resetInputValues(){
 	</select><input type="text" name="outpatient_yn" id="outpatient_yn" style="display: none;">`;
 	document.detailtinfoForm.notice.innerHTML = "";
 }
+
+
 </script>
 </head>
 <body>
@@ -272,30 +265,35 @@ function resetInputValues(){
 	<li>빠른매칭 서비스</li>
 	</ul>
 	</div>
-	
+
+
+
 		<div class="inner">
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
 						<p>maecenas sapien feugiat ex purus</p>
-						<h2><%=t_name %>님의 기본 정보</h2>
+						<h2>${listtinfo.t_name}님의 기본 정보</h2>
 					</header>
 
 					<div class="form_wrapper">
 <form name="tinfoform">
 <div class="form_row">
-<label> 피간병인 정보</label><input type="text" value="<%=t_name %> (<%=t_age %>세, <%=t_gender %>성)" readonly>
-<label> 키 / 몸무게</label><input type="text" value="<%=t_height %>cm / <%=t_weight %>kg" readonly>
-<label> 진단명		</label><input type="text" value="<%=diagnosis %>" readonly>
+<label> 피간병인 정보</label><input type="text" value="${listtinfo.t_name} (${listtinfo.t_age}세, ${listtinfo.t_gender}성)" readonly>
+<label> 키 / 몸무게</label><input type="text" value="${listtinfo.t_height}cm / ${listtinfo.t_weight}kg" readonly>
+<label> 진단명		</label><input type="text" value="${listtinfo.diagnosis}" readonly>
 </div>
 <div class="form_button">
+
 <button type="button" class="button alt" onclick="recheck();">피간병인 변경</button>
-<button type="button" class="button" onclick="location.href='/suiteCare/careTaker/tUpdate.jsp?t_name=<%=t_name%>'">기본정보 수정</button>
+<button type="button" class="button" onclick="location.href='/suiteCare/careTaker/tUpdate.jsp?t_name=${listtinfo.t_name}'">기본정보 수정</button>
 </div>
+
 </form>
 <hr>
 					<header class="align-center">
-						<h2><%=t_name %>님의 상세 정보</h2>
+						<h2>${listtinfo.t_name}님의 상세 정보</h2>
+
 						<div id="infobtns">
 						<span class="button special" onclick="loadinfo();">기존 정보 불러오기</span>
 						<span class="button special" onclick="newinfo();">상세 정보 작성하기</span>
@@ -412,14 +410,14 @@ function resetInputValues(){
 <span class="button special" onclick="loadinfo();">기존 정보 불러오기</span>
 <div>
 <input type="reset" class="button" value="초기화" onclick="resetInputValues();"/>
+
 <button type="button" class="button special" onclick="reservation();">예약하기</button>
 </div>
     </div>
+    <input type="hidden" name="type" value="resinsert"/>
 </form>
+</c:forEach>
 
-<%
-}
-%>
 
 				</div>
 			</div>

@@ -93,7 +93,8 @@
 
 					<!-- form 시작 -->
 					<form name="Registform" method="post"
-						onSubmit="return validateForm();" action="../book/applybook.jsp">
+						onSubmit="return validateForm();">
+						
 						<div class="form_wrapper">
 						<div>
 							<h3>간병 정보</h3>
@@ -217,6 +218,6 @@
 
 <script>
 	function insert_hourwage() {
-		window.open("<%=context%>/reservation/res_hourwage.jsp", "name(about:blank)", "width=500, height=425");
+		window.open("<%=context%>/reservation/apply", "name(about:blank)", "width=500, height=425");
 	}
 </script>
