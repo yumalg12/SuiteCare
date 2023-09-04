@@ -99,6 +99,14 @@ public class PayController extends HttpServlet {
 			}
 
 		}
+		  
+		/*else if (path.equals("/startpayment")) {
+			
+			int netMile = Integer.parseInt(request.getParameter("netMile"));
+			PayVO netvo = new PayVO(m_id, netMile);
+			PayDAO.startpayment(netvo);
+			
+		}*/ //-> 결제 시 마일리지 차감 기능 추가 중
 
 	}
 }

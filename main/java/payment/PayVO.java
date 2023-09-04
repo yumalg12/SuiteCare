@@ -10,9 +10,12 @@ public class PayVO {
 	private int amount;
 	private int m_current_mileage;
 	private String merchant_uid;
+	private int netMile;
 	
 	
 	
+
+
 
 	public PayVO() {
 		super();
@@ -46,6 +49,14 @@ public class PayVO {
 		this.m_email = m_email;
 		this.m_current_mileage = m_current_mileage;
 		
+	}
+	
+	
+
+	public PayVO(String m_id, int netMile) {
+		super();
+		this.m_id = m_id;
+		this.netMile = netMile;
 	}
 
 	public String getM_id() {
@@ -110,6 +121,14 @@ public class PayVO {
 
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
+	}
+	
+	public int getNetMile() {
+		return netMile;
+	}
+
+	public void setNetMile(int netMile) {
+		this.netMile = netMile;
 	}
 
 }

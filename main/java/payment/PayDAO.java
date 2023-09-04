@@ -98,5 +98,22 @@ public List<PayVO> payInfo(PayVO payvo) {
 		return list;					
 	}
 
+/*public void startpayment(PayVO netvo) {
+	
+		try {
+			conn = dataFactory.getConnection();
+			int netMile = netvo.getNetMile();
+			String m_id = netvo.getM_id();
+			System.out.println("net마일리지:" + netMile + "m_id:" + m_id );
+			
+			String qry = "UPDATE  `member` SET m_current_mileage= '"+netMile+"' WHERE m_id = '"+m_id+"'";
+			System.out.println(qry);
+			stmnt = conn.prepareStatement(qry);									
+			stmnt.executeUpdate();	
+			
+	}catch (SQLException e) {
+		e.printStackTrace();
+	}*/  //--> 결제 시 마일리지 차감 기능 추가 중
+}
 
 }
