@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 		function cancle(res_code) {
-			window.open("${context}/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+			location.href="${context}/book/deleteapply.jsp?res_code=" + res_code;
 		}
 		
 	</script>
