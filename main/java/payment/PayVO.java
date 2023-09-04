@@ -31,11 +31,12 @@ public class PayVO {
 		this.m_name = m_name;
 	}
 
-	public PayVO(int amount, String pay_method, String m_id) {
+	public PayVO(int amount, String pay_method, String m_id, String merchant_uid) {
 
 		this.amount = amount;
 		this.pay_method = pay_method;
 		this.m_id = m_id;
+		this.merchant_uid = merchant_uid;
 			
 	}
 	

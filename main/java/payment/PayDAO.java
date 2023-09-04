@@ -32,25 +32,29 @@ public class PayDAO {
 		try {
 			conn = dataFactory.getConnection();
 			int amount = payvo.getAmout();
+			String merchant_uid = payvo.getMerchant_uid();
 			String pay_method = payvo.getPay_method();
 			String m_id = payvo.getM_id();
-			int currentMile = vo.getCurrentMile();
-			System.out.println("마일리지:" + currentMile);
+			int currentMile = vo.getM_current_mileage();		
 			int updateMile = currentMile + amount;
-			String m_phone = payvo.getM_phone();
 			
-			String query = "INSERT INTO payment(amount, pay_method, m_id, updateMile, m_phone)" + " VALUES(?, ? ,?, ?, ?)";
+			System.out.println("마일리지:" + currentMile + "amout:" + amount + "결제수단" + pay_method + "업데이트" + updateMile);
+			
+			
+			String query = "INSERT INTO payment(merchant_uid, amount, pay_method, m_id, updateMile)" + " VALUES(?, ?, ? ,?, ?)";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, amount);
-			pstmt.setString(2, pay_method);
-			pstmt.setString(3, m_id);
-			pstmt.setInt(4, updateMile);
-			pstmt.setString(5, m_phone);
+			pstmt.setString(1, merchant_uid);
+			pstmt.setInt(2, amount);
+			pstmt.setString(3, pay_method);
+			pstmt.setString(4, m_id);
+			pstmt.setInt(5, updateMile);
+			
+			
 			
 			pstmt.executeUpdate();
 			
-			String usql = "UPDATE  `member` SET currentMile= '"+updateMile+"' WHERE m_id = '"+m_id+"'";
+			String usql = "UPDATE  `member` SET m_current_mileage= '"+updateMile+"' WHERE m_id = '"+m_id+"'";
 			System.out.println(usql);
 			stmnt = conn.prepareStatement(usql);									
 			stmnt.executeUpdate();	
@@ -77,15 +81,15 @@ public List<PayVO> payInfo(PayVO payvo) {
 				String m_name = rs.getString("m_name");
 				String m_phone = rs.getString("m_phone");
 				String m_email = rs.getString("m_email");
-				int currentMile = rs.getInt("currentMile");
-				//System.out.print("currentmile ="+ currentMile);
+				int currentMile = rs.getInt("m_current_mileage");
+				//System.out.print("currentMile ="+ currentMile);
 				vo.setM_name(m_name);
 				vo.setM_phone(m_phone);
 				vo.setM_email(m_email);
-				vo.setCurrentMile(currentMile);
+				vo.setM_current_mile(currentMile);
 				list.add(vo);
 				
-				System.out.println("vo저장된 마일리지 : " + vo.getCurrentMile());
+				System.out.println("vo저장된 마일리지 : " + vo.getM_current_mileage());
 			}
 		}catch (SQLException e) {
 				e.printStackTrace();

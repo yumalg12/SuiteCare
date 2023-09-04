@@ -45,6 +45,7 @@
 					<form id="kakaopay" name="kakaopay" action="${context}/Payment/addpay.do" method="get">
 						<input id="amountRsp" type="hidden" name="amountRsp" value="">
 						<input id="pay_method" type="hidden" name="pay_method" value="">
+						<input id="merchant_uid" type="hidden" name="merchant_uid" value="">
 						<c:forEach var="pay" items="${list }">
 							<input type="hidden" id="phone" value="${pay.m_phone }">
 						</c:forEach>
@@ -67,12 +68,13 @@ $('#charge_kakao').click(function() {
 
 	IMP.request_pay({
 		pg : "kakaopay",
-		pay_method : "kakao",
+		pay_method : "kakao",	
+		merchant_uid : "sc" + Math.random() * 100,
 		name : "SC 스위트케어",
 		amount : m,
 		currency : "KRW",
 		language : "",
-		buyer_tel : document.getElementById("phone").value,
+		
 	},
 
 	function(rsp) {
@@ -88,6 +90,8 @@ $('#charge_kakao').click(function() {
 
 			document.getElementById("amountRsp").value = rsp.paid_amount;
 			document.getElementById("pay_method").value = rsp.pay_method;
+			document.getElementById("merchant_uid").value = rsp.merchant_uid;
+		
 
 			document.getElementById("kakaopay").submit();
 
@@ -95,7 +99,7 @@ $('#charge_kakao').click(function() {
 			var msg = '결제에 실패하였습니다.';
 		}
 		alert(msg);
-		//document.location.href="";
+		
 	});
 });
 </script>
