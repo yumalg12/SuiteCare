@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 <%
@@ -34,20 +35,20 @@ if(checkb==0) {
 	dao.insertbook(vo);
 	%>
 	<script>
-		alert("매칭신청이 완료되었습니다..")
-		window.close();
-		opener.location.href='<%=request.getContextPath()%>/caregiver/main';
+		alert("매칭신청이 완료되었습니다..");
+		window.location.href='<%=request.getContextPath()%>/caregiver/main';
 	</script>
 	<%
 	session.removeAttribute("applycode");
+	
 	} else if (checkb==1) {
 	System.out.println("g_id 정보있음");
 	
 	%>
 	<script>
 		alert("매칭승인 대기중입니다.")
-		window.close();
-		opener.location.href='<%=request.getContextPath()%>/caregiver/main';
+		
+		window.location.href='<%=request.getContextPath()%>/caregiver/main';
 	</script>
 	<%
 	session.removeAttribute("applycode");

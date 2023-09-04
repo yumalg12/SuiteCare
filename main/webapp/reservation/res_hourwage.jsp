@@ -23,7 +23,7 @@
 					</header>
 
 					<div class="form_wrapper">
-						<form action="../reservation/apply" method="post" name="hourwageForm">
+						<form action="../book/apply" method="post" name="hourwageForm" id="hourwageForm">
 						<input type="hidden" name="type" value="apply"/>
 							<div class="form_row">
 								<label for="hourwage">희망시급</label>
@@ -44,4 +44,10 @@
 	</section>
 
 </body>
+	 <script>
+        document.getElementById("hourwageForm").addEventListener("submit", function () {
+        });
+    </script>
+    
+    
 </html>

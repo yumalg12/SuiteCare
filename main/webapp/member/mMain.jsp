@@ -157,6 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  <li class="nav-item" role="presentation">
 			    <button class="nav-link" id="resApplyInfo-tab" data-bs-toggle="tab" data-bs-target="#resApplyInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약 신청 정보</button>
 			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="resNullInfo-tab" data-bs-toggle="tab" data-bs-target="#resNullInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">미작성 예약 정보</button>
+			  </li>
 			</ul>
 			
 			<div class="tab-content" id="myTabContent">
@@ -165,6 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  </div>
 			  <div class="tab-pane fade" id="resApplyInfo-tab-pane" role="tabpanel" aria-labelledby="resApplyInfo-tab" tabindex="0">
 			<%@include file="./main/resApplyInfo.jsp"%>
+			  </div>
+			  <div class="tab-pane fade" id="#resNullInfo-tab-pane" role="tabpanel" aria-labelledby="#resNullInfo-tab" tabindex="0">
+			<%@include file="./main/resNullInfo.jsp"%>
 			  </div>
 			</div>
 			
@@ -237,17 +243,17 @@ document.addEventListener('DOMContentLoaded', function() {
 							<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 							
 							<td><% if(location==null) { %>
-							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+							<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
 							else if(location!=null){if(location.equals("home")) {%>자택<%} 
 							else { %><%=location%><%}} %></td>
 							
 							<td><% if(addr==null) { %>
-							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+							<a href="../reservation/location.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
 							else if(addr!=null){%><%=addr%> 
 							<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
 							
 							<td><% if(start_date==null ) { %>
-							<a href="../reservation/res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
+							<a href="../reservation/date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
 							else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
 							
 							<td><%
@@ -256,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								String pre_age_1 = prevo.getPre_age_1();
 								
 								if(pre_age_1 == null) { %>
-								<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+								<a href="../reservation/match?res_code=<%=res_code%>">작성하기</a> <%}	
 								else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
 								<%}} %></td>
 								
@@ -315,11 +321,15 @@ document.addEventListener('DOMContentLoaded', function() {
           editable: true,
           nowIndicator:true, // 현재 시간 마크
         events : [
-            <%for (CalendarVO cvo : clist) {%>
+            <%for (CalendarVO cvo : clist) {
+            	Date enddate = cvo.getEnd_date();
+            	enddate.setDate(enddate.getDate() + 1);
+            %>
+            
                {
                    title:'<%=cvo.getT_name()%>',
                    start:'<%=cvo.getStart_date()%>',
-                   end:'<%=cvo.getEnd_date()%>',
+                   end:'<%=enddate%>',
                    t_name:'<%=cvo.getT_name()%>',
                    start_time:'<%=cvo.getStart_time()%>',
                    end_time:'<%=cvo.getEnd_time()%>',

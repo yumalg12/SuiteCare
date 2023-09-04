@@ -356,11 +356,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				editable : true,
 				nowIndicator: true, // 현재 시간 마크
 				events : [
-					 <%for (CalendarVO gvo : glist) {%>
+					 <%for (CalendarVO gvo : glist) {
+					 Date enddate = gvo.getEnd_date();
+            	enddate.setDate(enddate.getDate() + 1);%>
 		             {
 		                 title: '<%=gvo.getT_name()%>',
 		                 start: '<%=gvo.getStart_date()%>',
-		                 end: '<%=gvo.getEnd_date()%>',
+		                 end: '<%=enddate%>',
 		                 t_name: '<%=gvo.getT_name()%>',
 		                 start_time: '<%=gvo.getStart_time()%>',
 		                 end_time: '<%=gvo.getEnd_time()%>',
@@ -444,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 		function cancle(res_code) {
-			window.open("${context}/book/deleteapply.jsp?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+			location.href="${context}/book/deleteapply.jsp?res_code=" + res_code;
 		}
 		
 		function review(res_code) {

@@ -37,6 +37,8 @@ public class PayController extends HttpServlet {
 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
+		
+		String context = ((HttpServletRequest)request).getContextPath();
 
 		PrintWriter out = response.getWriter();
 		System.out.println("PayContoller 호출됨");
@@ -49,21 +51,23 @@ public class PayController extends HttpServlet {
 		String m_id = (String) request.getSession().getAttribute("m_id");
 		System.out.println(m_id);
 
-		// List<PayVO> addpay = new ArrayList<PayVO>();
+	
 
 		if (path.equals("/addpay.do")) {
 
 			int amount = Integer.parseInt(request.getParameter("amountRsp"));
 			String pay_method = request.getParameter("pay_method");
+			String merchant_uid = request.getParameter("mercahnt_uid");
 			int m_current_mileage = payvo.getM_current_mileage();
 			System.out.println("컨트롤러 전송 마일리지:" + m_current_mileage);
 			String m_phone = payvo.getM_phone();
-			// addpay = PayService.insorder();
+			
 
 			out.write(amount + "," + pay_method);
 
-			PayVO payvo = new PayVO(amount, pay_method, m_id);
+			PayVO payvo = new PayVO(amount, pay_method, m_id, merchant_uid);
 			payDAO.addPay(payvo);
+			response.sendRedirect("/suiteCare/pay/mileage_payment.jsp");
 
 		} else if (path.equals("/kakao.do")) {
 
@@ -95,6 +99,14 @@ public class PayController extends HttpServlet {
 			}
 
 		}
+		  
+		/*else if (path.equals("/startpayment")) {
+			
+			int netMile = Integer.parseInt(request.getParameter("netMile"));
+			PayVO netvo = new PayVO(m_id, netMile);
+			PayDAO.startpayment(netvo);
+			
+		}*/ //-> 결제 시 마일리지 차감 기능 추가 중
 
 	}
 }
