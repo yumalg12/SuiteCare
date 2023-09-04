@@ -63,8 +63,8 @@ public class BookApplyController extends HttpServlet {
 				
 				out.println("<script>");
 				out.println("alert('매칭신청이 완료되었습니다.');");
-    	        out.println(" opener.location.reload();';");
-    	        out.println("window.close();");
+    	        out.println("opener.location.reload();");
+    	       out.println("self.close();");
     	        out.println("</script>");
     	        
 				session.removeAttribute("applycode");
@@ -74,8 +74,8 @@ public class BookApplyController extends HttpServlet {
 					
 					out.println("<script>");
 					out.println("alert('매칭승인 대기중입니다.');");
-	    	        out.println("location.href='"+context+"/caregiver/main';");
-	    	        out.println("window.close();");
+	    	       out.println("location.href='"+context+"/caregiver/main';");
+	    	       out.println("window.close();");
 	    	        out.println("</script>");
 
 				session.removeAttribute("applycode");
