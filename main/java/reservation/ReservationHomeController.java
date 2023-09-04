@@ -64,9 +64,9 @@ ReservationDAO rdao;
 			String namujiAddress = request.getParameter("namujiAddress");
 			
 			if(roadAddress==null) {
-				addr = "(우)" + zipcode + " " + jibunAddress + " " + namujiAddress;
+				addr = jibunAddress + " " + namujiAddress;
 			} else {
-				addr = "(우)" + zipcode + " " + roadAddress + " " + namujiAddress;
+				addr = roadAddress + " " + namujiAddress;
 			}
 			
 			//System.out.println("addr : " + addr);
