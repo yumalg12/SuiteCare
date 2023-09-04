@@ -7,6 +7,8 @@ import java.util.*;
 
 import javax.sql.DataSource;
 
+import caretaker.TakerVO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -394,21 +396,6 @@ public class CaregiverDAO {
 				String birth = rs.getString("g_birth");
 				String phone = rs.getString("g_phone");
 				String email = rs.getString("g_email");
-				String address = rs.getString("g_address");
-				String sms_yn = rs.getString("g_sms_yn");
-				String email_yn = rs.getString("g_email_yn");
-				String profile = rs.getString("g_profile");
-				String service1 = rs.getString("g_service1");
-				String service2 = rs.getString("g_service2");
-				String service3 = rs.getString("g_service3");
-				String qualification = rs.getString("g_qualification");
-				String location1 = rs.getString("g_location1");
-				String location2 = rs.getString("g_location2");
-				String location3 = rs.getString("g_location3");
-				String hourwage1 = rs.getString("g_hourwage1");
-				String hourwage2 = rs.getString("g_hourwage2");
-				String hourwage3 = rs.getString("g_hourwage3");
-				Date signup_date = rs.getDate("g_signup_date");
 				
 				CaregiverVO vo = new CaregiverVO();
 				vo.setG_id(id);
@@ -418,21 +405,7 @@ public class CaregiverDAO {
 				vo.setG_birth(birth);
 				vo.setG_phone(phone);
 				vo.setG_email(email);
-				vo.setG_address(address);
-				vo.setG_sms_yn(sms_yn);
-				vo.setG_email_yn(email_yn);
-				vo.setG_profile(profile);
-				vo.setG_service1(service1);
-				vo.setG_service2(service2);
-				vo.setG_service3(service3);
-				vo.setG_qualification(qualification);
-				vo.setG_location1(location1);
-				vo.setG_location2(location2);
-				vo.setG_location3(location3);
-				vo.setG_hourwage1(hourwage1);
-				vo.setG_hourwage2(hourwage2);
-				vo.setG_hourwage3(hourwage3);
-				vo.setG_signup_date(signup_date);
+
 				list.add(vo);
 			}
 			rs.close();
@@ -444,4 +417,61 @@ public class CaregiverDAO {
 		return list;
 	}
 	
+	public List<CaregiverVO> giverList(String id) {
+	      List<CaregiverVO> list= new ArrayList<CaregiverVO>();
+	      
+	      try {
+	         con = dataFactory.getConnection();
+	         
+	         String sql = "SELECT * FROM caregiver where g_id=?";
+	         System.out.println(sql);
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	        	 String address = rs.getString("g_address");
+				 String sms_yn = rs.getString("g_sms_yn");
+				 String email_yn = rs.getString("g_email_yn");
+				 String profile = rs.getString("g_profile");
+				 String service1 = rs.getString("g_service1");
+				 String service2 = rs.getString("g_service2");
+				 String service3 = rs.getString("g_service3");
+				 String qualification = rs.getString("g_qualification");
+				 String location1 = rs.getString("g_location1");
+				 String location2 = rs.getString("g_location2");
+				 String location3 = rs.getString("g_location3");
+				 String hourwage1 = rs.getString("g_hourwage1");
+				 String hourwage2 = rs.getString("g_hourwage2");
+				 String hourwage3 = rs.getString("g_hourwage3");
+				 Date signup_date = rs.getDate("g_signup_date");
+					
+				 CaregiverVO vo = new CaregiverVO();
+				 vo.setG_address(address);
+				 vo.setG_sms_yn(sms_yn);
+				 vo.setG_email_yn(email_yn);
+				 vo.setG_profile(profile);
+				 vo.setG_service1(service1);
+				 vo.setG_service2(service2);
+				 vo.setG_service3(service3);
+				 vo.setG_qualification(qualification);
+				 vo.setG_location1(location1);
+				 vo.setG_location2(location2);
+				 vo.setG_location3(location3);
+				 vo.setG_hourwage1(hourwage1);
+				 vo.setG_hourwage2(hourwage2);
+				 vo.setG_hourwage3(hourwage3);
+				 vo.setG_signup_date(signup_date);
+	            
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         con.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
 }
