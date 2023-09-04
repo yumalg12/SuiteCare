@@ -157,6 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  <li class="nav-item" role="presentation">
 			    <button class="nav-link" id="resApplyInfo-tab" data-bs-toggle="tab" data-bs-target="#resApplyInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약 신청 정보</button>
 			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="resNullInfo-tab" data-bs-toggle="tab" data-bs-target="#resNullInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">미작성 예약 정보</button>
+			  </li>
 			</ul>
 			
 			<div class="tab-content" id="myTabContent">
@@ -165,6 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  </div>
 			  <div class="tab-pane fade" id="resApplyInfo-tab-pane" role="tabpanel" aria-labelledby="resApplyInfo-tab" tabindex="0">
 			<%@include file="./main/resApplyInfo.jsp"%>
+			  </div>
+			  <div class="tab-pane fade" id="#resNullInfo-tab-pane" role="tabpanel" aria-labelledby="#resNullInfo-tab" tabindex="0">
+			<%@include file="./main/resNullInfo.jsp"%>
 			  </div>
 			</div>
 			

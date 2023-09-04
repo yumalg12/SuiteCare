@@ -24,9 +24,7 @@
 				</thead>
 				<%
 
-			m_id = (String)session.getAttribute("m_id");
-			PatientresDAO dao3 = new PatientresDAO();
-			List<PatientresVO> reslist3 = dao3.listres(m_id);
+			
 			for (int i = 0; i < reslist3.size(); i++) {
 				PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -42,19 +40,6 @@
 				String addr = listvo.getAddr();
 				String detail_addr = listvo.getDetail_addr();
 				
-				
-				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-				
-			      String fStartTime = (start_time != null) ? timeFormat.format(start_time) : "";
-		            String fEndTime = (end_time != null) ? timeFormat.format(end_time) : "";
-		            
-				String workTimes = fStartTime + "~" + fEndTime;
-				
-				java.sql.Date sqlStartDate = new java.sql.Date(start_date.getTime());
-			    
-				java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-	           
-				
 			%>
 
 			<tr>
@@ -62,27 +47,30 @@
 				<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 				
 				<td>
-				<%if(location.equals("home")) {%>자택<%} 
-				else { %><%=location%><%} %></td>
+				<%if(location==null) { %>
+					<a href="../reservation/location?res_code=<%=res_code%>">미작성</a>
+					<% } %></td>
+
 				
-				<td><%=addr%> <%if(detail_addr!=null) {%><br><%=detail_addr%><%} %></td> 
+				<td><% if(addr==null) { %>
+				<a href="../reservation/location?res_code=<%=res_code%>">미작성</a>
+					<% } %></td> 
 				
 				<td>
-				일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%>
+				<% if(start_date==null) { %>
+				<a href="../reservation/date?res_code=<%=res_code%>">미작성</a>
+					<% } %>
 				
 				<td><%
 				List<TpreferenceVO> preList = dao2.listtpre(res_code);
 				for(TpreferenceVO prevo : preList) {
 					String pre_age_1 = prevo.getPre_age_1();
 					
-					if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
-					<%} %></td>
+					if(pre_age_1==null){%><a href="../reservation/match?res_code=<%=res_code%>">미작성</a>
+					<% } %></td>
 					
 				<td>
-				<%if (sqlStartDate.before(currentDate)) { %>
-				승인기간만료 <% } else { %>
-					<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
-					<% } %>
+				미작성
 				</td>
 				
 				<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
