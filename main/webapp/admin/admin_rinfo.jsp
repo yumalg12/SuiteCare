@@ -6,26 +6,15 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
+
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>SC 스위트케어 | 예약정보</title>
 <%@ include file="/header-import.jsp"%>
-
 </head>
+
 <body>
-	<%@ include file="/header.jsp"%>
-
-
-	<!-- One -->
-	<section id="One" class="wrapper style3">
-		<div class="inner">
-			<header class="align-center">
-				<p>Eleifend vitae urna</p>
-				<h2>SC SuitCare</h2>
-			</header>
-		</div>
-	</section>
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
@@ -34,7 +23,7 @@
 				<div class="content">
 					<header class="align-center">
 						<p>예약 상세 정보</p>
-						<h2>Information</h2>
+						<h2></h2>
 					</header>
 					<%
 					request.setCharacterEncoding("utf-8");
@@ -194,8 +183,6 @@
 		</div>
 		
 	</section>
-
-	<%@ include file="../footer.jsp"%>
 
 </body>
 
