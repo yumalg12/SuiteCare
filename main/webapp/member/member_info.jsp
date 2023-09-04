@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
-<%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import = "member.*" %>
 <%@ page import = "java.util.*" %>
 
@@ -96,7 +93,7 @@
 	   }
 	
 	   function change_pw() {
-		      window.open("<%=context%>/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
+		      window.open("${context}/member/changePw.jsp", "name(about:blank)", "width=500, height=500");
 		   }
 	   
 	   

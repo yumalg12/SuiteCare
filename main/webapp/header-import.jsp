@@ -9,10 +9,10 @@
 <%@ page import="java.util.List" %>
 
 <%
-String context = request.getContextPath();
-//System.out.println("context: "+context);
 request.setCharacterEncoding("utf-8");
 %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
+
 <!--          meta 선언          -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width" , initial-scale="1">
@@ -24,9 +24,9 @@ request.setCharacterEncoding("utf-8");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 
 <!--          link 선언          -->
-<link rel="stylesheet" href="<%=context %>/assets/css/main.css" />
-<link rel="stylesheet" href="<%=context %>/assets/css/sc.css" />
-<link rel="stylesheet" href="<%=context %>/assets/css/bootstrap.tab.css" />
+<link rel="stylesheet" href="${context}/assets/css/main.css" />
+<link rel="stylesheet" href="${context}/assets/css/sc.css" />
+<link rel="stylesheet" href="${context}/assets/css/bootstrap.tab.css" />
 
 <!--          로그인 체크          -->
 <% String m_id = (String)session.getAttribute("m_id");
@@ -42,6 +42,6 @@ System.out.println(uri+"가 index / Signup / Login / ad 포함? "+ !(!uri.contai
 if(!uri.contains(pageArray[0]) && !uri.contains(pageArray[1]) && !uri.contains(pageArray[2]) && !uri.contains(pageArray[3]) ) {
 	if(m_id == null && g_id == null){
 		System.out.println("로그인 세션 없음");
-		out.print("<script>alert('로그인이 필요합니다.'); location.href='"+context+"/index.jsp';</script>");
+		out.print("<script>alert('로그인이 필요합니다.'); location.href='"+request.getContextPath()+"/index.jsp';</script>");
 	}
 }%>

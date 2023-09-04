@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 피간병인 상세정보</title>
 
-<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 <body>

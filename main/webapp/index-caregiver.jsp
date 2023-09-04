@@ -69,7 +69,7 @@
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/gmain-matchinfo.png">
+							<img src="${context}/assets/images/gmain-matchinfo.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -88,7 +88,7 @@
 							<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/gmain-myapplylist.png">
+							<img src="${context}/assets/images/gmain-myapplylist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -108,7 +108,7 @@
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/gmain-allapplylist.png">
+							<img src="${context}/assets/images/gmain-allapplylist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">
@@ -128,7 +128,7 @@
 						<% } %>
 						style="cursor: pointer;">
 						<div class="conB_content">
-							<img src="<%=context%>/assets/images/gmain-finishlist.png">
+							<img src="${context}/assets/images/gmain-finishlist.png">
 						</div>
 						<div class="content">
 							<header class="align-center">

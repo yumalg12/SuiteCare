@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-<script src="<%=context%>/assets/js/progress.js"></script>
+<script src="${context}/assets/js/progress.js"></script>
 
 <style>
 .res_date {
@@ -61,7 +61,7 @@ width: auto !important;
 <script>
 function resdstop() {
 	alert("예약이 중지되었습니다.");
-	window.location.href = "<%=context%>/member/main";
+	window.location.href = "${context}/member/main";
 }
 </script>
 </head>

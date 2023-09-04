@@ -13,7 +13,7 @@
 <title>SC 스위트케어 | 간병인 정보</title>
 	<%@ include file="/header-import.jsp"%>
 
-<link rel="stylesheet" href="<%=context%>/assets/css/popup.css" />
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
 </head>
 

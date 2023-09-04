@@ -12,7 +12,7 @@
 <%@ include file="/header-import.jsp"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
-<script src="<%=context%>/assets/js/disableSelectedValue.js"></script>
+<script src="${context}/assets/js/disableSelectedValue.js"></script>
 </head>
 
 <body>
@@ -395,7 +395,7 @@
    }
    
    function change_pw() {
-      window.open("<%=context%>/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
+      window.open("${context}/careGiver/Change_pw.jsp", "name(about:blank)", "width=500, height=500");
    }
    
    function showImgSelector() {
@@ -409,9 +409,9 @@
 	        g_profile.style.display = "none";
 	        default_img_png.style.display = "";
 	        if($("#gender").val == "M") {
-		        default_img_png.src = "<%=context%>/assets/profile/man.png";
+		        default_img_png.src = "${context}/assets/profile/man.png";
 	        } else if($("#gender").val =="W") {
-		        default_img_png.src = "<%=context%>/assets/profile/woman.png";
+		        default_img_png.src = "${context}/assets/profile/woman.png";
 	        }
 	    }
 	}
@@ -421,9 +421,9 @@
 	    let defaultImg = document.getElementById("defult_img_png");
 		if($("#default_img").is(':checked')) {
 		    if (gender === "M") {
-		        defaultImg.src = "<%=context%>/assets/profile/man.png";
+		        defaultImg.src = "${context}/assets/profile/man.png";
 		    } else if (gender === "W") {
-		        defaultImg.src = "<%=context%>/assets/profile/woman.png";
+		        defaultImg.src = "${context}/assets/profile/woman.png";
 		    }
 		}
 	}

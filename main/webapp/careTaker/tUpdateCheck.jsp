@@ -41,7 +41,7 @@ if(result == 1) {
 	%>
 	<script>
 		alert("회원정보 수정이 완료되었습니다.");
-		window.location.href='<%=context%>/member/mMain.jsp';
+		window.location.href='${context}/member/mMain.jsp';
 	</script>
 	<% 	
 } else {

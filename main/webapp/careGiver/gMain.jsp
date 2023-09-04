@@ -22,7 +22,7 @@
 <%@ include file="/header-import.jsp"%>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-	<link rel="stylesheet" href="<%=context %>/assets/css/fullcalendar.css">
+	<link rel="stylesheet" href="${context}/assets/css/fullcalendar.css">
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 									<%-- <c:set var="current" value="${page }"/> --%>
 									<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
 										<li class="page-item">
-											<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="listresPage(${listresPage});">${listresPage}</a>
+											<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="listresPage(${listresPage}, "matchinfo");">${listresPage}</a>
 										</li>
 									</c:forEach>
 								</ul>
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
 								<li class="page-item">
-									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="applyPage(${applyPage});">${applyPage}</a>
+									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="applyPage(${applyPage}, "allapplylist");">${applyPage}</a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<%-- <c:set var="current" value="${page }"/> --%>
 							<c:forEach var="myApplyPage" begin="1" end="${myApplyPages }" step="1">
 								<li class="page-item">
-									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="myApplyPage(${myApplyPage});">${myApplyPage}</a>
+									<a class='page-link rounded-0 mr-3 border-top-0 border-left-0' onclick="myApplyPage(${myApplyPage}, "myapplylist");">${myApplyPage}</a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -367,18 +367,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		function listresPage(page) {
-			var path = "<%=context %>/caregiver?listresPage=" + page;
+
+		function page(page, position) {
+			var path = "${context}/caregiver/main?page=" + page + "#" + position;
+
+		function listresPage(page, position) {
+			var path = "<%=context %>/caregiver?listresPage=" + page + "#" + position;
 			location.href=path;
 		}
 		
-		function applyPage(page) {
-			var path = "<%=context %>/caregiver?applyPage=" + page;
+		function applyPage(page, position) {
+			var path = "<%=context %>/caregiver?applyPage=" + page + "#" + position;
 			location.href=path;
 		}
 		
 		function myApplyPage(page) {
-			var path = "<%=context %>/caregiver?myApplyPage=" + page;
+			var path = "<%=context %>/caregiver?myApplyPage=" + page + "#" + position;
+
 			location.href=path;
 		}
 		
@@ -388,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 
 		function openMatchInfo(res_code){
-			window.open("<%=context%>/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 		function matchInfo(res_code) {
