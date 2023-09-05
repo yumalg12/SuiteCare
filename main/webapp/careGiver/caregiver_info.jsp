@@ -42,7 +42,7 @@
 				<br><br>
 				
 			   <!-- form 시작 -->
-				<form name="infoForm" id="infoForm" method=post action=caregiverInfo enctype="multipart/form-data">
+				<form name="infoForm" id="infoForm" method=post action=../caregiverInfo enctype="multipart/form-data">
 					<c:forEach var="info" items="${info }">
 						
 						<div class="form_wrapper">
@@ -244,10 +244,10 @@
 										<c:set var="hw1" value="${info.g_hourwage1}"/>
 										<select name="g_hourwage1"  id="hw">
 											<option value="">==선택==</option>
-											<option value="0" <c:if test="${hw1 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }원 미만</option>
+											<option value="0" <c:if test="${hw1 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="15000" step="1000">
+												<c:set var="display" value="${start }원 "/>
+												<option value="${start }" <c:if test="${hw1 eq start}">selected</c:if>>${display }</option>
 											</c:forEach>
 											<option value="2" <c:if test="${hw1 eq 2}">selected</c:if>>그 이상</option>
 										</select>
@@ -256,10 +256,10 @@
 										<c:set var="hw2" value="${info.g_hourwage2}"/>
 										<select name="g_hourwage2"  id="hw">
 											<option value="">==선택==</option>
-											<option value="0" <c:if test="${hw2 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }원 미만</option>
+											<option value="0" <c:if test="${hw2 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="15000" step="1000">
+												<c:set var="display" value="${start }원 "/>
+												<option value="${start }" <c:if test="${hw2 eq start}">selected</c:if>>${display }</option>
 											</c:forEach>
 											<option value="2" <c:if test="${hw2 eq 2}">selected</c:if>>그 이상</option>
 										</select>
@@ -268,10 +268,10 @@
 										<c:set var="hw3" value="${info.g_hourwage3}"/>
 										<select name="g_hourwage3"  id="hw">
 											<option value="">==선택==</option>
-											<option value="0" <c:if test="${hw3 eq 1}">selected</c:if>>지정하지 않음</option>
-											<c:forEach var="start" begin="10000" end="35000" step="5000">
-												<c:set var="display" value="${start }원 ~ ${start+5000 }"/>
-												<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }원 미만</option>
+											<option value="0" <c:if test="${hw3 eq 0}">selected</c:if>>지정하지 않음</option>
+											<c:forEach var="start" begin="10000" end="15000" step="1000">
+												<c:set var="display" value="${start }원 "/>
+												<option value="${start }" <c:if test="${hw3 eq start}">selected</c:if>>${display }</option>
 											</c:forEach>
 											<option value="2" <c:if test="${hw3 eq 2}">selected</c:if>>그 이상</option>
 										</select>
@@ -279,6 +279,10 @@
 								</div>
 							</div> 
 							
+							<div class="form_row">
+								<label for="g_mileage">마일리지</label>
+								<input type="text" value="${info.g_current_mileage }" readonly>
+							</div>   
 							<div class="form_row">
 								<label for="signup_date">가입날짜</label>
 								<input type="text" value="${info.g_signup_date }" readonly>

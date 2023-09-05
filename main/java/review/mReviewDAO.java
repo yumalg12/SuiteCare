@@ -12,8 +12,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import patient.PatientresVO;
-
 
 public class mReviewDAO {
 
@@ -24,15 +22,15 @@ public class mReviewDAO {
 
 	public mReviewDAO() {
 
-	try {
-		Context ctx = new InitialContext();
-		Context envContext = (Context) ctx.lookup("java:/comp/env");
-
-		dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
+	
+			dataFactory = (DataSource) envContext.lookup("jdbc/mysqlpool");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-}
 
 	public boolean addReview(mReviewVO vo) {
 		
@@ -79,5 +77,61 @@ public class mReviewDAO {
 		}
 		return false;
 	}
-
+	
+	public List<mReviewVO> review(String res_code, String g_id) {
+		List<mReviewVO> list= new ArrayList<mReviewVO>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT re_kind, re_time, re_pro, re_speed, re_com, re_price, comment FROM review WHERE res_code = ? AND g_id =?";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, g_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int re_kind = rs.getInt("re_kind");
+				int re_time = rs.getInt("re_time");
+				int re_pro = rs.getInt("re_pro");
+				int re_speed = rs.getInt("re_speed");
+				int re_com = rs.getInt("re_com");
+				int re_price = rs.getInt("re_price");
+				String comment = rs.getString("comment");
+				System.err.println(re_kind +"/"+re_time +"/"+re_pro +"/"+re_speed +"/"+re_com +"/"+re_price +"/"+comment);
+				mReviewVO vo = new mReviewVO(re_kind, re_time, re_pro, re_speed, re_com, re_price, comment);
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<String> reviewCode(String g_id) {
+		List<String> reviewCode = new ArrayList<String>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT res_code FROM review WHERE g_id =?";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String res_code = rs.getString("res_code");
+				reviewCode.add(res_code);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return reviewCode;
+	}
 }
