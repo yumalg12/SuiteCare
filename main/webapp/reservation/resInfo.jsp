@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="caretaker.*"%>
 <%@ page import="reservation.*"%>
+<%@ page import="book.*"%>
 <%@ page import="patient.*"%>
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
@@ -195,7 +196,12 @@
 					
 							<div class="form_button">
 								<input class="button alt" type="button" value=뒤로가기 onclick="history.back()"> 
+								<% BookDAO bdao = new BookDAO();
+									String bst = bdao.bst(res_code, g_id);
+										if(bst==null) {
+										%>
 								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
+								<% } %>
 							</div>
 						</div>
 

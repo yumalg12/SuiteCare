@@ -12,6 +12,7 @@
 </head>
 <body>
 <%
+g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String b_id = request.getParameter("b_id");
 
@@ -25,7 +26,8 @@ if (result == 1) {
 	%>
 	<script>
 	    alert("매칭이 승인되었습니다.");
-	    window.location.href='${context}/member/main';
+	    window.opener.location.href = '${context}/member/main';
+	    window.close();
 	</script>
 	<%
 	            }} else {
@@ -33,6 +35,7 @@ if (result == 1) {
 	 <script>
 	 	alert("오류발생");
 	 	window.location.href="./tapplyList.jsp?res_code=<%=res_code%>";
+	 	window.close();
 	 </script>
 	            	<% 
 	            }
