@@ -115,7 +115,7 @@ public class CaregiverInfoController extends HttpServlet {
 		
 		CaregiverDAO dao = new CaregiverDAO();
 		dao.update(user_id, vo);
-		out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver';</script>");
+		out. println("<script>alert('회원 정보가 변경되었습니다.'); location.href='caregiver/info';</script>");
 	
 	}
 

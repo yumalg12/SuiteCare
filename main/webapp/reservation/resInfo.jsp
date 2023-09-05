@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="caretaker.*"%>
 <%@ page import="reservation.*"%>
+<%@ page import="book.*"%>
 <%@ page import="patient.*"%>
 <%@ page import="book.*"%>
 <%@ page import="java.sql.Time"%>
@@ -184,14 +185,12 @@
 					
 							<div class="form_button">
 								<input class="button alt" type="button" value=닫기 onclick="javascript:close_w_reload();"> 
-								<%  // 내가 지원한 신청 리스트에 res_code가 존재하는지 확인 (gMain 컨트롤러에서와 같은 코드)
-									BookDAO book = new BookDAO();
-									List<String> code = book.code(g_id);
-									
-									if (code.contains(res_code)){
-										out.print("<input class='button special' type='button' value=간병지원하기 onclick='insert_hourwage()'>");
-										}%>
-
+								<% BookDAO bdao = new BookDAO();
+									String bst = bdao.bst(res_code, g_id);
+										if(bst==null) {
+										%>
+								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
+								<% } %>
 							</div>
 						</div>
 
