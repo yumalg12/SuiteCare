@@ -1,21 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/header-import.jsp"%>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SC 스위트케어 | 리뷰</title>
+<%@ include file="/header-import.jsp"%>
+
+<link rel="stylesheet" href="${context}/assets/css/popup.css" />
+
+<style>
+span{
+margin-top: 0.3rem;
+}
+</style>
 </head>
 <body>
-	<c:forEach var="review" items="${review }">
-		<span>친절도 >>> ${review.re_kind }</span>
-		<span>시간 >>> ${review.re_time }</span>
-		<span>전문도 >>> ${review.re_pro }</span>
-		<span>일처리 >>> ${review.re_speed }</span>
-		<span>의사소통 >>> ${review.re_com }</span>
-		<span>비용 >>> ${review.re_price }</span>
-		<span>평가 >>> ${review.comment }</span>
-	</c:forEach>
+	<section id="finishlist" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>간병 서비스</p>
+						<h2>후기</h2>
+					</header>
+					<div class="form_wrapper">
+						<c:forEach var="review" items="${review }">
+							<div class="form_row">
+								<label>친절도</label><span value="${review.re_kind }"></span>
+							</div>
+							<div class="form_row">
+								<label>시간</label><span value="${review.re_time }"></span>
+							</div>
+							<div class="form_row">
+								<label>전문도</label><span value="${review.re_pro }"></span>
+							</div>
+							<div class="form_row">
+								<label>일처리</label><span value="${review.re_speed }"></span>
+							</div>
+							<div class="form_row">
+								<label>의사소통</label><span value="${review.re_com }"></span>
+							</div>
+							<div class="form_row">
+								<label>비용</label><span value="${review.re_price }"></span>
+							</div>
+							<div class="form_row">
+								<label>총 평가</label><span>${review.comment }</span>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<script>
+	document.querySelectorAll("span").forEach(e=>e.innerHTML = "⭐".repeat(e.attributes.value.value));
+	</script>
 </body>
 </html>

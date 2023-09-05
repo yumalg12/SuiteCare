@@ -2815,11 +2815,6 @@ top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
 	position: absolute;
 	top: 0;
 }
-#header>.logo img {
-	float: left;
-	height : 42px;
-	}
-
 #header>.logo a {
 	float:right;
 	font-family: 'CATHOLICMEDICALCENTER';
@@ -2827,16 +2822,25 @@ top: -4em;	opacity: 0;}100%{top:0;opacity:1;}}
     color: #FFF;
     text-decoration: none;
     letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+}
+
+#header>.logo img {
+    float: left;
+    height: 2.3rem;
+    padding: 0.5rem;
+	}
+
+#header>.logo span {
+    font-weight: 400;
+    font-size: .8em;
+    position: relative;
+    top: 0.2rem;
 }
 
 #header>.logo :hover {
 	filter: opacity(0.65);
-}
-
-#header>.logo span {
-	font-weight: 400;
-	font-size: .8em;
-	color: rgba(255, 255, 255, 0.65);
 }
 
 #header>a {
