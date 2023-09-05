@@ -3,6 +3,7 @@
 <%@ page import="caretaker.*"%>
 <%@ page import="reservation.*"%>
 <%@ page import="patient.*"%>
+<%@ page import="book.*"%>
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
@@ -14,18 +15,6 @@
 
 </head>
 <body>
-	<%@ include file="/header.jsp"%>
-
-
-	<!-- One -->
-	<section id="One" class="wrapper style3">
-		<div class="inner">
-			<header class="align-center">
-				<p>Premium Caregiver Matching Platform</p>
-				<h2>SC SuitCare</h2>
-			</header>
-		</div>
-	</section>
 
 	<!-- Two -->
 	<section id="two" class="wrapper style2">
@@ -194,8 +183,15 @@
 							</div>
 					
 							<div class="form_button">
-								<input class="button alt" type="button" value=뒤로가기 onclick="history.back()"> 
-								<input class="button special" type="button" value=간병지원하기 onclick="insert_hourwage()">
+								<input class="button alt" type="button" value=닫기 onclick="javascript:close_w_reload();"> 
+								<%  // 내가 지원한 신청 리스트에 res_code가 존재하는지 확인 (gMain 컨트롤러에서와 같은 코드)
+									BookDAO book = new BookDAO();
+									List<String> code = book.code(g_id);
+									
+									if (code.contains(res_code)){
+										out.print("<input class='button special' type='button' value=간병지원하기 onclick='insert_hourwage()'>");
+										}%>
+
 							</div>
 						</div>
 
@@ -210,8 +206,6 @@
 		
 	</section>
 
-	<%@ include file="../footer.jsp"%>
-
 </body>
 
 </html>
@@ -219,5 +213,11 @@
 <script>
 	function insert_hourwage() {
 		window.open("${context}/reservation/apply", "name(about:blank)", "width=500, height=425");
+	}
+	
+	function close_w_reload(){
+		//opener.parent.location.reload();
+		opener.parent.location="/suiteCare/caregiver/main?applyPage=1#allapplylist";
+		window.close();
 	}
 </script>
