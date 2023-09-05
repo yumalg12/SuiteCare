@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const page = urlParams.get('page');
-	//페이지마다 따로 받아서.....음......
 	
 	Array.from(document.getElementById("page-allapplylist").getElementsByTagName("li")).forEach(e => {
 		if (e.outerText === page) {
@@ -301,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 													<td>
 														<c:set var="reviewCode" value="${reviewCode }"/>
 														<c:if test="${fn:contains(reviewCode, finalList.res_code) }">
-															<span onclick="review('${finalList.res_code }');" style="text-decoration:underline;cursor:pointer;">후기보기</span>
+															<span onclick="review('${finalList.res_code }');" class="button">후기 보기</span>
 														</c:if>
 													</td>
 												</tr>
@@ -329,6 +328,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 <script>
+function getRandomBrown() {
+    var r = Math.floor(Math.random() * 161 + 80);
+    var g = Math.floor(Math.random() * 150);
+    var b = Math.floor(Math.random() * 100);
+
+    return "rgb(" + r + "," + g + "," + b + ")";
+}
+
 		function rescalendar() {
 			//토글버튼 변경하고 목록 테이블 없애기
 			document.getElementById('calToggle').setAttribute("onClick", "restable()");
@@ -367,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		                 start_time: '<%=gvo.getStart_time()%>',
 		                 end_time: '<%=gvo.getEnd_time()%>',
 		                 res_code: '<%=gvo.getRes_code()%>',
-		                 color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
+		                 color: getRandomBrown()
 		                
 		             },
 		         <%}%>
@@ -450,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 		function review(res_code) {
-			window.open("${context}/caregiver/review?res_code=" + res_code, "name(about:blank)", "width=800, height=950");
+			window.open("${context}/caregiver/review?res_code=" + res_code, "name(about:blank)", "width=800, height=800");
 		}
 		
 	</script>

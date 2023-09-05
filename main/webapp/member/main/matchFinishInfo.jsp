@@ -142,16 +142,16 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 			
 			if (res_code!=null) {
 			%>
-			    <button>후기작성완료</button>
+			    작성 완료
 			<%
 			} else if (b_status.equals("서비스이용 완료")) {
 			%>  
-			    <button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기작성</button>
+			    <button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기 작성</button>
 			<%
 			} else {
 			%>
 			    <p onclick="serviceComplete('<%=res_code%>', '<%=caregiver%>');"
-			       style="text-decoration: underline;">이용 확정하기</p> 
+			       style="text-decoration: underline;">이용 확정</p> 
 			<%
 			}}
 			%>
