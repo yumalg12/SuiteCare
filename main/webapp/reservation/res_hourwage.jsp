@@ -28,7 +28,7 @@
 							<div class="form_row">
 								<label for="hourwage">희망시급</label>
 								<div style="display: flex; align-items: center; gap: 5px;">
-								<input type="text" id="hourwage" name="hourwage" required autofocus>원
+								<input type="number" id="hourwage" name="hourwage" min=9620 required autofocus>원 
 								</div>
 							</div>
 							<div class="form_button">

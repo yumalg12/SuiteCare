@@ -61,23 +61,21 @@ public class BookApplyController extends HttpServlet {
 
 				bdao.insertbook(vo);
 				
+				session.removeAttribute("applycode");
 				out.println("<script>");
 				out.println("alert('매칭신청이 완료되었습니다.');");
-    	        out.println("opener.location.reload();");
-    	       out.println("self.close();");
-    	        out.println("</script>");
-    	        
-				session.removeAttribute("applycode");
+				out.println("opener.parent.location.href = \"/suiteCare/caregiver/main?applyPage=1#allapplylist\";");
+				out.println("window.close();");
+				out.println("</script>");
 				
 				} else if (checkb==1) {
 					System.out.println("g_id 정보있음");
 					
 					out.println("<script>");
 					out.println("alert('매칭승인 대기중입니다.');");
-	    	       out.println("location.href='"+context+"/caregiver/main';");
-	    	       out.println("window.close();");
+					out.println("opener.parent.location.href = \"/suiteCare/caregiver/main?applyPage=1#allapplylist\";");
+	    	        out.println("window.close();");
 	    	        out.println("</script>");
-
 				session.removeAttribute("applycode");
 				} 
 
