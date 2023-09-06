@@ -8,6 +8,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import caretaker.TakerVO;
+import member.MemberVO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -475,5 +476,53 @@ public class CaregiverDAO {
 	      }
 	      return list;
 	   }
+	
+	public int adUpdate(CaregiverVO vo) {
+	      int result = 0;
+	      try {
+	         con = dataFactory.getConnection();
+	         
+	         String sql = "UPDATE caregiver SET g_phone=?, g_email=?, g_address=?, g_sms_yn=?, g_email_yn=? where g_id=?";
+	         pstmt = con.prepareStatement(sql);
+
+	         pstmt.setString(1, vo.getG_phone());
+	         pstmt.setString(2, vo.getG_email());
+	         pstmt.setString(3, vo.getG_address());
+	         pstmt.setString(4, vo.getG_sms_yn());
+	         pstmt.setString(5, vo.getG_email_yn());
+	         pstmt.setString(6, vo.getG_id());
+	         System.out.printf("UPDATE caregiver "
+	        		 + "SET g_phone='%s', g_email='%s', g_address='%s', g_sms_yn='%s', g_email_yn='%s' "
+	        		 + "where g_id='%s'\n", vo.getG_phone(), vo.getG_email(),vo.getG_address(),vo.getG_sms_yn(),vo.getG_email_yn(),vo.getG_id());
+	         
+	         result=pstmt.executeUpdate();
+	         
+	         System.out.println(result);
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try { if(pstmt!=null) pstmt.close();
+	         } catch(Exception e) {
+	            e.printStackTrace();
+	         }
+	      } return result;
+	   }
+	
+	public int del(String id) {
+		try {
+	         con = dataFactory.getConnection();
+	         
+	         String sql = "DELETE FROM caregiver WHERE g_id='" + id + "'";
+	         pstmt = con.prepareStatement(sql);
+	         int delete = pstmt.executeUpdate();
+	         System.out.println("정보 삭제 완료");
+	         
+	         pstmt.close();
+	         return delete;
+	     } catch(Exception e) {
+	         e.printStackTrace();
+	     }
+		return -1;
+	}
 
 }
