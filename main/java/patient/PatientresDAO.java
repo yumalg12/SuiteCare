@@ -50,7 +50,7 @@ public class PatientresDAO {
 			pstmt.setString(1, m_id);
 
 			rs = pstmt.executeQuery();
-			System.out.println("rslist는 : " + rs);
+			//System.out.println("rslist는 : " + rs);
 			while (rs.next()) {
 				String caretaker = rs.getString("t_name");
 				Date start_date = rs.getDate("start_date");
