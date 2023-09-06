@@ -50,6 +50,7 @@ public class PatientresDAO {
 			pstmt.setString(1, m_id);
 
 			rs = pstmt.executeQuery();
+			System.out.println("rslist는 : " + rs);
 			while (rs.next()) {
 				String caretaker = rs.getString("t_name");
 				Date start_date = rs.getDate("start_date");
@@ -69,7 +70,6 @@ public class PatientresDAO {
 					vo.setEnddate(end_date);
 					vo.setStarttime(start_time);
 					vo.setEndtime(end_time);
-					vo.setCaregiver(caregiver);
 					vo.setLocation(location);
 					vo.setAddr(addr);
 					vo.setDetail_addr(detail_addr);
@@ -112,16 +112,16 @@ public class PatientresDAO {
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c "
-					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code "
-					+ "and res.res_code=resinfo.res_code and caregiver_id is null "
-					+ "and resinfo.start_date is null and resinfo.end_date is null "
-					+ "and resinfo.start_time is null and resinfo.end_time is null or res.location is null "
-					+ "or res.addr is null";
+			String sql = "SELECT DISTINCT res.res_code, c.t_name, resinfo.start_date, resinfo.end_date, resinfo.start_time, resinfo.end_time, res.location, res.addr, res.detail_addr, res.caretaker_code " +
+		            "FROM reservation AS res " +
+		            "JOIN reservation_info AS resinfo ON res.res_code = resinfo.res_code " +
+		            "JOIN caretaker AS c ON res.caretaker_code = c.t_code " +
+		            "WHERE res.m_id = ? AND (res.location IS NULL OR res.addr IS NULL OR resinfo.start_date IS NULL)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
-
+			
 			rs = pstmt.executeQuery();
+			System.out.println("rs는 : " + rs);
 			while (rs.next()) {
 				String caretaker = rs.getString("t_name");
 				Date start_date = rs.getDate("start_date");
@@ -132,7 +132,6 @@ public class PatientresDAO {
 				String location = rs.getString("location");
 				String addr = rs.getString("addr");
 				String detail_addr = rs.getString("detail_addr");
-				String caregiver = rs.getString("caregiver_id");
 				String t_code = rs.getString("caretaker_code");
 
 					PatientresVO vo = new PatientresVO();
@@ -141,30 +140,12 @@ public class PatientresDAO {
 					vo.setEnddate(end_date);
 					vo.setStarttime(start_time);
 					vo.setEndtime(end_time);
-					vo.setCaregiver(caregiver);
 					vo.setLocation(location);
 					vo.setAddr(addr);
 					vo.setDetail_addr(detail_addr);
 					vo.setRes_code(res_code);
 					vo.setCaretaker_code(t_code);
 					
-					if (caregiver != null) {
-					String cgsql = "SELECT * FROM caregiver where g_id = ?";
-					stmnt = conn.prepareStatement(cgsql);
-					stmnt.setString(1, caregiver);
-						
-					ResultSet rs2 = stmnt.executeQuery();
-					
-					if(rs2.next()) {
-					String gname = rs2.getString("g_name");
-					String g_id = rs2.getString("g_id");
-
-					vo.setCaregiver(g_id);
-					vo.setG_name(gname);
-					
-					} } else {
-					vo.setCaregiver(caregiver); 
-					}
 					list.add(vo);
 				}
 
@@ -178,6 +159,7 @@ public class PatientresDAO {
 		return list;
 	}
 	
+
 	public List<PatientresVO> comlistres(String m_id) {
 		List<PatientresVO> comlist = new ArrayList<PatientresVO>();
 

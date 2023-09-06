@@ -57,7 +57,33 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 	});
 
+
 </script>
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+
+.pagination li.active a {
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body>
@@ -169,9 +195,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  <div class="tab-pane fade" id="resApplyInfo-tab-pane" role="tabpanel" aria-labelledby="resApplyInfo-tab" tabindex="0">
 			<%@include file="./main/resApplyInfo.jsp"%>
 			  </div>
-			  <div class="tab-pane fade" id="#resNullInfo-tab-pane" role="tabpanel" aria-labelledby="#resNullInfo-tab" tabindex="0">
-			<%@include file="./main/resNullInfo.jsp"%>
-			  </div>
+			  <div class="tab-pane fade" id="resNullInfo-tab-pane" role="tabpanel" aria-labelledby="resNullInfo-tab" tabindex="0">
+    		<%@include file="./main/resNullInfo.jsp"%>
+  			</div>
 			</div>
 			
 			<hr>
