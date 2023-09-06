@@ -42,7 +42,7 @@
 							<thead>
 								<tr>
 									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td> <td>생년월일</td>
-									<td>핸드폰번호</td> <td>이메일</td> <td>상세정보</td>
+									<td>핸드폰번호</td> <td>이메일</td> <td>상세정보</td> <td></td>
 								</tr>
 							</thead>
 							<%
@@ -72,6 +72,8 @@
 								<td><%=g_phone%></td>
 								<td><%=g_email%></td>
 								<td><a onclick="javascript:openAdGinfo('<%=g_id %>')">더보기</a></td>
+								<td><a href="../admin/ad_gUpdate.jsp?g_id=<%=g_id%>">수정</a><br><br>
+								<a onclick="javascript:memberDelete('<%=g_id%>')">삭제</a></td>
 							</tr>
 							<%
 							}
@@ -86,6 +88,15 @@
 	<script>
 	function openAdGinfo(g_id){
 		window.open("${context}/admin/admin_ginfo.jsp?g_id=" + g_id, "name(about:blank)", "width=800, height=600");
+	}
+	function memberDelete(g_id){
+		if(!confirm('회원을 삭제하시겠습니까?')){
+			return false;
+		}
+		else{
+			window.location.href="./ad_gDelete.jsp?g_id=" + g_id;
+			return true;
+		}
 	}
 	</script>
 
