@@ -34,11 +34,7 @@ List<PreferenceVO> part = result.getSecond();
    <section id="One" class="wrapper style3">
       <div class="inner">
          <header class="align-center">
-<<<<<<< HEAD
-            <p>Eleifend vitae urna</p>
-=======
             <p>Premium Caregiver Matching Platform</p>
->>>>>>> cb9a8b25990ab8b0641d5ba88a79723654e3f559
             <h2>Suite Care</h2>
          </header>
       </div>
