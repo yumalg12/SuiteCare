@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								미작성
 								<%}	else if (sqlStartDate.before(currentDate)) { %>
 								매칭기간만료 <% } else if(pre_age_1!=null){%>
-								<a href="./quickMatchingservice.jsp?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
+								<a href="../recommend?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
 							<%}} %></td>
 							
 							<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
