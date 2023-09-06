@@ -25,10 +25,11 @@
 						<p>예약 상세 정보</p>
 						<h2></h2>
 					</header>
+					
+					<form name="rinfo">
 					<%
 					request.setCharacterEncoding("utf-8");
 					String res_code = request.getParameter("res_code");
-					session.setAttribute("applycode", res_code);
 					String caretaker_code = request.getParameter("caretaker_code");
 
 					PatientresDAO dao = new PatientresDAO();
@@ -69,10 +70,6 @@
 						String address = addr.substring(0, idx);
 					%>
 
-
-					<!-- form 시작 -->
-					<form name="Registform" method="post"
-						onSubmit="return validateForm();" action="../book/applybook.jsp">
 						<div class="form_wrapper">
 						<div>
 							<h3>간병 정보</h3>

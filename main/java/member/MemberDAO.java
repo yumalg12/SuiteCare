@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import caretaker.TakerVO;
+
 public class MemberDAO {
 	private PreparedStatement pstmt;
 	private Connection conn;
@@ -335,6 +337,61 @@ public class MemberDAO {
 		}
 		return list;
 	}
+	
+	public int del(String id) {
+		try {
+	         conn = dataFactory.getConnection();
+	         
+	         String sql = "DELETE FROM caretaker WHERE m_id='" + id + "'";
+	         pstmt = conn.prepareStatement(sql);
+	         int delete = pstmt.executeUpdate();
+
+	         if(delete == 0) {
+	        	 sql = "DELETE FROM member WHERE m_id='" + id + "'";
+		         pstmt = conn.prepareStatement(sql);
+		         pstmt.executeUpdate();
+		         System.out.println("정보 삭제 완료");
+	         }
+	         
+	         pstmt.close();
+	         return 0;
+	     } catch(Exception e) {
+	         e.printStackTrace();
+	     }
+		return -1;
+	}
+
+	
+	public int updatee(MemberVO vo) {
+	      int result = 0;
+	      try {
+	         conn = dataFactory.getConnection();
+	         
+	         String sql = "UPDATE member SET m_phone=?, m_email=?, m_address=?, m_sms_yn=?, m_email_yn=? where m_id=?";
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setString(1, vo.getM_phone());
+	         pstmt.setString(2, vo.getM_email());
+	         pstmt.setString(3, vo.getM_address());
+	         pstmt.setString(4, vo.getM_sms_yn());
+	         pstmt.setString(5, vo.getM_email_yn());
+	         pstmt.setString(6, vo.getM_id());
+	         System.out.printf("UPDATE member "
+	        		 + "SET m_phone='%s', m_email='%s', m_address='%s', m_sms_yn='%s', m_email_yn='%s' "
+	        		 + "where m_id='%s'\n", vo.getM_phone(), vo.getM_email(),vo.getM_address(),vo.getM_sms_yn(),vo.getM_email_yn(),vo.getM_id());
+	         
+	         result=pstmt.executeUpdate();
+	         
+	         System.out.println(result);
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try { if(pstmt!=null) pstmt.close();
+	         } catch(Exception e) {
+	            e.printStackTrace();
+	         }
+	      } return result;
+	   }
 }
 
 

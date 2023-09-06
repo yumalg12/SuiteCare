@@ -42,7 +42,7 @@
 								<tr>
 									<td>No.</td> <td>아이디</td> <td>이름</td> <td>성별</td>
 									<td>핸드폰번호</td> <td>이메일</td> <td>주소</td> <td>sms 수신동의</td> 
-									<td>email 수신동의</td> <td>가입일</td> <td>등록한 피간병인</td>
+									<td>email 수신동의</td> <td>가입일</td> <td>등록한 피간병인</td> <td></td>
 								</tr>
 							</thead>
 							<%
@@ -78,6 +78,8 @@
 								<td><%=m_email_yn%></td>
 								<td><%=m_signup_date%></td>
 								<td><a onclick="javascript:openAdTinfo('<%=m_id%>')">더보기</a></td>
+								<td><a href="../admin/ad_mUpdate.jsp?m_id=<%=m_id%>">수정</a><br><br>
+								<a onclick="javascript:memberDelete('<%=m_id%>')">삭제</a></td>
 							</tr>
 							<%
 							}
@@ -92,6 +94,15 @@
 <script>
 function openAdTinfo(m_id){
 	window.open("${context}/admin/admin_tinfo.jsp?m_id="+m_id, "name(about:blank)", "width=800, height=600");
+}
+function memberDelete(m_id){
+	if(!confirm('회원을 삭제하시겠습니까?')){
+		return false;
+	}
+	else{
+		window.location.href="./ad_mDelete.jsp?m_id=" + m_id;
+		return true;
+	}
 }
 </script>
 
