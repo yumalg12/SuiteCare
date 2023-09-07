@@ -297,12 +297,12 @@ public class MemberDAO {
 		return -1;
 	}
 	
-	public List<MemberVO> listMembers() {
+	public List<MemberVO> listMembers(int start) {
 		List<MemberVO> list= new ArrayList<MemberVO>();
 		try {
 			conn = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM member";
+			String sql = "SELECT * FROM member LIMIT "+start+",15";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -338,6 +338,27 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int memCnt() {
+		int cnt = 0;
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT count(*) as cnt FROM member";
+			pstmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public int del(String id) {
