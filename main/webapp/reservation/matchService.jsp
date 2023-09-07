@@ -114,7 +114,7 @@
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -144,7 +144,7 @@
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>maecenas sapien feugiat ex purus</p>
+						<p>간병 서비스 예약</p>
 						<h2>빠른 매칭 서비스 : 간병인 선호도 조사</h2>
 					</header>
 
