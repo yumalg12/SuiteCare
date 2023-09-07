@@ -93,6 +93,7 @@ public class RecommendController extends HttpServlet {
                         		
                         		request.setAttribute("ginfoList", ginfoList);
                         		
+                        		
                         	}
                         } else {
                         	rcdao.insertrecommendation(re_id, recommendations_1, recommendations_2, recommendations_3);

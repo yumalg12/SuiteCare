@@ -1,4 +1,5 @@
 <%@ page import="calendar.*"%>
+<%@ page import="match.*"%>
 <%@ page import = "patient.*" %>
 <%@ page import = "book.*" %>
 <%@ page import = "caretaker.*" %>
@@ -204,6 +205,75 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			
 	<!-- four -->
+	<section id="quickmatchList" class="wrapper style2">
+		<div class="inner">
+			<div class="box">
+				<div class="content">
+					<header class="align-center">
+						<p>나에게 들어온</p>
+						<h2>빠른 매칭 신청 리스트</h2>
+					</header>
+					<div class="table_wrapper">
+						<table>
+							<thead>
+								<tr><td>예약코드</td><td>성별</td><td>나이</td><td>지역</td><td>근무기간</td>
+								<td>근무시간</td><td>급여</td><td>상세정보</td><td>매칭신청현황</td></tr>
+							</thead>
+							<c:choose>
+								<c:when test="${empty matchList }">
+									<tr>
+                                   		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
+                                  		</tr>
+								</c:when>
+								<c:when test="${!empty matchList }">
+									<c:forEach var="matchList" items="${matchList }">
+										<c:set var="maddress" value="${fn:split(matchList.addr,' ')}" />
+										<tr>
+											<td>${matchList.res_code }</td>
+											<td>${matchList.t_gender }</td>
+											<td>${matchList.t_age }</td>
+											<td>${maddress[0]}</td>
+											<td>${matchList.start_date} ~ ${matchList.end_date}</td>
+               								 <td>
+                   							 <fmt:parseDate var="mstart_time" value="${matchList.start_time}" pattern="HH:mm" />
+                 							   <fmt:formatDate value="${mstart_time}" pattern="HH:mm" />
+                    						~
+                   							 <fmt:parseDate var="mend_time" value="${matchList.end_time}" pattern="HH:mm" />
+                  							  <fmt:formatDate value="${mend_time}" pattern="HH:mm" />
+                							</td>
+                							<td>${matchList.totalSalary}원<br>(시간당 ${matchList.hourwage }원)</td>
+											<td><span onclick="matchtInfo('${matchList.res_code }','${matchList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
+                      						 
+                      						 <td>
+                      						 <c:set var="checkrcode" value="${matchList.res_code}" />
+												<% 
+												MatchDAO mdao = new MatchDAO();
+												String checkcode = (String)pageContext.getAttribute("checkrcode");
+												String mst = mdao.mst(checkcode, g_id);
+												
+												%>
+                      						 <%=mst %></td>
+                   						 </tr>
+									</c:forEach>
+								</c:when>
+							</c:choose>
+						</table>
+					</div>
+					<div>
+						<ul class="pagination pagination-lg" id="page-allapplylist">
+							<c:forEach var="quickPage" begin="1" end="${quickPages }" step="1">
+								<li class="page-item" onclick="quickPage(${quickPages}, 'quickmatchList')";>
+									${quickPage}
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+			
+	<!-- five -->
 	<section id="myapplylist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
@@ -262,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			
 			
-	<!-- five -->
+	<!-- six -->
 	<section id="finishlist" class="wrapper style2">
 		<div class="inner">
 			<div class="box">
@@ -437,6 +507,10 @@ function getRandomBrown() {
 		
 		function takerInfo(res_code, taker_code) {
 			window.open("${context}/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
+		}
+		
+		function matchtInfo(res_code, taker_code) {
+			window.open("${context}/match?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
 
