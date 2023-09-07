@@ -3,7 +3,7 @@ package review;
 public class mReviewVO {
 	private int review_num;
 	private String m_id;
-	private String res_code;
+	public String res_code;
 	private String g_id;
 	private int re_kind;
 	private int re_time;

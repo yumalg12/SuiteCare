@@ -66,7 +66,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>피간병인 등록하기</h2>
 							</header>
 						</div>
@@ -86,7 +86,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>예약 신청하기</h2>
 							</header>
 						</div>
@@ -106,7 +106,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>예약 목록</h2>
 							</header>
 						</div>
@@ -125,7 +125,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>빠른 매칭 서비스</h2>
 							</header>
 						</div>
