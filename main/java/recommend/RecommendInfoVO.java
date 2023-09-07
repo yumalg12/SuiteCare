@@ -20,6 +20,7 @@ public class RecommendInfoVO {
 	private String g_hourwage1;
 	private String g_hourwage2;
 	private String g_hourwage3;
+	private String profilePath;
 	private int g_age;
 	
 	
@@ -297,6 +298,22 @@ public class RecommendInfoVO {
 	}
 
 
+	/**
+	 * @return the profilePath
+	 */
+	public String getProfilePath() {
+		return profilePath;
+	}
+
+
+	/**
+	 * @param profilePath the profilePath to set
+	 */
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
+	}
+
+	
 	
 	
 	

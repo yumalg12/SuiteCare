@@ -39,7 +39,7 @@
 				<td>피간병인<br>상세정보</td>
 				<td>간병장소</td>
 				<td>주소</td>
-				<td>간병일시/시간</td>
+				<td>간병일시</td>
 				<td>매칭서비스<br>정보
 				</td>
 				<td>간병인</td>
@@ -78,26 +78,16 @@ for (int i = 0; i < reslist.size(); i++) {
 
 <td>
 	<%
-		if (location == null) {
-		%> <a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-<%
-		} else if (location != null) {
 		if (location.equals("home")) {
 		%>자택<%
 		} else {
 		%><%=location%> <%
-			}
-			}
+			}	
 			%>
 </td>
 
 <td>
-	<%
-		if (addr == null) {
-		%> <a
-href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-<%
-		} else if (addr != null) {
+	<%if (addr != null) {
 		%><%=addr%> <%
 		 if (detail_addr != null) {
 		 %><br><%=detail_addr%> <%
@@ -107,10 +97,8 @@ href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
 </td>
 
 <td>
-	<%if (start_date == null) {%>
-	<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a>
-	<%} else if (start_date != null) {
-		%>일시 : <%=start_date%> ~ <br> <%=end_date%><br>시간 : <%=workTimes%>
+	<% if (start_date != null) {
+		%><%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)
 <%}%>
 </td>
 

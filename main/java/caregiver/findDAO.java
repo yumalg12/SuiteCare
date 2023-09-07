@@ -39,7 +39,7 @@ public class findDAO {
 			String sql = "SELECT m_id FROM member WHERE m_name=? and m_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
-			pstmt.setString(2, phone);
+			pstmt.setString(2, phone.replace("-", ""));
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -75,59 +75,7 @@ public class findDAO {
 		return find_id;
 	}
 	
-	public int pIdcheck(String name, String phone) {
-		System.out.println("아이디 정보 확인");
-		int ok = 0;
-		try {
-		connect();
-		
-		String sql = "SELECT * FROM member WHERE m_phone=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, phone);
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		
-		if(rs.next()) {
-			if(rs.getString("m_name").equals(name)) {
-				System.out.println("이름, 휴대전화정보 일치");
-				ok=1;
-			} else {
-				System.out.println("이름정보 불일치");
-				ok=2;
-			}
-		} else {
-			System.out.println("휴대전화정보 불일치");
-			ok=3;
-		} 
-		
-		if (rs != null) { //rs 객체 종료
-            try {
-                rs.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (pstmt != null) { //pstmt 객체 종료
-            try {
-                pstmt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (conn != null) { // conn 객체 종료
-            try {
-                conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-		
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return ok;
-	}
+	//pIdcheck는 핸드폰 번호가 중복될 경우 오류가 생기기 때문에 제거
 	
 	public String pFindPw(String name, String id, String phone) {
 		String find_pw = null;
@@ -139,7 +87,7 @@ public class findDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, id);
-			pstmt.setString(3, phone);
+			pstmt.setString(3, phone.replace("-", ""));
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -182,8 +130,9 @@ public class findDAO {
 		connect();
 		String sql = "SELECT m_id FROM member WHERE m_phone=? and m_name=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, phone);
+		pstmt.setString(1, phone.replace("-", ""));
 		pstmt.setString(2, name);
+		//System.out.println("SELECT m_id FROM member WHERE m_phone='"+phone.replace("-", "")+"' and m_name='"+name+"'");
 		
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -197,7 +146,7 @@ public class findDAO {
 				ok_pwd=2;
 			}
 		} else {
-			System.out.println("정보불일치");
+			System.out.println("정보 불일치");
 			ok_pwd=3;
 		} 
 		
@@ -240,7 +189,8 @@ public class findDAO {
 			String sql = "SELECT g_id FROM caregiver WHERE g_name=? and g_phone=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
-			pstmt.setString(2, phone);
+			pstmt.setString(2, phone.replace("-", ""));
+			System.out.println("SELECT g_id FROM caregiver WHERE g_name='"+name+"' and g_phone='"+phone.replace("-", "")+"'");
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -283,7 +233,7 @@ public class findDAO {
 		connect();
 		String sql = "SELECT g_name FROM caregiver WHERE g_phone=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, phone);
+		pstmt.setString(1, phone.replace("-", ""));
 		
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -339,7 +289,7 @@ public class findDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, id);
-			pstmt.setString(3, phone);
+			pstmt.setString(3, phone.replace("-", ""));
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -382,7 +332,7 @@ public class findDAO {
 		connect();
 		String sql = "SELECT g_id FROM caregiver WHERE g_phone=? and g_name=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, phone);
+		pstmt.setString(1, phone.replace("-", ""));
 		pstmt.setString(2, name);
 		
 		ResultSet rs = pstmt.executeQuery();

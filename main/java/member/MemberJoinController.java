@@ -61,7 +61,7 @@ public class MemberJoinController extends HttpServlet {
 		String m_current_mileage_str = request.getParameter("m_current_mileage");
 		int m_current_mileage = Integer.parseInt(m_current_mileage_str);
 		
-		MemberVO vo = new MemberVO(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn, m_current_mileage);
+		MemberVO vo = new MemberVO(m_id, m_pw, m_name, m_gender, m_phone, m_email, m_address, m_sms_yn, m_email_yn, 0);
 		
 		String context = ((HttpServletRequest)request).getContextPath();
 		response.setContentType("text/html; charset=UTF-8");

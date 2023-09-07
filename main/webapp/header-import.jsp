@@ -9,6 +9,7 @@
 <%@ page import="java.util.List" %>
 
 <%
+String context = request.getContextPath();
 request.setCharacterEncoding("utf-8");
 %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
@@ -36,12 +37,20 @@ String adcode = (String)session.getAttribute("adcode");
 String[] uriArr = request.getServletPath().split("/");
 String uri = uriArr[uriArr.length-1];
 
-String[] pageArray = {"index", "Signup", "Login", "ad"};
+String[] pageArray = {"index", "Signup", "Login", "Find", "ad"};
+boolean logincheck = true;
+for (String exWord: pageArray){
+	if (uri.contains(exWord)){
+		System.out.println(uri+"에 "+exWord+" 이(가) 포함되어 로그인 체크 예외처리함");
+		logincheck = false;
+		break;
+	}	
+}
 
-System.out.println(uri+"가 index / Signup / Login / ad 포함? "+ !(!uri.contains(pageArray[0]) && !uri.contains(pageArray[1]) && !uri.contains(pageArray[2]) && !uri.contains(pageArray[3])));
-if(!uri.contains(pageArray[0]) && !uri.contains(pageArray[1]) && !uri.contains(pageArray[2]) && !uri.contains(pageArray[3]) ) {
+if (logincheck){
 	if(m_id == null && g_id == null){
 		System.out.println("로그인 세션 없음");
 		out.print("<script>alert('로그인이 필요합니다.'); location.href='"+request.getContextPath()+"/index.jsp';</script>");
 	}
-}%>
+}
+%>

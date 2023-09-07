@@ -282,7 +282,7 @@
 							</div>
 							<div class="form_row">
 								<label for="phone"> 휴대폰 </label>
-								<input type="tel" id="phone" name="g_phone" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (000-0000-0000 형식)" required>
+								<input type="tel" id="phone" name="g_phone" pattern="([0-9]{3}-[0-9]{4}-[0-9]{4})|([0][0-9]{10})" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							
 							<div class="form_row">

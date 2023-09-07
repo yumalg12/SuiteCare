@@ -41,7 +41,7 @@ location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
 	
 %>
 <script>
-alert("이름정보가 다릅니다.")
+alert("입력한 정보와 일치하는 가입정보가 없습니다.");
 location.href='<%=request.getContextPath()%>/careGiver/gFindId.jsp';
 </script>
 <%

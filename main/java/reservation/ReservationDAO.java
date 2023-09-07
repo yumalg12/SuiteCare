@@ -649,6 +649,36 @@ public class ReservationDAO {
 		} return delresbook;
 	}
 	
+	public int deltmatch(String res_code) {
+		int match = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM quickmatch WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			match = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return match;
+	}
+	
+	public int delquick(String res_code) {
+		int match = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM recommendations WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			match = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return match;
+	}
+	
 	public List<ReservationVO> allRes() {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
