@@ -156,6 +156,10 @@ public class recommenDAO {
 				String g_hourwage2 = rs.getString("g_hourwage2");
 				String g_hourwage3 = rs.getString("g_hourwage3");
 				
+				String file_repo = "/suiteCare/assets/profile/";
+				
+				String profilePath = file_repo + g_profile;
+				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
      		   Date birthDate = dateFormat.parse(g_birth);
      		    
@@ -200,6 +204,7 @@ public class recommenDAO {
 				vo.setG_hourwage2(g_hourwage2);
 				vo.setG_hourwage3(g_hourwage3);
 				vo.setG_age(age);
+				vo.setProfilePath(profilePath);
 				
 				list.add(vo);
 			}

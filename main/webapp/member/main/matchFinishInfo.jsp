@@ -78,26 +78,16 @@ for (int i = 0; i < reslist.size(); i++) {
 
 <td>
 	<%
-		if (location == null) {
-		%> <a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-<%
-		} else if (location != null) {
 		if (location.equals("home")) {
 		%>자택<%
 		} else {
 		%><%=location%> <%
-			}
-			}
+			}	
 			%>
 </td>
 
 <td>
-	<%
-		if (addr == null) {
-		%> <a
-href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
-<%
-		} else if (addr != null) {
+	<%if (addr != null) {
 		%><%=addr%> <%
 		 if (detail_addr != null) {
 		 %><br><%=detail_addr%> <%
@@ -107,9 +97,7 @@ href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a>
 </td>
 
 <td>
-	<%if (start_date == null) {%>
-	<a href="../reservation/res_date.jsp?res_code=<%=res_code%>">작성하기</a>
-	<%} else if (start_date != null) {
+	<% if (start_date != null) {
 		%><%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)
 <%}%>
 </td>

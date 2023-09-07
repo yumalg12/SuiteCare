@@ -18,7 +18,6 @@
 	<%@ include file="../header.jsp" %>
 <%
 String res_code = request.getParameter("res_code");
-String file_repo = "../assets/profile/";
 MatchDAO mdao = new MatchDAO();
 
 %>
@@ -72,7 +71,7 @@ MatchDAO mdao = new MatchDAO();
 <c:set var="fidx" value="${address.indexOf(' ', idx + 1)}" />
 <c:set var="addr" value="${address.substring(idx + 1, fidx)}" />
 
-<c:set var="profilePath" value="${file_repo}${ginfo.g_profile}" />
+<c:set var="profilePath" value="${ginfo.profilePath}" />
 
  <c:set var="gender" value="${ginfo.g_gender}" />
 
@@ -80,7 +79,9 @@ MatchDAO mdao = new MatchDAO();
 
 	
 	 <tr>
-	<td><img src="${profilePath}" alt="" style="width:150px; height:150px;"/></td>
+	<td><div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem; margin: 3rem auto 2rem auto;">
+		<img src="${profilePath}" style="width: 100%;">
+	</div></td>
 	<td>${ginfo.g_name}</td>
 	<td><c:choose>
             <c:when test="${gender eq 'W'}">여자</c:when>
