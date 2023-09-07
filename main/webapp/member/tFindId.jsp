@@ -40,7 +40,7 @@
 							</div>
 							<div class="form_row">
 							<label for="phone">핸드폰번호</label>
-							<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
+							<input type="tel" id="phone" name="phone" pattern="([0-9]{3}-[0-9]{4}-[0-9]{4})|([0][0-9]{10})" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							<div class="form_button">
 							<button class="button special" type="submit">아이디 찾기</button>

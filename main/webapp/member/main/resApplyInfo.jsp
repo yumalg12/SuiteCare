@@ -27,7 +27,7 @@
 						<td>피간병인<br>상세정보</td>
 						<td>간병장소</td>
 						<td>주소</td>
-						<td>간병일시/시간</td>
+						<td>간병일시</td>
 						<td>매칭서비스<br>정보</td>
 						<td>간병인</td>
 						<td>비고</td>
@@ -77,7 +77,7 @@
 				<td><%=addr%> <%if(detail_addr!=null) {%><br><%=detail_addr%><%} %></td> 
 				
 				<td>
-				일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%>
+				<%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)
 				
 				<td><%
 				List<TpreferenceVO> preList = dao2.listtpre(res_code);

@@ -234,8 +234,8 @@ function recomPage(page) {
 			<%@include file="./main/resApplyInfo.jsp"%>
 			  </div>
 			  <div class="tab-pane fade" id="resNullInfo-tab-pane" role="tabpanel" aria-labelledby="resNullInfo-tab" tabindex="0">
-    		<%@include file="./main/resNullInfo.jsp"%>
-  			</div>
+			<%@include file="./main/resNullInfo.jsp"%>
+			  </div>
 			</div>
 			
 			<hr>
@@ -268,7 +268,7 @@ function recomPage(page) {
 									<td>피간병인<br>상세정보</td>
 									<td>간병장소</td>
 									<td>주소</td>
-									<td>간병일시/시간</td>
+									<td>간병일시</td>
 									<td>매칭서비스<br>정보</td>
 									<td>빠른매칭<br>서비스</td>
 									<td>비고</td>
@@ -319,7 +319,7 @@ function recomPage(page) {
 							
 							<td><% if(start_date==null ) { %>
 							<a href="../reservation/date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
-							else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+							else if(start_date!=null){%><%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)<%} %></td>
 							
 							<td><%
 							List<TpreferenceVO> preList = dao2.listtpre(res_code);
