@@ -57,7 +57,23 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 	});
 
+function takerPage(page) {
+	var path = "${context}/member/main?takerPage=" + page + "#info";
+	location.href = path;
+}
 
+function recomPage(page) {
+	var path = "${context}/member/main?recomPage=" + page + "#match";
+	location.href = path;
+}
+
+	$(document).ready(function() {
+		<%int tPage = request.getParameter("takerPage") != null ? Integer.parseInt(request.getParameter("takerPage")) : 1;%>
+		<%int aPage = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;%>
+		<%int cPage = request.getParameter("comPage") != null ? Integer.parseInt(request.getParameter("comPage")) : 1;%>
+		<%int nPage = request.getParameter("nulllistPage") != null ? Integer.parseInt(request.getParameter("nulllistPage")) : 1;%>
+		<%int recomPage = request.getParameter("recomPage") != null ? Integer.parseInt(request.getParameter("recomPage")) : 1;%>
+	});
 </script>
 <style>
 .pagination {
@@ -88,6 +104,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <body>
 	<%@ include file="/header.jsp"%>
+	
+	<%
+		TakerDAO dao = new TakerDAO();
+		int takerCnt = 0;
+		int takePages = 0;
+		takerCnt = dao.takerCnt(m_id);
+		if(takerCnt%5 == 0) {
+			takePages = takerCnt/5;
+		} else {
+			takePages = takerCnt/5 + 1;
+		}
+	%>
 <!-- One -->
 <section id="One" class="wrapper style3">
 	<div class="inner">
@@ -127,10 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					session.removeAttribute("caretaker_code");
 					session.removeAttribute("res_code");
 					session.removeAttribute("r_code");
-					
-					TakerDAO dao = new TakerDAO();
-
-					List<TakerVO> list = dao.takerList(m_id);
+					List<TakerVO> list = dao.takerList(m_id, (tPage-1)*5);
 					for (int i = 0; i < list.size(); i++) {
 						TakerVO listt = (TakerVO) list.get(i);
 
@@ -157,6 +182,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				</table>
 				</div>
 			</form>
+			<div>
+				<ul class="pagination pagination-lg">
+					<%
+						for(int i = 1; i <= takePages; i++) {
+					%>
+						<li class="page-item" onclick="takerPage(<%= i %>);">
+							<%= i %>
+						</li>
+					<%		
+						}
+					%>
+				</ul>
+			</div>
 			<div style="text-align: center;" class="form_button">
 				<input type="button" class="button special"
 					onclick="insertTinfo();" value="피간병인 정보 등록하기">
@@ -237,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								</tr>
 							</thead>
 							<%
+						reslist3 = dao3.listres(m_id, (recomPage-1)*5);
 						for (int i = 0; i < reslist3.size(); i++) {
 							PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -313,9 +352,22 @@ document.addEventListener('DOMContentLoaded', function() {
 						</table>
 					</form>
 				</div>
+				<div>
+					<ul class="pagination pagination-lg">
+						<%
+							for(int i = 1; i <= applyPages; i++) {
+						%>
+							<li class="page-item" onclick="recomPage(<%= i %>);">
+								<%= i %>
+							</li>
+						<%		
+							}
+						%>
+					</ul>
 				</div>
 			</div>
 		</div>
+	</div>
 </section>
 <%@ include file="/footer.jsp"%>
                      

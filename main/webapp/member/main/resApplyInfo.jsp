@@ -5,7 +5,18 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-
+<%
+	m_id = (String)session.getAttribute("m_id");
+	PatientresDAO dao3 = new PatientresDAO();
+	int applyCnt = 0;
+	int applyPages = 0;
+	applyCnt = dao3.listresCnt(m_id);
+	if(applyCnt%5 == 0) {
+		applyPages = applyCnt/5;
+	} else {
+		applyPages = applyCnt/5 + 1;
+	}
+%>
 	<div id='restable'>
 		<form name="resinfo">
 			<table>
@@ -24,9 +35,7 @@
 				</thead>
 				<%
 
-			m_id = (String)session.getAttribute("m_id");
-			PatientresDAO dao3 = new PatientresDAO();
-			List<PatientresVO> reslist3 = dao3.listres(m_id);
+			List<PatientresVO> reslist3 = dao3.listres(m_id, (aPage-1)*5);
 			for (int i = 0; i < reslist3.size(); i++) {
 				PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -94,4 +103,24 @@
 			%>
 		</table>
 	</form>
+	<div>
+		<ul class="pagination pagination-lg">
+			<%
+				for(int i = 1; i <= applyPages; i++) {
+			%>
+				<li class="page-item" onclick="applyPage(<%= i %>);">
+					<%= i %>
+				</li>
+			<%		
+				}
+			%>
+		</ul>
+	</div>
 </div>
+
+<script>
+	function applyPage(page) {
+		var path = "${context}/member/main?applyPage=" + page + "#resApplyInfo-tab";
+		location.href = path;
+	}
+</script>
