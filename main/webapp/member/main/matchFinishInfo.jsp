@@ -148,20 +148,27 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 		int result = today.compareTo(end_date);
 		if(result > 0){ // 오늘 날짜가 서비스이용 마지막 날짜보다 이후이면 양수
 			
-			if (res_code!=null) {
-			%>
+
+			if (b_status.equals("서비스이용 완료")) {
+			  
+			if (reviewVO.res_code==null){
+				%>
+				<button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기 작성</button>
+			<%
+			}  else {
+				%>
 			    작성 완료
 			<%
-			} else if (b_status.equals("서비스이용 완료")) {
-			%>  
-			    <button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기 작성</button>
-			<%
-			} else {
+				
+			}}	else {
 			%>
 			    <p onclick="serviceComplete('<%=res_code%>', '<%=caregiver%>');"
 			       style="text-decoration: underline;">이용 확정</p> 
 			<%
 			}}
+		
+		
+
 			%>
 	</td>
 </tr>

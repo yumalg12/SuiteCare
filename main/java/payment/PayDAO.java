@@ -116,4 +116,3 @@ public List<PayVO> payInfo(PayVO payvo) {
 	}*/  //--> 결제 시 마일리지 차감 기능 추가 중
 }
 
-}
