@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import book.BookDAO;
+import match.MatchVO;
 import patient.PatientresDAO;
 import patient.PatientresVO;
 import reservation.ReservationDAO;
@@ -124,6 +125,12 @@ public class CaregiverMainController extends HttpServlet {
 			mReviewDAO review = new mReviewDAO();
 			List<String>reviewCode = review.reviewCode(user_id);
 			
+			match.MatchDAO mdao = new match.MatchDAO();
+			
+			List<match.MatchVO> matchList = mdao.tInfo(user_id);
+			
+			
+			request.setAttribute("matchList", matchList);
 			request.setAttribute("listres", listres);
 			request.setAttribute("listresPages", listresPages);
 			request.setAttribute("applyPages", applyPages);

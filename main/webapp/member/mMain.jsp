@@ -9,7 +9,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.concurrent.TimeUnit" %>
 <%@ page import="book.BookDAO"%>
-<%@ page import="Preference.*"%>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -338,8 +338,9 @@ function recomPage(page) {
 								if(pre_age_1 == null) { %>
 								미작성
 								<%}	else if (sqlStartDate.before(currentDate)) { %>
-								매칭기간만료 <% } else if(pre_age_1!=null){%>
+								매칭기간만료 <% } else if(pre_age_1!=null){ %>
 								<a href="../recommend?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
+								
 							<%}} %></td>
 							
 							<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"

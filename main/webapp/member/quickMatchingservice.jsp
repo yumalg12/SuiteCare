@@ -1,3 +1,5 @@
+<%@ page import = "match.*" %>
+<%@ page import = "recommend.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"  isELIgnored="false" %>
 <%@ taglib prefix = "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -15,7 +17,9 @@
 
 	<%@ include file="../header.jsp" %>
 <%
+String res_code = request.getParameter("res_code");
 String file_repo = "../assets/profile/";
+MatchDAO mdao = new MatchDAO();
 
 %>
 <!-- One -->
@@ -94,7 +98,21 @@ String file_repo = "../assets/profile/";
 		2순위 : ${ginfo.g_hourwage2}<br>
 		3순위 : ${ginfo.g_hourwage3}</td>
 	<td>
-	<span onclick="tmatch('${ginfo.re_id }','${ginfo.g_id }');" style="text-decoration: underline;cursor:pointer;">매칭신청</span></td>
+	
+	<c:set var="giverID" value="${ginfo.g_id}" />
+	<% 
+	String checkid = (String)pageContext.getAttribute("giverID");
+	String mst = mdao.mst(res_code, checkid);
+	
+	if(mst==null) {
+		
+	%>
+	<span onclick="tmatch('${ginfo.re_id }','${ginfo.g_id }','${ginfo.g_name }');" style="text-decoration: underline;cursor:pointer;">매칭신청</span>
+	<% }else {
+		%>
+	<%=mst %> <% } %>	
+		</td>
+	
 	</tr>
 	</c:forEach>
  </c:otherwise>
@@ -104,8 +122,8 @@ String file_repo = "../assets/profile/";
 </form>
 </body>
 <script>
-function tmatch(re_id, g_id) {
-	window.open("${context}/book/tmatchapply.jsp?res_code=" + re_id + "&g_id=" + g_id, "name(about:blank)", "width=800, height=950");
+function tmatch(re_id, g_id, g_name) {
+	window.open("${context}/match/apply?res_code=" + re_id + "&g_id=" + g_id + "&g_name=" + g_name, "name(about:blank)", "width=800, height=950");
 }
 </script>
 </html>
