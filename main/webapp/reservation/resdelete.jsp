@@ -26,9 +26,13 @@ if(delresinfo>0) {
 		int match = dao.deltmatch(res_code);
 		
 		if(match>=0) {
+			int delquick = dao.delquick(res_code);
+			
+			if(delquick>=0) {
 		int delres = dao.delres(res_code, caretaker_code);
 		
 		if(delres>0) {
+			
 			%>
 			<script>
 			alert('예약취소가 완료되었습니다.');
@@ -64,6 +68,14 @@ if(delresinfo>0) {
 		window.location.href='<%=request.getContextPath()%>/member/main';
 		</script>
 		<%
+}} else {
+	%>
+	<script>
+	alert('예약취소 오류');
+	window.location.href='<%=request.getContextPath()%>/member/main';
+	</script>
+	<%
+	
 }
 
 %>
