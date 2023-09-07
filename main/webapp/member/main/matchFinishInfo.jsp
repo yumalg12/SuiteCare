@@ -17,10 +17,19 @@
 <div id='calendar'></div>
 <div id='restable'>
 	<%
-m_id = (String)session.getAttribute("m_id");
-calendar.CalendarDAO cdao = new calendar.CalendarDAO();
-List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
-%>
+		m_id = (String)session.getAttribute("m_id");
+		calendar.CalendarDAO cdao = new calendar.CalendarDAO();
+		List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
+		PatientresDAO dao2 = new PatientresDAO();
+		int comCnt = 0;
+		int comPages = 0;
+		comCnt = dao2.comlistresCnt(m_id);
+		if(comCnt%5 == 0) {
+			comPages = comCnt/5;
+		} else {
+			comPages = comCnt/5 + 1;
+		}
+	%>
 <form name="resinfo">
 	<table>
 		<thead>
@@ -39,8 +48,7 @@ List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
 		</thead>
 		<%
 		
-PatientresDAO dao2 = new PatientresDAO();
-List<PatientresVO> reslist = dao2.comlistres(m_id);
+List<PatientresVO> reslist = dao2.comlistres(m_id, (cPage-1)*5);
 for (int i = 0; i < reslist.size(); i++) {
 	PatientresVO listvo = (PatientresVO) reslist.get(i);
 
@@ -163,4 +171,24 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 %>
 		</table>
 	</form>
+	<div>
+		<ul class="pagination pagination-lg">
+			<%
+				for(int i = 1; i <= comPages; i++) {
+			%>
+				<li class="page-item" onclick="comPage(<%= i %>);">
+					<%= i %>
+				</li>
+			<%		
+				}
+			%>
+		</ul>
+	</div>
 </div>
+
+<script>
+	function comPage(page) {
+		var path = "${context}/member/main?comPages=" + page + "#reslist";
+		location.href = path;
+	}
+</script>

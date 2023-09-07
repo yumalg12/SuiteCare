@@ -35,7 +35,7 @@ public class PatientresDAO {
 		}
 	}
 
-	public List<PatientresVO> listres(String m_id) {
+	public List<PatientresVO> listres(String m_id, int start) {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();
 
 		try {
@@ -45,7 +45,8 @@ public class PatientresDAO {
 					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code "
 					+ "and res.res_code=resinfo.res_code and caregiver_id is null "
 					+ "and resinfo.start_date is not null and resinfo.end_date is not null "
-					+ "and resinfo.start_time is not null and resinfo.end_time is not null ";
+					+ "and resinfo.start_time is not null and resinfo.end_time is not null "
+					+ "LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 
@@ -106,7 +107,35 @@ public class PatientresDAO {
 		return list;
 	}
 	
-	public List<PatientresVO> listnull(String m_id) {
+	public int listresCnt(String m_id) {
+		int cnt=0;
+		try {
+			connect();
+			
+			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c "
+					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code "
+					+ "and res.res_code=resinfo.res_code and caregiver_id is null "
+					+ "and resinfo.start_date is not null and resinfo.end_date is not null "
+					+ "and resinfo.start_time is not null and resinfo.end_time is not null ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public List<PatientresVO> listnull(String m_id, int start) {
 		List<PatientresVO> list = new ArrayList<PatientresVO>();
 
 		try {
@@ -116,7 +145,8 @@ public class PatientresDAO {
 		            "FROM reservation AS res " +
 		            "JOIN reservation_info AS resinfo ON res.res_code = resinfo.res_code " +
 		            "JOIN caretaker AS c ON res.caretaker_code = c.t_code " +
-		            "WHERE res.m_id = ? AND (res.location IS NULL OR res.addr IS NULL OR resinfo.start_date IS NULL)";
+		            "WHERE res.m_id = ? AND (res.location IS NULL OR res.addr IS NULL OR resinfo.start_date IS NULL)"
+		            + " LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			
@@ -159,14 +189,44 @@ public class PatientresDAO {
 		return list;
 	}
 	
+	public int listnullCnt(String m_id) {
+		int cnt = 0;
+		try {
+			connect();
+			
+			String sql = "SELECT count(*) as cnt " +
+					"FROM reservation AS res " +
+					"JOIN reservation_info AS resinfo ON res.res_code = resinfo.res_code " +
+					"JOIN caretaker AS c ON res.caretaker_code = c.t_code " +
+					"WHERE res.m_id = ? AND (res.location IS NULL OR res.addr IS NULL OR resinfo.start_date IS NULL)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+			
+			rs = pstmt.executeQuery();
+			System.out.println("rs는 : " + rs);
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 
-	public List<PatientresVO> comlistres(String m_id) {
+	public List<PatientresVO> comlistres(String m_id, int start) {
 		List<PatientresVO> comlist = new ArrayList<PatientresVO>();
 
 		try {
 			connect();
 
-			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and caregiver_id is not null";
+			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and caregiver_id is not null "
+					+ "LIMIT " + start + ", 5";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 
@@ -225,6 +285,29 @@ public class PatientresDAO {
 			e.printStackTrace();
 		}
 		return comlist;
+	}
+	
+	public int comlistresCnt(String m_id) {
+		int cnt = 0;
+		try {
+			connect();
+			
+			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c WHERE res.m_id = ? and res.caretaker_code = c.t_code and res.res_code=resinfo.res_code and caregiver_id is not null";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	public List<PatientresVO> applylist(int start) {

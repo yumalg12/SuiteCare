@@ -5,7 +5,17 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-
+<%
+	PatientresDAO pdao = new PatientresDAO();
+	int nulllistCnt = 0;
+	int nulllistPages = 0;
+	nulllistCnt = pdao.comlistresCnt(m_id);
+	if(nulllistCnt%5 == 0) {
+		nulllistPages = nulllistCnt/5;
+	} else {
+		nulllistPages = nulllistCnt/5 + 1;
+	}
+%>
 	<div id='restable'>
 		<form name="resinfo">
 			<table>
@@ -25,8 +35,7 @@
 				<%
 
 				m_id = (String)session.getAttribute("m_id");
-				PatientresDAO pdao = new PatientresDAO();
-				List<PatientresVO> nulllist = pdao.listnull(m_id);
+				List<PatientresVO> nulllist = pdao.listnull(m_id, (nPage-1)*5);
 				
 				Set<String> processedResCodes = new HashSet<>();
 				List<PatientresVO> uniqueList = new ArrayList<>();
@@ -103,4 +112,24 @@
 				
 		</table>
 	</form>
+	<div>
+		<ul class="pagination pagination-lg">
+			<%
+				for(int i = 1; i <= nulllistPages; i++) {
+			%>
+				<li class="page-item" onclick="nulllistPage(<%= i %>);">
+					<%= i %>
+				</li>
+			<%		
+				}
+			%>
+		</ul>
+	</div>
 </div>
+
+<script>
+	function nulllistPage(page) {
+		var path = "${context}/member/main?nulllistPage=" + page + "#resNullInfo-tab";
+		location.href = path;
+	}
+</script>
