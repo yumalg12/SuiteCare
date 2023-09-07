@@ -108,13 +108,12 @@ ReservationDAO rdao;
 				int result = rdao.updatepre(vo);
 				out.println("<script>");
 				if(result == 1) {
-					session.removeAttribute("res_code");
 					out.println("alert('매칭서비스 정보 등록이 완료되었습니다.');");
-				    out.println("location.href='"+context+"/member/main';");
+				    out.println("location.href='"+context+"/recommend';");
 						
 				} else {
 					out.println("alert('에러, 정보 등록을 완료하지 못했습니다.\\n다시 시도해주세요.');");
-				    out.println("location.href='"+context+"/reservation/match';");
+				    out.println("location.href='"+context+"/member/main';");
 				
 				}
 				out.println("</script>");
@@ -125,8 +124,7 @@ ReservationDAO rdao;
 					int result = rdao.updatepre(vo);
 					out.println("<script>");
 					if(result == 1) {
-						session.removeAttribute("r_code");
-						
+
 						out.println("alert('매칭서비스 정보 등록이 완료되었습니다.');");
 					    out.println("location.href='"+context+"/member/main';");
 					} else {

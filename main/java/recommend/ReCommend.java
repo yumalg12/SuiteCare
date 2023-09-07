@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class ReCommend {
     public static void main(String[] args) {
-        String csvFile = "C:\\Users\\USER\\Desktop\\포트폴리오\\포스켄\\recomm_df.csv";  // �떎�젣 �뙆�씪 寃쎈줈濡� 蹂�寃쏀븯�꽭�슂.
+        String csvFile = "C:\\Users\\csv\\recomm_df.csv";  // �떎�젣 �뙆�씪 寃쎈줈濡� 蹂�寃쏀븯�꽭�슂.
         String line;
         String csvSplitBy = ",";
 
