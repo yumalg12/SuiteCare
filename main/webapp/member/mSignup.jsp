@@ -20,7 +20,7 @@ function signUpValidation() {
 		// 중복 확인 검사
 		if (!$("#id").prop("disabled")) {
 		alert("아이디 중복확인이 필요합니다.");
-		$("#duplicateID").focus();
+		$("#id").focus();
 		return false;
 		}
 
@@ -191,7 +191,7 @@ function setAddress() {
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>adsfasdfsdf</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Suite Care</h2>
 			</header>
 		</div>
