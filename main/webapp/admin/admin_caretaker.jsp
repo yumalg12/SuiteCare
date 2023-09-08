@@ -11,23 +11,22 @@
 <head>
 <title>SC 스위트케어 | 회원정보</title>
 <%@ include file="/header-import.jsp"%>
-<script>
-$(document).ready(function() {
-	<%int mPage = request.getParameter("mPage") != null ? Integer.parseInt(request.getParameter("mPage")) : 1;%>
-});
-</script>
+
 </head>
 
 <body>
 	<%@ include file="/header.jsp"%>
 	<%
+	int mPageCurrent = request.getParameter("mPage") != null ? Integer.parseInt(request.getParameter("mPage")) : 1;
+	
 		MemberDAO dao = new MemberDAO();
 		int memCnt = dao.memCnt();
 		int mPages = 0;
-		if(memCnt%15==0) {
-			mPages = memCnt/15;	
+		int perPage = 10;
+		if(memCnt%perPage==0) {
+			mPages = memCnt/perPage;	
 		} else {
-			mPages = memCnt/15 + 1;	
+			mPages = memCnt/perPage + 1;	
 		}
 	%>
 
@@ -63,7 +62,7 @@ $(document).ready(function() {
 							<%
 							request.setCharacterEncoding("utf-8");
 
-							List<MemberVO> list = dao.listMembers((mPage-1)*15);
+							List<MemberVO> list = dao.listMembers((mPageCurrent-1)*perPage, perPage);
 							for (int i = 0; i < list.size(); i++) {
 								MemberVO listt = (MemberVO) list.get(i);
 
@@ -77,10 +76,11 @@ $(document).ready(function() {
 								String m_email_yn = listt.getM_email_yn();
 								Date m_signup_date = listt.getM_signup_date();
 								
-								String phone = m_phone.substring(0,3) + "-" + m_phone.substring(3,7) + "-" + m_phone.substring(7,11);
+								String phone = m_phone.replace("-", "");
+								phone = phone.substring(0,3) + "-" + phone.substring(3,7) + "-" + phone.substring(7,11);
 							%>
 							<tr>
-								<td><%=i + 1%></td>
+								<td><%=(mPageCurrent-1)*perPage + i + 1%></td>
 								<td><%=m_id%></td>
 								<td><%=m_name%></td>
 								<td><%=m_gender%></td>
@@ -91,7 +91,7 @@ $(document).ready(function() {
 								<td><%=m_email_yn%></td>
 								<td><%=m_signup_date%></td>
 								<td><a onclick="javascript:openAdTinfo('<%=m_id%>')">더보기</a></td>
-								<td><a href="../admin/ad_mUpdate.jsp?m_id=<%=m_id%>">수정</a><br><br>
+								<td><a href="../admin/ad_mUpdate.jsp?m_id=<%=m_id%>">수정</a><br>
 								<a onclick="javascript:memberDelete('<%=m_id%>')">삭제</a></td>
 							</tr>
 							<%
@@ -102,10 +102,10 @@ $(document).ready(function() {
 					<div>
 						<ul class="pagination pagination-lg">
 							<%
-								for(int i = 1; i <= mPages; i++) {
+								for(int mPage = 1; mPage <= mPages; mPage++) {
 							%>
-								<li class="page-item" onclick="mPage(<%= i %>);">
-									<%= i %>
+								<li class="page-item <%=mPage == mPageCurrent? "button": "" %>" onclick="movePage('mPage', <%= mPage %>, this);">
+									<%= mPage %>
 								</li>
 							<%		
 								}
@@ -130,34 +130,9 @@ function memberDelete(m_id){
 		return true;
 	}
 }
-function mPage(page) {
-	var path = "${context}/admin/admin_caretaker.jsp?mPage=" + page;
-	location.href = path;
-}
 </script>
 
 	<%@include file="/footer.jsp"%>
 </body>
 
 </html>
-<style>
-.pagination {
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	justify-content: center;
-}
-
-.page-item{
-	padding: 0 0.8rem;
-	height: fit-content;
-	line-height: 2;
-	cursor: pointer;
-	color:#423730;
-}
-
-.page-item:hover {
-	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
-    border-radius: 2px;
-}
-</style>

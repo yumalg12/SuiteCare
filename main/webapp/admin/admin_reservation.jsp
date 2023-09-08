@@ -17,14 +17,15 @@
 	<%@ include file="/header.jsp"%>
 	
 	<%
-		int rPage = request.getParameter("rPage") != null ? Integer.parseInt(request.getParameter("rPage")) : 1;
+		int rPageCurrent = request.getParameter("rPage") != null ? Integer.parseInt(request.getParameter("rPage")) : 1;
 		ReservationDAO dao = new ReservationDAO();
 		int resCnt = dao.allResCnt();
 		int rPages = 0;
-		if(resCnt % 15 == 0) {
-			rPages = resCnt/15;
+		int perPage = 10;
+		if(resCnt % perPage == 0) {
+			rPages = resCnt/perPage;
 		} else {
-			rPages = resCnt/15 +1;
+			rPages = resCnt/perPage +1;
 		}
 	%>
 
@@ -54,13 +55,13 @@
 								<tr>
 									<td>No.</td> <td>피간병인 아이디</td> <td>피간병인 코드</td> <td>간병인 아이디</td>
 									<td>예약코드</td> <td>결제주문번호</td> <td>예약날짜</td> <!--<td>상세정보</td>--> 
-									<td></td> <td></td>
+									<td></td>
 								</tr>
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
 
-							List<ReservationVO> list = dao.allRes((rPage-1)*15);
+							List<ReservationVO> list = dao.allRes((rPageCurrent-1)*perPage, perPage);
 							for (int i = 0; i < list.size(); i++) {
 								ReservationVO listt = (ReservationVO) list.get(i);
 								
@@ -72,18 +73,18 @@
 					            String res_date = listt.getRes_date();
 							%>
 							<tr>
-								<td><%=(rPage-1)*15 + i + 1%></td>
+								<td><%=(rPageCurrent-1)*perPage + i + 1%></td>
 								<td><a onclick="javascript:openM('<%=mid%>')"><%=mid%></a></td>
 								<td><a onclick="javascript:openT('<%=caretaker_code%>')"><%=caretaker_code%></a></td>
-								<td><a onclick="javascript:openG('<%=caregiver_id%>')"><%=caregiver_id%></a></td>
+								<td><%= caregiver_id == null ? "미지정" : "<a onclick='javascript:openG(\""+caregiver_id+"\")'>"+caregiver_id+"</a>" %></td>
 								<td><a onclick="javascript:openR('<%=res_code %>', '<%=caretaker_code %>')"><%=res_code%></a></td>
 								<td><%=merchant_uid%></td>
 								<td><%=res_date%></td>
 								<!--
 								<td><a onclick="javascript:openAdRinfo('<%=res_code %>', '<%=caretaker_code %>')">더보기</a></td>
 								-->
-								<td><a href="../admin/ad_rUpdate.jsp?res_code=<%=res_code %>">수정</a></td>
-								<td><a onclick="javascript:resDelete('<%=res_code %>')">삭제</a></td>
+								<td><a href="../admin/ad_rUpdate.jsp?res_code=<%=res_code %>">수정</a><br>
+									<a onclick="javascript:resDelete('<%=res_code %>')">삭제</a></td>
 							</tr>
 							<%
 							}
@@ -93,10 +94,10 @@
 					<div>
 						<ul class="pagination pagination-lg">
 							<%
-								for(int i = 1; i <= rPages; i++) {
+								for(int rPage = 1; rPage <= rPages; rPage++) {
 							%>
-								<li class="page-item" onclick="rPage(<%= i %>);">
-									<%= i %>
+								<li class="page-item <%=rPage == rPageCurrent? "button": "" %>" onclick="movePage('rPage', <%= rPage %>, this);">
+									<%= rPage %>
 								</li>
 							<%		
 								}
@@ -138,34 +139,9 @@
 			return true;
 		}
 	}
-	function rPage(page) {
-		var path = "${context}/admin/admin_reservation.jsp?rPage=" + page;
-		location.href = path;
-	}
 	</script>
 	
 	<%@include file="/footer.jsp"%>
 </body>
 
 </html>
-<style>
-.pagination {
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	justify-content: center;
-}
-
-.page-item{
-	padding: 0 0.8rem;
-	height: fit-content;
-	line-height: 2;
-	cursor: pointer;
-	color:#423730;
-}
-
-.page-item:hover {
-	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
-    border-radius: 2px;
-}
-</style>

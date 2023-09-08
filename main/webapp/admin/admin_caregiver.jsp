@@ -12,22 +12,23 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 간병인 회원정보</title>
 <%@ include file="/header-import.jsp"%>
+
 </head>
 
 <body>
 
 <%@ include file="/header.jsp"%>
 <%
-int gPage = request.getParameter("gPage") != null ? Integer.parseInt(request.getParameter("gPage")) : 1;
+int gPageCurrent = request.getParameter("gPage") != null ? Integer.parseInt(request.getParameter("gPage")) : 1;
 CaregiverDAO dao = new CaregiverDAO();
 int giverCnt = dao.giverCnt();
 int gPages = 0;
-if(giverCnt%15==0) {
-	gPages = giverCnt/15;
+int perPage = 10;
+if(giverCnt%perPage==0) {
+	gPages = giverCnt/perPage;
 } else {
-	gPages = giverCnt/15 +1;
+	gPages = giverCnt/perPage +1;
 }
-
 %>
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -58,7 +59,7 @@ if(giverCnt%15==0) {
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-							List<CaregiverVO> list = dao.giver_admin_info((gPage-1)*15);
+							List<CaregiverVO> list = dao.giver_admin_info((gPageCurrent-1)*perPage, perPage);
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
@@ -69,18 +70,21 @@ if(giverCnt%15==0) {
 								String g_phone = listt.getG_phone();
 								String g_email = listt.getG_email();								
 								
-								//String phone = g_phone.substring(0,3) + "-" + g_phone.substring(3,7) + "-" + g_phone.substring(7,11);
+								String gender = g_gender.equals("W")? "여": "남";
+								
+								String phone = g_phone.replace("-", "");
+								phone = phone.substring(0,3) + "-" + phone.substring(3,7) + "-" + phone.substring(7,11);
 							%>
 							<tr>
-								<td><%=(gPage-1)*15 + i + 1%></td>
+								<td><%=(gPageCurrent-1)*perPage + i + 1%></td>
 								<td><%=g_id%></td>
 								<td><%=g_name%></td>
-								<td><%=g_gender%></td>
+								<td><%=gender%></td>
 								<td><%=g_birth%></td>
-								<td><%=g_phone%></td>
+								<td><%=phone%></td>
 								<td><%=g_email%></td>
 								<td><a onclick="javascript:openAdGinfo('<%=g_id %>')">더보기</a></td>
-								<td><a href="../admin/ad_gUpdate.jsp?g_id=<%=g_id%>">수정</a><br><br>
+								<td><a href="../admin/ad_gUpdate.jsp?g_id=<%=g_id%>">수정</a><br>
 								<a onclick="javascript:memberDelete('<%=g_id%>')">삭제</a></td>
 							</tr>
 							<%
@@ -91,10 +95,10 @@ if(giverCnt%15==0) {
 					<div>
 						<ul class="pagination pagination-lg">
 							<%
-								for(int i = 1; i <= gPages; i++) {
+								for(int gPage = 1; gPage <= gPages; gPage++) {
 							%>
-								<li class="page-item" onclick="gPage(<%= i %>);">
-									<%= i %>
+							<li class="page-item <%= gPage == gPageCurrent ? "button" : "" %>" onclick="movePage('gPage', <%= gPage %>, this);">
+									<%= gPage %>
 								</li>
 							<%		
 								}
@@ -125,31 +129,3 @@ if(giverCnt%15==0) {
 
 </body>
 </html>
-
-<script>
-	function gPage(page) {
-		var path = "${context}/admin/admin_caregiver.jsp?gPage=" + page;
-		location.href = path;
-	}
-</script>
-<style>
-.pagination {
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	justify-content: center;
-}
-
-.page-item{
-	padding: 0 0.8rem;
-	height: fit-content;
-	line-height: 2;
-	cursor: pointer;
-	color:#423730;
-}
-
-.page-item:hover {
-	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
-    border-radius: 2px;
-}
-</style>

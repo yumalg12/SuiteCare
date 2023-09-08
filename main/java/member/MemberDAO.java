@@ -297,12 +297,12 @@ public class MemberDAO {
 		return -1;
 	}
 	
-	public List<MemberVO> listMembers(int start) {
+	public List<MemberVO> listMembers(int start, int perPage) {
 		List<MemberVO> list= new ArrayList<MemberVO>();
 		try {
 			conn = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM member LIMIT "+start+",15";
+			String sql = "SELECT * FROM member LIMIT "+start+"," + perPage;
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
