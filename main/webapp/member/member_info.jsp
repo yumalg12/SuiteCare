@@ -42,10 +42,9 @@
 
 	<%
 	request.setCharacterEncoding("utf-8"); 
-	String id = (String)session.getAttribute("m_id"); 
 	
 	MemberDAO dao = new MemberDAO();
-	List<MemberVO> list = dao.listMembers(id);
+	List<MemberVO> list = dao.listMembers(m_id);
 
 
 	for(int i=0; i<list.size(); i++) {
