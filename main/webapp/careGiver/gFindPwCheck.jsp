@@ -31,7 +31,7 @@ if(ok_pwd==1) {
 	%>
 	<script>
 	alert("회원님의 비밀번호는 <%=find_pw%>입니다.");
-	location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
+	location.href='<%=request.getContextPath()%>/caregiver/login';
 	</script>
 	
 	<%

@@ -24,7 +24,7 @@
 				<div class="content">
 					<header class="align-center">
 						<p>간병 서비스를 제공받을 분</p>
-						<h2>Information</h2>
+						<h2>예약 신청 정보</h2>
 					</header>
 					<%
 					request.setCharacterEncoding("utf-8");

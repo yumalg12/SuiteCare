@@ -33,7 +33,7 @@ if(ok1== 1) {
 %>
 <script>
 alert("회원님의 아이디는 <%=find_id%>입니다.");
-location.href='<%=request.getContextPath()%>/careGiver/caregiverLogin.jsp';
+location.href='<%=request.getContextPath()%>/caregiver/login';
 </script>
 <%
 } else if(ok1==2) {

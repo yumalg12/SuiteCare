@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<c:choose>
 								<c:when test="${empty matchList }">
 									<tr>
-                                   		<td colspan="8" style="text-align:center;">들어온 신청이 없습니다</td>
+                                   		<td colspan="9" style="text-align:center;">들어온 신청이 없습니다</td>
                                   		</tr>
 								</c:when>
 								<c:when test="${!empty matchList }">
