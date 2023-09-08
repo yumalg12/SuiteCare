@@ -17,17 +17,15 @@
 <div id='calendar'></div>
 <div id='restable'>
 	<%
-		m_id = (String)session.getAttribute("m_id");
 		calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 		List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
-		PatientresDAO dao2 = new PatientresDAO();
 		int comCnt = 0;
-		int comPages = 0;
-		comCnt = dao2.comlistresCnt(m_id);
-		if(comCnt%5 == 0) {
-			comPages = comCnt/5;
+		int cPages = 0;
+		comCnt = pdao.comlistresCnt(m_id);
+		if(comCnt%perPage == 0) {
+			cPages = comCnt/perPage;
 		} else {
-			comPages = comCnt/5 + 1;
+			cPages = comCnt/perPage + 1;
 		}
 	%>
 <form name="resinfo">
@@ -48,7 +46,7 @@
 		</thead>
 		<%
 		
-List<PatientresVO> reslist = dao2.comlistres(m_id, (cPage-1)*5);
+List<PatientresVO> reslist = pdao.comlistres(m_id, (cPageCurrent-1)*perPage);
 for (int i = 0; i < reslist.size(); i++) {
 	PatientresVO listvo = (PatientresVO) reslist.get(i);
 
@@ -104,7 +102,7 @@ for (int i = 0; i < reslist.size(); i++) {
 
 <td>
 	<%
-		List<TpreferenceVO> preList = dao2.listtpre(res_code);
+		List<TpreferenceVO> preList = pdao.listtpre(res_code);
 		for (TpreferenceVO prevo : preList) {
 			String pre_age_1 = prevo.getPre_age_1();
 
@@ -122,7 +120,7 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 <td>
 	<%
 		String g_name = listvo.getG_name();
-		%> <a onclick="javascript:openGinfoMlist('<%=caregiver%>')""><%=g_name%></a>
+		%> <a onclick="javascript:openGinfoMlist('<%=caregiver%>')"><%=g_name%></a>
 
 </td>
 
@@ -169,10 +167,10 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 	<div>
 		<ul class="pagination pagination-lg">
 			<%
-				for(int i = 1; i <= comPages; i++) {
+				for(int cPage = 1; cPage <= cPages; cPage++) {
 			%>
-				<li class="page-item" onclick="comPage(<%= i %>);">
-					<%= i %>
+				<li class="page-item <%=cPage == cPageCurrent? "button": "" %>" onclick="cPage(<%= cPage %>);">
+					<%= cPage %>
 				</li>
 			<%		
 				}
@@ -182,8 +180,8 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 </div>
 
 <script>
-	function comPage(page) {
-		var path = "${context}/member/main?comPages=" + page + "#reslist";
+	function cPage(page) {
+		var path = "${context}/member/main?cPage=" + page + "#matchFinishInfo-tab";
 		location.href = path;
 	}
 </script>

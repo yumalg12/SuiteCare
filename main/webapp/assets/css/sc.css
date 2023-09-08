@@ -163,10 +163,14 @@ input[type=file]::file-selector-button {
 	height: fit-content;
 	line-height: 2;
 	cursor: pointer;
-	color:#423730;
+	color: #423730;
 }
 
 .page-item:hover {
 	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
     border-radius: 2px;
+}
+
+.pagination li.active a {
+    font-weight: bold;
 }

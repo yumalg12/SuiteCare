@@ -58,62 +58,43 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 function takerPage(page) {
-	var path = "${context}/member/main?takerPage=" + page + "#info";
+	var path = "${context}/member/main?tPage=" + page + "#info";
 	location.href = path;
 }
 
 function recomPage(page) {
-	var path = "${context}/member/main?recomPage=" + page + "#match";
+	var path = "${context}/member/main?rPage=" + page + "#match";
 	location.href = path;
 }
 
-	$(document).ready(function() {
-		<%int tPage = request.getParameter("takerPage") != null ? Integer.parseInt(request.getParameter("takerPage")) : 1;%>
-		<%int aPage = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;%>
-		<%int cPage = request.getParameter("comPage") != null ? Integer.parseInt(request.getParameter("comPage")) : 1;%>
-		<%int nPage = request.getParameter("nulllistPage") != null ? Integer.parseInt(request.getParameter("nulllistPage")) : 1;%>
-		<%int recomPage = request.getParameter("recomPage") != null ? Integer.parseInt(request.getParameter("recomPage")) : 1;%>
-	});
 </script>
-<style>
-.pagination {
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	justify-content: center;
-}
 
-.page-item{
-	padding: 0 0.8rem;
-	height: fit-content;
-	line-height: 2;
-	cursor: pointer;
-	color:#423730;
-}
-
-.page-item:hover {
-	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
-    border-radius: 2px;
-}
-
-.pagination li.active a {
-        font-weight: bold;
-    }
-</style>
 </head>
 
 <body>
 	<%@ include file="/header.jsp"%>
 	
 	<%
+	int tPageCurrent = request.getParameter("tPage") != null ? Integer.parseInt(request.getParameter("tPage")) : 1;
+	int aPageCurrent = request.getParameter("aPage") != null ? Integer.parseInt(request.getParameter("aPage")) : 1;
+	int cPageCurrent = request.getParameter("cPage") != null ? Integer.parseInt(request.getParameter("cPage")) : 1;
+	int nPageCurrent = request.getParameter("nPage") != null ? Integer.parseInt(request.getParameter("nPage")) : 1;
+	int rPageCurrent = request.getParameter("rPage") != null ? Integer.parseInt(request.getParameter("rPage")) : 1;
+	
+	int perPage = 5;
+	
+	PatientresDAO pdao = new PatientresDAO();
+	%>
+	
+	<%
 		TakerDAO dao = new TakerDAO();
 		int takerCnt = 0;
 		int takePages = 0;
 		takerCnt = dao.takerCnt(m_id);
-		if(takerCnt%5 == 0) {
-			takePages = takerCnt/5;
+		if(takerCnt%perPage == 0) {
+			takePages = takerCnt/perPage;
 		} else {
-			takePages = takerCnt/5 + 1;
+			takePages = takerCnt/perPage + 1;
 		}
 	%>
 <!-- One -->
@@ -155,7 +136,7 @@ function recomPage(page) {
 					session.removeAttribute("caretaker_code");
 					session.removeAttribute("res_code");
 					session.removeAttribute("r_code");
-					List<TakerVO> list = dao.takerList(m_id, (tPage-1)*5);
+					List<TakerVO> list = dao.takerList(m_id, (tPageCurrent-1)*perPage);
 					for (int i = 0; i < list.size(); i++) {
 						TakerVO listt = (TakerVO) list.get(i);
 
@@ -167,7 +148,7 @@ function recomPage(page) {
 						String diagnosis = listt.getDiagnosis();
 					%>
 					<tr>
-						<td><%=i + 1%></td>
+						<td><%=(tPageCurrent-1)*perPage + i + 1%></td>
 						<td><%=t_name%></td>
 						<td><%=t_gender%></td>
 						<td><%=t_age%>세</td>
@@ -185,10 +166,10 @@ function recomPage(page) {
 			<div>
 				<ul class="pagination pagination-lg">
 					<%
-						for(int i = 1; i <= takePages; i++) {
+						for(int tPage = 1; tPage <= takePages; tPage++) {
 					%>
-						<li class="page-item" onclick="takerPage(<%= i %>);">
-							<%= i %>
+						<li class="page-item <%=tPage == tPageCurrent? "button": "" %>" onclick="movePage('tPage', <%= tPage %>, this);">
+							<%= tPage %>
 						</li>
 					<%		
 						}
@@ -275,7 +256,7 @@ function recomPage(page) {
 								</tr>
 							</thead>
 							<%
-						reslist3 = dao3.listres(m_id, (recomPage-1)*5);
+						List<PatientresVO> reslist3 = pdao.listres(m_id, (rPageCurrent-1)*perPage);
 						for (int i = 0; i < reslist3.size(); i++) {
 							PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -322,7 +303,7 @@ function recomPage(page) {
 							else if(start_date!=null){%><%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)<%} %></td>
 							
 							<td><%
-							List<TpreferenceVO> preList = dao2.listtpre(res_code);
+							List<TpreferenceVO> preList = pdao.listtpre(res_code);
 							for(TpreferenceVO prevo : preList) {
 								String pre_age_1 = prevo.getPre_age_1();
 								
@@ -356,10 +337,10 @@ function recomPage(page) {
 				<div>
 					<ul class="pagination pagination-lg">
 						<%
-							for(int i = 1; i <= applyPages; i++) {
+							for(int rPage = 1; rPage <= aPages; rPage++) {
 						%>
-							<li class="page-item" onclick="recomPage(<%= i %>);">
-								<%= i %>
+							<li class="page-item <%=rPage == rPageCurrent? "button": "" %>" onclick="movePage('rPage', <%= rPage %>, this);">
+								<%= rPage %>
 							</li>
 						<%		
 							}
