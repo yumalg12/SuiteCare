@@ -85,7 +85,9 @@
 					String pre_age_1 = prevo.getPre_age_1();
 					
 					if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
-					<%} %></td>
+					<%} else { %> 
+						<a href="../reservation/match?res_code=<%=res_code%>">미작성</a>
+					<% }%></td>
 					
 				<td>
 				<%if (sqlStartDate.before(currentDate)) { %>

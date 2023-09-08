@@ -27,8 +27,6 @@
 						<td>간병장소</td>
 						<td>주소</td>
 						<td>간병일시</td>
-						<td>매칭서비스<br>정보</td>
-						<td>간병인</td>
 						<td>비고</td>
 					</tr>
 				</thead>
@@ -84,22 +82,6 @@
 					<% } %>
 				</td>
 				
-				<td>
-					<%
-					List<TpreferenceVO> preList2 = pdao.listtpre(res_code);
-					for(TpreferenceVO pre : preList2) {
-					String pre_age_1 = pre.getPre_age_1();
-					
-					if(pre_age_1==null){%>
-						<a href="../reservation/match?res_code=<%=res_code%>">미작성</a>
-					<% } else { %> 
-						<button onclick="openmatPopup('<%=res_code %>')">더보기</button> 
-					<% }}%>
-				</td>
-					
-				<td>
-				미작성
-				</td>
 				
 				<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
 					onclick="return delok();">취소</a></td>

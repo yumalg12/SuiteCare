@@ -336,7 +336,7 @@ function recomPage(page) {
 								String pre_age_1 = prevo.getPre_age_1();
 								
 								if(pre_age_1 == null) { %>
-								미작성
+								매칭서비스정보<br>입력필요
 								<%}	else if (sqlStartDate.before(currentDate)) { %>
 								매칭기간만료 <% } else if(pre_age_1!=null){ %>
 								<a href="../recommend?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
