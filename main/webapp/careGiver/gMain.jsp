@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>Generic Page Template</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 													</td>
 													<td><fmt:formatNumber value="${listres.pay }" pattern="#,###" /></td>
 													<td>${listres.pay_date }</td>
-													<td><span onclick="matchInfo('${listres.res_code}')" style="text-decoration:underline;cursor:pointer;">더보기</span></td>
+													<td><span onclick="openMatchInfo('${listres.res_code}')" style="text-decoration:underline;cursor:pointer;">더보기</span></td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						<div>
 							<ul class="pagination pagination-lg">
 								<c:forEach var="listresPage" begin="1" end="${listresPages }" step="1">
-									<li class="page-item" onclick="listresPage(${listresPage}, 'matchinfo');">
+									<li class="page-item <c:if test="${listresPage == listresPageCurrent}">button</c:if>" onclick="movePage('listresPage', ${listresPage}, this);">
 										${listresPage}
 									</li>
 								</c:forEach>
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<div>
 						<ul class="pagination pagination-lg" id="page-allapplylist">
 							<c:forEach var="applyPage" begin="1" end="${applyPages }" step="1">
-								<li class="page-item" onclick="applyPage(${applyPage}, 'allapplylist')";>
+								<li class="page-item <c:if test="${applyPage == applyPageCurrent}">button</c:if>" onclick="movePage('applyPage', ${applyPage}, this)";>
 									${applyPage}
 								</li>
 							</c:forEach>
@@ -241,8 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
                    							 <fmt:parseDate var="mend_time" value="${matchList.end_time}" pattern="HH:mm" />
                   							  <fmt:formatDate value="${mend_time}" pattern="HH:mm" />
                 							</td>
-                							<td>${matchList.totalSalary}원<br>(시간당 ${matchList.hourwage }원)</td>
-											<td><span onclick="matchtInfo('${matchList.res_code }','${matchList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
+                							<td>${matchList.totalSalary}원<br>(시간 당 ${matchList.hourwage }원)</td>
+											<td><span onclick="openMatchTInfo('${matchList.res_code }','${matchList.caretaker_code }');" style="text-decoration: underline;cursor:pointer;">더보기</span></td>
                       						 
                       						 <td>
                       						 <c:set var="checkrcode" value="${matchList.res_code}" />
@@ -250,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
 												MatchDAO mdao = new MatchDAO();
 												String checkcode = (String)pageContext.getAttribute("checkrcode");
 												String mst = mdao.mst(checkcode, g_id);
-												
 												%>
                       						 <%=mst %></td>
                    						 </tr>
@@ -262,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<div>
 						<ul class="pagination pagination-lg" id="page-allapplylist">
 							<c:forEach var="quickPage" begin="1" end="${quickPages }" step="1">
-								<li class="page-item" onclick="quickPage(${quickPages}, 'quickmatchList')";>
+								<li class="page-item <c:if test="${quickPage == quickPageCurrent}">button</c:if>" onclick="movePage('quickPage', ${quickPage}, this)";>
 									${quickPage}
 								</li>
 							</c:forEach>
@@ -319,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<div>
 						<ul class="pagination pagination-lg">
 							<c:forEach var="myApplyPage" begin="1" end="${myApplyPages }" step="1">
-								<li class="page-item" onclick="myApplyPage(${myApplyPage}, 'myapplylist');">
+								<li class="page-item <c:if test="${myApplyPage == myApplyPageCurrent}">button</c:if>" onclick="movePage('myApplyPage', ${myApplyPage}, this);">
 									${myApplyPage}
 								</li>
 							</c:forEach>
@@ -370,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
 													<td>
 														<c:set var="reviewCode" value="${reviewCode }"/>
 														<c:if test="${fn:contains(reviewCode, finalList.res_code) }">
-															<span onclick="review('${finalList.res_code }');" class="button">후기 보기</span>
+															<span onclick="openReview('${finalList.res_code }');" class="button">후기 보기</span>
 														</c:if>
 													</td>
 												</tr>
@@ -382,9 +381,9 @@ document.addEventListener('DOMContentLoaded', () => {
 						</div>
 						<div>
 							<ul class="pagination pagination-lg">
-								<c:forEach var="listresPage" begin="1" end="${finalPages }" step="1">
-									<li class="page-item" onclick="finalPage(${finalPages}, 'finishlist');">
-										${finalPages}
+								<c:forEach var="finalPage" begin="1" end="${finalPages }" step="1">
+									<li class="page-item <c:if test="${finalPage == finalPageCurrent}">button</c:if>" onclick="movePage('finalPage', ${finalPage}, this);">
+										${finalPage}
 									</li>
 								</c:forEach>
 							</ul>
@@ -485,40 +484,15 @@ function getRandomBrown() {
 			}
 		}
 
-		function page(page, position) {
-			var path = "${context}/caregiver/main?page=" + page + "#" + position;
-			location.href=path;
-		}
-		
-		function listresPage(page, position) {
-			var path = "${context}/caregiver/main?listresPage=" + page + "#" + position;
-			location.href=path;
-		}
-		
-		function applyPage(page, position) {
-			var path = "${context}/caregiver/main?applyPage=" + page + "#" + position;
-			location.href=path;
-		}
-		
-		function finalPage(page, position) {
-			var path = "${context}/caregiver/main?finalPage=" + page + "#" + position;
-			location.href=path;
-		}
-		
 		function takerInfo(res_code, taker_code) {
 			window.open("${context}/reservation/resInfo.jsp?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
-		function matchtInfo(res_code, taker_code) {
+		function openMatchTInfo(res_code, taker_code) {
 			window.open("${context}/match?res_code=" + res_code + "&caretaker_code=" + taker_code, "name(about:blank)", "width=800, height=950");
 		}
 		
-
-		function openMatchInfo(res_code){
-			window.open("${context}/careGiver/matchingInfo.jsp?res_code="+res_code, "name(about:blank)", "width=800, height=950");
-		}
-		
-		function matchInfo(res_code) {
+		function openMatchInfo(res_code) {
 			window.open("${context}/careGiver/matchingInfo.jsp?res_code=" +res_code, "name(about:blank)", "width=800, height=950");
 		}
 		
@@ -530,7 +504,7 @@ function getRandomBrown() {
 			location.href="${context}/book/deleteapply.jsp?res_code=" + res_code;
 		}
 		
-		function review(res_code) {
+		function openReview(res_code) {
 			window.open("${context}/caregiver/review?res_code=" + res_code, "name(about:blank)", "width=800, height=800");
 		}
 		

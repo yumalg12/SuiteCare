@@ -38,3 +38,4 @@ if (!banner) {
 	<script src="${context}/assets/js/skel.min.js"></script>
 	<script src="${context}/assets/js/util.js"></script>
 	<script src="${context}/assets/js/main.js"></script>
+	<script src="${context}/assets/js/sc.js"></script>

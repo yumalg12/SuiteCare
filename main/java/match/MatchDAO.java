@@ -232,5 +232,28 @@ public class MatchDAO {
 	}
 	return mst;
 }
+	
+	
+	public int quickCount() {
+		int cnt = 0;
+		try {
+			con = dataFactory.getConnection();
+			
+			String sql = "SELECT count(*) as cnt FROM quickmatch WHERE res_code=? and g_id =?";
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
 
 }

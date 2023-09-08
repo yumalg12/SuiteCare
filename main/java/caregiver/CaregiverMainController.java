@@ -40,10 +40,12 @@ public class CaregiverMainController extends HttpServlet {
 			int applyPageCurrent = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;
 			int listresPageCurrent = request.getParameter("listresPage") != null ? Integer.parseInt(request.getParameter("listresPage")) : 1;
 			int myApplyPageCurrent = request.getParameter("myApplyPage") != null ? Integer.parseInt(request.getParameter("myApplyPage")) : 1;
-			int fianlPageCurrent = request.getParameter("finalPage") != null ? Integer.parseInt(request.getParameter("finalPage")) : 1;
+			int quickPageCurrent = request.getParameter("quickPage") != null ? Integer.parseInt(request.getParameter("quickPage")) : 1;
+			int finalPageCurrent = request.getParameter("finalPage") != null ? Integer.parseInt(request.getParameter("finalPage")) : 1;
 			System.out.println("applyPage >> " + request.getParameter("applyPage"));
 			System.out.println("listresPage >> " + request.getParameter("listresPage"));
 			System.out.println("myApplyPage >> " + request.getParameter("myApplyPage"));
+			System.out.println("quickPage >> " + request.getParameter("quickPage"));
 			System.out.println("finalPage >> " + request.getParameter("finalPage"));
 			
 			int applystart =0;
@@ -64,9 +66,15 @@ public class CaregiverMainController extends HttpServlet {
 				System.out.println("myApplyStart == "  + myApplyStart);
 			}
 			
+			int quickStart =0;
+			if(quickPageCurrent != 1) {
+				quickStart = (quickPageCurrent-1)*5;
+				System.out.println("quickStart == "  + quickStart);
+			}
+			
 			int finalStart =0;
-			if(fianlPageCurrent != 1) {
-				finalStart = (fianlPageCurrent-1)*5;
+			if(finalPageCurrent != 1) {
+				finalStart = (finalPageCurrent-1)*5;
 				System.out.println("finalStart == "  + finalStart);
 			}
 			
@@ -129,16 +137,37 @@ public class CaregiverMainController extends HttpServlet {
 			
 			List<match.MatchVO> matchList = mdao.tInfo(user_id);
 			
+			//나에게 들어온 빠른 매칭 신청 리스트 페이징
+			int quickCount = mdao.quickCount();
+			int quickPages = 0;
+			if(quickCount%5 == 0) {
+				quickPages = quickCount/5;
+			} else {
+				quickPages = (quickCount/5)+1;
+			}
 			
-			request.setAttribute("matchList", matchList);
+			
+			
 			request.setAttribute("listres", listres);
 			request.setAttribute("listresPages", listresPages);
+			request.setAttribute("listresPageCurrent", listresPageCurrent);
+
+			request.setAttribute("applyList", applyList);
 			request.setAttribute("applyPages", applyPages);
-			request.setAttribute("myApplyPages", myApplyPages);
+			request.setAttribute("applyPageCurrent", applyPageCurrent);
+			
 			request.setAttribute("myApply", list);
+			request.setAttribute("myApplyPages", myApplyPages);
+			request.setAttribute("myApplyPageCurrent", myApplyPageCurrent);
+			
+			request.setAttribute("matchList", matchList);
+			request.setAttribute("quickPages", quickPages);
+			request.setAttribute("quickPageCurrent", quickPageCurrent);
+			
 			request.setAttribute("finalList", finalList);
 			request.setAttribute("finalPages", finalPages);
-			request.setAttribute("applyList", applyList);
+			request.setAttribute("finalPageCurrent", finalPageCurrent);
+			
 			request.setAttribute("MyResCode", code);
 			request.setAttribute("reviewCode", reviewCode);
 			RequestDispatcher dispatch = request.getRequestDispatcher("../careGiver/gMain.jsp");
