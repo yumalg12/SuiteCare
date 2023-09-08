@@ -70,7 +70,7 @@ String r_code = (String)session.getAttribute("r_code");
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -92,7 +92,7 @@ String r_code = (String)session.getAttribute("r_code");
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>maecenas sapien feugiat ex purus</p>
+						<p>간병 서비스 예약</p>
 						<h2>병원 주소 입력</h2>
 					</header>
 
@@ -118,7 +118,7 @@ String r_code = (String)session.getAttribute("r_code");
 		  <input type="button" class="button alt" onclick="reshostop();" value="예약 중지">
 		 <div>
 
-		 <span class="button alt" onclick="location.href='<%=request.getContextPath()%>/reservation/location'">뒤로가기</span>
+		 <span class="button alt" onclick="location.href='${context}/reservation/location'">뒤로가기</span>
 		 <input type="submit" class="button special" value="확인">
 		 </div>
 			</div>

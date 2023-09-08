@@ -426,56 +426,57 @@ public class ReservationDAO {
 		}
 		return cnt;
 	}
+	
 	public List<ReservationVO> resList(String id , int start) { // 나와 피간병인의 매칭 정보
-	      List<ReservationVO> list= new ArrayList<ReservationVO>();
-	      
-	      try {
-	    	 connect();
-	         
-	         String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
-	         		+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
-	         		+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id"
-	         		+ " ORDER BY start_date LIMIT " + start + ",5";
-
-
-	         System.out.println(sql);
-	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, id);
-	         
-	         rs = pstmt.executeQuery();
-	         while(rs.next()) {
-	            String res_code = rs.getString("res_code");
-	            String location = rs.getString("location");
-	            
-	        	Date start_date = rs.getDate("start_date");
-	        	Date end_date = rs.getDate("end_date");
-	        	Time start_time = rs.getTime("start_time");
-	        	Time end_time = rs.getTime("end_time");
-	            
-	        	String tname = rs.getString("t_name");
-	        	Date pay_date = rs.getDate("pay_date");
-	        	int pay = rs.getInt("pay");
-
-	            ReservationVO vo = new ReservationVO();
-	            vo.setRes_code(res_code);
-	            vo.setLocation(location);
-	            vo.setS_date(start_date);
-	            vo.setE_date(end_date);
-	            vo.setS_time(start_time);
-	            vo.setE_time(end_time);
-	            vo.setT_name(tname);
-	            vo.setPay_date(pay_date);
-	            vo.setPay(pay);
-	            list.add(vo);
-	         }
-	         rs.close();
-	         pstmt.close();
-	         conn.close();
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      return list;
-	   }
+		  List<ReservationVO> list= new ArrayList<ReservationVO>();
+		  
+		  try {
+			 connect();
+		     
+		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
+				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
+				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id"
+				+ " ORDER BY start_date LIMIT " + start + ",5";
+		
+		
+			 System.out.println(sql);
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, id);
+			 
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+			    String res_code = rs.getString("res_code");
+				String location = rs.getString("location");
+				
+				Date start_date = rs.getDate("start_date");
+				Date end_date = rs.getDate("end_date");
+				Time start_time = rs.getTime("start_time");
+				Time end_time = rs.getTime("end_time");
+				
+				String tname = rs.getString("t_name");
+				Date pay_date = rs.getDate("pay_date");
+				int pay = rs.getInt("pay");
+			
+		        ReservationVO vo = new ReservationVO();
+		        vo.setRes_code(res_code);
+		        vo.setLocation(location);
+		        vo.setS_date(start_date);
+		        vo.setE_date(end_date);
+		        vo.setS_time(start_time);
+		        vo.setE_time(end_time);
+		        vo.setT_name(tname);
+		        vo.setPay_date(pay_date);
+		        vo.setPay(pay);
+		        list.add(vo);
+		     }
+		     rs.close();
+		     pstmt.close();
+		     conn.close();
+		  } catch(Exception e) {
+		     e.printStackTrace();
+		  }
+		  return list;
+   }
 	
 	public List<ReservationVO> resList(String id, String res_code) {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
@@ -560,6 +561,9 @@ public class ReservationDAO {
 	
 	public int updatepre(ReservationInfoVO vo) {
 		int result = 0;
+		System.out.println("장소1순위 : " + vo.getPre_location_1());
+		 System.out.println("pre_location_2 : " + vo.getPre_location_2());
+		 System.out.println("pre_location_3 : " + vo.getPre_location_3());
 		try {
 			connect();
 			String sql = "UPDATE reservation_info SET pre_location_1=?, pre_location_2=?, pre_location_3=?, pre_age_1=?, pre_age_2=?, pre_age_3=?, pre_gender=?, pre_qual=?, pre_repre_1=?, pre_repre_2=?, pre_repre_3=?, pre_hourwage_1=?, pre_hourwage_2=?, pre_hourwage_3=?, rank1=?, rank2=?, rank3=?, rank4=?, rank5=? where res_code=?";
@@ -647,6 +651,36 @@ public class ReservationDAO {
 		} return delresbook;
 	}
 	
+	public int deltmatch(String res_code) {
+		int match = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM quickmatch WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			match = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return match;
+	}
+	
+	public int delquick(String res_code) {
+		int match = 0;
+		try {
+			connect();
+			String sql1 = "DELETE FROM recommendations WHERE res_code=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, res_code);
+			match = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} return match;
+	}
+	
 	public List<ReservationVO> allRes() {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
@@ -711,6 +745,7 @@ public class ReservationDAO {
 	      return list;
 	   }
 	
+
 	public List<ReservationVO> uList(String res_code) {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
@@ -804,4 +839,84 @@ public class ReservationDAO {
 	         }
 	      } return result;
 	   }
+
+	public int finalListCnt(String id) { // 완료된 서비스
+		int cnt = 0;
+		try {
+			 connect();
+		     
+		     String sql = "SELECT count(*) as cnt"
+				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
+				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id AND b_status='서비스이용 완료'"
+				+ " ORDER BY start_date";
+		
+		
+			 System.out.println(sql);
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, id);
+			 
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+				 cnt = rs.getInt("cnt");
+		     }
+		     rs.close();
+		     pstmt.close();
+		     conn.close();
+		  } catch(Exception e) {
+		     e.printStackTrace();
+		  }
+		  return cnt;
+	}
+	
+	public List<ReservationVO> finalList(String id , int start) { // 완료된 서비스
+		List<ReservationVO> list= new ArrayList<ReservationVO>();
+		  
+		try {
+			 connect();
+		     
+		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
+				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
+				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id AND b_status='서비스이용 완료'"
+				+ " ORDER BY start_date LIMIT " + start + ",5";
+		
+		
+			 System.out.println(sql);
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, id);
+			 
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+			    String res_code = rs.getString("res_code");
+				String location = rs.getString("location");
+				
+				Date start_date = rs.getDate("start_date");
+				Date end_date = rs.getDate("end_date");
+				Time start_time = rs.getTime("start_time");
+				Time end_time = rs.getTime("end_time");
+				
+				String tname = rs.getString("t_name");
+				Date pay_date = rs.getDate("pay_date");
+				int pay = rs.getInt("pay");
+			
+		        ReservationVO vo = new ReservationVO();
+		        vo.setRes_code(res_code);
+		        vo.setLocation(location);
+		        vo.setS_date(start_date);
+		        vo.setE_date(end_date);
+		        vo.setS_time(start_time);
+		        vo.setE_time(end_time);
+		        vo.setT_name(tname);
+		        vo.setPay_date(pay_date);
+		        vo.setPay(pay);
+		        list.add(vo);
+		     }
+		     rs.close();
+		     pstmt.close();
+		     conn.close();
+		  } catch(Exception e) {
+		     e.printStackTrace();
+		  }
+		  return list;
+	}
+
 }

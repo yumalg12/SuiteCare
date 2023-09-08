@@ -11,17 +11,32 @@
 <head>
 <title>SC 스위트케어 | 회원정보</title>
 <%@ include file="/header-import.jsp"%>
+<script>
+$(document).ready(function() {
+	<%int mPage = request.getParameter("mPage") != null ? Integer.parseInt(request.getParameter("mPage")) : 1;%>
+});
+</script>
 </head>
 
 <body>
 	<%@ include file="/header.jsp"%>
+	<%
+		MemberDAO dao = new MemberDAO();
+		int memCnt = dao.memCnt();
+		int mPages = 0;
+		if(memCnt%15==0) {
+			mPages = memCnt/15;	
+		} else {
+			mPages = memCnt/15 + 1;	
+		}
+	%>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -48,9 +63,7 @@
 							<%
 							request.setCharacterEncoding("utf-8");
 
-							MemberDAO dao = new MemberDAO();
-
-							List<MemberVO> list = dao.listMembers();
+							List<MemberVO> list = dao.listMembers((mPage-1)*15);
 							for (int i = 0; i < list.size(); i++) {
 								MemberVO listt = (MemberVO) list.get(i);
 
@@ -86,6 +99,19 @@
 							%>
 						</table>
 					</form>
+					<div>
+						<ul class="pagination pagination-lg">
+							<%
+								for(int i = 1; i <= mPages; i++) {
+							%>
+								<li class="page-item" onclick="mPage(<%= i %>);">
+									<%= i %>
+								</li>
+							<%		
+								}
+							%>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -103,6 +129,10 @@ function memberDelete(m_id){
 		window.location.href="./ad_mDelete.jsp?m_id=" + m_id;
 		return true;
 	}
+}
+function mPage(page) {
+	var path = "${context}/admin/admin_caretaker.jsp?mPage=" + page;
+	location.href = path;
 }
 </script>
 

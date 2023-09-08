@@ -16,7 +16,7 @@
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>adsfasdfsdf</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Suite Care</h2>
 			</header>
 		</div>
@@ -44,7 +44,7 @@
 							</div>
 							<div class="form_row">
 							<label for="phone">핸드폰번호</label>
-							<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
+							<input type="tel" id="phone" name="phone" pattern="([0-9]{3}-[0-9]{4}-[0-9]{4})|([0][0-9]{10})" maxlength="13" placeholder="휴대폰 번호 (000-0000-0000 형식)" title="휴대폰 번호 (000-0000-0000 형식)" required>
 							</div>
 							<div class="form_button">
 							<button class="button special" type="submit">비밀번호 찾기</button>

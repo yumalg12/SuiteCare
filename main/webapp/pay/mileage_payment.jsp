@@ -69,7 +69,7 @@ for (int i = 0; i < glist.size(); i++) {
 					%>
 					<%
 					ReservationDAO resdao = new ReservationDAO();
-					List<ReservationVO> listres = resdao.resList(g_id);
+					List<ReservationVO> listres = resdao.resList(g_id, 1);
 					for (int i = 0; i < listres.size(); i++) {
 						ReservationVO listvo = (ReservationVO) listres.get(i);
 

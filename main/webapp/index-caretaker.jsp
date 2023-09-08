@@ -39,21 +39,15 @@
 <body>
 	<%@ include file="/header.jsp"%>
 	
-	<!-- Banner -->
-	<section class="banner full">
-		<article>
-		<%int num = (int) (Math.random() * 3 + 1); %>
-		<img src="${context}/assets/images/slide0<%=num %>.jpg" alt="" />
-			<div class="inner">
-				<header>
-					<p>
-						<a>Premium </a> Caregiver Matching Platform 
-						</p>
-					<h2>Suite Care</h2>
-				</header>
-			</div>
-		</article>
-	</section>
+<!-- One -->
+<section id="One" class="wrapper style3">
+	<div class="inner">
+		<header class="align-center">
+			<p>Premium Caregiver Matching Platform</p>
+			<h2>Suite Care</h2>
+		</header>
+	</div>
+</section>
 
 	<!-- One -->
 	<section id="one" class="wrapper style2">
@@ -72,7 +66,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>피간병인 등록하기</h2>
 							</header>
 						</div>
@@ -92,7 +86,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>예약 신청하기</h2>
 							</header>
 						</div>
@@ -112,7 +106,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>예약 목록</h2>
 							</header>
 						</div>
@@ -131,7 +125,7 @@
 						</div>
 						<div class="content">
 							<header class="align-center">
-								<p>피간병인</p>
+								<p>Suite Care</p>
 								<h2>빠른 매칭 서비스</h2>
 							</header>
 						</div>

@@ -23,12 +23,12 @@
 					</header>
 
 					<div class="form_wrapper">
-						<form action="../reservation/apply" method="post" name="hourwageForm">
+						<form action="../book/apply" method="post" name="hourwageForm" id="hourwageForm">
 						<input type="hidden" name="type" value="apply"/>
 							<div class="form_row">
 								<label for="hourwage">희망시급</label>
 								<div style="display: flex; align-items: center; gap: 5px;">
-								<input type="text" id="hourwage" name="hourwage" required autofocus>원
+								<input type="number" id="hourwage" name="hourwage" min=9620 required autofocus>원 
 								</div>
 							</div>
 							<div class="form_button">
@@ -44,4 +44,10 @@
 	</section>
 
 </body>
+	 <script>
+        document.getElementById("hourwageForm").addEventListener("submit", function () {
+        });
+    </script>
+    
+    
 </html>

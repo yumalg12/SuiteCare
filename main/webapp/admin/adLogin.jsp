@@ -35,7 +35,7 @@ function adlogin(){
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>Eleifend vitae urna</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Suite Care</h2>
 			</header>
 		</div>

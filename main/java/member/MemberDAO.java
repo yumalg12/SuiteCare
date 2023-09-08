@@ -151,6 +151,7 @@ public class MemberDAO {
 				String m_address = rs.getString("m_address");	
 				String m_sms_yn = rs.getString("m_sms_yn");
 				String m_email_yn = rs.getString("m_email_yn");
+				int m_current_mileage = rs.getInt("m_current_mileage"); 
 				
 				MemberVO vo = new MemberVO();
 				vo.setM_id(m_id);
@@ -162,6 +163,7 @@ public class MemberDAO {
 				vo.setM_phone(m_phone);
 				vo.setM_email_yn(m_email_yn);
 				vo.setM_sms_yn(m_sms_yn);
+				vo.setM_current_mile(m_current_mileage);
 				list.add(vo);
 			}
 			rs.close();
@@ -295,12 +297,12 @@ public class MemberDAO {
 		return -1;
 	}
 	
-	public List<MemberVO> listMembers() {
+	public List<MemberVO> listMembers(int start) {
 		List<MemberVO> list= new ArrayList<MemberVO>();
 		try {
 			conn = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM member";
+			String sql = "SELECT * FROM member LIMIT "+start+",15";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -336,6 +338,27 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int memCnt() {
+		int cnt = 0;
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT count(*) as cnt FROM member";
+			pstmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public int del(String id) {

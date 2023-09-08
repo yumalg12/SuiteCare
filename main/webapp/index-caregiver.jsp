@@ -39,21 +39,15 @@
 <body>
 	<%@ include file="/header.jsp"%>
 	
-	<!-- Banner -->
-	<section class="banner full">
-		<article>
-		<%int num = (int) (Math.random() * 3 + 1); %>
-		<img src="images/slide0<%=num %>.jpg" alt="" />
-			<div class="inner">
-				<header>
-					<p>
-						<a>Premium </a> Caregiver Matching Platform 
-						</p>
-					<h2>Suite Care</h2>
-				</header>
-			</div>
-		</article>
-	</section>
+<!-- One -->
+<section id="One" class="wrapper style3">
+	<div class="inner">
+		<header class="align-center">
+			<p>Premium Caregiver Matching Platform</p>
+			<h2>Suite Care</h2>
+		</header>
+	</div>
+</section>
 
 	<!-- One -->
 	<section id="one" class="wrapper style2">

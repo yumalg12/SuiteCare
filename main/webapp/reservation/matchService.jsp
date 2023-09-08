@@ -83,10 +83,10 @@
 		        }
 		    }
 		    
-			f.action = "../reservation/match";
+		    $('select > option:disabled').attr("disabled",false);
+			f.action = "${context}/reservation/match";
 			f.submit();
 			return true;
-		
 	}
 	function resmstop() {
 		alert("매칭정보 입력이 중지되었습니다.");
@@ -114,7 +114,7 @@
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -144,15 +144,15 @@
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>maecenas sapien feugiat ex purus</p>
+						<p>간병 서비스 예약</p>
 						<h2>빠른 매칭 서비스 : 간병인 선호도 조사</h2>
 					</header>
 
 					<div class="form_wrapper">
 						<form name="preferenceForm">
 							<div class="form_row">
-								<label> 예약 코드</label> <input type="text" readonly
-									value="<%if (res_code != null) {%><%=res_code%> <%} else if (res_code == null) {%> <%=r_code%> <%}%>">
+								<label> 예약 코드</label>
+								<input type="text" readonly value="<%if (res_code != null) {%><%=res_code%> <%} else if (res_code == null) {%> <%=r_code%> <%}%>">
 							</div>
 							<hr>
 							<div class="form_row">
@@ -399,8 +399,7 @@
 								<input type="button" class="button alt" onclick="resmstop();" value="매칭 중지">
 								<div>
 								<input type="reset" class="button" onclick="resmstop();" value="초기화">
-									<button type="button" class="button special"
-										onclick="matSubmit();">제출</button>
+									<button type="button" class="button special" onclick="matSubmit();">제출</button>
 								</div>
 							</div>
 							<input type="hidden" name="type" value="matchService"/>

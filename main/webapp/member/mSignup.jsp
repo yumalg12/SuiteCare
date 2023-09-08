@@ -20,7 +20,7 @@ function signUpValidation() {
 		// 중복 확인 검사
 		if (!$("#id").prop("disabled")) {
 		alert("아이디 중복확인이 필요합니다.");
-		$("#duplicateID").focus();
+		$("#id").focus();
 		return false;
 		}
 
@@ -136,7 +136,7 @@ function isDuplicateID() {
 		 $.ajax({
 			    type: "post",
 			    async: false,
-			    url: "/suiteCare/member/join",
+			    url: "<%=context%>/member/join",
 			    dataType: "json",
 			    data: {id: _id, type: "isDuplicateID"},
 			    success: function(data, textStatus) {
@@ -191,7 +191,7 @@ function setAddress() {
 	<section id="One" class="wrapper style3">
 		<div class="inner">
 			<header class="align-center">
-				<p>adsfasdfsdf</p>
+				<p>Premium Caregiver Matching Platform</p>
 				<h2>Suite Care</h2>
 			</header>
 		</div>
@@ -239,7 +239,7 @@ function setAddress() {
 			</div>		
 			<div class="form_row">
 				<label for="phone">휴대폰 번호</label>
-				<input type="tel" id="phone" name="m_phone" pattern="([0-9]{3}-[0-9]{4}-[0-9]{4})|([0-9]{11})" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (010-xxxx-xxxx)" required>
+				<input type="tel" id="phone" name="m_phone" pattern="([0-9]{3}-[0-9]{4}-[0-9]{4})|([0][0-9]{10})" maxlength="13" placeholder="휴대폰 번호" title="휴대폰 번호 (010-xxxx-xxxx)" required>
 			</div>
 			<div class="form_row">
 				<label for="email">이메일</label>

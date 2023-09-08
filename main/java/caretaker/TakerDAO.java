@@ -58,13 +58,13 @@ public class TakerDAO {
          
    }
    
-   public List<TakerVO> takerList(String id) {
+   public List<TakerVO> takerList(String id, int start) {
       List<TakerVO> list= new ArrayList<TakerVO>();
       
       try {
          conn = dataFactory.getConnection();
          
-         String sql = "SELECT * FROM caretaker where m_id=?";
+         String sql = "SELECT * FROM caretaker where m_id=? LIMIT " + start + ", 5";
          System.out.println(sql);
          pstmt = conn.prepareStatement(sql);
          pstmt.setString(1, id);
@@ -100,6 +100,30 @@ public class TakerDAO {
          e.printStackTrace();
       }
       return list;
+   }
+   
+   public int takerCnt(String id) {
+	   int cnt=0;
+	   try {
+		   conn = dataFactory.getConnection();
+		   
+		   String sql = "SELECT count(*) as cnt FROM caretaker where m_id=?";
+		   System.out.println(sql);
+		   pstmt = conn.prepareStatement(sql);
+		   pstmt.setString(1, id);
+		   
+		   ResultSet rs = pstmt.executeQuery();
+		   while(rs.next()) {
+			   cnt = rs.getInt("cnt");
+			   
+		   }
+		   rs.close();
+		   pstmt.close();
+		   conn.close();
+	   } catch(Exception e) {
+		   e.printStackTrace();
+	   }
+	   return cnt;
    }
    
    public List<TakerVO> takernameList(String id, String tname) {

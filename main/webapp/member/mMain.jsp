@@ -9,7 +9,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.concurrent.TimeUnit" %>
 <%@ page import="book.BookDAO"%>
-<%@ page import="Preference.*"%>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -57,17 +57,71 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 	});
 
+function takerPage(page) {
+	var path = "${context}/member/main?takerPage=" + page + "#info";
+	location.href = path;
+}
+
+function recomPage(page) {
+	var path = "${context}/member/main?recomPage=" + page + "#match";
+	location.href = path;
+}
+
+	$(document).ready(function() {
+		<%int tPage = request.getParameter("takerPage") != null ? Integer.parseInt(request.getParameter("takerPage")) : 1;%>
+		<%int aPage = request.getParameter("applyPage") != null ? Integer.parseInt(request.getParameter("applyPage")) : 1;%>
+		<%int cPage = request.getParameter("comPage") != null ? Integer.parseInt(request.getParameter("comPage")) : 1;%>
+		<%int nPage = request.getParameter("nulllistPage") != null ? Integer.parseInt(request.getParameter("nulllistPage")) : 1;%>
+		<%int recomPage = request.getParameter("recomPage") != null ? Integer.parseInt(request.getParameter("recomPage")) : 1;%>
+	});
 </script>
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+
+.pagination li.active a {
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body>
 	<%@ include file="/header.jsp"%>
+	
+	<%
+		TakerDAO dao = new TakerDAO();
+		int takerCnt = 0;
+		int takePages = 0;
+		takerCnt = dao.takerCnt(m_id);
+		if(takerCnt%5 == 0) {
+			takePages = takerCnt/5;
+		} else {
+			takePages = takerCnt/5 + 1;
+		}
+	%>
 <!-- One -->
 <section id="One" class="wrapper style3">
 	<div class="inner">
 		<header class="align-center">
 			<p>Premium Caregiver Matching Platform</p>
-			<h2>SuiteCare</h2>
+			<h2>Suite Care</h2>
 		</header>
 	</div>
 </section>
@@ -101,10 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					session.removeAttribute("caretaker_code");
 					session.removeAttribute("res_code");
 					session.removeAttribute("r_code");
-					
-					TakerDAO dao = new TakerDAO();
-
-					List<TakerVO> list = dao.takerList(m_id);
+					List<TakerVO> list = dao.takerList(m_id, (tPage-1)*5);
 					for (int i = 0; i < list.size(); i++) {
 						TakerVO listt = (TakerVO) list.get(i);
 
@@ -131,6 +182,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				</table>
 				</div>
 			</form>
+			<div>
+				<ul class="pagination pagination-lg">
+					<%
+						for(int i = 1; i <= takePages; i++) {
+					%>
+						<li class="page-item" onclick="takerPage(<%= i %>);">
+							<%= i %>
+						</li>
+					<%		
+						}
+					%>
+				</ul>
+			</div>
 			<div style="text-align: center;" class="form_button">
 				<input type="button" class="button special"
 					onclick="insertTinfo();" value="피간병인 정보 등록하기">
@@ -157,6 +221,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  <li class="nav-item" role="presentation">
 			    <button class="nav-link" id="resApplyInfo-tab" data-bs-toggle="tab" data-bs-target="#resApplyInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약 신청 정보</button>
 			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="resNullInfo-tab" data-bs-toggle="tab" data-bs-target="#resNullInfo-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">미작성 예약 정보</button>
+			  </li>
 			</ul>
 			
 			<div class="tab-content" id="myTabContent">
@@ -165,6 +232,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			  </div>
 			  <div class="tab-pane fade" id="resApplyInfo-tab-pane" role="tabpanel" aria-labelledby="resApplyInfo-tab" tabindex="0">
 			<%@include file="./main/resApplyInfo.jsp"%>
+			  </div>
+			  <div class="tab-pane fade" id="resNullInfo-tab-pane" role="tabpanel" aria-labelledby="resNullInfo-tab" tabindex="0">
+			<%@include file="./main/resNullInfo.jsp"%>
 			  </div>
 			</div>
 			
@@ -198,13 +268,14 @@ document.addEventListener('DOMContentLoaded', function() {
 									<td>피간병인<br>상세정보</td>
 									<td>간병장소</td>
 									<td>주소</td>
-									<td>간병일시/시간</td>
+									<td>간병일시</td>
 									<td>매칭서비스<br>정보</td>
 									<td>빠른매칭<br>서비스</td>
 									<td>비고</td>
 								</tr>
 							</thead>
 							<%
+						reslist3 = dao3.listres(m_id, (recomPage-1)*5);
 						for (int i = 0; i < reslist3.size(); i++) {
 							PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -237,18 +308,18 @@ document.addEventListener('DOMContentLoaded', function() {
 							<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 							
 							<td><% if(location==null) { %>
-							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+							<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
 							else if(location!=null){if(location.equals("home")) {%>자택<%} 
 							else { %><%=location%><%}} %></td>
 							
 							<td><% if(addr==null) { %>
-							<a href="../reservation/rescareloc.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+							<a href="../reservation/location.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
 							else if(addr!=null){%><%=addr%> 
 							<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
 							
 							<td><% if(start_date==null ) { %>
-							<a href="../reservation/res_date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
-							else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+							<a href="../reservation/date.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
+							else if(start_date!=null){%><%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)<%} %></td>
 							
 							<td><%
 							List<TpreferenceVO> preList = dao2.listtpre(res_code);
@@ -256,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								String pre_age_1 = prevo.getPre_age_1();
 								
 								if(pre_age_1 == null) { %>
-								<a href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a> <%}	
+								<a href="../reservation/match?res_code=<%=res_code%>">작성하기</a> <%}	
 								else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
 								<%}} %></td>
 								
@@ -267,8 +338,9 @@ document.addEventListener('DOMContentLoaded', function() {
 								if(pre_age_1 == null) { %>
 								미작성
 								<%}	else if (sqlStartDate.before(currentDate)) { %>
-								매칭기간만료 <% } else if(pre_age_1!=null){%>
-								<a href="./quickMatchingservice.jsp?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
+								매칭기간만료 <% } else if(pre_age_1!=null){ %>
+								<a href="../recommend?res_code=<%=res_code%>">빠른매칭<br>서비스</a>
+								
 							<%}} %></td>
 							
 							<td><a href="../reservation/resdelete.jsp?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>"
@@ -281,9 +353,22 @@ document.addEventListener('DOMContentLoaded', function() {
 						</table>
 					</form>
 				</div>
+				<div>
+					<ul class="pagination pagination-lg">
+						<%
+							for(int i = 1; i <= applyPages; i++) {
+						%>
+							<li class="page-item" onclick="recomPage(<%= i %>);">
+								<%= i %>
+							</li>
+						<%		
+							}
+						%>
+					</ul>
 				</div>
 			</div>
 		</div>
+	</div>
 </section>
 <%@ include file="/footer.jsp"%>
                      
@@ -315,11 +400,15 @@ document.addEventListener('DOMContentLoaded', function() {
           editable: true,
           nowIndicator:true, // 현재 시간 마크
         events : [
-            <%for (CalendarVO cvo : clist) {%>
+            <%for (CalendarVO cvo : clist) {
+            	Date enddate = cvo.getEnd_date();
+            	enddate.setDate(enddate.getDate() + 1);
+            %>
+            
                {
                    title:'<%=cvo.getT_name()%>',
                    start:'<%=cvo.getStart_date()%>',
-                   end:'<%=cvo.getEnd_date()%>',
+                   end:'<%=enddate%>',
                    t_name:'<%=cvo.getT_name()%>',
                    start_time:'<%=cvo.getStart_time()%>',
                    end_time:'<%=cvo.getEnd_time()%>',

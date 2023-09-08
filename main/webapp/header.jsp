@@ -6,8 +6,7 @@
 <!-- Header -->
 <header id="header" class="alt">
 	<div class="logo">
-	    
-	    <a href="${context}/"><img src="${context}/assets/images/logo2.png" alt="로고">스위트케어</a>
+	    <a href="${context}/"><img src="${context}/assets/images/logo-highres.png" alt="SC"><span>스위트케어</span></a>
 	</div>
 	<a href="#menu">Menu</a>
 </header>
@@ -23,8 +22,5 @@
 		<%if(m_id!=null || g_id!=null) { %><li><a href="${context}/logout.jsp">로그아웃</a></li> <% } %>
 		<li><a href="${context}/admin/adLogin.jsp">관리자 로그인</a></li>
 		<%if(adcode!=null) { %><li><a href="${context}/admin/adMain.jsp">관리자 페이지</a></li><% } %>
-		<li><a href="${context}/generic.jsp">템플릿 기본틀</a></li>
-		<li><a href="${context}/elements.jsp">스타일 가이드</a></li>
 	</ul>
-		<p>메뉴는 모두 임시입니다! 필요한 대로 수정해 주세요👍</p>
 </nav>

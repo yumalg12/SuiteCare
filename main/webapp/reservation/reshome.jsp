@@ -63,7 +63,7 @@ function reshstop() {
 		<div class="inner">
 			<header class="align-center">
 				<p>Premium Caregiver Matching Platform</p>
-				<h2>SuiteCare</h2>
+				<h2>Suite Care</h2>
 			</header>
 		</div>
 	</section>
@@ -85,7 +85,7 @@ function reshstop() {
 			<div class="box">
 				<div class="content">
 					<header class="align-center">
-						<p>maecenas sapien feugiat ex purus</p>
+						<p>간병 서비스 예약</p>
 						<h2>자택 주소 입력</h2>
 					</header>
 
@@ -105,7 +105,7 @@ function reshstop() {
 			<div class="form_button_three">
 		 <input type="button" class="button alt" onclick="reshstop();" value="예약 중지">
 		 <div>
-		 <span class="button alt" onclick="location.href='<%=request.getContextPath()%>/reservation/location'">뒤로가기</span>
+		 <span class="button alt" onclick="location.href='${context}/reservation/location'">뒤로가기</span>
 		 <input type="submit" class="button special" value="확인">
 		 </div>
 			</div>

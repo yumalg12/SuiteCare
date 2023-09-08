@@ -5,7 +5,18 @@
 <%@ page import="java.sql.Time"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-
+<%
+	m_id = (String)session.getAttribute("m_id");
+	PatientresDAO dao3 = new PatientresDAO();
+	int applyCnt = 0;
+	int applyPages = 0;
+	applyCnt = dao3.listresCnt(m_id);
+	if(applyCnt%5 == 0) {
+		applyPages = applyCnt/5;
+	} else {
+		applyPages = applyCnt/5 + 1;
+	}
+%>
 	<div id='restable'>
 		<form name="resinfo">
 			<table>
@@ -16,7 +27,7 @@
 						<td>피간병인<br>상세정보</td>
 						<td>간병장소</td>
 						<td>주소</td>
-						<td>간병일시/시간</td>
+						<td>간병일시</td>
 						<td>매칭서비스<br>정보</td>
 						<td>간병인</td>
 						<td>비고</td>
@@ -24,9 +35,7 @@
 				</thead>
 				<%
 
-			m_id = (String)session.getAttribute("m_id");
-			PatientresDAO dao3 = new PatientresDAO();
-			List<PatientresVO> reslist3 = dao3.listres(m_id);
+			List<PatientresVO> reslist3 = dao3.listres(m_id, (aPage-1)*5);
 			for (int i = 0; i < reslist3.size(); i++) {
 				PatientresVO listvo = (PatientresVO) reslist3.get(i);
 
@@ -41,51 +50,45 @@
 				String location = listvo.getLocation();
 				String addr = listvo.getAddr();
 				String detail_addr = listvo.getDetail_addr();
-
+				
+				
 				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-				String fStartTime = timeFormat.format(start_time);
-				String fEndTime = timeFormat.format(end_time);
+				
+			      String fStartTime = (start_time != null) ? timeFormat.format(start_time) : "";
+		            String fEndTime = (end_time != null) ? timeFormat.format(end_time) : "";
+		            
+				String workTimes = fStartTime + "~" + fEndTime;
 				
 				java.sql.Date sqlStartDate = new java.sql.Date(start_date.getTime());
 			    
 				java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 	           
-				String workTimes = fStartTime + "~" + fEndTime;
+				
 			%>
 
 			<tr>
 				<td><%=res_code%></td> <td><%=t_name%></td> 
 				<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 				
-				<td><% if(location==null) { %>
-				<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
-				else if(location!=null){if(location.equals("home")) {%>자택<%} 
-				else { %><%=location%><%}} %></td>
+				<td>
+				<%if(location.equals("home")) {%>자택<%} 
+				else { %><%=location%><%} %></td>
 				
-				<td><% if(addr==null) { %>
-				<a href="../reservation/location?res_code=<%=res_code%>">작성하기</a> <%}	
-				else if(addr!=null){%><%=addr%> 
-				<%if(detail_addr!=null) {%><br><%=detail_addr%><%}} %></td> 
+				<td><%=addr%> <%if(detail_addr!=null) {%><br><%=detail_addr%><%} %></td> 
 				
-				<td><% if(start_date==null ) { %>
-				<a href="../reservation/date?res_code=<%=res_code%>&caretaker_code=<%=caretaker_code%>">작성하기</a> <%}	
-				else if(start_date!=null){%>일시 : <%=start_date%> ~ <br> <%=end_date %><br>시간 : <%=workTimes%><%} %></td>
+				<td>
+				<%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)
 				
 				<td><%
 				List<TpreferenceVO> preList = dao2.listtpre(res_code);
 				for(TpreferenceVO prevo : preList) {
 					String pre_age_1 = prevo.getPre_age_1();
 					
-					if(pre_age_1 == null) { 
-						
-						
-					%>
-					<a href="../reservation/match?res_code=<%=res_code%>">작성하기</a> <%}	
-					else if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
-					<%}} %></td>
+					if(pre_age_1!=null){%><button onclick="openmatPopup('<%=res_code %>')">더보기</button>
+					<%} %></td>
 					
 				<td>
-				<% if (sqlStartDate.before(currentDate)) { %>
+				<%if (sqlStartDate.before(currentDate)) { %>
 				승인기간만료 <% } else { %>
 					<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
 					<% } %>
@@ -96,8 +99,28 @@
 			</tr>
 
 			<%
-			}
+			}}
 			%>
 		</table>
 	</form>
+	<div>
+		<ul class="pagination pagination-lg">
+			<%
+				for(int i = 1; i <= applyPages; i++) {
+			%>
+				<li class="page-item" onclick="applyPage(<%= i %>);">
+					<%= i %>
+				</li>
+			<%		
+				}
+			%>
+		</ul>
+	</div>
 </div>
+
+<script>
+	function applyPage(page) {
+		var path = "${context}/member/main?applyPage=" + page + "#resApplyInfo-tab";
+		location.href = path;
+	}
+</script>

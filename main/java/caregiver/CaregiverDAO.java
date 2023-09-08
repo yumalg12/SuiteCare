@@ -446,6 +446,7 @@ public class CaregiverDAO {
 				 String hourwage2 = rs.getString("g_hourwage2");
 				 String hourwage3 = rs.getString("g_hourwage3");
 				 Date signup_date = rs.getDate("g_signup_date");
+				 int g_current_mileage = rs.getInt("g_current_mileage");
 					
 				 CaregiverVO vo = new CaregiverVO();
 				 vo.setG_address(address);
@@ -463,6 +464,7 @@ public class CaregiverDAO {
 				 vo.setG_hourwage2(hourwage2);
 				 vo.setG_hourwage3(hourwage3);
 				 vo.setG_signup_date(signup_date);
+				 vo.setG_current_mileage(g_current_mileage);
 	            
 	            list.add(vo);
 	         }
