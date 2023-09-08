@@ -379,12 +379,12 @@ public class CaregiverDAO {
 		return -1;
 	}
 	
-	public List<CaregiverVO> giver_admin_info() {
+	public List<CaregiverVO> giver_admin_info(int start) {
 		List<CaregiverVO> list= new ArrayList<CaregiverVO>();
 		try {
 			con = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM caregiver";
+			String sql = "SELECT * FROM caregiver LIMIT " + start + ", 15";
 			pstmt = con.prepareStatement(sql);
 			
 			
@@ -416,6 +416,28 @@ public class CaregiverDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int giverCnt() {
+		int cnt = 0;
+		try {
+			con = dataFactory.getConnection();
+			
+			String sql = "SELECT count(*) as cnt FROM caregiver";
+			pstmt = con.prepareStatement(sql);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public List<CaregiverVO> giverList(String id) {

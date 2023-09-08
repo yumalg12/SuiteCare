@@ -17,7 +17,18 @@
 <body>
 
 <%@ include file="/header.jsp"%>
+<%
+int gPage = request.getParameter("gPage") != null ? Integer.parseInt(request.getParameter("gPage")) : 1;
+CaregiverDAO dao = new CaregiverDAO();
+int giverCnt = dao.giverCnt();
+int gPages = 0;
+if(giverCnt%15==0) {
+	gPages = giverCnt/15;
+} else {
+	gPages = giverCnt/15 +1;
+}
 
+%>
 	<!-- One -->
 	<section id="One" class="wrapper style3">
 		<div class="inner">
@@ -47,10 +58,7 @@
 							</thead>
 							<%
 							request.setCharacterEncoding("utf-8");
-
-							CaregiverDAO dao = new CaregiverDAO();
-
-							List<CaregiverVO> list = dao.giver_admin_info();
+							List<CaregiverVO> list = dao.giver_admin_info((gPage-1)*15);
 							for (int i = 0; i < list.size(); i++) {
 								CaregiverVO listt = (CaregiverVO) list.get(i);
 								
@@ -64,7 +72,7 @@
 								//String phone = g_phone.substring(0,3) + "-" + g_phone.substring(3,7) + "-" + g_phone.substring(7,11);
 							%>
 							<tr>
-								<td><%=i + 1%></td>
+								<td><%=(gPage-1)*15 + i + 1%></td>
 								<td><%=g_id%></td>
 								<td><%=g_name%></td>
 								<td><%=g_gender%></td>
@@ -80,6 +88,19 @@
 							%>
 						</table>
 					</form>
+					<div>
+						<ul class="pagination pagination-lg">
+							<%
+								for(int i = 1; i <= gPages; i++) {
+							%>
+								<li class="page-item" onclick="gPage(<%= i %>);">
+									<%= i %>
+								</li>
+							<%		
+								}
+							%>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -104,3 +125,31 @@
 
 </body>
 </html>
+
+<script>
+	function gPage(page) {
+		var path = "${context}/admin/admin_caregiver.jsp?gPage=" + page;
+		location.href = path;
+	}
+</script>
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+</style>

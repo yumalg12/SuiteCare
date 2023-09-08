@@ -681,13 +681,13 @@ public class ReservationDAO {
 		} return match;
 	}
 	
-	public List<ReservationVO> allRes() {
-	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	public List<ReservationVO> allRes(int start) {
+		List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
 	      try {
 	    	 connect();
 	         
-	         String sql = "SELECT * FROM reservation";
+	         String sql = "SELECT * FROM reservation LIMIT " + start + ", 15";
 	         System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 
@@ -745,7 +745,28 @@ public class ReservationDAO {
 	      return list;
 	   }
 	
-
+	public int allResCnt() {
+		int cnt = 0;
+		try {
+			connect();
+			
+			String sql = "SELECT count(*) as cnt FROM reservation";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	public List<ReservationVO> uList(String res_code) {
 	      List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
