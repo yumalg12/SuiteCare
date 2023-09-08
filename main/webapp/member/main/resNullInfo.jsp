@@ -6,14 +6,13 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
-	PatientresDAO pdao = new PatientresDAO();
 	int nulllistCnt = 0;
-	int nulllistPages = 0;
+	int nPages = 0;
 	nulllistCnt = pdao.comlistresCnt(m_id);
-	if(nulllistCnt%5 == 0) {
-		nulllistPages = nulllistCnt/5;
+	if(nulllistCnt%perPage == 0) {
+		nPages = nulllistCnt/perPage;
 	} else {
-		nulllistPages = nulllistCnt/5 + 1;
+		nPages = nulllistCnt/perPage + 1;
 	}
 %>
 	<div id='restable'>
@@ -33,7 +32,7 @@
 				<%
 
 				m_id = (String)session.getAttribute("m_id");
-				List<PatientresVO> nulllist = pdao.listnull(m_id, (nPage-1)*5);
+				List<PatientresVO> nulllist = pdao.listnull(m_id, (nPageCurrent-1)*perPage);
 				
 				Set<String> processedResCodes = new HashSet<>();
 				List<PatientresVO> uniqueList = new ArrayList<>();
@@ -97,10 +96,10 @@
 	<div>
 		<ul class="pagination pagination-lg">
 			<%
-				for(int i = 1; i <= nulllistPages; i++) {
+				for(int nPage = 1; nPage <= nPages; nPage++) {
 			%>
-				<li class="page-item" onclick="nulllistPage(<%= i %>);">
-					<%= i %>
+				<li class="page-item <%=nPage == nPageCurrent? "button": "" %>" onclick="nPage(<%= nPage %>);">
+					<%= nPage %>
 				</li>
 			<%		
 				}
@@ -110,8 +109,8 @@
 </div>
 
 <script>
-	function nulllistPage(page) {
-		var path = "${context}/member/main?nulllistPage=" + page + "#resNullInfo-tab";
+	function nPage(page) {
+		var path = "${context}/member/main?nPage=" + page + "#resNullInfo-tab";
 		location.href = path;
 	}
 </script>

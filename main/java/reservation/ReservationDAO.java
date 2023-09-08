@@ -681,13 +681,13 @@ public class ReservationDAO {
 		} return match;
 	}
 	
-	public List<ReservationVO> allRes(int start) {
+	public List<ReservationVO> allRes(int start, int perPage) {
 		List<ReservationVO> list= new ArrayList<ReservationVO>();
 	      
 	      try {
 	    	 connect();
 	         
-	         String sql = "SELECT * FROM reservation LIMIT " + start + ", 15";
+	         String sql = "SELECT * FROM reservation LIMIT " + start + ", "+perPage;
 	         System.out.println(sql);
 	         pstmt = conn.prepareStatement(sql);
 

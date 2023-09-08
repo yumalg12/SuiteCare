@@ -48,33 +48,35 @@ public class CaregiverMainController extends HttpServlet {
 			System.out.println("quickPage >> " + request.getParameter("quickPage"));
 			System.out.println("finalPage >> " + request.getParameter("finalPage"));
 			
+			int perPage = 5;
+			
 			int applystart =0;
 			if(applyPageCurrent != 1) {
-				applystart = (applyPageCurrent-1)*5;
+				applystart = (applyPageCurrent-1)*perPage;
 				System.out.println("applystart == "  + applystart);
 			}
 			
 			int listresStart =0;
 			if(listresPageCurrent != 1) {
-				listresStart = (listresPageCurrent-1)*5;
+				listresStart = (listresPageCurrent-1)*perPage;
 				System.out.println("applystart == "  + listresStart);
 			}
 			
 			int myApplyStart =0;
 			if(myApplyPageCurrent != 1) {
-				myApplyStart = (myApplyPageCurrent-1)*5;
+				myApplyStart = (myApplyPageCurrent-1)*perPage;
 				System.out.println("myApplyStart == "  + myApplyStart);
 			}
 			
 			int quickStart =0;
 			if(quickPageCurrent != 1) {
-				quickStart = (quickPageCurrent-1)*5;
+				quickStart = (quickPageCurrent-1)*perPage;
 				System.out.println("quickStart == "  + quickStart);
 			}
 			
 			int finalStart =0;
 			if(finalPageCurrent != 1) {
-				finalStart = (finalPageCurrent-1)*5;
+				finalStart = (finalPageCurrent-1)*perPage;
 				System.out.println("finalStart == "  + finalStart);
 			}
 			

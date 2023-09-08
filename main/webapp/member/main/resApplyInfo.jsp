@@ -6,15 +6,13 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
-	m_id = (String)session.getAttribute("m_id");
-	PatientresDAO dao3 = new PatientresDAO();
 	int applyCnt = 0;
-	int applyPages = 0;
-	applyCnt = dao3.listresCnt(m_id);
-	if(applyCnt%5 == 0) {
-		applyPages = applyCnt/5;
+	int aPages = 0;
+	applyCnt = pdao.listresCnt(m_id);
+	if(applyCnt%perPage == 0) {
+		aPages = applyCnt/perPage;
 	} else {
-		applyPages = applyCnt/5 + 1;
+		aPages = applyCnt/perPage + 1;
 	}
 %>
 	<div id='restable'>
@@ -35,9 +33,9 @@
 				</thead>
 				<%
 
-			List<PatientresVO> reslist3 = dao3.listres(m_id, (aPage-1)*5);
-			for (int i = 0; i < reslist3.size(); i++) {
-				PatientresVO listvo = (PatientresVO) reslist3.get(i);
+			List<PatientresVO> reslistApply = pdao.listres(m_id, (aPageCurrent-1)*perPage);
+			for (int i = 0; i < reslistApply.size(); i++) {
+				PatientresVO listvo = (PatientresVO) reslistApply.get(i);
 
 				String t_name = listvo.getCaretaker();
 				Date start_date = listvo.getStartdate();
@@ -80,7 +78,7 @@
 				<%=start_date%><br>~ <%=end_date %><br>(<%=workTimes%>)
 				
 				<td><%
-				List<TpreferenceVO> preList = dao2.listtpre(res_code);
+				List<TpreferenceVO> preList = pdao.listtpre(res_code);
 				for(TpreferenceVO prevo : preList) {
 					String pre_age_1 = prevo.getPre_age_1();
 					
@@ -108,10 +106,10 @@
 	<div>
 		<ul class="pagination pagination-lg">
 			<%
-				for(int i = 1; i <= applyPages; i++) {
+				for(int aPage = 1; aPage <= aPages; aPage++) {
 			%>
-				<li class="page-item" onclick="applyPage(<%= i %>);">
-					<%= i %>
+				<li class="page-item <%=aPage == aPageCurrent? "button": ""%>" onclick="aPage(<%= aPage %>);">
+					<%= aPage %>
 				</li>
 			<%		
 				}
@@ -121,8 +119,8 @@
 </div>
 
 <script>
-	function applyPage(page) {
-		var path = "${context}/member/main?applyPage=" + page + "#resApplyInfo-tab";
+	function aPage(page) {
+		var path = "${context}/member/main?aPage=" + page + "#resApplyInfo-tab";
 		location.href = path;
 	}
 </script>

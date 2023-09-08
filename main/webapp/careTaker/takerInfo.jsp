@@ -5,6 +5,7 @@
 	<head>
 		<title>SC 스위트케어 | 간병 신청</title>
 <%@ include file="/header-import.jsp" %>
+	<script src="${context}/test/takerInfo.js"></script>
 
 	</head>
 	<body>
@@ -15,7 +16,7 @@
 				<div class="inner">
 					<header class="align-center">
 						<p>Premium Caregiver Matching Platform</p>
-						<h2>SC SuitCare</h2>
+						<h2>Suite Care</h2>
 					</header>
 				</div>
 			</section>

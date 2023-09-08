@@ -379,12 +379,12 @@ public class CaregiverDAO {
 		return -1;
 	}
 	
-	public List<CaregiverVO> giver_admin_info(int start) {
+	public List<CaregiverVO> giver_admin_info(int start, int perPage) {
 		List<CaregiverVO> list= new ArrayList<CaregiverVO>();
 		try {
 			con = dataFactory.getConnection();
 			
-			String sql = "SELECT * FROM caregiver LIMIT " + start + ", 15";
+			String sql = "SELECT * FROM caregiver LIMIT " + start + ", " + perPage;
 			pstmt = con.prepareStatement(sql);
 			
 			
