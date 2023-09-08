@@ -74,7 +74,7 @@
 				<div>
 					<div class="box" 
 					<% if(g_id == null) { %>
-						onclick="location.href='careGiver/caregiverLogin.jsp'"
+						onclick="location.href='caregiver/login'"
 						<% } else { %>
 						onclick="location.href='caregiver/main?type=index'"
 						<% } %>

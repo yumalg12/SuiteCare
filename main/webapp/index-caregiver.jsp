@@ -57,7 +57,7 @@
 				<div>
 					<div class="box"
 					<% if(g_id == null) { %>
-						onclick="location.href='/careGiver/caregiverLogin.jsp'"
+						onclick="location.href='/caregiver/login'"
 						<% } else { %>
 						onclick="location.href='main#matchinfo'"
 						<% } %>
@@ -76,7 +76,7 @@
 
 				<div>
 					<div class="box" 
-					<% if(g_id == null) { %>onclick="location.href='careGiver/caregiverLogin.jsp'"
+					<% if(g_id == null) { %>onclick="location.href='caregiver/login'"
 
 						<% } else { %>onclick="location.href='main#myapplylist'"
 							<% } %>
@@ -96,7 +96,7 @@
 				<div>
 					<div class="box"
 					<% if(g_id == null) { %>
-						onclick="location.href='/careGiver/caregiverLogin.jsp'"
+						onclick="location.href='/caregiver/login'"
 						<% } else { %>
 						onclick="location.href='main#allapplylist'"
 						<% } %>
@@ -116,7 +116,7 @@
 				<div>
 					<div class="box" 
 					<% if(g_id == null) { %>
-						onclick="location.href='/careGiver/caregiverLogin.jsp'"
+						onclick="location.href='/caregiver/login'"
 						<% } else { %>
 						onclick="location.href='main#finishlist'"
 						<% } %>

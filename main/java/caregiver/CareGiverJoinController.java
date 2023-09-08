@@ -18,14 +18,14 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class Join
  */
-@WebServlet("/careGiver/join")
-public class CareGiverJoinController extends HttpServlet {
+@WebServlet("/caregiver/join")
+public class CaregiverJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CareGiverJoinController() {
+    public CaregiverJoinController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,7 +39,7 @@ public class CareGiverJoinController extends HttpServlet {
 		String type = request.getParameter("type");
 		CaregiverDAO dao = new CaregiverDAO();
 		if(type == null) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("gSignup.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/careGiver/gSignup.jsp");
 			dispatch.forward(request, response);
 		} else if (type.equals("isDuplicateID")) {
 			String id = request.getParameter("id");
@@ -156,7 +156,7 @@ public class CareGiverJoinController extends HttpServlet {
 		dao.joinMember(vo);
 		
 		String context = ((HttpServletRequest)request).getContextPath();
-		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='" +context+ "/index.jsp';</script>");
+		out. println("<script>alert('회원가입이 완료되었습니다.'); location.href='" +context+ "/caregiver/login';</script>");
 	}
 
 }

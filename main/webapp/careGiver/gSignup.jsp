@@ -147,7 +147,7 @@
 			 $.ajax({
 			    type: "get",
 			    async: false,
-			    url: "${context}/careGiver/join",
+			    url: "<%=context%>/caregiver/join",
 			    dataType: "json",
 			    data: {id: _id, type: "isDuplicateID"},
 			    success: function(data, textStatus) {

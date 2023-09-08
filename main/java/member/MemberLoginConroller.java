@@ -55,9 +55,8 @@ public class MemberLoginConroller extends HttpServlet {
 			out.println("alert('비밀번호가 일치하지 않습니다.');");
 			out.println("location.href='"+context+"/member/login';");
 			System.out.println(m_id+" 비밀번호 불일치");
-		}
-		else if(ok==3) {
-			out.println("alert('가입되지 않은 아이디입니다.');");
+		} else if(ok==3) {
+			out.println("alert('아이디가 일치하지 않습니다.')");
 	        out.println("location.href='"+context+"/member/login';");
 			System.out.println(m_id+" 아이디 없음");
 

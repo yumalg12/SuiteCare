@@ -18,6 +18,6 @@
 		<li><a href="${context}/admin/adLogin.jsp">관리자 로그인</a></li>
 		<li><a href="${context}/admin/adMain.jsp">관리자 메인</a></li>
 		<li><a href="${context}/member/login">간병인 찾기</a></li>
-		<li><a href="${context}/careGiver/caregiverLogin.jsp">간병 일감 찾기</a></li>
+		<li><a href="${context}/caregiver/login">간병 일감 찾기</a></li>
 	</ul>
 </nav>
