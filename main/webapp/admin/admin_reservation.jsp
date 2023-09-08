@@ -41,7 +41,8 @@
 							<thead>
 								<tr>
 									<td>No.</td> <td>피간병인 아이디</td> <td>피간병인 코드</td> <td>간병인 아이디</td>
-									<td>예약코드</td> <td>결제주문번호</td> <td>예약날짜</td> <td>상세정보</td> 
+									<td>예약코드</td> <td>결제주문번호</td> <td>예약날짜</td> <!--<td>상세정보</td>--> 
+									<td></td> <td></td>
 								</tr>
 							</thead>
 							<%
@@ -62,13 +63,17 @@
 							%>
 							<tr>
 								<td><%=i + 1%></td>
-								<td><%=mid%></td>
-								<td><%=caretaker_code%></td>
-								<td><%=caregiver_id%></td>
-								<td><%=res_code%></td>
+								<td><a onclick="javascript:openM('<%=mid%>')"><%=mid%></a></td>
+								<td><a onclick="javascript:openT('<%=caretaker_code%>')"><%=caretaker_code%></a></td>
+								<td><a onclick="javascript:openG('<%=caregiver_id%>')"><%=caregiver_id%></a></td>
+								<td><a onclick="javascript:openR('<%=res_code %>', '<%=caretaker_code %>')"><%=res_code%></a></td>
 								<td><%=merchant_uid%></td>
 								<td><%=res_date%></td>
+								<!--
 								<td><a onclick="javascript:openAdRinfo('<%=res_code %>', '<%=caretaker_code %>')">더보기</a></td>
+								-->
+								<td><a href="../admin/ad_rUpdate.jsp?res_code=<%=res_code %>">수정</a></td>
+								<td><a onclick="javascript:resDelete('<%=res_code %>')">삭제</a></td>
 							</tr>
 							<%
 							}
@@ -84,6 +89,31 @@
 	function openAdRinfo(res_code, caretaker_code){
 		window.open("${context}/admin/admin_rinfo.jsp?res_code=" + res_code + "&caretaker_code=" + caretaker_code, 
 				"name(about:blank)", "width=800, height=600");
+	}
+	function openM(m_id){
+		window.open("${context}/admin/admInfo.jsp?m_id=" + m_id, 
+				"name(about:blank)", "width=800, height=600");
+	}
+	function openT(caretaker_code){
+		window.open("${context}/admin/adtInfo.jsp?caretaker_code=" + caretaker_code, 
+				"name(about:blank)", "width=800, height=600");
+	}
+	function openG(caregiver_id){
+		window.open("${context}/admin/adgInfo.jsp?caregiver_id=" + caregiver_id, 
+				"name(about:blank)", "width=800, height=600");
+	}
+	function openR(res_code, caretaker_code){
+		window.open("${context}/admin/adrInfo.jsp?res_code=" + res_code + "&caretaker_code=" + caretaker_code, 
+				"name(about:blank)", "width=800, height=600");
+	}
+	function resDelete(res_code){
+		if(!confirm('회원을 삭제하시겠습니까?')){
+			return false;
+		}
+		else{
+			window.location.href="./ad_rDelete.jsp?res_code=" + res_code;
+			return true;
+		}
 	}
 	</script>
 	

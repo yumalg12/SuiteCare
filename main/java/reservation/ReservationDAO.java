@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import member.MemberVO;
+
 public class ReservationDAO {
 	private PreparedStatement pstmt;
 	private PreparedStatement stmnt;
@@ -743,6 +745,101 @@ public class ReservationDAO {
 	      return list;
 	   }
 	
+
+	public List<ReservationVO> uList(String res_code) {
+	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	      
+	      try {
+	    	 connect();
+	         
+	         String sql = "SELECT * FROM reservation WHERE res_code='" + res_code + "'";
+	         System.out.println(sql);
+	         pstmt = conn.prepareStatement(sql);
+
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	        	String m_id = rs.getString("m_id");
+	            String caretaker_code = rs.getString("caretaker_code");
+	            String caregiver_id = rs.getString("caregiver_id");
+	            String rescode = rs.getString("res_code");
+	            String merchant_uid = rs.getString("merchant_uid");
+	            String res_date = rs.getString("res_date");
+
+	            ReservationVO vo = new ReservationVO();
+	            vo.setM_id(m_id);
+	            vo.setCaretaker_code(caretaker_code);
+	            vo.setCaregiver_id(caregiver_id);
+	            vo.setRes_code(rescode);
+	            vo.setMerchant_uid(merchant_uid);
+	            vo.setRes_date(res_date);
+
+	            list.add(vo);
+	         }
+	         rs.close();
+	         pstmt.close();
+	         conn.close();
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+	
+	public int del(String res_code) {
+		try {
+			 connect();
+	         
+			 String sql = "DELETE FROM reservation_info WHERE res_code='" + res_code + "'";
+	         pstmt = conn.prepareStatement(sql);
+	         int delete = pstmt.executeUpdate();
+
+	         if(delete == 0) {
+	        	 sql = "DELETE FROM reservation WHERE res_code='" + res_code + "'";
+		         pstmt = conn.prepareStatement(sql);
+		         pstmt.executeUpdate();
+		         System.out.println("정보 삭제 완료");
+	         }
+	         
+	         pstmt.close();
+	         return delete;
+	     } catch(Exception e) {
+	         e.printStackTrace();
+	     }
+		return -1;
+	}
+	
+	public int update(ReservationVO vo) {
+	      int result = 0;
+	      try {
+	    	 connect();
+	         
+	         String sql = "UPDATE reservation SET m_id=?, caretaker_code=?, caregiver_id=?, res_code=?, merchant_uid=?, res_date=? where res_code=?";
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setString(1, vo.getM_id());
+	         pstmt.setString(2, vo.getCaretaker_code());
+	         pstmt.setString(3, vo.getCaregiver_id());
+	         pstmt.setString(4, vo.getRes_code());
+	         pstmt.setString(5, vo.getMerchant_uid());
+	         pstmt.setString(6, vo.getRes_date());
+	         pstmt.setString(7, vo.getRes_code());
+	         /*
+	         System.out.printf("UPDATE member "
+	        		 + "SET m_phone='%s', m_email='%s', m_address='%s', m_sms_yn='%s', m_email_yn='%s' "
+	        		 + "where m_id='%s'\n", vo.getM_phone(), vo.getM_email(),vo.getM_address(),vo.getM_sms_yn(),vo.getM_email_yn(),vo.getM_id());
+	         */
+	         result=pstmt.executeUpdate();
+	         
+	         System.out.println(result);
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try { if(pstmt!=null) pstmt.close();
+	         } catch(Exception e) {
+	            e.printStackTrace();
+	         }
+	      } return result;
+	   }
+
 	public int finalListCnt(String id) { // 완료된 서비스
 		int cnt = 0;
 		try {
@@ -821,4 +918,5 @@ public class ReservationDAO {
 		  }
 		  return list;
 	}
+
 }
