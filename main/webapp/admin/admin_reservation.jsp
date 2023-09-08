@@ -15,6 +15,18 @@
 
 <body>
 	<%@ include file="/header.jsp"%>
+	
+	<%
+		int rPage = request.getParameter("rPage") != null ? Integer.parseInt(request.getParameter("rPage")) : 1;
+		ReservationDAO dao = new ReservationDAO();
+		int resCnt = dao.allResCnt();
+		int rPages = 0;
+		if(resCnt % 15 == 0) {
+			rPages = resCnt/15;
+		} else {
+			rPages = resCnt/15 +1;
+		}
+	%>
 
 	<!-- One -->
 	<section id="One" class="wrapper style3">
@@ -48,9 +60,7 @@
 							<%
 							request.setCharacterEncoding("utf-8");
 
-							ReservationDAO dao = new ReservationDAO();
-
-							List<ReservationVO> list = dao.allRes();
+							List<ReservationVO> list = dao.allRes((rPage-1)*15);
 							for (int i = 0; i < list.size(); i++) {
 								ReservationVO listt = (ReservationVO) list.get(i);
 								
@@ -62,7 +72,7 @@
 					            String res_date = listt.getRes_date();
 							%>
 							<tr>
-								<td><%=i + 1%></td>
+								<td><%=(rPage-1)*15 + i + 1%></td>
 								<td><a onclick="javascript:openM('<%=mid%>')"><%=mid%></a></td>
 								<td><a onclick="javascript:openT('<%=caretaker_code%>')"><%=caretaker_code%></a></td>
 								<td><a onclick="javascript:openG('<%=caregiver_id%>')"><%=caregiver_id%></a></td>
@@ -80,6 +90,19 @@
 							%>
 						</table>
 					</form>
+					<div>
+						<ul class="pagination pagination-lg">
+							<%
+								for(int i = 1; i <= rPages; i++) {
+							%>
+								<li class="page-item" onclick="rPage(<%= i %>);">
+									<%= i %>
+								</li>
+							<%		
+								}
+							%>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,9 +138,34 @@
 			return true;
 		}
 	}
+	function rPage(page) {
+		var path = "${context}/admin/admin_reservation.jsp?rPage=" + page;
+		location.href = path;
+	}
 	</script>
 	
 	<%@include file="/footer.jsp"%>
 </body>
 
 </html>
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+</style>

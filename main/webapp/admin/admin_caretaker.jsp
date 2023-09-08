@@ -140,3 +140,24 @@ function mPage(page) {
 </body>
 
 </html>
+<style>
+.pagination {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	justify-content: center;
+}
+
+.page-item{
+	padding: 0 0.8rem;
+	height: fit-content;
+	line-height: 2;
+	cursor: pointer;
+	color:#423730;
+}
+
+.page-item:hover {
+	box-shadow: inset 0 0 0 2px rgba(144, 144, 144, 0.25);
+    border-radius: 2px;
+}
+</style>
