@@ -12,6 +12,16 @@
 <meta charset="UTF-8">
 <title>SC 스위트케어 | 빠른매칭서비스</title>
 <%@ include file="/header-import.jsp"%>
+
+<style>
+.rank-td{
+	text-align:left;
+    min-width: 150px;
+}
+.rank-td p{
+	margin: 0;
+}
+</style>
 </head>
 <body>
 
@@ -40,20 +50,22 @@ MatchDAO mdao = new MatchDAO();
 						<p> SuiteCare </p>
 						<h2>빠른 매칭 리스트</h2>
 					</header>
+					
 <form name="quickForm">
+	<div class="table-wrapper">
 <table>
 <thead>
         <tr>
-            <th></th>
-            <th>이름</th>
-            <th>성별</th>
-            <th>나이</th>
-            <th>거주지역</th>
-            <th>활동지역</th>
-            <th>주요서비스</th>
-            <th>보유자격증</th>
-            <th>시급</th>
-            <th>비고</th>
+            <td>프로필 사진</td>
+            <td>이름</td>
+            <td>성별</td>
+            <td>나이</td>
+            <td>거주지역</td>
+            <td>활동지역</td>
+            <td>주요서비스</td>
+            <td>보유자격증</td>
+            <td>시급</td>
+            <td>비고</td>
         </tr>
     </thead>
     <tbody>
@@ -73,31 +85,28 @@ MatchDAO mdao = new MatchDAO();
 
 <c:set var="profilePath" value="${ginfo.profilePath}" />
 
- <c:set var="gender" value="${ginfo.g_gender}" />
+<c:set var="gender" value="${ginfo.g_gender}" />
 
- 
-
-	
-	 <tr>
-	<td><div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem; margin: 3rem auto 2rem auto;">
-		<img src="${profilePath}" style="width: 100%;">
+	<tr>
+	<td><div class="img-wrapper">
+	<img src="${profilePath}" onerror="this.src='<%=context %>/assets/images/logo2.png'; this.style.filter='contrast(0.5)'; this.style.marginBottom='0.75rem';">
 	</div></td>
 	<td>${ginfo.g_name}</td>
 	<td><c:choose>
-            <c:when test="${gender eq 'W'}">여자</c:when>
-            <c:otherwise>남자</c:otherwise>
+            <c:when test="${gender eq 'W'}">여</c:when>
+            <c:otherwise>남</c:otherwise>
         </c:choose></td>
 	<td>${ginfo.g_age}</td><td>${addr}</td>
-	<td>1순위 : ${ginfo.g_location1}<br>
-		2순위 : ${ginfo.g_location2}<br>
-		3순위 : ${ginfo.g_location3}</td>
-	<td>1순위 : ${ginfo.g_service1}<br>
-		2순위 : ${ginfo.g_service2}<br>
-		3순위 : ${ginfo.g_service3}</td>
+	<td class="rank-td"><p>1순위: ${ginfo.g_location1}</p>
+		<p>2순위: ${ginfo.g_location2}</p>
+		<p>3순위: ${ginfo.g_location3}</p></td>
+	<td class="rank-td"><p>1순위: ${ginfo.g_service1}</p>
+		<p>2순위: ${ginfo.g_service2}</p>
+		<p>3순위: ${ginfo.g_service3}</p></td>
 	<td>${ginfo.g_qualification}</td>
-	<td>1순위 : ${ginfo.g_hourwage1}<br>
-		2순위 : ${ginfo.g_hourwage2}<br>
-		3순위 : ${ginfo.g_hourwage3}</td>
+	<td class="rank-td"><p>1순위: ${ginfo.g_hourwage1}</p>
+		<p>2순위: ${ginfo.g_hourwage2}</p>
+		<p>3순위: ${ginfo.g_hourwage3}</p></td>
 	<td>
 	
 	<c:set var="giverID" value="${ginfo.g_id}" />
@@ -105,13 +114,10 @@ MatchDAO mdao = new MatchDAO();
 	String checkid = (String)pageContext.getAttribute("giverID");
 	String mst = mdao.mst(res_code, checkid);
 	
-	if(mst==null) {
-		
-	%>
-	<span onclick="tmatch('${ginfo.re_id }','${ginfo.g_id }','${ginfo.g_name }');" style="text-decoration: underline;cursor:pointer;">매칭신청</span>
-	<% }else {
-		%>
-	<%=mst %> <% } %>	
+	if(mst==null) {%>
+		<span onclick="tmatch('${ginfo.re_id }','${ginfo.g_id }','${ginfo.g_name }');" style="text-decoration: underline;cursor:pointer;">매칭신청</span>
+	<% }else {%>
+		<%=mst %> <% } %>	
 		</td>
 	
 	</tr>
@@ -120,7 +126,13 @@ MatchDAO mdao = new MatchDAO();
 </c:choose>
 	</tbody>
 		</table>	
+	</div>
 </form>
+
+</div></div></div></section>
+
+	<%@ include file="../footer.jsp" %>
+
 </body>
 <script>
 function tmatch(re_id, g_id, g_name) {
