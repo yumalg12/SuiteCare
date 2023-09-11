@@ -15,7 +15,7 @@
 		aPages = applyCnt/perPage + 1;
 	}
 %>
-	<div id='restable'>
+	<div id='restable' class="table_wrapper">
 		<form name="resinfo">
 			<table>
 				<thead>

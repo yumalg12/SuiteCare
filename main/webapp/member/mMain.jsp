@@ -239,7 +239,7 @@ function recomPage(page) {
 					<p>스위트 케어</p>
 					<h2>빠른 매칭 서비스</h2>
 				</header>
-				<div id='restable'>
+				<div id='restable' class="table_wrapper">
 					<form name="qmatservice">
 						<table>
 							<thead>
