@@ -369,7 +369,7 @@ public class MemberDAO {
 	         pstmt = conn.prepareStatement(sql);
 	         int delete = pstmt.executeUpdate();
 
-	         if(delete == 0) {
+	         if(delete >= 0) {
 	        	 sql = "DELETE FROM member WHERE m_id='" + id + "'";
 		         pstmt = conn.prepareStatement(sql);
 		         pstmt.executeUpdate();
@@ -382,6 +382,48 @@ public class MemberDAO {
 	         e.printStackTrace();
 	     }
 		return -1;
+	}
+	
+	public int deleteres(String id) {
+		int dres = 0;
+		
+		try {
+			conn = dataFactory.getConnection();
+			
+			  String delMatchSQL = "DELETE FROM quickmatch WHERE res_code IN (SELECT res_code FROM reservation WHERE caretaker_code IN (SELECT t_code FROM caretaker WHERE m_id=?))";
+		        PreparedStatement pstmtM = conn.prepareStatement(delMatchSQL);
+		        pstmtM.setString(1, id);
+		        int dmatch = pstmtM.executeUpdate();
+		        
+		        if(dmatch>=0) {
+		        	String delBookSQL = "DELETE FROM book WHERE res_code IN (SELECT res_code FROM reservation WHERE caretaker_code IN (SELECT t_code FROM caretaker WHERE m_id=?))";
+		            PreparedStatement pstmtB = conn.prepareStatement(delBookSQL);
+		            pstmtB.setString(1, id);
+		            int dbook = pstmtB.executeUpdate();
+		            
+		            if(dbook>=0) {
+		            	String delInfoSQL = "DELETE FROM reservation_info WHERE res_code IN (SELECT res_code FROM reservation WHERE caretaker_code IN (SELECT t_code FROM caretaker WHERE m_id=?))";
+		                PreparedStatement pstmtI = conn.prepareStatement(delInfoSQL);
+		                pstmtI.setString(1, id);
+		                int dinfo = pstmtI.executeUpdate();
+		                
+		                if(dinfo>=0) {
+		                	String delReservatinoSQL = "DELETE FROM reservation WHERE caretaker_code IN (SELECT t_code FROM caretaker WHERE m_id=?)";
+		                    PreparedStatement pstmtR = conn.prepareStatement(delReservatinoSQL);
+		                    pstmtR.setString(1, id);
+		                    dres = pstmtR.executeUpdate();
+		                    pstmtR.close();
+		                    pstmtI.close();
+		                    pstmtB.close();
+		                    pstmtM.close();
+		                    conn.close();
+		                }
+		            }
+		        }
+		        
+		}catch(Exception e) {
+			e.printStackTrace();
+		} return dres;
 	}
 
 	

@@ -39,7 +39,7 @@
 							
 							TakerDAO dao = new TakerDAO();
 
-							List<TakerVO> list = dao.takerList(m_id);
+							List<TakerVO> list = dao.takerList(m_id, 1);
 							for (int i = 0; i < list.size(); i++) {
 								TakerVO listt = (TakerVO) list.get(i);
 
