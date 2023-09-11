@@ -76,6 +76,7 @@
 				alert("휴대폰 번호를 입력해주세요.");
 				return false;
 			}
+			m_phone = m_phone.replace("-","");
 			
 
 			if(m_email=="") {
@@ -163,7 +164,7 @@
 			</div>
 			<div class="form_row">
 				<label for="phone">휴대폰 번호</label>
-				<input type="tel" id="phone" name="m_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" value="<%=m_phone%>">
+				<input type="tel" id="phone" name="m_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}||[0-9]{11}" maxlength=13 value="<%=m_phone%>">
 			</div>
 			<div class="form_row">
 				<label for="email">이메일</label>

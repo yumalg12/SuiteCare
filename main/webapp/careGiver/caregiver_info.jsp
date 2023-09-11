@@ -47,8 +47,8 @@
 						
 						<div class="form_wrapper">
 							<div onclick="javascript:setImg()" style="margin-bottom: 3rem;display: grid;justify-items: center;">
-								<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem;">
-									<img src="<%=file_repo %>${info.g_profile }" alt="" style="width: 100%; margin: 0 auto;" id="defult_img_png"/>
+								<div class="img-wrapper">
+									<img src="<%=file_repo %>${info.g_profile }" alt="" id="defult_img_png"/>
 								</div>
 								<div>
 									<input type="checkbox" id="default_img" name="default_img" value="default" onclick="javascript:showImgSelector();">

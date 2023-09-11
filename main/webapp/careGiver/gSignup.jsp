@@ -10,9 +10,6 @@
 <head>
 	<title>SC 스위트케어 | 일반 본문</title>
 		<%@ include file="/header-import.jsp"%>
-	<meta charset="utf-8" />
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src="/suiteCare/assets/js/execDaumPostcode.js"></script>
 	<script src="${context}/assets/js/disableSelectedValue.js"></script>
 	<script src="/suiteCare/test/gSignup.js"></script>
 	<%session.invalidate(); %>
@@ -235,7 +232,7 @@
 					<form name="joinForm"  id="joinForm" method=post action=join enctype="multipart/form-data">
 						<div class="form_wrapper">
 							<div onclick="javascript:setImg()" style="margin: 3rem 0;display: grid;justify-items: center;">
-									<div style="border: 1px solid #ccc; border-radius: 10rem; background: white; width: 10rem; padding: 10px; height: 10rem;">
+									<div class="img-wrapper">
 										<img id="defult_img_png" src="" style="width: 100%;">
 									</div>
 								<div>

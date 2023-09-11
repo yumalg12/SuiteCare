@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,14 +46,23 @@ public class RecommendController extends HttpServlet {
 	}
 	
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String context = ((HttpServletRequest)request).getContextPath();
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
 		HttpSession session = request.getSession();
 		String res_code = request.getParameter("res_code");
-        String csvFilePath = "C:\\JavaProgram\\suiteCare\\src\\main\\webapp\\assets\\csv\\recomm_df.csv";
-		
+		String context = ((HttpServletRequest)request).getContextPath();
+
+		String req = request.getRequestURI();
+		System.out.println(req);
+		request.setCharacterEncoding("utf-8");
+
+		// ServletContext 객체 얻기
+		ServletContext servletContext = request.getServletContext();
+
+		// CSV 파일의 절대 경로 얻기
+		String csvFilePath = servletContext.getRealPath("/assets/csv/recomm_df.csv");
+
 		String type = request.getParameter("type");
 		
 		System.out.println("타입은 " + type);
