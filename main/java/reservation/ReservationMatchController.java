@@ -109,11 +109,11 @@ ReservationDAO rdao;
 				out.println("<script>");
 				if(result == 1) {
 					out.println("alert('매칭서비스 정보 등록이 완료되었습니다.');");
-				    out.println("location.href='"+context+"/recommend';");
+				    out.println("location.href='"+context+"/member/main';");
 						
 				} else {
 					out.println("alert('에러, 정보 등록을 완료하지 못했습니다.\\n다시 시도해주세요.');");
-				    out.println("location.href='"+context+"/member/main';");
+				    out.println("location.href='"+context+"/reservation/match';");
 				
 				}
 				out.println("</script>");
