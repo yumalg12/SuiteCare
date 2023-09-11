@@ -318,6 +318,16 @@ public class BookDAO {
 			
 			result = pstmt.executeUpdate();
 			
+			 if (result == 0) {
+		            String quickmatchSql = "UPDATE quickmatch SET match_status='서비스 이용 완료' WHERE res_code=? AND g_id=?";
+		            pstmt = conn.prepareStatement(quickmatchSql);
+
+		            pstmt.setString(1, res_code);
+		            pstmt.setString(2, g_id);
+
+		            result = pstmt.executeUpdate();
+		        }
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -344,7 +354,17 @@ public class BookDAO {
 			while(rs.next()) {
 				b_status = rs.getString("b_status");
 			}
-			
+			if (b_status.isEmpty()) {
+	            String quickmatchSql = "SELECT match_status FROM quickmatch WHERE res_code=? AND g_id=?";
+	            pstmt = conn.prepareStatement(quickmatchSql);
+	            pstmt.setString(1, res_code);
+	            pstmt.setString(2, g_id);
+	            
+	            rs = pstmt.executeQuery();
+	            while (rs.next()) {
+	                b_status = rs.getString("match_status");
+	            }
+	        }
 			rs.close();
 			pstmt.close();
 			conn.close();
