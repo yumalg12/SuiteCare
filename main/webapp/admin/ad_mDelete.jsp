@@ -1,4 +1,5 @@
 <%@ page import = "member.*" %>
+<%@ page import = "reservation.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.sql.Date" %>
 <%@ page import = "java.util.*" %>
@@ -18,11 +19,13 @@ request.setCharacterEncoding("utf-8");
 String m_id = request.getParameter("m_id");
 
 MemberDAO dao = new MemberDAO(); 
+int delres = dao.deleteres(m_id);
+if(delres>=0) {
 int del = dao.del(m_id);
 
 if(del == -1) out.println("<script>alert('회원 정보 삭제 실패'); location.replace('admin_caretaker.jsp');</script>");
 else out.println("<script>alert('회원 정보 삭제 완료'); location.replace('admin_caretaker.jsp');</script>");
-%>
+}%>
 
 </body>
 </html>
