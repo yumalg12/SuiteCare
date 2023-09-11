@@ -127,6 +127,8 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 <td>
 	<%
 		BookDAO bookDao = new BookDAO();
+		mReviewDAO rdao = new mReviewDAO();
+		int sel = rdao.selreview(res_code);
 		mReviewVO reviewVO= new mReviewVO();
 		String b_status = bookDao.status(res_code, caregiver);
 		
@@ -137,7 +139,7 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 
 			if (b_status.equals("서비스이용 완료")) {
 			  
-			if (reviewVO.res_code==null){
+			if (sel==0){
 				%>
 				<button onclick="openrePopup('<%=res_code%>', '<%=caregiver%>')">후기 작성</button>
 			<%

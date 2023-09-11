@@ -134,4 +134,27 @@ public class mReviewDAO {
 		}
 		return reviewCode;
 	}
+	
+	public int selreview(String res_code) {
+		int sel = 0;
+		
+		try {
+				conn = dataFactory.getConnection();
+			
+			String sql = "SELECT * FROM review WHERE res_code =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				sel = 1;
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return sel;
+	}
 }
