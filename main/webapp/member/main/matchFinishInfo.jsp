@@ -14,8 +14,8 @@
 	<input type="button" class="button alt" id="calToggle"
 		onclick="rescalendar();" value="달력으로 보기">
 </div>
-<div id='calendar'></div>
-<div id='restable'>
+<div id='calendar' class="table_wrapper"></div>
+<div id='restable' class="table_wrapper">
 	<%
 		calendar.CalendarDAO cdao = new calendar.CalendarDAO();
 		List<calendar.CalendarVO> clist = cdao.listSchedule(m_id);
