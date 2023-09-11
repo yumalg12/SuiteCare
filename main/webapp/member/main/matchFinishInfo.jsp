@@ -145,7 +145,7 @@ href="../reservation/matchService.jsp?res_code=<%=res_code%>">작성하기</a>
 			<%
 			}  else {
 				%>
-			    작성 완료
+			    <a href="javascript:void(0);" onclick="openreviewcheckPopup('../member/review/list?res_code=<%=res_code%>');">작성완료</a>
 			<%
 				
 			}}	else {

@@ -444,6 +444,10 @@ function openrePopup(resCode, gId) {
     window.open(popupUrl, "Popup", "width=800, height=800");
 }
 
+function openreviewcheckPopup(url) {
+	 window.open(url, "Popup", "width=800, height=800");
+}
+
 function serviceComplete(code, caregiver) {
 	if(confirm("서비스 이용을 확정하시겠습니까? 이용 확정 시 결제가 완료되며 취소하실 수 없습니다.")) {
 		$.ajax({

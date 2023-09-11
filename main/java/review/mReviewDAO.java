@@ -111,6 +111,49 @@ public class mReviewDAO {
 		return list;
 	}
 	
+	public List<mReviewVO> mreview(String res_code, String m_id) {
+		List<mReviewVO> list= new ArrayList<mReviewVO>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT * FROM review WHERE res_code = ? AND m_id = ?";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			pstmt.setString(2, m_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int re_kind = rs.getInt("re_kind");
+				int re_time = rs.getInt("re_time");
+				int re_pro = rs.getInt("re_pro");
+				int re_speed = rs.getInt("re_speed");
+				int re_com = rs.getInt("re_com");
+				int re_price = rs.getInt("re_price");
+				String comment = rs.getString("comment");
+				
+				System.err.println(re_kind +"/"+re_time +"/"+re_pro +"/"+re_speed +"/"+re_com +"/"+re_price +"/"+comment);
+				
+				mReviewVO vo = new mReviewVO();
+				vo.setRe_kind(re_kind);
+				vo.setRe_time(re_time);
+				vo.setRe_price(re_price);
+				vo.setRe_pro(re_pro);
+				vo.setRe_speed(re_speed);
+				vo.setRe_com(re_com);
+				vo.setComment(comment);
+
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public List<String> reviewCode(String g_id) {
 		List<String> reviewCode = new ArrayList<String>();
 		try {
