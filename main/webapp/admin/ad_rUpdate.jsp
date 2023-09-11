@@ -65,7 +65,7 @@ String res_date = listvo.getRes_date();
 			
 			<div class="form_row">
 				<label for="caregiver_id">간병인 아이디</label>
-				<input type="text" id="caregiver_id" name="caregiver_id" value="<%=caregiver_id %>" placeholder="간병인 아이디를 입력하세요.">
+				<input type="text" id="caregiver_id" name="caregiver_id" value="<%if(caregiver_id!=null) { %><%=caregiver_id %> <% } %>" placeholder="간병인 아이디를 입력하세요.">
 			</div>
 			
 			<div class="form_row">

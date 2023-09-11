@@ -44,6 +44,7 @@ public class PatientresDAO {
 			String sql = "SELECT * FROM reservation as res, reservation_info as resinfo, caretaker as c "
 					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code "
 					+ "and res.res_code=resinfo.res_code and caregiver_id is null "
+					+ "and res.location is not null and res.addr is not null "
 					+ "and resinfo.start_date is not null and resinfo.end_date is not null "
 					+ "and resinfo.start_time is not null and resinfo.end_time is not null "
 					+ "LIMIT " + start + ", 5";
@@ -115,6 +116,7 @@ public class PatientresDAO {
 			String sql = "SELECT count(*) as cnt FROM reservation as res, reservation_info as resinfo, caretaker as c "
 					+ "WHERE res.m_id = ? and res.caretaker_code = c.t_code "
 					+ "and res.res_code=resinfo.res_code and caregiver_id is null "
+					+ "and res.location is not null and res.addr is not null "
 					+ "and resinfo.start_date is not null and resinfo.end_date is not null "
 					+ "and resinfo.start_time is not null and resinfo.end_time is not null ";
 			pstmt = conn.prepareStatement(sql);

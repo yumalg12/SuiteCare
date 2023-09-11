@@ -104,6 +104,9 @@
 							%>
 						</ul>
 					</div>
+					<div class="form_button">
+						 <input type="button" class="button alt" onclick="adminback();" value="뒤로가기">
+</div>
 				</div>
 			</div>
 		</div>
@@ -138,6 +141,9 @@
 			window.location.href="./ad_rDelete.jsp?res_code=" + res_code;
 			return true;
 		}
+	}
+	function adminback() {
+		window.location.href = "${context}/admin/adMain.jsp";
 	}
 	</script>
 	

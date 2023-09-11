@@ -112,6 +112,9 @@
 							%>
 						</ul>
 					</div>
+					<div class="form_button">
+						 <input type="button" class="button alt" onclick="adminback();" value="뒤로가기">
+</div>
 				</div>
 			</div>
 		</div>
@@ -129,6 +132,9 @@ function memberDelete(m_id){
 		window.location.href="./ad_mDelete.jsp?m_id=" + m_id;
 		return true;
 	}
+}
+function adminback() {
+	window.location.href = "${context}/admin/adMain.jsp";
 }
 </script>
 
