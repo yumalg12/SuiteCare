@@ -61,7 +61,6 @@
 			    
 				java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 	           
-				
 			%>
 
 			<tr>
@@ -69,8 +68,8 @@
 				<td><button onclick="openDetailPopup('<%=res_code %>')">더보기</button></td>
 				
 				<td>
-				<%if(location.equals("home")) {%>자택<%} 
-				else { %><%=location%><%} %></td>
+				<%if(location!=null && location.equals("home")) {%>자택<%} 
+				else if(location!=null) { %><%=location%><%} %></td>
 				
 				<td><%=addr%> <%if(detail_addr!=null) {%><br><%=detail_addr%><%} %></td> 
 				

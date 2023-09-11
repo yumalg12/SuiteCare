@@ -105,6 +105,9 @@ if(giverCnt%perPage==0) {
 							%>
 						</ul>
 					</div>
+					<div class="form_button">
+						 <input type="button" class="button alt" onclick="adminback();" value="뒤로가기">
+</div>
 				</div>
 			</div>
 		</div>
@@ -122,6 +125,9 @@ if(giverCnt%perPage==0) {
 			window.location.href="./ad_gDelete.jsp?g_id=" + g_id;
 			return true;
 		}
+	}
+	function adminback() {
+		window.location.href = "${context}/admin/adMain.jsp";
 	}
 	</script>
 
