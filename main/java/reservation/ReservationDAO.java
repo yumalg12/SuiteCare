@@ -939,5 +939,57 @@ public class ReservationDAO {
 		  }
 		  return list;
 	}
+	
+	
+	public List<ReservationVO> reslistForPayment(String res_code) { // 결제금액 계산을 위한 기간 list
+		List<ReservationVO> list= new ArrayList<ReservationVO>();
+		
+		try {
+			connect();
+			
+			String sql = "SELECT "
+					+ "    c.t_code, "
+					+ "    c.t_name, "
+					+ "    ri.res_code, "
+					+ "    ri.start_date, "
+					+ "    ri.end_date, "
+					+ "    ri.start_time, "
+					+ "    ri.end_time "
+					+ "FROM reservation_info AS ri "
+					+ "JOIN caretaker AS c on c.t_code=ri.caretaker_code "
+					+ "WHERE ri.res_code =?;";
+			
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, res_code);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String t_name = rs.getString("t_name");
+				
+				Date start_date = rs.getDate("start_date");
+				Date end_date = rs.getDate("end_date");
+				Time start_time = rs.getTime("start_time");
+				Time end_time = rs.getTime("end_time");
+				
+				ReservationVO vo = new ReservationVO();
+				vo.setRes_code(res_code);
+				vo.setT_name(t_name);
+				vo.setS_date(start_date);
+				vo.setE_date(end_date);
+				vo.setS_time(start_time);
+				vo.setE_time(end_time);
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 
 }
