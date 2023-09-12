@@ -213,7 +213,7 @@ public class mReviewDAO {
                     "AVG(re_speed) AS avg_re_speed, " +
                     "AVG(re_com) AS avg_re_com, " +
                     "AVG(re_price) AS avg_re_price, " +
-                    "GROUP_CONCAT(comment ORDER BY review_num DESC SEPARATOR ' ') AS recent_comments " +
+                    "GROUP_CONCAT(comment ORDER BY review_num DESC SEPARATOR '/ ') AS recent_comments " +
                     "FROM review " +
                     "WHERE g_id =?";
 			
