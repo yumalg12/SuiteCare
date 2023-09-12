@@ -58,7 +58,14 @@ public class BookReviewController extends HttpServlet {
 
 	        request.setAttribute("hasData", hasData);
 	    }
-
+		for (mReviewVO review : list) {
+		 String recentComments = review.getRecentComments();
+         if (recentComments != null && !recentComments.isEmpty()) {
+             // ,를 구분자로 사용하여 줄바꿈 문자 <br>로 변환
+             recentComments = recentComments.replace("/ ", "<br>✔ ");
+             review.setRecentComments(recentComments);
+         }
+         }
 	    request.setAttribute("reviewList", list);
 
 		    RequestDispatcher dispatch = request.getRequestDispatcher("../book/greviewCheck.jsp");

@@ -65,6 +65,7 @@ public class PatientresDAO {
 				String detail_addr = rs.getString("detail_addr");
 				String caregiver = rs.getString("caregiver_id");
 				String t_code = rs.getString("caretaker_code");
+				
 
 					PatientresVO vo = new PatientresVO();
 					vo.setCaretaker(caretaker);

@@ -89,7 +89,7 @@
 				<td>
 				<%if (sqlStartDate.before(currentDate)) { %>
 				승인기간만료 <% } else { %>
-					<a href="../book/tapplyList.jsp?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
+					<a href="../book/apply?res_code=<%=res_code%>">매칭신청<br>리스트확인</a>
 					<% } %>
 				</td>
 				

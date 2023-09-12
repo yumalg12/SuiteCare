@@ -70,7 +70,7 @@ String res_code = request.getParameter("res_code");
 									<td><%=b_status%></td> 
 									<td>
 									<% if (!b_status.equals("승인") && !b_status.equals("거절")) { 
-									    out.print("<a href='./tdeny.jsp?b_id=" + b_id + "&res_code=" + res_code + "' class='button alt'>거절</a>");
+									    out.print("<a href='../book/apply?type=deny&b_id=" + b_id + "&res_code=" + res_code + "' class='button alt'>거절</a>");
 									    out.print("<a onclick=\"javascript:openMileagePayment('" + g_id + "','" + res_code + "','" + b_id +"')\" class='button special'>승인</a>");
 									} %>
 									</td></tr>
