@@ -25,10 +25,14 @@ margin-top: 0.3rem;
 						<h2>후기</h2>
 					</header>
 					<div class="form_wrapper">
+					
 					<c:if test="${empty reviewList}">
       					 <p>${message}</p>
     				</c:if>
-    				 <c:if test="${not empty reviewList}">
+    				<c:if test="${not hasData and not empty reviewList }">
+    				 <p>${message}</p>
+    				</c:if>
+    				 <c:if test="${hasData}">
 						<c:forEach var="review" items="${reviewList }">
 							<div class="form_row">
 								<label>친절도</label><span value="${review.avgReKind }"></span>
@@ -49,7 +53,7 @@ margin-top: 0.3rem;
 								<label>비용</label><span value="${review.avgRePrice }"></span>
 							</div>
 							<div class="form_row">
-								<label>최근 코멘트</label><span>${review.recentComments } 등</span>
+								<label>최근 코멘트</label><span>${review.recentComments }</span>
 							</div>
 						</c:forEach>
 					</c:if>

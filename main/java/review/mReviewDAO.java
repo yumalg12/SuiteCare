@@ -213,16 +213,13 @@ public class mReviewDAO {
                     "AVG(re_speed) AS avg_re_speed, " +
                     "AVG(re_com) AS avg_re_com, " +
                     "AVG(re_price) AS avg_re_price, " +
-                    "(SELECT GROUP_CONCAT(subquery.comment ORDER BY subquery.comment DESC SEPARATOR ', ') "
-                    + "FROM (SELECT * FROM review WHERE g_id = ? ORDER BY review_num DESC LIMIT 3) AS subquery) "
-                    + "AS recent_comments " +
+                    "GROUP_CONCAT(comment ORDER BY review_num DESC SEPARATOR ', ') AS recent_comments " +
                     "FROM review " +
                     "WHERE g_id =?";
 			
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, g_id);
-			pstmt.setString(2, g_id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -238,12 +235,12 @@ public class mReviewDAO {
 				
 				mReviewVO vo = new mReviewVO(); 
 				
-				vo.setAvgReKind(rs.wasNull() ? null : avgReKind);
-			    vo.setAvgReTime(rs.wasNull() ? null : avgReTime);
-			    vo.setAvgRePro(rs.wasNull() ? null : avgRePro);
-			    vo.setAvgReSpeed(rs.wasNull() ? null : avgReSpeed);
-			    vo.setAvgReCom(rs.wasNull() ? null : avgReCom);
-			    vo.setAvgRePrice(rs.wasNull() ? null : avgRePrice);
+				vo.setAvgReKind(avgReKind);
+			    vo.setAvgReTime(avgReTime);
+			    vo.setAvgRePro(avgRePro);
+			    vo.setAvgReSpeed(avgReSpeed);
+			    vo.setAvgReCom(avgReCom);
+			    vo.setAvgRePrice(avgRePrice);
 				vo.setRecentComments(recentComments);
 
 				list.add(vo);
