@@ -200,4 +200,60 @@ public class mReviewDAO {
 		}
 		return sel;
 	}
+	
+	public List<mReviewVO> reviewavg(String g_id) {
+		List<mReviewVO> list= new ArrayList<mReviewVO>();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String sql = "SELECT " +
+                    "AVG(re_kind) AS avg_re_kind, " +
+                    "AVG(re_time) AS avg_re_time, " +
+                    "AVG(re_pro) AS avg_re_pro, " +
+                    "AVG(re_speed) AS avg_re_speed, " +
+                    "AVG(re_com) AS avg_re_com, " +
+                    "AVG(re_price) AS avg_re_price, " +
+                    "(SELECT GROUP_CONCAT(subquery.comment ORDER BY subquery.comment DESC SEPARATOR ', ') "
+                    + "FROM (SELECT * FROM review WHERE g_id = ? ORDER BY review_num DESC LIMIT 3) AS subquery) "
+                    + "AS recent_comments " +
+                    "FROM review " +
+                    "WHERE g_id =?";
+			
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, g_id);
+			pstmt.setString(2, g_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				 double avgReKind = rs.getDouble("avg_re_kind");
+                 double avgReTime = rs.getDouble("avg_re_time");
+                 double avgRePro = rs.getDouble("avg_re_pro");
+                 double avgReSpeed = rs.getDouble("avg_re_speed");
+                 double avgReCom = rs.getDouble("avg_re_com");
+                 double avgRePrice = rs.getDouble("avg_re_price");
+                 String recentComments = rs.getString("recent_comments");
+				
+				System.err.println(avgReKind +"/"+avgReTime +"/"+avgRePro +"/"+avgReSpeed +"/"+avgReCom +"/"+avgRePrice +"/"+recentComments);
+				
+				mReviewVO vo = new mReviewVO(); 
+				
+				vo.setAvgReKind(rs.wasNull() ? null : avgReKind);
+			    vo.setAvgReTime(rs.wasNull() ? null : avgReTime);
+			    vo.setAvgRePro(rs.wasNull() ? null : avgRePro);
+			    vo.setAvgReSpeed(rs.wasNull() ? null : avgReSpeed);
+			    vo.setAvgReCom(rs.wasNull() ? null : avgReCom);
+			    vo.setAvgRePrice(rs.wasNull() ? null : avgRePrice);
+				vo.setRecentComments(recentComments);
+
+				list.add(vo);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

@@ -12,6 +12,13 @@ public class mReviewVO {
 	private int re_com;
 	private int re_price;
 	private String comment;
+	private double avgReKind; 
+	private double avgReTime ;
+	private double avgRePro;
+	private double avgReSpeed;
+	private double avgReCom;
+	private double avgRePrice;
+	private String recentComments;
 
 	
 	public mReviewVO(String m_id, String res_code, String g_id,  int re_kind, int re_time, int re_pro, int re_speed, int re_com, int re_price, String comment){
@@ -152,6 +159,104 @@ public class mReviewVO {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	/**
+	 * @return the avgReKind
+	 */
+	public double getAvgReKind() {
+		return avgReKind;
+	}
+
+	/**
+	 * @param avgReKind the avgReKind to set
+	 */
+	public void setAvgReKind(double avgReKind) {
+		this.avgReKind = avgReKind;
+	}
+
+	/**
+	 * @return the avgReTime
+	 */
+	public double getAvgReTime() {
+		return avgReTime;
+	}
+
+	/**
+	 * @param avgReTime the avgReTime to set
+	 */
+	public void setAvgReTime(double avgReTime) {
+		this.avgReTime = avgReTime;
+	}
+
+	/**
+	 * @return the avgRePro
+	 */
+	public double getAvgRePro() {
+		return avgRePro;
+	}
+
+	/**
+	 * @param avgRePro the avgRePro to set
+	 */
+	public void setAvgRePro(double avgRePro) {
+		this.avgRePro = avgRePro;
+	}
+
+	/**
+	 * @return the avgReSpeed
+	 */
+	public double getAvgReSpeed() {
+		return avgReSpeed;
+	}
+
+	/**
+	 * @param avgReSpeed the avgReSpeed to set
+	 */
+	public void setAvgReSpeed(double avgReSpeed) {
+		this.avgReSpeed = avgReSpeed;
+	}
+
+	/**
+	 * @return the avgReCom
+	 */
+	public double getAvgReCom() {
+		return avgReCom;
+	}
+
+	/**
+	 * @param avgReCom the avgReCom to set
+	 */
+	public void setAvgReCom(double avgReCom) {
+		this.avgReCom = avgReCom;
+	}
+
+	/**
+	 * @return the avgRePrice
+	 */
+	public double getAvgRePrice() {
+		return avgRePrice;
+	}
+
+	/**
+	 * @param avgRePrice the avgRePrice to set
+	 */
+	public void setAvgRePrice(double avgRePrice) {
+		this.avgRePrice = avgRePrice;
+	}
+
+	/**
+	 * @return the recentComments
+	 */
+	public String getRecentComments() {
+		return recentComments;
+	}
+
+	/**
+	 * @param recentComments the recentComments to set
+	 */
+	public void setRecentComments(String recentComments) {
+		this.recentComments = recentComments;
 	}
 
 	
