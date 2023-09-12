@@ -57,9 +57,11 @@ margin-top: 0.3rem;
 							</div>
 						</c:forEach>
 					</c:if>
-					</div>
 
+				<div class="form_button">
 					<input type="button" class="button special" onclick="window.close();" value="닫기">
+				</div>
+					</div>
 
 					</div>
 					</div>

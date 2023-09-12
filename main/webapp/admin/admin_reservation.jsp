@@ -50,6 +50,7 @@
 					</header>
 
 					<form name="resinfo">
+					<div class="table_wrapper">
 						<table>
 							<thead>
 								<tr>
@@ -90,6 +91,7 @@
 							}
 							%>
 						</table>
+						</div>
 					</form>
 					<div>
 						<ul class="pagination pagination-lg">
