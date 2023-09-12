@@ -1,6 +1,7 @@
 <%@ page import = "patient.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
+<%@ page import = "java.text.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -82,10 +83,13 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 		</td>
 	</tr>
 	<tr>
+	<%
+	java.text.NumberFormat formatter = java.text.NumberFormat.getInstance();
+	%>
 		<td>시급</td>
-		<td>1순위 : <%=vo.getPre_hourwage_1() %><br>
-			2순위 : <%=vo.getPre_hourwage_2() %><br>
-			3순위 : <%=vo.getPre_hourwage_3() %>
+		<td>1순위 : <%=formatter.format(Integer.parseInt(vo.getPre_hourwage_1())) %>원<br>
+			2순위 : <%=formatter.format(Integer.parseInt(vo.getPre_hourwage_2())) %>원<br>
+			3순위 : <%=formatter.format(Integer.parseInt(vo.getPre_hourwage_3())) %>원
 		</td>
 	</tr>
 	<%
@@ -109,5 +113,11 @@ List<TpreferenceVO> tpreList = dao.listtpre(res_code);
 	</tr>
 	</table>	
 </div></div></div>
+
+<script>
+$(document).ready(function() {
+	Array.from(document.querySelectorAll("td")).forEach(e=>e.innerHTML = e.innerHTML.replaceAll(" : 0", " : 지정하지 않음"));
+});
+</script>
 </body>
 </html>
