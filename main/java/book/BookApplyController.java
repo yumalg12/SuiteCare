@@ -47,8 +47,12 @@ public class BookApplyController extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		if(type.equals("apply")) {
+		if(type==null) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("/book/tapplyList.jsp");
+			dispatch.forward(request, response);
+		} else if(type.equals("apply")) {
 			int checkb = bdao.checkbook(res_code, g_id);
+
 
 			if(checkb==0) {
 				System.out.println("g_id 정보 없음");
@@ -78,8 +82,47 @@ public class BookApplyController extends HttpServlet {
 	    	        out.println("</script>");
 				session.removeAttribute("applycode");
 				} 
-
-
+		} else if(type.equals("deny")) {
+			String b_id = request.getParameter("b_id");
+			res_code = request.getParameter("res_code");
+			
+			int result = bdao.denybook(b_id);
+			
+			out.println("<script>");
+			if (result == 1) {
+				out.println("alert('매칭거절이 완료되었습니다.');");
+				out.println("location.href = '" + context + "/book/apply?res_code=" + res_code + "';");
+			} else {
+				out.println("alert('오류발생');");
+				out.println("location.href = '" + context + "/book/apply?res_code=" + res_code + "';");
+			}
+			out.println("</script>");
+		} else if(type.equals("approve")) {
+			g_id = request.getParameter("g_id");
+			res_code = request.getParameter("res_code");
+			String b_id = request.getParameter("b_id");
+			
+			int result = bdao.approvebook(res_code, b_id);
+			
+			if (result > 0) {
+				int gresult = bdao.updategid(g_id, res_code);
+				out.println("<script>");
+				if(gresult> 0) {
+					out.println("alert('매칭승인이 완료되었습니다.');");
+					out.println("window.opener.location.href = '" + context + "/member/main';");
+					out.println("window.close();");
+				} else {
+					out.println("alert('오류발생');");
+					out.println("location.href = '" + context + "/book/apply?res_code=" + res_code + "';");
+				}
+				out.println("</script>");	
+	} else {
+		out.println("<script>");
+		out.println("alert('오류발생');");
+		out.println("location.href = '" + context + "/book/apply?res_code=" + res_code + "';");
+        out.println("</script>");	
+	}	
+			
 		}
 		
 	}
