@@ -95,7 +95,7 @@ public class CaregiverMainController extends HttpServlet {
 			// 나와 피간병인의 매칭 정보
 			List<ReservationVO> listres = reservation.resList(user_id, listresStart);
 			List<ReservationVO> finalList = reservation.finalList(user_id, finalStart);
-			
+
 			// 내가 지원한 신청 리스트
 			List<ReservationVO> list = new ArrayList<ReservationVO>();
 			BookDAO book = new BookDAO();
@@ -140,7 +140,7 @@ public class CaregiverMainController extends HttpServlet {
 			List<match.MatchVO> matchList = mdao.tInfo(user_id);
 			
 			//나에게 들어온 빠른 매칭 신청 리스트 페이징
-			int quickCount = mdao.quickCount();
+			int quickCount = mdao.quickCount(user_id);
 			int quickPages = 0;
 			if(quickCount%5 == 0) {
 				quickPages = quickCount/5;
