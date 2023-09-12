@@ -108,6 +108,10 @@ for (int i = 0; i < glist.size(); i++) {
 			3순위 : <%=g_hourwage3 %>
 		</td></tr>
 			<tr><td>보유자격증</td><td><%=g_qualification %></td></tr>
+			<tr><td>간병후기</td>
+			<td>
+			<a href="../book/review?g_id=<%=g_id%>">확인</a>
+			</td>
 		</table>
 	
 	</form>
@@ -118,5 +122,6 @@ for (int i = 0; i < glist.size(); i++) {
 	</div>
 
 </body>
+
 
 </html>

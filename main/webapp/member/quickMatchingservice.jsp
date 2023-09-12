@@ -65,6 +65,7 @@ MatchDAO mdao = new MatchDAO();
             <td>주요서비스</td>
             <td>보유자격증</td>
             <td>시급</td>
+            <td>후기확인</td>
             <td>비고</td>
         </tr>
     </thead>
@@ -87,6 +88,8 @@ MatchDAO mdao = new MatchDAO();
 
 <c:set var="gender" value="${ginfo.g_gender}" />
 
+<c:set var="giverID" value="${ginfo.g_id}" />
+
 	<tr>
 	<td><div class="img-wrapper">
 	<img src="${profilePath}" onerror="this.src='<%=context %>/assets/images/logo2.png'; this.style.filter='contrast(0.5)'; this.style.marginBottom='0.75rem';">
@@ -107,11 +110,13 @@ MatchDAO mdao = new MatchDAO();
 	<td class="rank-td"><p>1순위: ${ginfo.g_hourwage1}</p>
 		<p>2순위: ${ginfo.g_hourwage2}</p>
 		<p>3순위: ${ginfo.g_hourwage3}</p></td>
+		
 	<td>
-	
-	<c:set var="giverID" value="${ginfo.g_id}" />
+	<% String checkid = (String)pageContext.getAttribute("giverID"); %>
+	<a href="javascript:void(0);" onclick="openquickPopup('./book/review?g_id=<%=checkid%>');">확인</a>
+	</td>
+	<td>
 	<% 
-	String checkid = (String)pageContext.getAttribute("giverID");
 	String mst = mdao.mst(res_code, checkid);
 	
 	if(mst==null) {%>
@@ -137,6 +142,10 @@ MatchDAO mdao = new MatchDAO();
 <script>
 function tmatch(re_id, g_id, g_name) {
 	window.open("${context}/match/apply?res_code=" + re_id + "&g_id=" + g_id + "&g_name=" + g_name, "name(about:blank)", "width=800, height=950");
+}
+
+function openquickPopup(url) {
+	 window.open(url, "Popup", "width=800, height=800");
 }
 </script>
 </html>
