@@ -234,13 +234,15 @@ public class MatchDAO {
 }
 	
 	
-	public int quickCount() {
+	public int quickCount(String g_id) {
 		int cnt = 0;
 		try {
 			con = dataFactory.getConnection();
 			
-			String sql = "SELECT count(*) as cnt FROM quickmatch WHERE res_code=? and g_id =?";
+			String sql = "SELECT count(*) as cnt FROM quickmatch WHERE g_id =?";
 			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, g_id);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

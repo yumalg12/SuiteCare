@@ -433,15 +433,22 @@ public class ReservationDAO {
 		  try {
 			 connect();
 		     
-		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
-				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
-				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id"
+		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, "
+		     		+ "CASE "
+		            +"WHEN b.res_code IS NOT NULL AND b.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*b.hourwage "
+		     		+"WHEN q.res_code IS NOT NULL AND q.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*q.hourwage "
+		            +"ELSE 0 "
+		            +"END as pay"
+				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b, quickmatch as q"
+				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND (b.res_code=r.res_code OR q.res_code=r.res_code) AND (b.g_id=r.caregiver_id OR q.g_id = r.caregiver_id)"
 				+ " ORDER BY start_date LIMIT " + start + ",5";
 		
 		
 			 System.out.println(sql);
 			 pstmt = conn.prepareStatement(sql);
 			 pstmt.setString(1, id);
+			 pstmt.setString(2, id);
+			 pstmt.setString(3, id);
 			 
 			 rs = pstmt.executeQuery();
 			 while(rs.next()) {
@@ -895,9 +902,16 @@ public class ReservationDAO {
 		try {
 			 connect();
 		     
-		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, (end_date-start_date+1)*time_format(end_time-start_time, '%k')*b.hourwage as pay"
-				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b"
-				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND b.res_code=r.res_code AND b.g_id=r.caregiver_id AND b_status='서비스이용 완료'"
+		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, "
+		    		 + "CASE "
+			            +"WHEN b.res_code IS NOT NULL AND b.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*b.hourwage "
+			     		+"WHEN q.res_code IS NOT NULL AND q.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*q.hourwage "
+			            +"ELSE 0 "
+			            +"END as pay"
+				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b, quickmatch as q"
+				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code"
+				+ " AND (b.res_code=r.res_code OR q.res_code=r.res_code) AND (b.g_id=r.caregiver_id OR q.g_id = r.caregiver_id)"
+				+ " AND (b_status='서비스이용 완료' OR match_status='서비스이용 완료'"
 				+ " ORDER BY start_date LIMIT " + start + ",5";
 		
 		
