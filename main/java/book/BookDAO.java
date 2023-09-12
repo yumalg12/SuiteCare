@@ -395,6 +395,28 @@ public class BookDAO {
 		}
 		return ghourwage;
 	}
+	
+	public int getRequestedHourwage(String b_id) {
+		int hourwage = -1;
+		try {
+			connect();
+			
+			String sql = "SELECT * FROM book WHERE b_id =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				hourwage = Integer.parseInt(rs.getString("hourwage"));
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hourwage;
+	}
+	
 	public void delMatch(String g_id, String res_code) {
 		try {
 			connect();

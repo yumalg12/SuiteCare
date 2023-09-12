@@ -85,7 +85,7 @@ function openGinfoList(gIdVal,resCodeVal, bIdVal) {
 	window.open("${context}/book/ginfoList.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
 }
 function openMileagePayment(gIdVal,resCodeVal, bIdVal) {
-	window.open("${context}/pay/mileage_payment.jsp?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=800");
+	window.open("${context}/Payment/popup?g_id="+gIdVal+"&res_code="+resCodeVal+"&b_id="+bIdVal, "name(about:blank)", "width=800, height=950");
 }
 </script>
 </body>

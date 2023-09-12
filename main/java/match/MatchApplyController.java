@@ -85,26 +85,37 @@ public class MatchApplyController extends HttpServlet {
 				RequestDispatcher dispatch = request.getRequestDispatcher("/match/match_hourwage.jsp");
 				dispatch.forward(request, response);
 			} else if(type.equals("hourwage")) {
+				if (m_id == null) {
+					System.out.println("세션 만료됨");
+					RequestDispatcher dispatch = request.getRequestDispatcher("/match/match_hourwage.jsp");
+					dispatch.forward(request, response);
+				}
 				
 				List<MemberVO> listmem = memdao.listMembers(m_id);
 				request.setAttribute("m_name", listmem.get(0).getM_name());
-				request.setAttribute("current_mile", listmem.get(0).getM_current_mile());
+				request.setAttribute("m_current_mile", listmem.get(0).getM_current_mile());
 				
 				List<ReservationVO> reslist = rdao.reslistForPayment(res_code);
 				Date start_date = reslist.get(0).getS_date();
 				Date end_date = reslist.get(0).getE_date();
 				Time start_time = reslist.get(0).getS_time();
 				Time end_time = reslist.get(0).getE_time();
-				request.setAttribute("work_period", start_date+" ~ "+end_date+" ("+start_time+" ~ "+end_time+")");
+				request.setAttribute("start_date", start_date);
+				request.setAttribute("end_date", end_date);
+				request.setAttribute("start_time", start_time.toString().substring(0,5));
+				request.setAttribute("end_time", end_time.toString().substring(0,5));
 				
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				Date startDate = format.parse(start_date + " " + start_time);
 				Date endDate = format.parse(end_date + " " + end_time);
+//				System.out.println(startDate +" / "+ endDate);
 
 				long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
 				long diffHours = diffInMillies / (60 * 60 * 1000);
+//				System.out.println(diffHours);
 				
-				request.setAttribute("total_hours", diffHours);
+				request.setAttribute("total_fee", Integer.parseInt(hourwage)*diffHours);
+				request.setAttribute("hourwage", hourwage);
 				
 				RequestDispatcher dispatch = request.getRequestDispatcher("/match/match_mileage.jsp");
 				dispatch.forward(request, response);

@@ -1,12 +1,3 @@
-<%@ page import="book.*"%>
-<%@ page import="reservation.*"%>
-<%@ page import="member.*" %>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.*"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Calendar"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.concurrent.TimeUnit"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,14 +8,32 @@
 
 <link rel="stylesheet" href="${context}/assets/css/popup.css" />
 
-</head>
-<body>
-	<%
+<%
 g_id = request.getParameter("g_id");
 String res_code = request.getParameter("res_code");
 String g_name = request.getParameter("g_name");
-String hourwage = request.getParameter("hourwage");
 %>
+<script>
+function startPayment() {
+	let m_current_mileage = ${m_current_mile};
+	let fSalary = ${total_fee};
+	if (m_current_mileage < fSalary) {
+		if (confirm("마일리지 잔액이 부족합니다. 마일리지 충전을 진행하시겠습니까?")) {
+			location.href = "${context}/pay/paycon.jsp";
+		} else { //테스트용으로 승인처리 바로 진행
+			location.href='${context}/match/apply?hourwage=${hourwage }&res_code=<%= res_code %>&type=apply&g_id=<%= g_id %>';
+		}
+	} else {
+		if (confirm("결제를 진행하시겠습니까?")) {
+			//차감 처리 필요
+			location.href='${context}/match/apply?hourwage=${hourwage }&res_code=<%= res_code %>&type=apply&g_id=<%= g_id %>';
+		}
+	}
+}
+
+</script>
+</head>
+<body>
 
 <!-- Two -->
 <section id="two" class="wrapper style2">
@@ -51,51 +60,42 @@ String hourwage = request.getParameter("hourwage");
 					</div>
 					
 					<div class="form_row">
-						<label>기간</label><input type="text" value="${work_period }" readonly>
+						<label>기간</label><input type="text" value="${start_date } ~ ${end_date }" readonly>
+					</div>
+					
+					<div class="form_row">
+						<label>시간</label><input type="text" value="출근: ${start_time } / 퇴근: ${end_time}" readonly>
 					</div>
 					
 					<hr>
 					
 					<div class="form_row">
-					<label>결제 금액</label><input type="text" value="${Integer.parseInt(hourwage)*30 }" readonly>
+					<label>결제 금액</label><input type="text"
+						value="<fmt:formatNumber value="${total_fee }"
+						pattern="#,###" />원 (시급: <fmt:formatNumber value="${Integer.parseInt(hourwage)}" pattern="#,###" />원)" readonly>
 					</div>
 					<div class="form_row">
 						<label>마일리지 잔액</label>
 						<div>
-							<input type="text" value="${m_current_mileage }" readonly>
-							<span class="notice">*잔액이 부족합니다. 마일리지를 충전하세요.</span>
+							<input type="text" value="<fmt:formatNumber value="${m_current_mile }" pattern="#,###" />" readonly>
+							<span style="color:red;"
+						        <c:choose>
+						            <c:when test="${m_current_mile < total_fee}"></c:when>
+						            <c:otherwise>style="display: none;"</c:otherwise>
+						        </c:choose>
+							>*잔액이 부족합니다. 마일리지를 충전하세요.</span>
 						</div>
 					</div>
 
 					<div class="form_button">
-						<button class="button" onclick="location.href='paycon.jsp'">마일리지 충전</button>
+						<button class="button" onclick="location.href='${context}/pay/paycon.jsp'">마일리지 충전</button>
 						<button class="button special" onclick="javascript:startPayment();">결제</button>
-					</div>
-					<div class="form_button">
-						<a href="${context}/match/apply?hourwage=<%= hourwage %>&res_code=<%= res_code %>&type=apply&g_id=<%= g_id %>">매칭신청</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
-<script>
-	function startPayment() {
-		let m_current_mileage = document.getElementById("m_current_mileage").value;
-		let fSalary = document.getElementById("fSalary").value;
-		if (m_current_mileage < fSalary) {
-			if (confirm("마일리지 잔액이 부족합니다. 마일리지 충전을 진행하시겠습니까?")) {
-				location.href = "paycon.jsp";
-			}
-		} else {
-			if (confirm("결제를 진행하시겠습니까?")) {
-				alert("결제 진행 처리를 위해 update 쿼리문 실행 예정");
-			}
-		}
-	}
-
-</script>
 
 </body>
 </html>

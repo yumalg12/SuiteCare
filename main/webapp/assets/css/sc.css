@@ -133,13 +133,11 @@ input[type=file]::file-selector-button {
 	background-color: #DFD7BFaa;
 }
 
-@media screen and (max-width:1024px) {
-	.table_wrapper {
-		overflow-x: auto;
-	}
-	table {
-		word-break: keep-all;
-	}
+.table_wrapper {
+	overflow-x: auto;
+}
+table {
+	word-break: keep-all;
 }
 
 :focus-visible {

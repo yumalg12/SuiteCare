@@ -50,6 +50,7 @@ if(giverCnt%perPage==0) {
 						<h2>간병인 회원정보 조회</h2>
 					</header>
 					<form name="giverinfo">
+					<div class="table_wrapper">
 					<table>
 							<thead>
 								<tr>
@@ -91,6 +92,7 @@ if(giverCnt%perPage==0) {
 							}
 							%>
 						</table>
+						</div>
 					</form>
 					<div>
 						<ul class="pagination pagination-lg">

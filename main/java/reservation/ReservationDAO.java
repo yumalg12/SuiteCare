@@ -962,20 +962,19 @@ public class ReservationDAO {
 			connect();
 			
 			String sql = "SELECT "
-					+ "    c.t_code, "
-					+ "    c.t_name, "
-					+ "    ri.res_code, "
-					+ "    ri.start_date, "
-					+ "    ri.end_date, "
-					+ "    ri.start_time, "
-					+ "    ri.end_time "
+					+ "c.t_code, "
+					+ "c.t_name, "
+					+ "ri.res_code, "
+					+ "ri.start_date, "
+					+ "ri.end_date, "
+					+ "ri.start_time, "
+					+ "ri.end_time "
 					+ "FROM reservation_info AS ri "
 					+ "JOIN caretaker AS c on c.t_code=ri.caretaker_code "
-					+ "WHERE ri.res_code =?;";
+					+ "WHERE ri.res_code ='"+res_code+"';";
 			
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, res_code);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
