@@ -147,7 +147,7 @@ for (int i = 0; i < glist.size(); i++) {
 						<button class="button special" onclick="javascript:startPayment();">결제</button>
 					</div>
 					<div class="form_button">
-						<a href="${context}/book/tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a>
+						<a href="${context}/book/apply?type=approve&res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>">승인</a>
 					</div>
 				</div>
 			</div>
