@@ -34,12 +34,12 @@ function startPayment() {
 		if (confirm("마일리지 잔액이 부족합니다. 마일리지 충전을 진행하시겠습니까?")) {
 			location.href = "${context}/pay/paycon.jsp";
 		} else { //테스트용으로 승인처리 바로 진행
-			location.href='${context}/book/tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>';
+			location.href='${context}/book/apply?type=approve&res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>';
 		}
 	} else {
 		if (confirm("결제를 진행하시겠습니까?")) {
 			//차감 처리 필요
-			location.href='${context}/book/tapprove.jsp?res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>';
+			location.href='${context}/book/apply?type=approve&res_code=<%=res_code%>&b_id=<%=b_id%>&g_id=<%=g_id%>';
 		}
 	}
 }
