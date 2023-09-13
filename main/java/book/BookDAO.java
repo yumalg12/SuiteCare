@@ -17,6 +17,7 @@ import reservation.ReservationVO;
 public class BookDAO {
 	private PreparedStatement pstmt;
 	private PreparedStatement stmnt;
+	private PreparedStatement stnt;
 	private ResultSet rs = null;
 	private Connection conn;
 	
@@ -138,13 +139,22 @@ public class BookDAO {
 			int updeny = pstmt.executeUpdate();
 			
 			if(updeny>0) {
+				String dsql = "UPDATE  `quickmatch` SET match_status='거절' where res_code=?";
+				stnt = conn.prepareStatement(dsql);
+				
+				stnt.setString(1, res_code);
+				
+				int qmdeny = stnt.executeUpdate();	
+				
+				if(qmdeny>=0) {
+			
 				String usql = "UPDATE  `book` SET b_status='승인' where b_id=?";
 				stmnt = conn.prepareStatement(usql);
 				
 				stmnt.setString(1, b_id);
 				
 				result = stmnt.executeUpdate();				
-			}
+			}}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
