@@ -433,15 +433,15 @@ public class ReservationDAO {
 		  try {
 			 connect();
 		     
-		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, "
-		     		+ "CASE "
-		            +"WHEN b.res_code IS NOT NULL AND b.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*b.hourwage "
-		     		+"WHEN q.res_code IS NOT NULL AND q.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*q.hourwage "
-		            +"ELSE 0 "
-		            +"END as pay"
-				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b, quickmatch as q"
-				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code AND (b.res_code=r.res_code OR q.res_code=r.res_code) AND (b.g_id=r.caregiver_id OR q.g_id = r.caregiver_id)"
-				+ " ORDER BY start_date LIMIT " + start + ",5";
+			 String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date + 7, '%Y-%m-%d') as pay_date, "
+		                + "COALESCE((end_date - start_date + 1) * TIME_FORMAT(end_time - start_time, '%k') * b.hourwage, (end_date - start_date + 1) * TIME_FORMAT(end_time - start_time, '%k') * q.hourwage, 0) as pay "
+		                + "FROM caretaker as c "
+		                + "JOIN reservation as r ON c.t_code = r.caretaker_code "
+		                + "JOIN reservation_info as rinfo ON r.res_code = rinfo.res_code "
+		                + "LEFT JOIN book as b ON r.res_code = b.res_code AND b.g_id = ? "
+		                + "LEFT JOIN quickmatch as q ON r.res_code = q.res_code AND q.g_id = ? "
+		                + "WHERE r.caregiver_id = ? "
+		                + "ORDER BY start_date LIMIT " + start + ", 5";
 		
 		
 			 System.out.println(sql);
@@ -897,62 +897,63 @@ public class ReservationDAO {
 	}
 	
 	public List<ReservationVO> finalList(String id , int start) { // 완료된 서비스
-		List<ReservationVO> list= new ArrayList<ReservationVO>();
-		  
-		try {
-			 connect();
-		     
-		     String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date+7, '%Y-%m-%d') as pay_date, "
-		    		 + "CASE "
-			            +"WHEN b.res_code IS NOT NULL AND b.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*b.hourwage "
-			     		+"WHEN q.res_code IS NOT NULL AND q.g_id = ? THEN (end_date-start_date+1)*TIME_FORMAT(end_time-start_time, '%k')*q.hourwage "
-			            +"ELSE 0 "
-			            +"END as pay"
-				+ " FROM caretaker as c, reservation as r, reservation_info as rinfo, book as b, quickmatch as q"
-				+ " WHERE r.caregiver_id=? and c.t_code=r.caretaker_code and r.res_code=rinfo.res_code"
-				+ " AND (b.res_code=r.res_code OR q.res_code=r.res_code) AND (b.g_id=r.caregiver_id OR q.g_id = r.caregiver_id)"
-				+ " AND (b_status='서비스이용 완료' OR match_status='서비스이용 완료'"
-				+ " ORDER BY start_date LIMIT " + start + ",5";
-		
-		
-			 System.out.println(sql);
-			 pstmt = conn.prepareStatement(sql);
-			 pstmt.setString(1, id);
-			 
-			 rs = pstmt.executeQuery();
-			 while(rs.next()) {
-			    String res_code = rs.getString("res_code");
-				String location = rs.getString("location");
-				
-				Date start_date = rs.getDate("start_date");
-				Date end_date = rs.getDate("end_date");
-				Time start_time = rs.getTime("start_time");
-				Time end_time = rs.getTime("end_time");
-				
-				String tname = rs.getString("t_name");
-				Date pay_date = rs.getDate("pay_date");
-				int pay = rs.getInt("pay");
-			
-		        ReservationVO vo = new ReservationVO();
-		        vo.setRes_code(res_code);
-		        vo.setLocation(location);
-		        vo.setS_date(start_date);
-		        vo.setE_date(end_date);
-		        vo.setS_time(start_time);
-		        vo.setE_time(end_time);
-		        vo.setT_name(tname);
-		        vo.setPay_date(pay_date);
-		        vo.setPay(pay);
-		        list.add(vo);
-		     }
-		     rs.close();
-		     pstmt.close();
-		     conn.close();
-		  } catch(Exception e) {
-		     e.printStackTrace();
-		  }
-		  return list;
-	}
+	      List<ReservationVO> list= new ArrayList<ReservationVO>();
+	        
+	      try {
+	          connect();
+	           
+	          String sql = "SELECT r.res_code, r.location, rinfo.start_date, rinfo.end_date, rinfo.start_time, rinfo.end_time, c.t_name, date_format(rinfo.end_date + 7, '%Y-%m-%d') as pay_date, "
+	                  + "COALESCE((end_date - start_date + 1) * TIME_FORMAT(end_time - start_time, '%k') * b.hourwage, (end_date - start_date + 1) * TIME_FORMAT(end_time - start_time, '%k') * q.hourwage, 0) as pay "
+	                  + "FROM caretaker as c "
+	                  + "JOIN reservation as r ON c.t_code = r.caretaker_code "
+	                  + "JOIN reservation_info as rinfo ON r.res_code = rinfo.res_code "
+	                  + "LEFT JOIN book as b ON r.res_code = b.res_code AND b.g_id = ? "
+	                  + "LEFT JOIN quickmatch as q ON r.res_code = q.res_code AND q.g_id = ? "
+	                  + "WHERE r.caregiver_id = ? "
+	                  + "AND (b_status = '서비스이용 완료' OR match_status = '서비스이용 완료') "
+	                  + "ORDER BY start_date LIMIT " + start + ", 5";
+	      
+	      
+	          System.out.println(sql);
+	          pstmt = conn.prepareStatement(sql);
+	          pstmt.setString(1, id);
+	          pstmt.setString(2, id);
+	          pstmt.setString(3, id);
+	          
+	          rs = pstmt.executeQuery();
+	          while(rs.next()) {
+	             String res_code = rs.getString("res_code");
+	            String location = rs.getString("location");
+	            
+	            Date start_date = rs.getDate("start_date");
+	            Date end_date = rs.getDate("end_date");
+	            Time start_time = rs.getTime("start_time");
+	            Time end_time = rs.getTime("end_time");
+	            
+	            String tname = rs.getString("t_name");
+	            Date pay_date = rs.getDate("pay_date");
+	            int pay = rs.getInt("pay");
+	         
+	              ReservationVO vo = new ReservationVO();
+	              vo.setRes_code(res_code);
+	              vo.setLocation(location);
+	              vo.setS_date(start_date);
+	              vo.setE_date(end_date);
+	              vo.setS_time(start_time);
+	              vo.setE_time(end_time);
+	              vo.setT_name(tname);
+	              vo.setPay_date(pay_date);
+	              vo.setPay(pay);
+	              list.add(vo);
+	           }
+	           rs.close();
+	           pstmt.close();
+	           conn.close();
+	        } catch(Exception e) {
+	           e.printStackTrace();
+	        }
+	        return list;
+	   }
 	
 	
 	public List<ReservationVO> reslistForPayment(String res_code) { // 결제금액 계산을 위한 기간 list
