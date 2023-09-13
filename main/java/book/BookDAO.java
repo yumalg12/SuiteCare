@@ -161,6 +161,7 @@ public class BookDAO {
 			try { 
 			if(pstmt!=null ) pstmt.close();
 			if(stmnt!=null) stmnt.close();
+			if(stnt!=null) stnt.close();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
