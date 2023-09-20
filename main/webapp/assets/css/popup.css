@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+body {
+	overflow: hidden;
+	margin: 0;
+}
+section {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+}
